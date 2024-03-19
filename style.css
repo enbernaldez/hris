@@ -1,0 +1,93 @@
+        /* this is needed to make the content scrollable on larger screens */
+        @media (min-width: 576px) {
+            .h-sm-100 {
+              height: 100%;
+            }
+          }
+          .divider-top{
+            width: 100%;
+            height: 2px;
+            background-color: gray;
+            margin-top: 20px;
+          }
+          .divider-bottom{
+            width: 100%;
+            height: 2px;
+            background-color: gray;
+            margin-top: 20px;
+          }
+          .bg {
+            background-color: rgba(15, 22, 54, 1);
+          }
+          .nav-link {
+            color: rgba(255, 255, 255, 1);
+          }
+          .nav-link:hover,
+          .nav-active {
+            color: rgba(255, 214, 68, 1);
+          }
+          /* Search box */
+          .custom-rounded {
+            border-radius: 17px;
+          }
+          .bg-custom-color {
+            background-color: rgba(255, 214, 68, 1);
+          }
+          /* RSSO V accordion */
+          a.sidebar-link {
+            padding: 0.625rem 0;
+            padding-right: 5.625rem;
+            color: #e9ecef;
+            position: relative;
+            display: block;
+          }
+          .sidebar-link:hover {
+            color: rgba(255, 214, 68, 1);
+          }
+          .sidebar-link[data-bs-toggle="collapse"]::after {
+            border: solid;
+            border-width: 0 0.075rem 0.075rem 0;
+            content: "";
+            display: inline-block;
+            padding: 2px;
+            position: absolute;
+            right: 1px;
+            top: 1.4rem;
+            transform: rotate(-135deg);
+            transition: all 0.2s ease-out;
+          }
+          
+          .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+            transform: rotate(45deg);
+            transition: all 0.2s ease-out;
+          }
+          a {
+            cursor: pointer;
+            text-decoration: none;
+          }
+          li {
+            list-style: none;
+          }
+          /* ----- */
+          
+          /* Modal */
+          .modal-content {
+            height: 400px;
+            width: 400px;
+            border-radius: 17px;
+            background-color: #86a7fc;
+          }
+          
+          .modal-header,
+          .modal-footer {
+            border-style: none;
+          }
+          .custom-button {
+            background-color: #1243ef;
+            border-radius: 8px;
+            height: 49px;
+            width: 93px;
+          }
+          input[type="checkbox"] {
+            margin-right: 5px;
+          }
