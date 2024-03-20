@@ -1,13 +1,13 @@
 <div class="col-2 bg d-flex col-xl-2 px-sm-2 px-0">
     <div
-        class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
-        <div class="input-group custom-rounded mt-3">
-            <input type="search" class="form-control text-center mt-5 custom-rounded d-none d-lg-inline"
-                placeholder="Search" />
-        </div>
-        <div class="divider-top d-none d-lg-inline"></div>
+        class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white position-fixed top-0 start-0">
         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
             id="menu">
+            <div class="input-group custom-rounded mt-3">
+                <input type="search" class="form-control text-center mt-5 custom-rounded d-none d-lg-inline"
+                    placeholder="Search" />
+            </div>
+            <div class="divider-top d-none d-lg-inline"></div>
             <li class="nav-item mt-3">
                 <a href="#" class="nav-link px-sm-0 px-2">
                     <span class="d-none d-lg-inline">HOME</span>
@@ -69,35 +69,35 @@
                     <span class="d-none d-lg-inline">LOG IN</span>
                 </a>
             </li>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body form">
-                            <h1 class="text-dark text-center">LOG IN</h1>
-                            <div class="px-3">
-                                <label for="InputUsername" class="form-label"></label>
-                                <input type="text" class="form-control" id="InputUsername" name="username"
-                                    placeholder="username" aria-describedby="usernameHelp" required>
-                            </div>
-                            <div class="px-3">
-                                <label for="InputPassword" class="form-label"></label>
-                                <input type="password" class="form-control" id="InputPassword" name="pass"
-                                    placeholder="password" required>
-                                <input type="checkbox" onclick="myFunction()">Show Password
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn custom-button mt-5 text-white" id="login">LOG
-                                    IN</button>
-                            </div>
-                        </div>
+
+        </ul>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body form">
+                    <h1 class="text-dark text-center">LOG IN</h1>
+                    <div class="px-3">
+                        <label for="InputUsername" class="form-label"></label>
+                        <input type="text" class="form-control" id="InputUsername" name="username"
+                            placeholder="username" aria-describedby="usernameHelp" required>
+                    </div>
+                    <div class="px-3">
+                        <label for="InputPassword" class="form-label"></label>
+                        <input type="password" class="form-control" id="InputPassword" name="pass"
+                            placeholder="password" required>
+                        <input type="checkbox" onclick="myFunction()">Show Password
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn custom-button mt-5 text-white" id="login">LOG
+                            IN</button>
                     </div>
                 </div>
             </div>
-        </ul>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
