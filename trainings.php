@@ -176,7 +176,6 @@ $_SESSION['user_type'] = 'V';
         </div>
       </div>
     </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
