@@ -9,7 +9,7 @@
             </div>
             <div class="divider-top d-none d-lg-inline"></div>
             <li class="nav-item mt-3">
-                <a href="#" class="nav-link px-sm-0 px-2">
+                <a href="landing_page.php" class="nav-link px-sm-0 px-2">
                     <span class="d-none d-lg-inline">HOME</span>
                 </a>
             </li>
@@ -21,7 +21,7 @@
                     V</a>
                 <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item mt-2">
-                        <a href="#" class="sidebar-link ms-5">ORD</a>
+                        <a href="organizational_chart_ord.php" class="sidebar-link ms-5">ORD</a>
                     </li>
                     <li class="sidebar-item mt-2">
                         <a href="#" class="sidebar-link ms-5">CRASD</a>
@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
+                <a href="RSSO_ORD.php" class="nav-link px-sm-0 px-2">
                     <span class="d-none d-lg-inline">ALBAY</span>
                 </a>
             </li>
@@ -89,11 +89,13 @@
                         <label for="InputPassword" class="form-label"></label>
                         <input type="password" class="form-control" id="InputPassword" name="pass"
                             placeholder="password" required>
-                        <input type="checkbox" onclick="myFunction()">Show Password
+                        <div class="form-check form-check-inline mt-1">
+                            <input class="form-check-input" type="checkbox" id="show_pass" onclick="myFunction()">
+                            <label class="form-check-label" for="show_pass">Show Password</label>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn custom-button mt-5 text-white" id="login">LOG
-                            IN</button>
+                        <button type="submit" class="btn custom-button mt-5 text-white" id="login">LOG IN</button>
                     </div>
                 </div>
             </div>
