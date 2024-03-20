@@ -13,6 +13,7 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body style="background-color: #80A1F5">
@@ -20,9 +21,9 @@ $_SESSION['user_type'] = 'V';
         <div class="row vh-100">
 
             <!-- SIDEBAR -->
-            <div class="col-2" style="background-color: #0F1636;">
-
-            </div>
+            <?php
+            include_once 'sidebar1.php';
+            ?>
 
             <!-- CONTENT -->
             <div class="col-10 pb-5">
@@ -314,8 +315,7 @@ $_SESSION['user_type'] = 'V';
                             <div class="col mx-2">
                                 <label for="padd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
                                 <div style="display: inline-block; width: 79%">
-                                    <input type="text" required name="padd_subdivisionvillage"
-                                        id="padd_subdivisionvillage" class="form-control">
+                                    <input type="text" required name="padd_subdivisionvillage" id="padd_subdivisionvillage" class="form-control">
                                 </div>
                                 <div class="form-check form-check-inline ms-1">
                                     <input class="form-check-input" type="checkbox" id="null_psv">
@@ -368,13 +368,12 @@ $_SESSION['user_type'] = 'V';
                             </div>
                             <div class="col mx-2">
                                 <label for="mobile_no">MOBILE NO.</label><br>
-                                <input type="tel" required name="mobile_no" id="mobile_no" class="form-control"
-                                    placeholder="09##-###-####" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}" maxlength="13">
+                                <input type="tel" required name="mobile_no" id="mobile_no" class="form-control" maxlength="11">
                             </div>
                             <div class="col mx-2">
                                 <label for="email_add">EMAIL ADDRESS</label><br>
                                 <div style="display: inline-block; width: 79%">
-                                    <input type="email" required name="email_add" id="email_add" class="form-control">
+                                    <input type="text" required name="email_add" id="email_add" class="form-control">
                                 </div>
                                 <div class="form-check form-check-inline ms-1">
                                     <input class="form-check-input" type="checkbox" id="null_emailadd">

@@ -59,9 +59,7 @@ function copyValues(source, destination, isChecked, checkbox) {
       checkbox.checked = true;
     }
   } else {
-    destination.value = "";
     destination.disabled = false;
-    checkbox.checked = false;
   }
 }
 
