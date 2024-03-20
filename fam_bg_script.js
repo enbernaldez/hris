@@ -1,27 +1,26 @@
 // ======================= N/A disable =======================
-function setupNullInput(checkboxId, inputId) {
+function setupNullInput(checkboxId, inputIds) {
   const checkbox = document.getElementById(checkboxId);
-  const input = document.getElementById(inputId);
+  const inputs = inputIds.map((id) => document.getElementById(id));
 
   checkbox.addEventListener("change", function () {
     if (this.checked) {
-      input.value = "N/A";
-      input.disabled = true;
+      inputs.forEach((input) => {
+        input.value = "N/A";
+        input.disabled = true;
+      });
     } else {
-      input.value = "";
-      input.disabled = false;
+      inputs.forEach((input) => {
+        input.value = "";
+        input.disabled = false;
+      });
     }
   });
 }
 
 // Call the function for each pair of checkbox and input
 // FAMILY BACKGROUND
-setupNullInput("null_spouse_mi", "spousename_middle");
-setupNullInput("null_spouse_nameext", "spousename_extension");
-setupNullInput("null_occupation", "occupation");
-setupNullInput("null_bus", "business_name");
-setupNullInput("null_busadd", "business_address");
-setupNullInput("null_spouse_telno", "spouse_telno");
-setupNullInput("null_father_mi", "fathername_middle");
-setupNullInput("null_father_nameext", "fathername_extension");
-setupNullInput("null_mother_mi", "mothername_middle");
+setupNullInput("null_spouse", ["spousename_last", "spousename_first", "spousename_middle", "spousename_extension", "occupation", "business_name", "business_address", "spouse_telno"]);
+setupNullInput("null_father", ["fathername_last", "fathername_first", "fathername_middle", "fathername_extension"]);
+setupNullInput("null_mother", ["mothername_last", "mothername_first", "mothername_middle"]);
+setupNullInput("null_children", ["child_name", "child_dob"]);

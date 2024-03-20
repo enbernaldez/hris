@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
     <title>Human Resource Inventory System</title>
     <meta charset="UTF-8">
@@ -66,7 +65,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     </div>

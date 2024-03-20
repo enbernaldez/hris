@@ -12,6 +12,7 @@ $_SESSION['user_type'] = 'V';
     <title>HRIS - RSSO V (ORD)</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         .tilerow {
             display: flex;
@@ -38,9 +39,10 @@ $_SESSION['user_type'] = 'V';
 <body>
     <div class="container-fluid">
         <div class="row vh-100">
-            <div class="col-2" style="background-color: #0F1636;">
+            <?php
+            include_once ('sidebar1.php');
+            ?>    
 
-            </div>
             <div class="col-10 px-5 pt-3 pb-5">
                 <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
                 <div class="row mt-3"

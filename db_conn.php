@@ -2,7 +2,7 @@
 $servername="localhost";
 $dbusername="root";
 $dbpassword="";
-$dbname="hris_db";
+$dbname="hris";
 
 $conn = mysqli_connect($servername,$dbusername,$dbpassword,$dbname);
 
