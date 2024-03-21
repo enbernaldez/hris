@@ -13,6 +13,7 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body style="background-color: #80A1F5">
@@ -20,9 +21,9 @@ $_SESSION['user_type'] = 'V';
         <div class="row vh-100">
 
             <!-- SIDEBAR -->
-            <div class="col-2" style="background-color: #0F1636;">
-
-            </div>
+            <?php
+            include_once 'sidebar1.php';
+            ?>
 
             <!-- CONTENT -->
             <div class="col-10 pb-5">
@@ -101,9 +102,9 @@ $_SESSION['user_type'] = 'V';
                                 </div>
                             </div>
                             <div class="col mx-1">
-                                <label for="telno">TELEPHONE NO.</label><br>
+                                <label for="spouse_telno">TELEPHONE NO.</label><br>
                                 <div style="display: inline-block; width: 71%">
-                                    <input type="tel" required name="spouse_telno" id="tel_no" class="form-control">
+                                    <input type="tel" required name="spouse_telno" id="spouse_telno" class="form-control">
                                 </div>
                                 <div class="form-check form-check-inline ms-1">
                                     <input class="form-check-input" type="checkbox" id="null_spouse_telno">
@@ -178,17 +179,17 @@ $_SESSION['user_type'] = 'V';
 
                         <div class="row mt-3">
                             <div class="col-8 mx-1">
-                                <label for="children_names">NAME OF CHILDREN</label>
+                                <label for="child_name">NAME OF CHILDREN</label>
                                 <div class="form-check form-check-inline ms-1">
                                     <input class="form-check-input" type="checkbox" id="null_children">
                                     <label class="form-check-label" for="null_children">N/A</label>
                                 </div>
-                                <input type="text" name="children_names" id="children_names" class="form-control">
+                                <input type="text" name="child_name" id="child_name" class="form-control">
 
                             </div>
                             <div class="col mx-1">
                                 <label for="child_dob">DATE OF BIRTH</label><br>
-                                <input type="text" name="child_dob" id="child_dob" class="form-control">
+                                <input type="date" name="child_dob" id="child_dob" class="form-control">
                             </div>
                         </div>
 

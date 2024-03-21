@@ -61,10 +61,13 @@
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" id="p_attendance_from" required>
+                                <input type="number" class="form-control" id="p_attendance_from" required>
+                                <div class="form-check form-check-inline ms-1">
+                                    <input type="form-check-input" type="checkbox" id="null_from">
+                                </div>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" id="p_attendance_to">
+                                <input type="number" class="form-control" id="p_attendance_to">
                             </div>
                         </div>
                     </div>
