@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2024 at 02:40 AM
+-- Generation Time: Mar 21, 2024 at 01:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -369,6 +369,13 @@ CREATE TABLE `users` (
   `user_status` char(1) NOT NULL COMMENT 'A = Active /\r\nI = Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_name`, `user_pwdhash`, `user_type`, `user_status`) VALUES
+(1, 'admin', '$argon2id$v=19$m=65536,t=4,p=1$cjMwbFJLRnR2U05wSmZxRg$sOdQlqSf3wUPH31zgIk3rptVkAXr/5NXO8x0fa1eiG0', 'A', 'A');
+
 -- --------------------------------------------------------
 
 --
@@ -558,7 +565,7 @@ ALTER TABLE `subdivision_village`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `zipcodes`
