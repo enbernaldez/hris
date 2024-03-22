@@ -651,7 +651,9 @@ $_SESSION['user_type'] = 'V';
             </div>
         </div>
 
-        <script type="text/javascript" src="pds_form_script.js"></script>
+        <!-- <script type="text/javascript" src="pds_form_script.js"></script> -->
+        <script type="text/javascript" src="personal_info_script.js"></script>
+        <script type="text/javascript" src="fam_bg_script.js"></script>
 
 </body>
 

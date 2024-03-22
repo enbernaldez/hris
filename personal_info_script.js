@@ -53,6 +53,7 @@ function copyValues(source, destination, isChecked, checkbox) {
   if (chk_same.checked) {
     destination.value = source.value;
     destination.disabled = true;
+    checkbox.disabled = true;
 
     // If source is null, input is disabled and N/A checkbox is checked
     if (source.value == "N/A") {
@@ -60,6 +61,7 @@ function copyValues(source, destination, isChecked, checkbox) {
     }
   } else {
     destination.disabled = false;
+    checkbox.disabled = false;
   }
 }
 
