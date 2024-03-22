@@ -29,8 +29,8 @@ $_SESSION['user_type'] = 'V';
             <!-- CONTENT -->
             <div class="col-10 pb-5">
                 <!-- PROFILE -->
-                
-                <?php 
+
+                <?php
                 include_once 'profile.php';
                 include_once 'topnav.php';
                 ?>
@@ -151,7 +151,8 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-2">
                                             <label for="philhealth">PHILHEALTH NO.</label><br>
-                                            <input type="text" required name="philhealth" id="philhealth" class="form-control uppercase">
+                                            <input type="text" required name="philhealth" id="philhealth"
+                                                class="form-control uppercase">
                                         </div>
                                     </div>
 
@@ -166,7 +167,8 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-2">
                                             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-                                            <input type="text" required name="employee_no" id="employee_no" class="form-control uppercase">
+                                            <input type="text" required name="employee_no" id="employee_no"
+                                                class="form-control uppercase">
                                         </div>
                                     </div>
 
@@ -605,7 +607,8 @@ $_SESSION['user_type'] = 'V';
                                 <div class="container-fluid">
                                     <div class="row mt-5">
                                         <div class="col-4">
-                                            <p class="col-title">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE BARANGAY
+                                            <p class="col-title">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE
+                                                BARANGAY
                                                 ELIGIBILITY/DRIVER'S LICENSE</p>
                                         </div>
                                         <div class="col-1">
@@ -639,9 +642,10 @@ $_SESSION['user_type'] = 'V';
                                                     <div class="form-check me-2">
                                                         <input class="form-check-input" type="checkbox" id="null_cse"
                                                             onclick="checkNA(this)">
-                                                        <label class="form-check-label" id="label_null_cse" for="null_cse">N/A</label>
+                                                        <label class="form-check-label">N/A</label>
                                                     </div>
-                                                    <input type="text" name="careerservice" id="careerservice" class="form-control group-na">
+                                                    <input type="text" name="careerservice" id="careerservice"
+                                                        class="form-control group-na">
                                                 </div>
                                             </div>
                                             <div class="col-1">
@@ -658,7 +662,8 @@ $_SESSION['user_type'] = 'V';
                                             <div class="col-2">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input type="number" name="number" id="number" class="form-control group-na">
+                                                        <input type="number" name="number" id="number"
+                                                            class="form-control group-na">
                                                     </div>
                                                     <div class="col-6">
                                                         <input type="date" name="dateofvalidity" id="dateofvalidity"
@@ -691,6 +696,77 @@ $_SESSION['user_type'] = 'V';
                             case "lnd":
                                 ?>
                                 <!-- LEARNING AND DEVELOPMENT -->
+                                <div class="container-fluid">
+                                    <div class="row mt-5">
+                                        <div class="col-3">
+                                            <p class="col-title">TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS (Write in full)</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <p class="col-title">INCLUSIVE DATES OF ATTENDANCE (mm/dd/yyyy)</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="col-title">FROM</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="col-title">TO</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <p class="col-title">NUMBER OF HOURS</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <p class="col-title">TYPE OF LD (Managerial/Supervisory/Technical/etc)</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="col-title">CONDUCTED/SPONSORED BY (Write in full)</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row-container">
+                                        <div class="row row-row mt-3">
+                                            <div class="col-3">
+                                                <div class="checkbox-container">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="checkbox" id="null_lnd"
+                                                            onclick="checkNA(this)">
+                                                        <label class="form-check-label">N/A</label>
+                                                    </div>
+                                                    <input type="text" name="title" id="title" class="form-control group-na">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input type="date" required name="from" id="from" class="form-control group-na">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="date" required name="to" id="to" class="form-control group-na">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" name="hours" id="hours" class="form-control group-na">
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" name="typeld" id="typeld" class="form-control group-na">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" name="conducted" id="conducted" class="form-control group-na">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3 mt-4">
+                                            <button type="button" class="btn btn-primary add-row-button" id="ld_addrow"
+                                                name="ld_addrow" onclick="addRow()">ADD ROW</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                                 break;
                             case "other_info":
