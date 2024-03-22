@@ -151,7 +151,7 @@ $_SESSION['user_type'] = 'V';
 
         <div class="row">
           <div class="col-3 mt-4">
-            <button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
+            <button type="button" class="btn btn-primary add-row-button" id="ld_addrow" name="ld_addrow"
               onclick="addRow()">ADD ROW</button>
           </div>
         </div>
@@ -182,18 +182,18 @@ $_SESSION['user_type'] = 'V';
 
           function checkNA(checkbox) {
             var inputs = document.querySelectorAll('.form-control');
-            var cse_addrow = document.getElementById('cse_addrow');
+            var ld_addrow = document.getElementById('ld_addrow');
             if (checkbox.checked) {
               inputs.forEach(function (input) {
                 input.value = "N/A";
                 input.disabled = true;
-                cse_addrow.disabled = true;
+                ld_addrow.disabled = true;
               });
             } else {
               inputs.forEach(function (input) {
                 input.value = "";
                 input.disabled = false;
-                cse_addrow.disabled = false;
+                ld_addrow.disabled = false;
               });
             }
           }
