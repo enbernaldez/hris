@@ -61,7 +61,6 @@ $_SESSION['user_type'] = 'V';
       color: #007bff;
     }
 
-    /* Added custom style to align checkbox with input field */
     .checkbox-container {
       display: flex;
       align-items: center;
@@ -71,37 +70,45 @@ $_SESSION['user_type'] = 'V';
       margin-left: 10px;
     }
 
-    /* Added margin between checkbox and input */
     .checkbox-container input[type="text"] {
       margin-left: 10px;
     }
 
-    /* Added margin to paragraph tag */
     .paragraph-margin {
       margin-bottom: 10px;
     }
+
+    p {
+      text-align: center;
+    }
   </style>
 </head>
+<body style="background-color: #80A1F5">
+  <div class="container-fluid">
+    <div class="row vh-100">
 
-<body>
-  <div class="container-fluid overflow-hidden">
-    <div class="row vh-100 overflow-auto">
+      <!-- SIDEBAR -->
       <?php
-      include_once "sidebar1.php";
+      include_once 'sidebar1.php';
       ?>
-      <div class="col-10">
-        <div class="logo">
-          <img src="PSA Vector.png" height="128">
-        </div>
-        <div class="image-container">
-          <img src="april.jpg" height="100">
-          <div>
-            <h6><strong>FIRST NAME MI. LAST NAME</strong></h6>
-            <!-- Added margin to paragraph tag -->
-            <p class="paragraph-margin">Position Title</p>
+
+      <!-- CONTENT -->
+      <div class="col-10 pb-5">
+        <!-- Profile -->
+        <div class="row mt-2 mb-2">
+          <div class="col-2">
+            <img src="images/Bercilla.jpg" alt="profile" style="height:150px; width:auto" class="img-fluid float-end">
+          </div>
+          <div class="col-6 align-items-center">
+            <p class="display-6"><strong>FIRST NAME MI. LAST NAME</strong></p>
+            <h4><strong>POSITION</strong></h4>
+          </div>
+          <div class="col-4">
+            <img src="images/PSA Vector.png" alt="profile" style="height:150px; width:auto"
+              class="img-fluid mb-3 float-end">
           </div>
         </div>
-        <?php include_once "topnav.php"; ?>
+        <?php include_once 'topnav.php'; ?>
         <div>
         </div>
         <!-- Moved "Edit" link to a new line -->
@@ -140,40 +147,40 @@ $_SESSION['user_type'] = 'V';
           </div>
         </div>
         <div class="row-container">
-            <!-- ukjg -->
-            <div class="row row-row mt-3">
-              <div class="col-4">
-                <div class="checkbox-container">
-                  <input class="form-check-input" type="checkbox" id="null_ext" onclick="checkNA(this)">
-                  <label class="form-check-label" for="null_ext">N/A</label>
-                  <input type="text" name="careerservice" id="careerservice" class="form-control">
+          <div class="row row-row mt-3">
+            <div class="col-4">
+              <div class="checkbox-container">
+                <input class="form-check-input" type="checkbox" id="null_ext" onclick="checkNA(this)">
+                <label class="form-check-label">N/A</label>
+                <input type="text" name="careerservice" id="careerservice" class="form-control">
+              </div>
+            </div>
+            <div class="col-1">
+              <input type="text" name="rating" id="rating" class="form-control">
+            </div>
+            <div class="col-2">
+              <input type="text" name="dateofexamination" id="dateofexamination" class="form-control">
+            </div>
+            <div class="col-3">
+              <input type="text" name="placeofexamination" id="placeofexamination" class="form-control">
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6">
+                  <input type="text" name="number" id="number" class="form-control">
                 </div>
-              </div>
-              <div class="col-1">
-                <input type="text" name="rating" id="rating" class="form-control">
-              </div>
-              <div class="col-2">
-                <input type="text" name="dateofexamination" id="dateofexamination" class="form-control">
-              </div>
-              <div class="col-3">
-                <input type="text" name="placeofexamination" id="placeofexamination" class="form-control">
-              </div>
-              <div class="col-2">
-                <div class="row">
-                  <div class="col-6">
-                    <input type="text" name="number" id="number" class="form-control">
-                  </div>
-                  <div class="col-6">
-                    <input type="text" name="dateofvalidity" id="dateofvalidity" class="form-control">
-                  </div>
+                <div class="col-6">
+                  <input type="text" name="dateofvalidity" id="dateofvalidity" class="form-control">
                 </div>
               </div>
             </div>
+          </div>
         </div>
 
         <div class="row">
           <div class="col-3">
-            <br><button type="button" class="btn btn-primary add-row-button" onclick="addRow()">ADD ROW</button>
+            <br><button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
+              onclick="addRow()">ADD ROW</button>
           </div>
         </div>
 
@@ -190,72 +197,41 @@ $_SESSION['user_type'] = 'V';
 
             // Append the cloned row to the container
             document.querySelector('.row-container').appendChild(newRow);
+
+            // Change the N/A checkbox to a delete button
+            var checkbox = newRow.querySelector('.form-check-input');
+            checkbox.checked = false; // Uncheck the checkbox
+            checkbox.id = ""; // Remove id to avoid duplication
+            checkbox.removeAttribute("onclick"); // Remove onclick event
+            checkbox.setAttribute("type", "button"); // Change type to button
+            checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
+            checkbox.nextElementSibling.textContent = "Delete"; // Change label text
           }
 
           function checkNA(checkbox) {
             var inputs = document.querySelectorAll('.form-control');
+            var cse_addrow = document.getElementById('cse_addrow');
             if (checkbox.checked) {
               inputs.forEach(function (input) {
                 input.value = "N/A";
                 input.disabled = true;
+                cse_addrow.disabled = true;
               });
             } else {
               inputs.forEach(function (input) {
                 input.value = "";
+                input.disabled = false;
+                cse_addrow.disabled = false;
               });
             }
           }
 
-          // function addRow() {
-          //   // Retrieve the widths of the input boxes in column 10
-          //   var column10Inputs = document.querySelectorAll('.col-10 .form-control');
-          //   var inputWidths = [];
-          //   column10Inputs.forEach(function (input, index) {
-          //     // Limit to only six inputs
-          //     if (index < 6) {
-          //       inputWidths.push(input.offsetWidth);
-          //     }
-          //   });
-
-          //   // Create a new row container
-          //   var newRow = document.createElement('div');
-          //   newRow.className = 'row input-row';
-
-          //   // Iterate over the input widths and create input boxes with corresponding widths
-          //   inputWidths.forEach(function (width, index) {
-          //     // Create column div
-          //     var colDiv = document.createElement('div');
-          //     colDiv.className = 'col';
-
-          //     // Create input element
-          //     var input = document.createElement('input');
-          //     input.type = 'text';
-          //     input.className = 'form-control';
-
-          //     // Set the width of the input box
-          //     input.style.width = width + 'px';
-
-          //     // Align input boxes within their respective columns
-          //     if (index > 0) {
-          //       input.style.marginLeft = '10px'; // Adjust as needed
-          //     }
-
-          //     // Append input to column div
-          //     colDiv.appendChild(input);
-
-          //     // Append column div to row
-          //     newRow.appendChild(colDiv);
-          //   });
-
-          //   // Insert the new row before the "Add Row" button
-          //   var addRowButton = document.querySelector('.add-row-button').parentNode;
-          //   addRowButton.parentNode.insertBefore(newRow, addRowButton);
-          // }
-
+          function deleteRow(button) {
+            var row = button.closest('.row-row');
+            row.remove();
+          }
         </script>
-
       </div>
     </div>
 </body>
-
 </html>
