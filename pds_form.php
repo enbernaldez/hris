@@ -14,6 +14,12 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body style="background-color: #80A1F5">
@@ -56,7 +62,7 @@ $_SESSION['user_type'] = 'V';
                             case 'personal_info':
                                 ?>
                                 <!-- PERSONAL INFORMATION -->
-                                <div class="container px-5">
+                                <div class="container-fluid">
 
                                     <!-- EMPLOYEE'S FULL NAME -->
                                     <div class="row mt-3">
@@ -70,23 +76,23 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-2">
                                             <label for="name_middle">MIDDLE NAME</label><br>
-                                            <div style="display: inline-block; width: 74%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="name_middle" id="name_middle"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_middle">
-                                                <label class="form-check-label" for="null_middle">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_middle">
+                                                    <label class="form-check-label" for="null_middle">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-2 mx-2">
                                             <label for="name_ext">NAME EXTENSION</label><br>
-                                            <div style="display: inline-block; width: 56%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="name_ext" id="name_ext" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_ext">
-                                                <label class="form-check-label" for="null_ext">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_ext">
+                                                    <label class="form-check-label" for="null_ext">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -252,35 +258,35 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-2">
                                             <label for="radd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="radd_subdivisionvillage"
                                                     id="radd_subdivisionvillage" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_rsv">
-                                                <label class="form-check-label" for="null_rsv">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_rsv">
+                                                    <label class="form-check-label" for="null_rsv">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-2">
                                             <label for="radd_street">STREET</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="radd_street" id="radd_street"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_rst">
-                                                <label class="form-check-label" for="null_rst">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_rst">
+                                                    <label class="form-check-label" for="null_rst">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-2">
                                             <label for="radd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="radd_houseblocklot" id="radd_houseblocklot"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_rhbl">
-                                                <label class="form-check-label" for="null_rhbl">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_rhbl">
+                                                    <label class="form-check-label" for="null_rhbl">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +302,7 @@ $_SESSION['user_type'] = 'V';
                                     <!-- PERMANENT ADDRESS -->
                                     <div class="mt-5">
                                         <h5 style="display: inline">PERMANENT ADDRESS</h5>
-                                        <div class="form-check form-check-inline ms-3">
+                                        <div class="form-check form-check-inline ms-2">
                                             <input class="form-check-input" type="checkbox" id="same_add">
                                             <label class="form-check-label" for="same_add">Same as the Residential Address</label>
                                         </div>
@@ -340,35 +346,35 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-2">
                                             <label for="padd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="padd_subdivisionvillage"
                                                     id="padd_subdivisionvillage" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_psv">
-                                                <label class="form-check-label" for="null_psv">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_psv">
+                                                    <label class="form-check-label" for="null_psv">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-2">
                                             <label for="padd_street">STREET</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="padd_street" id="padd_street"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_pst">
-                                                <label class="form-check-label" for="null_pst">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_pst">
+                                                    <label class="form-check-label" for="null_pst">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-2">
                                             <label for="padd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="padd_houseblocklot" id="padd_houseblocklot"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_phbl">
-                                                <label class="form-check-label" for="null_phbl">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_phbl">
+                                                    <label class="form-check-label" for="null_phbl">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -385,12 +391,12 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-5">
                                         <div class="col mx-2">
                                             <label for="tel_no">TELEPHONE NO.</label><br>
-                                            <div style="display: inline-block; width: 79%">
-                                                <input type="tel" required name="tel_no" id="tel_no" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_telno">
-                                                <label class="form-check-label" for="null_telno">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="tel_no" id="tel_no" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_telno">
+                                                    <label class="form-check-label" for="null_telno">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-2">
@@ -400,12 +406,12 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-2">
                                             <label for="email_add">EMAIL ADDRESS</label><br>
-                                            <div style="display: inline-block; width: 79%">
+                                            <div class="checkbox-container">
                                                 <input type="text" required name="email_add" id="email_add" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_emailadd">
-                                                <label class="form-check-label" for="null_emailadd">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_emailadd">
+                                                    <label class="form-check-label" for="null_emailadd">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -424,13 +430,13 @@ $_SESSION['user_type'] = 'V';
                             case "fam_bg":
                                 ?>
                                 <!-- FAMILY BACKGROUND -->
-                                <div class="container px-5">
+                                <div class="container-fluid">
 
                                     <!-- SPOUSE'S FULL NAME -->
                                     <div class="row mt-3">
                                         <div class="col mx-1">
                                             <label for="spousename_last">SPOUSE'S SURNAME</label>
-                                            <div class="form-check form-check-inline ms-1">
+                                            <div class="form-check form-check-inline ms-2">
                                                 <input class="form-check-input" type="checkbox" id="null_spouse">
                                                 <label class="form-check-label" for="null_spouse">N/A</label>
                                             </div>
@@ -442,24 +448,24 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-1">
                                             <label for="spousename_middle">MIDDLE NAME</label><br>
-                                            <div style="display: inline-block; width: 74%">
-                                                <input type="text" name="spousename_middle" id="spousename_middle"
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="spousename_middle" id="spousename_middle"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_spouse_mi">
-                                                <label class="form-check-label" for="null_spouse_mi">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_spouse_mi">
+                                                    <label class="form-check-label" for="null_spouse_mi">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-2 mx-1">
                                             <label for="spousename_extension">NAME EXTENSION</label><br>
-                                            <div style="display: inline-block; width: 56%">
-                                                <input type="text" name="spousename_extension" id="spousename_extension"
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="spousename_extension" id="spousename_extension"
                                                     class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_spouse_nameext">
-                                                <label class="form-check-label" for="null_spouse_nameext">N/A</label>
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_spouse_nameext">
+                                                    <label class="form-check-label" for="null_spouse_nameext">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -468,44 +474,42 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-1">
                                             <label for="occupation">OCCUPATION</label><br>
-                                            <div style="display: inline-block; width: 71%">
-                                                <input type="text" name="occupation" id="occupation" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_occupation">
-                                                <label class="form-check-label" for="null_occupation">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="occupation" id="occupation" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_spouse_mi">
+                                                    <label class="form-check-label" for="null_occupation">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-1">
                                             <label for="business_name">EMPLOYEER/BUSINESS NAME</label><br>
-                                            <div style="display: inline-block; width: 71%">
-                                                <input type="text" name="business_name" id="business_name" class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_bus">
-                                                <label class="form-check-label" for="null_bus">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="business_name" id="business_name" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_bus">
+                                                    <label class="form-check-label" for="null_bus">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-1">
                                             <label for="business_address">BUSINESS ADDRESS</label><br>
-                                            <div style="display: inline-block; width: 71%">
-                                                <input type="text" name="business_address" id="business_address"
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_busadd">
-                                                <label class="form-check-label" for="null_busadd">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="business_address" id="business_address" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_busadd">
+                                                    <label class="form-check-label" for="null_busadd">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col mx-1">
                                             <label for="spouse_telno">TELEPHONE NO.</label><br>
-                                            <div style="display: inline-block; width: 71%">
-                                                <input type="tel" required name="spouse_telno" id="spouse_telno"
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_spouse_telno">
-                                                <label class="form-check-label" for="null_spouse_telno">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_spouse_telno">
+                                                    <label class="form-check-label" for="null_spouse_telno">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -514,7 +518,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-1">
                                             <label for="fathername_last">FATHER'S SURNAME</label>
-                                            <div class="form-check form-check-inline ms-1">
+                                            <div class="form-check form-check-inline ms-2">
                                                 <input class="form-check-input" type="checkbox" id="null_father">
                                                 <label class="form-check-label" for="null_father">N/A</label>
                                             </div>
@@ -527,24 +531,22 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-1">
                                             <label for="fathername_middle">MIDDLE NAME</label><br>
-                                            <div style="display: inline-block; width: 74%">
-                                                <input type="text" name="fathername_middle" id="fathername_middle"
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_father_mi">
-                                                <label class="form-check-label" for="null_father_mi">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="fathername_middle" id="fathername_middle" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_father_mi">
+                                                    <label class="form-check-label" for="null_father_mi">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-2 mx-1">
                                             <label for="fathername_extension">NAME EXTENSION</label><br>
-                                            <div style="display: inline-block; width: 56%">
-                                                <input type="text" name="fathername_extension" id="fathername_extension"
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_father_nameext">
-                                                <label class="form-check-label" for="null_father_nameext">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="fathername_extension" id="fathername_extension" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_father_nameext">
+                                                    <label class="form-check-label" for="null_father_nameext">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -553,7 +555,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-1">
                                             <label for="mothername_last">MOTHER'S SURNAME</label>
-                                            <div class="form-check form-check-inline ms-1">
+                                            <div class="form-check form-check-inline ms-2">
                                                 <input class="form-check-input" type="checkbox" id="null_mother">
                                                 <label class="form-check-label" for="null_mother">N/A</label>
                                             </div>
@@ -566,13 +568,12 @@ $_SESSION['user_type'] = 'V';
                                         </div>
                                         <div class="col mx-1">
                                             <label for="mothername_middle">MIDDLE NAME</label><br>
-                                            <div style="display: inline-block; width: 79%">
-                                                <input type="text" name="mothername_middle" id="mothername_middle"
-                                                    class="form-control">
-                                            </div>
-                                            <div class="form-check form-check-inline ms-1">
-                                                <input class="form-check-input" type="checkbox" id="null_mother_mi">
-                                                <label class="form-check-label" for="null_mother_mi">N/A</label>
+                                            <div class="checkbox-container">
+                                                <input type="text" required name="mothername_middle" id="mothername_middle" class="form-control">
+                                                <div class="form-check ms-2">
+                                                    <input class="form-check-input" type="checkbox" id="null_mother_mi">
+                                                    <label class="form-check-label" for="null_mother_mi">N/A</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -580,7 +581,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col-8 mx-1">
                                             <label for="child_name">NAME OF CHILDREN</label>
-                                            <div class="form-check form-check-inline ms-1">
+                                            <div class="form-check form-check-inline ms-2">
                                                 <input class="form-check-input" type="checkbox" id="null_children">
                                                 <label class="form-check-label" for="null_children">N/A</label>
                                             </div>
@@ -616,6 +617,78 @@ $_SESSION['user_type'] = 'V';
                             case "cs_eligibility":
                                 ?>
                                 <!-- CIVIL SERVICE ELIGIBILITY -->
+                                <div class="container-fluid">
+                                    <div class="row mt-5">
+                                        <div class="col-4">
+                                            <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE BARANGAY
+                                                ELIGIBILITY/DRIVER'S LICENSE</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>RATING (if applicable)</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p>DATE OF EXAMINATION/CONFERMENT</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <p>PLACE OF EXAMINATION/CONFERMENT</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="row">
+                                                <p>LICENSE (if applicable)</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p>NUMBER</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p>DATE OF VALIDITY</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-container">
+                                        <div class="row row-row mt-3">
+                                            <div class="col-4">
+                                                <div class="checkbox-container">
+                                                    <input class="form-check-input" type="checkbox" id="null_ext"
+                                                        onclick="checkNA(this)">
+                                                    <label class="form-check-label">N/A</label>
+                                                    <input type="text" name="careerservice" id="careerservice" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" name="rating" id="rating" class="form-control">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" name="dateofexamination" id="dateofexamination"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" name="placeofexamination" id="placeofexamination"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <input type="text" name="number" id="number" class="form-control">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="text" name="dateofvalidity" id="dateofvalidity"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <br><button type="button" class="btn btn-primary add-row-button" id="cse_addrow"
+                                                name="cse_addrow" onclick="addRow()">ADD ROW</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                                 break;
                             case "work_exp":

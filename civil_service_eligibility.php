@@ -27,40 +27,6 @@ $_SESSION['user_type'] = 'V';
       color: #0f1636;
     }
 
-    .logo {
-      float: right;
-      padding: 30px;
-    }
-
-    @media (max-width: 576px) {
-      .logo {
-        float: none;
-        text-align: center;
-        margin-top: 20px;
-      }
-    }
-
-    .image-container {
-      display: flex;
-      align-items: center;
-      padding: 30px;
-    }
-
-    .image-container img {
-      margin-right: 20px;
-    }
-
-    .image-container h6,
-    .image-container p {
-      margin: 0;
-    }
-
-    .edit-link {
-      float: right;
-      margin-right: 20px;
-      color: #007bff;
-    }
-
     .checkbox-container {
       display: flex;
       align-items: center;
@@ -111,12 +77,6 @@ $_SESSION['user_type'] = 'V';
         <?php include_once 'topnav.php'; ?>
         <div>
         </div>
-        <!-- Moved "Edit" link to a new line -->
-        <!-- <div class="row">
-          <div class="paragraph-margin">
-            <br> <a href="edit" class="edit-link"> Edit<i class="bi bi-pencil-square"></i></a>
-          </div>
-        </div> -->
 
         <div class="row mt-5">
           <div class="col-4">

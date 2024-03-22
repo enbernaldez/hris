@@ -22,7 +22,7 @@
             </a>
         </div>
         <div class="col mx-4">
-            <a href="#">
+            <a href="pds_form.php?form_section=cs_eligibility">
                 <p style="text-align:center">
                     Civil Service Eligibility
                 </p>
