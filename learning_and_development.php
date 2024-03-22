@@ -6,7 +6,7 @@ $_SESSION['user_type'] = 'V';
 ?>
 
 <head>
-  <title>Civil Service Eligibility</title>
+  <title>Learning and Development</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/bootstrap.css" />
@@ -91,60 +91,60 @@ $_SESSION['user_type'] = 'V';
         </div> -->
 
         <div class="row mt-5">
-          <div class="col-4">
-            <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE BARANGAY
-              ELIGIBILITY/DRIVER'S LICENSE</p>
-          </div>
-          <div class="col-1">
-            <p>RATING (if applicable)</p>
-          </div>
-          <div class="col-2">
-            <p>DATE OF EXAMINATION/CONFERMENT</p>
+          <div class="col-3">
+            <p>TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS (Write in full)</p>
           </div>
           <div class="col-3">
-            <p>PLACE OF EXAMINATION/CONFERMENT</p>
+            <div class="row">
+              <p>INCLUSIVE DATES OF ATTENDANCE (mm/dd/yyyy)</p>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <p>FROM</p>
+              </div>
+              <div class="col-6">
+                <p>TO</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-1">
+            <p>NUMBER OF HOURS</p>
+          </div>
+          <div class="col-3">
+            <p>TYPE OF LD (Managerial/Supervisory/Technical/etc)</p>
           </div>
           <div class="col-2">
-            <div class="row">
-              <p>LICENSE (if applicable)</p>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <p>NUMBER</p>
-              </div>
-              <div class="col-6">
-                <p>DATE OF VALIDITY</p>
-              </div>
-            </div>
+            <p>CONDUCTED/SPONSORED BY (Write in full)</p>
           </div>
+          
         </div>
         <div class="row-container">
           <div class="row row-row mt-3">
-            <div class="col-4">
+            <div class="col-3">
               <div class="checkbox-container">
                 <input class="form-check-input" type="checkbox" id="null_ext" onclick="checkNA(this)">
                 <label class="form-check-label">N/A</label>
-                <input type="text" name="careerservice" id="careerservice" class="form-control">
+                <input type="text" name="title" id="title" class="form-control">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6">
+                    <input type="date" required name="from" id="from" class="form-control">
+                </div>
+                <div class="col-6">
+                <input type="date" required name="to" id="to" class="form-control">
+                </div>
               </div>
             </div>
             <div class="col-1">
-              <input type="text" name="rating" id="rating" class="form-control">
-            </div>
-            <div class="col-2">
-              <input type="date" required name="dateofexamination" id="dateofexamination" class="form-control">
+              <input type="text" name="hours" id="hours" class="form-control">
             </div>
             <div class="col-3">
-              <input type="text" name="placeofexamination" id="placeofexamination" class="form-control">
+              <input type="text" name="typeld" id="typeld" class="form-control">
             </div>
             <div class="col-2">
-              <div class="row">
-                <div class="col-6">
-                  <input type="text" name="number" id="number" class="form-control">
-                </div>
-                <div class="col-6">
-                  <input type="text" name="dateofvalidity" id="dateofvalidity" class="form-control">
-                </div>
-              </div>
+              <input type="text" name="conducted" id="conducted" class="form-control">
             </div>
           </div>
         </div>
