@@ -14,12 +14,7 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="local_style.css">
 </head>
 
 <body style="background-color: #80A1F5">
@@ -34,21 +29,11 @@ $_SESSION['user_type'] = 'V';
             <!-- CONTENT -->
             <div class="col-10 pb-5">
                 <!-- PROFILE -->
-                <div class="row mt-2 mb-2">
-                    <div class="col-2">
-                        <img src="images/Bercilla.jpg" alt="profile" style="height:150px; width:auto"
-                            class="img-fluid float-end">
-                    </div>
-                    <div class="col-6 align-items-center">
-                        <p class="display-6"><strong>FIRST NAME MI. LAST NAME</strong></p>
-                        <h4><strong>POSITION</strong></h4>
-                    </div>
-                    <div class="col-4">
-                        <img src="images/PSA Vector.png" alt="profile" style="height:150px; width:auto"
-                            class="img-fluid mb-3 float-end">
-                    </div>
-                </div>
-                <?php include_once 'topnav.php'; ?>
+                
+                <?php 
+                include_once 'profile.php';
+                include_once 'topnav.php';
+                ?>
 
                 <!-- FORM -->
 
@@ -65,7 +50,7 @@ $_SESSION['user_type'] = 'V';
                                 <div class="container-fluid">
 
                                     <!-- EMPLOYEE'S FULL NAME -->
-                                    <div class="row mt-3">
+                                    <div class="row my-5">
                                         <div class="col mx-2">
                                             <label for="name_last">SURNAME</label><br>
                                             <input type="text" required name="name_last" id="name_last" class="form-control">
@@ -158,36 +143,30 @@ $_SESSION['user_type'] = 'V';
                                     <div class="row mt-3">
                                         <div class="col mx-2">
                                             <label for="gsis">GSIS ID NO.</label><br>
-                                            <input type="text" required name="gsis" id="gsis" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="gsis" id="gsis" class="form-control uppercase">
                                         </div>
                                         <div class="col mx-2">
                                             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-                                            <input type="text" required name="pagibig" id="pagibig" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="pagibig" id="pagibig" class="form-control uppercase">
                                         </div>
                                         <div class="col mx-2">
                                             <label for="philhealth">PHILHEALTH NO.</label><br>
-                                            <input type="text" required name="philhealth" id="philhealth" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="philhealth" id="philhealth" class="form-control uppercase">
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
                                         <div class="col mx-2">
                                             <label for="sss">SSS NO.</label><br>
-                                            <input type="text" required name="sss" id="sss" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="sss" id="sss" class="form-control uppercase">
                                         </div>
                                         <div class="col mx-2">
                                             <label for="tin">TIN NO.</label><br>
-                                            <input type="text" required name="tin" id="tin" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="tin" id="tin" class="form-control uppercase">
                                         </div>
                                         <div class="col mx-2">
                                             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-                                            <input type="text" required name="employee_no" id="employee_no" class="form-control"
-                                                style="text-transform:uppercase">
+                                            <input type="text" required name="employee_no" id="employee_no" class="form-control uppercase">
                                         </div>
                                     </div>
 
@@ -419,7 +398,7 @@ $_SESSION['user_type'] = 'V';
 
                                     <!-- NEXT BUTTON -->
                                     <a href="pds_form.php?form_section=fam_bg">
-                                        <button type="button" class="btn btn-primary mt-5 mx-1" style="float: right; width: 100px">
+                                        <button type="button" class="btn btn-primary mt-5 mx-1 button-right">
                                             <strong>NEXT</strong>
                                         </button>
                                     </a>
@@ -433,7 +412,7 @@ $_SESSION['user_type'] = 'V';
                                 <div class="container-fluid">
 
                                     <!-- SPOUSE'S FULL NAME -->
-                                    <div class="row mt-3">
+                                    <div class="row mt-5">
                                         <div class="col mx-1">
                                             <label for="spousename_last">SPOUSE'S SURNAME</label>
                                             <div class="form-check form-check-inline ms-2">
@@ -477,7 +456,7 @@ $_SESSION['user_type'] = 'V';
                                             <div class="checkbox-container">
                                                 <input type="text" required name="occupation" id="occupation" class="form-control">
                                                 <div class="form-check ms-2">
-                                                    <input class="form-check-input" type="checkbox" id="null_spouse_mi">
+                                                    <input class="form-check-input" type="checkbox" id="null_occupation">
                                                     <label class="form-check-label" for="null_occupation">N/A</label>
                                                 </div>
                                             </div>
@@ -485,7 +464,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col mx-1">
                                             <label for="business_name">EMPLOYEER/BUSINESS NAME</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="business_name" id="business_name" class="form-control">
+                                                <input type="text" required name="business_name" id="business_name"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_bus">
                                                     <label class="form-check-label" for="null_bus">N/A</label>
@@ -495,7 +475,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col mx-1">
                                             <label for="business_address">BUSINESS ADDRESS</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="business_address" id="business_address" class="form-control">
+                                                <input type="text" required name="business_address" id="business_address"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_busadd">
                                                     <label class="form-check-label" for="null_busadd">N/A</label>
@@ -505,7 +486,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col mx-1">
                                             <label for="spouse_telno">TELEPHONE NO.</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control">
+                                                <input type="text" required name="spouse_telno" id="spouse_telno"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_spouse_telno">
                                                     <label class="form-check-label" for="null_spouse_telno">N/A</label>
@@ -532,7 +514,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col mx-1">
                                             <label for="fathername_middle">MIDDLE NAME</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="fathername_middle" id="fathername_middle" class="form-control">
+                                                <input type="text" required name="fathername_middle" id="fathername_middle"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_father_mi">
                                                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -542,7 +525,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col-2 mx-1">
                                             <label for="fathername_extension">NAME EXTENSION</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="fathername_extension" id="fathername_extension" class="form-control">
+                                                <input type="text" required name="fathername_extension" id="fathername_extension"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_father_nameext">
                                                     <label class="form-check-label" for="null_father_nameext">N/A</label>
@@ -569,7 +553,8 @@ $_SESSION['user_type'] = 'V';
                                         <div class="col mx-1">
                                             <label for="mothername_middle">MIDDLE NAME</label><br>
                                             <div class="checkbox-container">
-                                                <input type="text" required name="mothername_middle" id="mothername_middle" class="form-control">
+                                                <input type="text" required name="mothername_middle" id="mothername_middle"
+                                                    class="form-control">
                                                 <div class="form-check ms-2">
                                                     <input class="form-check-input" type="checkbox" id="null_mother_mi">
                                                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -596,13 +581,13 @@ $_SESSION['user_type'] = 'V';
 
                                     <!-- NEXT BUTTON -->
                                     <a href="pds_form.php?form_section=educ_bg">
-                                        <button class="btn btn-primary mt-5 mx-1" style="float: right; width: 100px">
+                                        <button class="btn btn-primary mt-5 mx-1 button-right">
                                             <strong>NEXT</strong>
                                         </button>
                                     </a>
 
                                     <!-- SUBMIT BUTTON -->
-                                    <button type="submit" class="btn btn-primary mt-5 mx-1" style="float: right; width: 100px">
+                                    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
                                         <strong>SUBMIT</strong>
                                     </button>
 
@@ -620,28 +605,28 @@ $_SESSION['user_type'] = 'V';
                                 <div class="container-fluid">
                                     <div class="row mt-5">
                                         <div class="col-4">
-                                            <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE BARANGAY
+                                            <p class="col-title">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE BARANGAY
                                                 ELIGIBILITY/DRIVER'S LICENSE</p>
                                         </div>
                                         <div class="col-1">
-                                            <p>RATING (if applicable)</p>
+                                            <p class="col-title">RATING (if applicable)</p>
                                         </div>
                                         <div class="col-2">
-                                            <p>DATE OF EXAMINATION/CONFERMENT</p>
+                                            <p class="col-title">DATE OF EXAMINATION/CONFERMENT</p>
                                         </div>
                                         <div class="col-3">
-                                            <p>PLACE OF EXAMINATION/CONFERMENT</p>
+                                            <p class="col-title">PLACE OF EXAMINATION/CONFERMENT</p>
                                         </div>
                                         <div class="col-2">
                                             <div class="row">
-                                                <p>LICENSE (if applicable)</p>
+                                                <p class="col-title">LICENSE (if applicable)</p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <p>NUMBER</p>
+                                                    <p class="col-title">NUMBER</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <p>DATE OF VALIDITY</p>
+                                                    <p class="col-title">DATE OF VALIDITY</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -651,31 +636,33 @@ $_SESSION['user_type'] = 'V';
                                         <div class="row row-row mt-3">
                                             <div class="col-4">
                                                 <div class="checkbox-container">
-                                                    <input class="form-check-input" type="checkbox" id="null_ext"
-                                                        onclick="checkNA(this)">
-                                                    <label class="form-check-label">N/A</label>
-                                                    <input type="text" name="careerservice" id="careerservice" class="form-control">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="checkbox" id="null_cse"
+                                                            onclick="checkNA(this)">
+                                                        <label class="form-check-label" id="label_null_cse" for="null_cse">N/A</label>
+                                                    </div>
+                                                    <input type="text" name="careerservice" id="careerservice" class="form-control group-na">
                                                 </div>
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" name="rating" id="rating" class="form-control">
+                                                <input type="text" name="rating" id="rating" class="form-control group-na">
                                             </div>
                                             <div class="col-2">
-                                                <input type="text" name="dateofexamination" id="dateofexamination"
-                                                    class="form-control">
+                                                <input type="date" name="dateofexamination" id="dateofexamination"
+                                                    class="form-control group-na">
                                             </div>
                                             <div class="col-3">
                                                 <input type="text" name="placeofexamination" id="placeofexamination"
-                                                    class="form-control">
+                                                    class="form-control group-na">
                                             </div>
                                             <div class="col-2">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input type="text" name="number" id="number" class="form-control">
+                                                        <input type="number" name="number" id="number" class="form-control group-na">
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" name="dateofvalidity" id="dateofvalidity"
-                                                            class="form-control">
+                                                        <input type="date" name="dateofvalidity" id="dateofvalidity"
+                                                            class="form-control group-na">
                                                     </div>
                                                 </div>
                                             </div>
@@ -727,6 +714,7 @@ $_SESSION['user_type'] = 'V';
         <!-- <script type="text/javascript" src="pds_form_script.js"></script> -->
         <script type="text/javascript" src="personal_info_script.js"></script>
         <script type="text/javascript" src="fam_bg_script.js"></script>
+        <script type="text/javascript" src="cs_eligibility_script.js"></script>
 
 </body>
 

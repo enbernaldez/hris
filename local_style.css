@@ -1,0 +1,23 @@
+.uppercase {
+  text-transform: uppercase;
+}
+
+.col-title {
+  text-align: center;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-right {
+  float: right;
+  width: 100px;
+}
+
+
+.profile-pic {
+    height: 150px;
+    width: auto;
+  }
