@@ -18,12 +18,11 @@ function setupNullInputRow(checkboxId, inputIds) {
 }
 
 // ARRAYS
-setupNullInputRow("null_lnd", [
-  "lnd_title",
-  "lnd_from",
-  "lnd_to",
-  "lnd_hrs",
-  "lnd_type",
-  "lnd_conducted",
-  "lnd_addrow",
+setupNullInputRow("null_vw", [
+  "vw_nameaddress",
+  "vw_from",
+  "vw_to",
+  "vw_hrs",
+  "vw_position",
+  "vw_addrow",
 ]);

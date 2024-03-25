@@ -27,4 +27,5 @@ setupNullInputRow("null_work_exp", [
   "we_sg",
   "we_appointment_status",
   "we_govt_service",
+  "we_addrow",
 ]);

@@ -762,15 +762,15 @@ $_SESSION['user_type'] = 'V';
                                                     class="form-control group_na">
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" name="we_sg" id="we_sg"
-                                                    class="form-control group_na">
+                                                <input type="text" name="we_sg" id="we_sg" class="form-control group_na">
                                             </div>
                                             <div class="col-2">
                                                 <input type="text" name="we_appointment_status" id="we_appointment_status"
                                                     class="form-control group_na">
                                             </div>
                                             <div class="col-1">
-                                                <select id="we_govt_service" required name="we_govt_service" class="form-select group_na">
+                                                <select id="we_govt_service" required name="we_govt_service"
+                                                    class="form-select group_na">
                                                     <option value="" disabled selected value>--select--</option>
                                                     <option value='Y'>Yes</option>
                                                     <option value='N'>No</option>
@@ -782,8 +782,8 @@ $_SESSION['user_type'] = 'V';
                                     <!-- BUTTON -->
                                     <div class="row">
                                         <div class="col-3">
-                                            <br><button type="button" class="btn btn-primary add-row-button" onclick="addRow()">ADD
-                                                ROW</button>
+                                            <br><button type="button" class="btn btn-primary add-row-button" name="we_addrow"
+                                                id="we_addrow" onclick="addRow()">ADD ROW</button>
                                         </div>
                                     </div>
                                 </div>
@@ -792,6 +792,75 @@ $_SESSION['user_type'] = 'V';
                             case "voluntary_work":
                                 ?>
                                 <!-- VOLUNTARY WORK -->
+                                <div class="container-fluid">
+                                    <div class="row mt-5 text-center align-items-end">
+                                        <div class="col-4">
+                                            <p class="ms-5">NAME & ADDRESS OF ORGANIZATION</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <p>INCLUSIVE DATES <br>(mm/dd/yy)</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p>FROM</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p>TO</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>NUMBER OF HOURS</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p>POSITION/NATURE OF WORK</p>
+                                        </div>
+                                    </div>
+                                    <div class="row-container text-center">
+                                        <div class="row row-row mt-3">
+                                            <div class="col-4">
+                                                <div class="checkbox-container">
+                                                <div class="form-check me-2">
+                                                        <input class="form-check-input" type="checkbox" id="null_vw"
+                                                            onclick="checkNA(this)">
+                                                        <label class="form-check-label">N/A</label>
+                                                    </div>
+                                                    <input type="text" name="vw_nameaddress" id="vw_nameaddress"
+                                                        class="form-control group_na">
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="row">
+                                                    <div class="col-6 px-1 mx-0">
+                                                        <input type="date" required name="vw_from" id="vw_from"
+                                                            class="form-control group_na">
+                                                    </div>
+                                                    <div class="col-6 px-1 mx-0">
+                                                        <input type="date" required name="vw_to" id="vw_to"
+                                                            class="form-control group_na">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="number" name="vw_hrs" id="vw_hrs"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" name="vw_position" id="vw_position"
+                                                    class="form-control group_na">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <br><button type="button" class="btn btn-primary add-row-button" name="vw_addrow"
+                                                id="vw_addrow" onclick="addRow()">ADD ROW</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                                 break;
                             case "lnd":
@@ -800,34 +869,34 @@ $_SESSION['user_type'] = 'V';
                                 <div class="container-fluid">
                                     <div class="row mt-5 text-center align-items-end">
                                         <div class="col-3">
-                                            <p class="col-title">
+                                            <p>
                                                 TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS<br>
                                                 (Write in full)
                                             </p>
                                         </div>
                                         <div class="col-3">
                                             <div class="row">
-                                                <p class="col-title">INCLUSIVE DATES OF ATTENDANCE (mm/dd/yyyy)</p>
+                                                <p>INCLUSIVE DATES OF ATTENDANCE (mm/dd/yyyy)</p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <p class="col-title">FROM</p>
+                                                    <p>FROM</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <p class="col-title">TO</p>
+                                                    <p">TO</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-1">
-                                            <p class="col-title">NUMBER OF HOURS</p>
+                                            <p>NUMBER OF HOURS</p>
                                         </div>
                                         <div class="col-3">
-                                            <p class="col-title">
+                                            <p>
                                                 TYPE OF LD<br>(Managerial / Supervisory / Technical / etc.)
                                             </p>
                                         </div>
                                         <div class="col-2">
-                                            <p class="col-title">CONDUCTED/SPONSORED BY (Write in full)</p>
+                                            <p>CONDUCTED/SPONSORED BY (Write in full)</p>
                                         </div>
 
                                     </div>
@@ -858,7 +927,7 @@ $_SESSION['user_type'] = 'V';
                                                 </div>
                                             </div>
                                             <div class="col-1">
-                                                <input type="number" name="lnd_hours" id="lnd_hours" class="form-control group-na">
+                                                <input type="number" name="lnd_hrs" id="lnd_hrs" class="form-control group-na">
                                             </div>
                                             <div class="col-3">
                                                 <input type="text" name="lnd_type" id="lnd_type" class="form-control group-na">
@@ -901,8 +970,9 @@ $_SESSION['user_type'] = 'V';
         <script type="text/javascript" src="personal_info_script.js"></script>
         <script type="text/javascript" src="fam_bg_script.js"></script>
         <script type="text/javascript" src="cs_eligibility_script.js"></script>
-        <script type="text/javascript" src="lnd_script.js"></script>
         <script type="text/javascript" src="work_exp_script.js"></script>
+        <script type="text/javascript" src="voluntary_work_script.js"></script>
+        <script type="text/javascript" src="lnd_script.js"></script>
 
 </body>
 

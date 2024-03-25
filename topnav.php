@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="col mx-4">
-            <a href="#">
+            <a href="pds_form.php?form_section=educ_bg">
                 <p style="text-align:center">
                     Educational Background
                 </p>
@@ -36,7 +36,7 @@
             </a>
         </div>
         <div class="col mx-4">
-            <a href="#">
+            <a href="pds_form.php?form_section=voluntary_work">
                 <p style="text-align:center">
                     Voluntary Work
                 </p>
@@ -50,14 +50,14 @@
             </a>
         </div>
         <div class="col mx-4">
-            <a href="#">
+            <a href="pds_form.php?form_section=other_info">
                 <p style="text-align:center">
                     Other Information
                 </p>
             </a>
         </div>
         <div class="col mx-4">
-            <a href="#">
+            <a href="pds_form.php?form_section=ref">
                 <p style="text-align:center">
                     References
                 </p>
