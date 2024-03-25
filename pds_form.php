@@ -598,38 +598,38 @@ $_SESSION['user_type'] = 'V';
                                 break;
                             case "educ_bg":
                                 ?>
-                                <!-- EDUCATION BACKGROUND -->
+                                <!-- EDUCATIONAL BACKGROUND -->
                                 <?php
                                 break;
                             case "cs_eligibility":
                                 ?>
                                 <!-- CIVIL SERVICE ELIGIBILITY -->
                                 <div class="container-fluid">
-                                    <div class="row mt-5">
+                                    <div class="row mt-5 text-center align-items-end">
                                         <div class="col-4">
-                                            <p class="col-title">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE
-                                                BARANGAY
-                                                ELIGIBILITY/DRIVER'S LICENSE</p>
+                                            <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE
+                                                BARANGAY ELIGIBILITY/DRIVER'S LICENSE
+                                            </p>
                                         </div>
                                         <div class="col-1">
-                                            <p class="col-title">RATING (if applicable)</p>
+                                            <p>RATING<br>(if applicable)</p>
                                         </div>
                                         <div class="col-2">
-                                            <p class="col-title">DATE OF EXAMINATION/CONFERMENT</p>
+                                            <p>DATE OF EXAMINATION/CONFERMENT</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p>PLACE OF EXAMINATION/CONFERMENT</p>
                                         </div>
                                         <div class="col-3">
-                                            <p class="col-title">PLACE OF EXAMINATION/CONFERMENT</p>
-                                        </div>
-                                        <div class="col-2">
                                             <div class="row">
-                                                <p class="col-title">LICENSE (if applicable)</p>
+                                                <p>LICENSE (if applicable)</p>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <p class="col-title">NUMBER</p>
+                                                    <p>NUMBER</p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <p class="col-title">DATE OF VALIDITY</p>
+                                                    <p>DATE OF VALIDITY</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -655,11 +655,11 @@ $_SESSION['user_type'] = 'V';
                                                 <input type="date" name="dateofexamination" id="dateofexamination"
                                                     class="form-control group-na">
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <input type="text" name="placeofexamination" id="placeofexamination"
                                                     class="form-control group-na">
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <input type="number" name="number" id="number"
@@ -686,6 +686,107 @@ $_SESSION['user_type'] = 'V';
                             case "work_exp":
                                 ?>
                                 <!-- WORK EXPERIENCE -->
+                                <div class="container-fluid">
+                                    <div class="row mt-4 text-center align-items-end">
+                                        <div class="col-3">
+                                            <div class="row ms-5">
+                                                <p class="mb-0">INCLUSIVE DATES</p>
+                                                <p>(mm/dd/yy)</p>
+                                            </div>
+                                            <div class="row ms-5">
+                                                <div class="col">
+                                                    <p>FROM</p>
+                                                </div>
+                                                <div class="col">
+                                                    <p>TO</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <p>
+                                                POSITION TITLE<br>
+                                                (Write in full / Do not abbreviate)
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p>
+                                                DEPARTMENT/AGENCY/<br>OFFICE/COMPANY<br>(Write in full / Do not abbreviate)
+                                            </p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>MONTHLY SALARY</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>
+                                                SALARY/JOB/PAY GRADE (if applicable) & STEP (Format "00-0")/<br>INCREMENT
+                                            </p>
+                                        </div>
+                                        <div class="col-2">
+                                            <p>STATUS OF APPOINTMENT</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>GOV'T SERVICE (Y/N)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-container text-center">
+                                        <div class="row row-row mt-3">
+                                            <div class="col-3">
+                                                <div class="checkbox-container">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="checkbox" id="null_work_exp">
+                                                        <label class="form-check-label">N/A</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <input type="date" required name="we_from" id="we_from"
+                                                                class="form-control group_na">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="date" required name="we_to" id="we_to"
+                                                                class="form-control group_na">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" name="we_position_title" id="we_position_title"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" name="we_dept_agency" id="we_dept_agency"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" name="we_mo_salary" id="we_mo_salary"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-1">
+                                                <input type="text" name="we_sg" id="we_sg"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="text" name="we_appointment_status" id="we_appointment_status"
+                                                    class="form-control group_na">
+                                            </div>
+                                            <div class="col-1">
+                                                <select id="we_govt_service" required name="we_govt_service" class="form-select group_na">
+                                                    <option value="" disabled selected value>--select--</option>
+                                                    <option value='Y'>Yes</option>
+                                                    <option value='N'>No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- BUTTON -->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <br><button type="button" class="btn btn-primary add-row-button" onclick="addRow()">ADD
+                                                ROW</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
                                 break;
                             case "voluntary_work":
@@ -697,9 +798,12 @@ $_SESSION['user_type'] = 'V';
                                 ?>
                                 <!-- LEARNING AND DEVELOPMENT -->
                                 <div class="container-fluid">
-                                    <div class="row mt-5">
+                                    <div class="row mt-5 text-center align-items-end">
                                         <div class="col-3">
-                                            <p class="col-title">TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS (Write in full)</p>
+                                            <p class="col-title">
+                                                TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS<br>
+                                                (Write in full)
+                                            </p>
                                         </div>
                                         <div class="col-3">
                                             <div class="row">
@@ -718,7 +822,9 @@ $_SESSION['user_type'] = 'V';
                                             <p class="col-title">NUMBER OF HOURS</p>
                                         </div>
                                         <div class="col-3">
-                                            <p class="col-title">TYPE OF LD (Managerial/Supervisory/Technical/etc)</p>
+                                            <p class="col-title">
+                                                TYPE OF LD<br>(Managerial / Supervisory / Technical / etc.)
+                                            </p>
                                         </div>
                                         <div class="col-2">
                                             <p class="col-title">CONDUCTED/SPONSORED BY (Write in full)</p>
@@ -735,35 +841,39 @@ $_SESSION['user_type'] = 'V';
                                                             onclick="checkNA(this)">
                                                         <label class="form-check-label">N/A</label>
                                                     </div>
-                                                    <input type="text" name="title" id="title" class="form-control group-na">
+                                                    <input type="text" name="lnd_title" id="lnd_title"
+                                                        class="form-control group-na">
                                                 </div>
                                             </div>
                                             <div class="col-3">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input type="date" required name="from" id="from" class="form-control group-na">
+                                                        <input type="date" required name="lnd_from" id="lnd_from"
+                                                            class="form-control group-na">
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="date" required name="to" id="to" class="form-control group-na">
+                                                        <input type="date" required name="lnd_to" id="lnd_to"
+                                                            class="form-control group-na">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-1">
-                                                <input type="text" name="hours" id="hours" class="form-control group-na">
+                                                <input type="number" name="lnd_hours" id="lnd_hours" class="form-control group-na">
                                             </div>
                                             <div class="col-3">
-                                                <input type="text" name="typeld" id="typeld" class="form-control group-na">
+                                                <input type="text" name="lnd_type" id="lnd_type" class="form-control group-na">
                                             </div>
                                             <div class="col-2">
-                                                <input type="text" name="conducted" id="conducted" class="form-control group-na">
+                                                <input type="text" name="lnd_conducted" id="lnd_conducted"
+                                                    class="form-control group-na">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-3 mt-4">
-                                            <button type="button" class="btn btn-primary add-row-button" id="ld_addrow"
-                                                name="ld_addrow" onclick="addRow()">ADD ROW</button>
+                                            <button type="button" class="btn btn-primary add-row-button" id="lnd_addrow"
+                                                name="lnd_addrow" onclick="addRow()">ADD ROW</button>
                                         </div>
                                     </div>
                                 </div>
@@ -791,6 +901,8 @@ $_SESSION['user_type'] = 'V';
         <script type="text/javascript" src="personal_info_script.js"></script>
         <script type="text/javascript" src="fam_bg_script.js"></script>
         <script type="text/javascript" src="cs_eligibility_script.js"></script>
+        <script type="text/javascript" src="lnd_script.js"></script>
+        <script type="text/javascript" src="work_exp_script.js"></script>
 
 </body>
 
