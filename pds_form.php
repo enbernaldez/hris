@@ -605,7 +605,7 @@ $_SESSION['user_type'] = 'V';
                                 ?>
                                 <!-- CIVIL SERVICE ELIGIBILITY -->
                                 <div class="container-fluid">
-                                    <div class="row mt-5 text-center align-items-end">
+                                    <div class="row mt-4 text-center align-items-end">
                                         <div class="col-4">
                                             <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE
                                                 BARANGAY ELIGIBILITY/DRIVER'S LICENSE
@@ -793,7 +793,7 @@ $_SESSION['user_type'] = 'V';
                                 ?>
                                 <!-- VOLUNTARY WORK -->
                                 <div class="container-fluid">
-                                    <div class="row mt-5 text-center align-items-end">
+                                    <div class="row mt-4 text-center align-items-end">
                                         <div class="col-4">
                                             <p class="ms-5">NAME & ADDRESS OF ORGANIZATION</p>
                                         </div>
@@ -867,7 +867,7 @@ $_SESSION['user_type'] = 'V';
                                 ?>
                                 <!-- LEARNING AND DEVELOPMENT -->
                                 <div class="container-fluid">
-                                    <div class="row mt-5 text-center align-items-end">
+                                    <div class="row mt-4 text-center align-items-end">
                                         <div class="col-3">
                                             <p>
                                                 TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS<br>

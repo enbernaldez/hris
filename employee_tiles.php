@@ -12,7 +12,9 @@ $_SESSION['user_type'] = 'V';
     <title>HRIS - RSSO V (ORD)</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="local_style.css">
     <style>
         .tilerow {
             display: flex;

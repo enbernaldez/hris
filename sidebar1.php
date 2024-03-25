@@ -48,9 +48,22 @@ if (isset ($_SESSION['user_id'])) {
             </li>
 
             <!-- PROVINCES -->
-            <li class="nav-item mt-2">
-                <a href="RSSO_ORD.php" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">ALBAY</span>
+            <?php
+            $list_province = query($conn, "SELECT * FROM `provinces`");
+            foreach ($list_province as $key => $row) {
+                $prov_id = $row['province_id'];
+                $prov_name = $row['province_name'];
+                echo '
+                <li class="nav-item mt-2">
+                    <a href="employee_tiles.php?province=' . $prov_id .'" class="nav-link px-sm-0 px-2">
+                        <span class="d-none d-lg-inline uppercase">' . $prov_name . '</span>
+                    </a>
+                </li>
+                ';
+            } ?>
+            <!-- <li class="nav-item mt-2">
+                <a href="employee_tiles.php?province=" class="nav-link px-sm-0 px-2">
+                    <span class="d-none d-lg-inline uppercase">Albay</span>
                 </a>
             </li>
             <li class="nav-item mt-2">
@@ -77,7 +90,7 @@ if (isset ($_SESSION['user_id'])) {
                 <a href="#" class="nav-link px-sm-0 px-2">
                     <span class="d-none d-lg-inline">SORSOGON</span>
                 </a>
-            </li>
+            </li> -->
             <div class="divider-bottom d-none d-lg-inline mb-2"></div>
 
             <!-- SETTINGS -->

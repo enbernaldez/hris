@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="local_style.css">
     <style>
         .tile {
             width: 330px;
