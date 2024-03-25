@@ -18,12 +18,12 @@ $_SESSION['user_type'] = 'V';
     <style>
         .tilerow {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             border-radius: 12px;
         }
 
         .tile {
-            width: 400px;
+            width: 450px;
             height: 100px;
             background-color: #80A1F5;
             border-radius: 12px;
