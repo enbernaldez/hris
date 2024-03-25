@@ -56,7 +56,7 @@ $_SESSION['user_type'] = 'V';
                     for ($i = 0; $i < 12; $i++) {
                         echo '
                             <div class="col-4 tile mt-3">
-                                <a href="personal_info.php" style="text-decoration: none; color: inherit;">
+                                <a href="pds_form.php?form_section=personal_info" style="text-decoration: none; color: inherit;">
                                     <div class="row">
                                         <div class="col-3">
                                             <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto" style="border-radius:12px">
