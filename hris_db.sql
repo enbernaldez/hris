@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2024 at 01:40 AM
+-- Generation Time: Mar 25, 2024 at 09:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -336,6 +336,27 @@ INSERT INTO `provinces` (`province_id`, `province_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rsso_v`
+--
+
+CREATE TABLE `rsso_v` (
+  `rsso_id` int(11) NOT NULL,
+  `rsso_name` varchar(128) NOT NULL,
+  `rsso_acronym` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rsso_v`
+--
+
+INSERT INTO `rsso_v` (`rsso_id`, `rsso_name`, `rsso_acronym`) VALUES
+(1, 'Office of the Regional Director', 'ORD'),
+(2, 'Civil Registration and Administrative Support Division', 'CRASD'),
+(3, 'Statistical Operations and Coordination Division', 'SOCD');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `streets`
 --
 
@@ -467,6 +488,12 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`province_id`);
 
 --
+-- Indexes for table `rsso_v`
+--
+ALTER TABLE `rsso_v`
+  ADD PRIMARY KEY (`rsso_id`);
+
+--
 -- Indexes for table `streets`
 --
 ALTER TABLE `streets`
@@ -548,6 +575,12 @@ ALTER TABLE `positions`
 --
 ALTER TABLE `provinces`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `rsso_v`
+--
+ALTER TABLE `rsso_v`
+  MODIFY `rsso_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `streets`
