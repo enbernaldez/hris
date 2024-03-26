@@ -43,6 +43,9 @@
             -webkit-appearance: none;
             margin: 0;
         }
+        .small  {
+            font-size: 13px;
+        }
     </style>
 </head>
 
@@ -249,7 +252,7 @@
                     <div class="col">
                         <input type="text" class="form-control" id="name_school" required>
                         <i class="fa-solid fa-plus mt-2 ms-2" id="e_addrow" name="e_addrow"></i><span
-                            class="ms-2 mt-2">Add new Vocational row</span>
+                            class="ms-2 mt-2">Add new College row</span>
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="degree" required>
@@ -306,8 +309,7 @@
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="name_schoolG" required>
-                        <i class="fa-solid fa-plus mt-2 ms-2" id="" name=""></i><span class="ms-2 mt-2">Add new
-                            Vocational row</span>
+                        <i class="fa-solid fa-plus mt-2 ms-2" id="" name=""></i><span class="ms-2 mt-2 small">Add new Graduate Studies row</span>
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" id="degree_g" required>
@@ -487,14 +489,10 @@
                     });
 
                     // Append the cloned row to the parent container
-                    parentRow.parentNode.appendChild(clonedRow);
+                    parentRow.parentNode.insertBefore(clonedRow, parentRow.nextSibling);
                 });
             });
         });
-
-
-
-
     </script>
 </body>
 
