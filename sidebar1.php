@@ -42,7 +42,7 @@ if (isset ($_SESSION['user_id'])) {
                         $rsso_acro = $row['rsso_acronym'];
                         echo '
                         <li class="sidebar-item mt-2">
-                            <a href="employee_tiles.php?office=' . $rsso_acro . '" class="sidebar-link ms-5">' . $rsso_acro . '</a>
+                            <a href="employee_tiles.php?scope=region&office=' . $rsso_acro . '" class="sidebar-link ms-5">' . $rsso_acro . '</a>
                         </li>
                         ';
                     } ?>
@@ -57,7 +57,7 @@ if (isset ($_SESSION['user_id'])) {
                 $prov_name = $row['province_name'];
                 echo '
                 <li class="nav-item mt-2">
-                    <a href="employee_tiles.php?office=' . $prov_name . '" class="nav-link px-sm-0 px-2">
+                    <a href="employee_tiles.php?scope=province&office=' . $prov_name . '" class="nav-link px-sm-0 px-2">
                         <span class="d-none d-lg-inline uppercase">' . $prov_name . '</span>
                     </a>
                 </li>
