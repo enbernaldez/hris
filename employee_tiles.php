@@ -116,8 +116,15 @@ $_SESSION['user_type'] = 'V';
                         }
                         ?>
                     </div>
+                    <div class="my-3">
+                        <button type="button" class="btn btn-primary" style="margin-left: 10px">Add Employee</button>
+                        <?php
+                        echo '
+                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right">View organization chart</a>
+                        ';
+                        ?>
+                    </div>
                 </div>
-
                 <?php
             }
             ?>
