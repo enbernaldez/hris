@@ -117,7 +117,9 @@ $_SESSION['user_type'] = 'V';
                         ?>
                     </div>
                     <div class="my-3">
-                        <button type="button" class="btn btn-primary" style="margin-left: 10px">Add Employee</button>
+                        <a href="pds_form.php?form_section=personal_info">
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px">Add
+                                Employee</button></a>
                         <?php
                         echo '
                             <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right">View organization chart</a>
