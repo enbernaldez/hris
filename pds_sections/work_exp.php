@@ -76,7 +76,7 @@
                     class="form-control group_na">
             </div>
             <div class="col-1">
-                <select id="we_govt_service" required name="we_govt_service" class="form-select group_na">
+                <select id="we_govt_service" required name="we_govt_service" id="we_govt_service" class="form-select group_na">
                     <option value="" disabled selected value>--select--</option>
                     <option value='Y'>Yes</option>
                     <option value='N'>No</option>
@@ -96,10 +96,9 @@
 
 <script>
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray(checkboxId, inputIds, chkboxIds) {
+    function setupNullInputArray(checkboxId, inputIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
-        const checkboxes = chkboxIds.map((id) => document.getElementById(id));
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
@@ -109,10 +108,6 @@
                     input.value = "N/A";
                     input.disabled = true;
                 });
-                checkboxes.forEach((chkbx) => {
-                    chkbx.checked = true;
-                    chkbx.disabled = true;
-                });
             } else {
                 inputs.forEach((input) => {
 
@@ -121,10 +116,6 @@
 
                     input.value = "";
                     input.disabled = false;
-                });
-                checkboxes.forEach((chkbx) => {
-                    chkbx.checked = false;
-                    chkbx.disabled = false;
                 });
             }
         });
@@ -141,7 +132,7 @@
         "we_appointment_status",
         "we_govt_service",
         "we_addrow",
-    ], []);
+    ]);
 
     // =================================== Add Row ===================================
     function addRow() {
