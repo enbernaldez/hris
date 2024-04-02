@@ -178,6 +178,7 @@ $_SESSION['user_type'] = 'V';
         </div>
       </div>
     </div>
+  </div>
 </body>
 
 </html>

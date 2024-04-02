@@ -122,7 +122,7 @@ $_SESSION['user_type'] = 'V';
                                 Employee</button></a>
                         <?php
                         echo '
-                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">View organization chart</a>
+                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">View organizational chart</a>
                         ';
                         ?>
                     </div>

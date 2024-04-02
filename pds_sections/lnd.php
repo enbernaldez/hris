@@ -1,11 +1,14 @@
 <div class="container-fluid">
     <div class="row mt-4 text-center align-items-end">
-        <div class="col-4">
-            <p class="ms-5">NAME & ADDRESS OF ORGANIZATION</p>
+        <div class="col-3">
+            <p>
+                TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS<br>
+                (Write in full)
+            </p>
         </div>
         <div class="col-3">
             <div class="row">
-                <p>INCLUSIVE DATES <br>(mm/dd/yy)</p>
+                <p>INCLUSIVE DATES OF ATTENDANCE (mm/dd/yyyy)</p>
             </div>
             <div class="row">
                 <div class="col-6">
@@ -19,44 +22,53 @@
         <div class="col-1">
             <p>NUMBER OF HOURS</p>
         </div>
-        <div class="col-4">
-            <p>POSITION/NATURE OF WORK</p>
+        <div class="col-3">
+            <p>
+                TYPE OF LD<br>(Managerial / Supervisory / Technical / etc.)
+            </p>
         </div>
+        <div class="col-2">
+            <p>CONDUCTED/SPONSORED BY (Write in full)</p>
+        </div>
+
     </div>
-    <div class="row-container text-center">
+
+    <div class="row-container">
         <div class="row row-row mt-3">
-            <div class="col-4">
+            <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2">
-                        <input class="form-check-input" type="checkbox" id="null_vw" onclick="checkNA(this)">
+                        <input class="form-check-input" type="checkbox" id="null_lnd">
                         <label class="form-check-label">N/A</label>
                     </div>
-                    <input type="text" name="vw_nameaddress" id="vw_nameaddress" class="form-control group_na">
+                    <input type="text" name="lnd_title" id="lnd_title" class="form-control group-na">
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
-                    <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_from" id="vw_from" class="form-control group_na">
+                    <div class="col-6">
+                        <input type="date" required name="lnd_from" id="lnd_from" class="form-control group-na">
                     </div>
-                    <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_to" id="vw_to" class="form-control group_na">
+                    <div class="col-6">
+                        <input type="date" required name="lnd_to" id="lnd_to" class="form-control group-na">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="vw_hrs" id="vw_hrs" class="form-control group_na">
+                <input type="number" name="lnd_hrs" id="lnd_hrs" class="form-control group-na">
             </div>
-            <div class="col-4">
-                <input type="text" name="vw_position" id="vw_position" class="form-control group_na">
+            <div class="col-3">
+                <input type="text" name="lnd_type" id="lnd_type" class="form-control group-na">
             </div>
-
+            <div class="col-2">
+                <input type="text" name="lnd_conducted" id="lnd_conducted" class="form-control group-na">
+            </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-3">
-            <br><button type="button" class="btn btn-primary add-row-button" name="vw_addrow" id="vw_addrow"
+        <div class="col-3 mt-4">
+            <button type="button" class="btn btn-primary add-row-button" id="lnd_addrow" name="lnd_addrow"
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
@@ -79,9 +91,9 @@
             } else {
                 inputs.forEach((input) => {
 
-                    input.id == "vw_from" || input.id == "vw_to" ? input.type = "date" :
-                    input.id == "vw_hrs" ? input.type = "number" :
-                        input.type = "text";
+                    input.id == "lnd_from" || input.id == "lnd_to" ? input.type = "date" :
+                        input.id == "lnd_hrs" ? input.type = "number" :
+                            input.type = "text";
 
                     input.value = "";
                     input.disabled = false;
@@ -90,15 +102,16 @@
         });
     }
 
-    // VOLUNTARY WORK
-    setupNullInputArray("null_vw", [
-        "vw_nameaddress",
-        "vw_from",
-        "vw_to",
-        "vw_hrs",
-        "vw_position",
-        "vw_addrow",
-    ]);
+    // LEARNING AND DEVELOPMENT
+    setupNullInputArray("null_lnd", [
+        "lnd_title",
+        "lnd_from",
+        "lnd_to",
+        "lnd_hrs",
+        "lnd_type",
+        "lnd_conducted",
+        "lnd_addrow",
+    ], []);
 
     // =================================== Add Row ===================================
     function addRow() {
