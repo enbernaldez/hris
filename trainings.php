@@ -6,11 +6,13 @@ $_SESSION['user_type'] = 'V';
 <html lang="en">
 
 <head>
-  <title>Human Resource Inventory System</title>
+  <title>HRIS - Trainings</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/bootstrap.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="hris_style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="local_style.css">
 
   <style>
     .tile {
@@ -176,6 +178,7 @@ $_SESSION['user_type'] = 'V';
         </div>
       </div>
     </div>
+  </div>
 </body>
 
 </html>
