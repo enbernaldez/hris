@@ -155,3 +155,38 @@ if (isset ($_SESSION['user_id'])) {
         }
     }
 </script>
+
+
+
+<!-- Input Box -->
+<!-- <div class=" mb-2 checkbox-container">
+                                <div class="form-check me-2">
+                                    <input class="form-check-input" type="checkbox" id="members1_na">
+                                    <label class="form-check-label" for="members1_na">N/A</label>
+                                </div>
+                                <input type="text" required name="members1[]" class="form-control">
+                            </div>
+                        <button type="button" class="btn btn-primary add-row-button" onclick="addInput('skills')">ADD
+                            ROW</button>
+                    </div>
+
+                    <div class=" mb-2 checkbox-container">
+                                <div class="form-check me-2">
+                                    <input class="form-check-input" type="checkbox" id="members2_na">
+                                    <label class="form-check-label" for="members2_na">N/A</label>
+                                </div>
+                                <input type="text" required name="members2[]" class="form-control">
+                            </div>
+                        <button type="button" class="btn btn-primary add-row-button"
+                            onclick="addInput('distinctions')">ADD ROW</button>
+                    </div>
+
+                    <div class=" mb-2 checkbox-container">
+                                <div class="form-check me-2">
+                                    <input class="form-check-input" type="checkbox" id="members_na">
+                                    <label class="form-check-label" for="members_na">N/A</label>
+                                </div>
+                                <input type="text" required name="members[]" class="form-control">
+                            </div>
+
+ -->
