@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <!-- EMPLOYEE'S FULL NAME -->
-    <div class="row my-5">
+    <div class="row mt-5">
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
             <input type="text" required name="name_last" id="name_last" class="form-control">

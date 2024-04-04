@@ -16,22 +16,9 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
     <style>
-        .edit-link {
-            float: right;
-            margin-right: 20px;
-            color: #007bff;
-        }
-
-        .paragraph-margin {
-            margin-bottom: 10px;
-        }
-
-        .desc {
-            text-align: center;
-        }
-
         hr {
             color: antiquewhite;
+            margin: 2em;
         }
     </style>
 </head>
@@ -88,9 +75,7 @@ $_SESSION['user_type'] = 'V';
                                 include_once "pds_sections/other_info.php";
                                 break;
                             case "references":
-                                ?>
-                                <!-- REFERENCES -->
-                                <?php
+                                // REFERENCES
                                 break;
                         }
                     }
