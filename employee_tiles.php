@@ -9,7 +9,7 @@ $_SESSION['user_type'] = 'V';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRIS - RSSO V (ORD)</title>
+    <title>HRIS - Employees</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
@@ -45,44 +45,37 @@ $_SESSION['user_type'] = 'V';
             include_once ('sidebar1.php');
 
             if (isset ($_GET['office'])) {
+                $scope = $_GET['scope'];
                 $office = $_GET['office'];
 
-                switch ($office) {
-                    case 'ORD':
-                        $title_one = 'Office of the Regional Director';
-                        break;
-                    case 'CRASD':
-                        $title_one = 'Civil Registration and Administrative Support Division';
-                        break;
-                    case 'SOCD':
-                        $title_one = 'Statistical Operations and Coordination Division';
-                        break;
-                    case 'Albay':
-                        $title_one = 'PSA - Albay';
-                        break;
-                    case 'Camarines Norte':
-                        $title_one = 'PSA - Camarines Norte';
-                        break;
-                    case 'Camarines Sur':
-                        $title_one = 'PSA - Camarines Sur';
-                        break;
-                    case 'Catanduanes':
-                        $title_one = 'PSA - Catanduanes';
-                        break;
-                    case 'Masbate':
-                        $title_one = 'PSA - Masbate';
-                        break;
-                    case 'Sorsogon':
-                        $title_one = 'PSA - Sorsogon';
-                        break;
-                }
+                if ($scope == 'region') {
+                    $sql = "SELECT * FROM `rsso_v` WHERE `rsso_acronym` = ?";
+                    $list_office = query($conn, $sql, array($office));
 
-                if ($office == 'ORD' || $office == 'CRASD' || $office == 'SOCD') {
-                    $title_two = 'Regional Statistical Services Office V';
-                    $title_three = '(RSSO V - ' . $office . ')';
-                } else if ($office == 'Albay' || $office == 'Camarines Norte' || $office == 'Camarines Sur' || $office == 'Catanduanes' || $office == 'Masbate' || $office == 'Sorsogon') {
-                    $title_two = 'Provincial Statistical Office';
-                    $title_three = '';
+                    if (empty ($list_office)) {
+                        exit();
+                    } else {
+                        $row = $list_office[0];
+
+                        $acro = $row['rsso_acronym'];
+                        $title_one = $row['rsso_name'];
+                        $title_two = 'Regional Statistical Services Office V';
+                        $title_three = 'RSSO V - ' . $acro;
+                    }
+
+                } else if ($scope == 'province') {
+                    $sql = "SELECT * FROM `provinces` WHERE `province_name` = ?";
+                    $list_office = query($conn, $sql, array($office));
+
+                    if (empty ($list_office)) {
+                        exit();
+                    } else {
+                        $row = $list_office[0];
+
+                        $title_one = $row["province_name"];
+                        $title_two = 'Provincial Statistical Office';
+                        $title_three = '';
+                    }
                 }
                 ?>
 
@@ -90,19 +83,27 @@ $_SESSION['user_type'] = 'V';
                     <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
                     <div class="row mt-3"
                         style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px">
-                        <h5 class="titletext uppercase"><?php echo $title_two; ?></h5>
-                        <h4 class="titletext uppercase"><strong><?php echo $title_one; ?></strong></h4>
-                        <h6 class="titletext uppercase"><?php echo $title_three; ?></h6>
+                        <h5 class="titletext uppercase">
+                            <?php echo $title_two; ?>
+                        </h5>
+                        <h4 class="titletext uppercase"><strong>
+                                <?php echo $title_one; ?>
+                            </strong></h4>
+                        <h6 class="titletext uppercase">
+                            <?php echo $title_three; ?>
+                        </h6>
                     </div>
                     <div class="row tilerow">
                         <?php
                         for ($i = 0; $i < 12; $i++) {
-                            echo '
+                            ?>
                             <div class="col-4 tile mt-3">
-                                <a href="pds_form.php?form_section=personal_info" style="text-decoration: none; color: inherit;">
+                                <a href="pds_form.php?form_section=personal_info"
+                                    style="text-decoration: none; color: inherit;">
                                     <div class="row">
                                         <div class="col-3">
-                                            <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto" style="border-radius:12px">
+                                            <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto"
+                                                style="border-radius:12px">
                                         </div>
                                         <div class="col-9">
                                             <p style="margin: 0"><strong>APRIL CASSANDRA S. REGALARIO</strong></p>
@@ -111,12 +112,21 @@ $_SESSION['user_type'] = 'V';
                                     </div>
                                 </a>
                             </div>
-                        ';
+                            <?php
                         }
                         ?>
                     </div>
+                    <div class="my-3">
+                        <a href="pds_form.php?form_section=personal_info">
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px; background-color: #283872; border: none;">Add
+                                Employee</button></a>
+                        <?php
+                        echo '
+                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">View organizational chart</a>
+                        ';
+                        ?>
+                    </div>
                 </div>
-
                 <?php
             }
             ?>
