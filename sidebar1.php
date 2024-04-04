@@ -35,49 +35,35 @@ if (isset ($_SESSION['user_id'])) {
                     RSSO V
                 </a>
                 <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item mt-2">
-                        <a href="organizational_chart_ord.php" class="sidebar-link ms-5">ORD</a>
-                    </li>
-                    <li class="sidebar-item mt-2">
-                        <a href="#" class="sidebar-link ms-5">CRASD</a>
-                    </li>
-                    <li class="sidebar-item mt-2">
-                        <a href="#" class="sidebar-link ms-5">SOCD</a>
-                    </li>
+                    <?php
+                    $list_rsso = query($conn, "SELECT * FROM `rsso_v`");
+                    foreach ($list_rsso as $key => $row) {
+                        $rsso_id = $row['rsso_id'];
+                        $rsso_acro = $row['rsso_acronym'];
+                        echo '
+                        <li class="sidebar-item mt-2">
+                            <a href="employee_tiles.php?office=' . $rsso_acro . '" class="sidebar-link ms-5">' . $rsso_acro . '</a>
+                        </li>
+                        ';
+                    } ?>
                 </ul>
             </li>
 
             <!-- PROVINCES -->
-            <li class="nav-item mt-2">
-                <a href="RSSO_ORD.php" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">ALBAY</span>
-                </a>
-            </li>
-            <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">CAMARINES NORTE</span>
-                </a>
-            </li>
-            <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">CAMARINES SUR</span>
-                </a>
-            </li>
-            <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">CATANDUANES</span>
-                </a>
-            </li>
-            <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">MASBATE</span>
-                </a>
-            </li>
-            <li class="nav-item mt-2">
-                <a href="#" class="nav-link px-sm-0 px-2">
-                    <span class="d-none d-lg-inline">SORSOGON</span>
-                </a>
-            </li>
+            <?php
+            $list_province = query($conn, "SELECT * FROM `provinces`");
+            foreach ($list_province as $key => $row) {
+                $prov_id = $row['province_id'];
+                $prov_name = $row['province_name'];
+                echo '
+                <li class="nav-item mt-2">
+                    <a href="employee_tiles.php?office=' . $prov_name . '" class="nav-link px-sm-0 px-2">
+                        <span class="d-none d-lg-inline uppercase">' . $prov_name . '</span>
+                    </a>
+                </li>
+                ';
+            } ?>
+            
             <div class="divider-bottom d-none d-lg-inline mb-2"></div>
 
             <!-- SETTINGS -->
