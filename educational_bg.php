@@ -94,24 +94,26 @@
                     <div class="col-2">
                         <div class="row">
                             <!-- FROM -->
-                            <div class="col px-0 mx-0 checkbox-container">
+                            <div class="col na px-0 mx-0 checkbox-container">
                                 <div style="display: inline-block; width: 48%">
                                     <input type="number" class="form-control" id="p_attendance_fromE"
                                         name="p_attendance_fromE" required min="1900" max="3000">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="null_fromE">
+                                    <input type="checkbox" class="form-check-input" id="null_fromE"
+                                        onchange="checkNA(this)">
                                     <label for="null_fromE" class="form-check-label mx-0">N/A</label>
                                 </div>
                             </div>
                             <!-- TO -->
-                            <div class="col checkbox-container px-0 mx-0">
+                            <div class="col na checkbox-container px-0 mx-0">
                                 <div style="display: inline-block; width: 48%;">
                                     <input type="number" class="form-control" id="p_attendance_toE"
                                         name="p_attendance_toE" required min="1900" max="3000">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="null_toE">
+                                    <input type="checkbox" class="form-check-input" id="null_toE"
+                                        onchange="checkNA(this)">
                                     <label for="null_toE" class="form-check-label">N/A</label>
                                 </div>
                             </div>
@@ -121,20 +123,21 @@
                         <input type="text" class="form-control" id="h_levelE" required>
                     </div>
                     <!-- YEAR GRADUATED -->
-                    <div class="col checkbox-container">
+                    <div class="col na checkbox-container">
                         <input type="number" class="form-control" id="year_graduatedE" required
                             style="display: inline-block; width:70%">
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="null_yearE">
+                            <input type="checkbox" class="form-check-input" id="null_yearE" onchange="checkNA(this)">
                             <label for="null_yearE" class="form-check-label">N/A</label>
                         </div>
                     </div>
                     <!-- SCHOLARSHIP/ACADEMIC HONORS RECEIVED -->
-                    <div class="col checkbox-container">
+                    <div class="col na checkbox-container">
                         <input type="text" class="form-control" id="e_scholarship" required
                             style="display: inline-block; width: 81%;">
                         <div class="form-check form-check-inline mx-0 my-0 p-0 ms-1">
-                            <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipE">
+                            <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipE"
+                                onchange="checkNA(this)">
                             <label for="null_scholarshipE" class="form-check-label mx-0 my-0">N/A</label>
                         </div>
                     </div>
@@ -152,20 +155,22 @@
                     <div class="col-2">
                         <div class="row">
                             <!-- FROM -->
-                            <div class="col checkbox-container px-0 mx-0">
+                            <div class="col na checkbox-container px-0 mx-0">
                                 <input type="number" class="form-control" id="p_attendance_fromS" required
                                     style="display: inline-block; width: 48%" min="1900" max="3000">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="null_fromS">
+                                    <input type="checkbox" class="form-check-input" id="null_fromS"
+                                        onchange="checkNA(this)">
                                     <label for="null_fromS" class="form-check-label mx-0">N/A</label>
                                 </div>
                             </div>
                             <!-- TO -->
-                            <div class="col checkbox-container px-0 mx-0">
+                            <div class="col na checkbox-container px-0 mx-0">
                                 <input type="number" class="form-control" id="p_attendance_toS" required
                                     style="display: inline-block; width: 48%;" min="1900" max="3000">
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="null_toS">
+                                    <input type="checkbox" class="form-check-input" id="null_toS"
+                                        onchange="checkNA(this)">
                                     <label for="null_toS" class="form-check-label">N/A</label>
                                 </div>
                             </div>
@@ -175,253 +180,241 @@
                         <input type="text" class="form-control" id="h_levelS" required>
                     </div>
                     <!-- YEAR GRADUATED -->
-                    <div class="col checkbox-container">
+                    <div class="col na checkbox-container">
                         <input type="number" class="form-control" id="year_graduatedS" required
                             style="display: inline-block; width:70%">
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" class="form-check-input" id="null_yearS">
+                            <input type="checkbox" class="form-check-input" id="null_yearS" onchange="checkNA(this)">
                             <label for="null_yearS" class="form-check-label">N/A</label>
                         </div>
                     </div>
                     <!-- SCHOLARSHIP -->
-                    <div class="col checkbox-container">
+                    <div class="col na checkbox-container">
                         <input type="text" class="form-control" id="s_scholarship" required
                             style="display: inline-block; width: 81%;">
                         <div class="form-check form-check-inline mx-0 my-0 p-0">
-                            <input type="checkbox" class="form-check-label mx-0 my-0 ms-1" id="null_scholarshipS">
+                            <input type="checkbox" class="form-check-label mx-0 my-0 ms-1" id="null_scholarshipS"
+                                onchange="checkNA(this)">
                             <label for="null_scholarshipS" class="form-check-label mx-0 my-0">N/A</label>
                         </div>
                     </div>
                 </div>
 
-                    <!-- VOCATIONAL/ TRADE COURSE -->
-                    <div class="row mt-3 ms-1">
-                        <div class="col-1 text-center d-flex align-items-center justify-content-center">VOCATIONAL/ TRADE
-                            COURSE
-                            <input type="checkbox" class="not_app input-class mb-3 pb-3" id="null_vocational">
-                            <label for="null_vocational" class="form-check-label na-text input-class mb-3 pb-3">N/A</label>
-                            <button type="button" class="delete-row-button ms-3 mb-4"
-                                style="display:none; background-color: transparent; border: none; color: red;">
-                            </button>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="name_schoolV" required>
-                            <i class="fa-solid fa-plus mt-2 ms-2" id="v_addrow" name="v_addrow"></i><span
-                                class="ms-2 mt-2 add-row-text">Add new Vocational row</span>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="degree_v" required>
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <!-- FROM -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_fromV" required
-                                        style="display: inline-block; width: 48%" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input input-class" id="null_fromV">
-                                        <label for="null_fromV" class="form-check-label mx-0">N/A</label>
-                                    </div>
+                <!-- VOCATIONAL/ TRADE COURSE -->
+                <div class="row mt-3 ms-1">
+                    <div class="col-1 text-center d-flex align-items-center justify-content-center">VOCATIONAL/ TRADE
+                        COURSE
+                        <input type="checkbox" class="not_app input-class mb-3 pb-3" id="null_vocational">
+                        <label for="null_vocational" class="form-check-label na-text input-class mb-3 pb-3">N/A</label>
+                        <button type="button" class="delete-row-button ms-3 mb-4"
+                            style="display:none; background-color: transparent; border: none; color: red;">
+                        </button>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="name_schoolV" required>
+                        <i class="fa-solid fa-plus mt-2 ms-2" id="v_addrow" name="v_addrow"></i>
+                        <span
+                            class="ms-2 mt-2 add-row-text">Add new Vocational row</span>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="degree_v" required>
+                    </div>
+                    <div class="col-2">
+                        <div class="row">
+                            <!-- FROM -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_fromV" required
+                                    style="display: inline-block; width: 48%" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input input-class" id="null_fromV"
+                                        onchange="checkNA(this)">
+                                    <label for="null_fromV" class="form-check-label mx-0">N/A</label>
                                 </div>
-                                <!-- TO -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_toV" required
-                                        style="display: inline-block; width: 48%;" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="null_toV">
-                                        <label for="null_toV" class="form-check-label">N/A</label>
-                                    </div>
+                            </div>
+                            <!-- TO -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_toV" required
+                                    style="display: inline-block; width: 48%;" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="null_toV"
+                                        onchange="checkNA(this)">
+                                    <label for="null_toV" class="form-check-label">N/A</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="h_levelV" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="h_levelV" required>
+                    </div>
+                    <!-- YEAR GRADUATED -->
+                    <div class="col na">
+                        <input type="number" class="form-control" id="year_graduatedV" required
+                            style="display: inline-block; width:70%">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="null_yearV" onchange="checkNA(this)">
+                            <label for="null_yearV" class="form-check-label">N/A</label>
                         </div>
+                    </div>
+                    <!-- SCHOLARSHIP/ ACADEMIC HONORS RECEIVED -->
+                    <div class="col na">
+                        <input type="text" class="form-control" id="v_scholarship" required
+                            style="display: inline-block; width: 81%;">
+                        <div class="form-check form-check-inline mx-0 my-0 p-0">
+                            <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipV"
+                                onchange="checkNA(this)">
+                            <label for="null_scholarshipV" class="form-check-label mx-0 my-0">N/A</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- COLLEGE -->
+                <div class="row mt-3 ms-1">
+                    <div class="col-1 text-center d-flex mb-4 ms-0">COLLEGE
+                        <button type="button" class=" delete-row-button ms-4"
+                            style="display:none; background-color: transparent; border: none; color: red;"><i
+                                class="fa-solid fa-xmark fa-2xl ms-4"></i>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="name_schoolC" required>
+                        <i class="fa-solid fa-plus mt-2 ms-2" id="c_addrow" name="c_addrow"></i><span
+                            class="ms-2 mt-2 add-row-text">Add new College row</span>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="degree_C" required>
+                    </div>
+                    <div class="col-2">
+                        <div class="row">
+                            <!-- FROM -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_fromC" required
+                                    style="display: inline-block; width: 48%" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="null_fromC"
+                                        onchange="checkNA(this)">
+                                    <label for="null_fromC" class="form-check-label mx-0">N/A</label>
+                                </div>
+                            </div>
+                            <!-- TO -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_toC" required
+                                    style="display: inline-block; width: 48%;" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="null_toC"
+                                        onchange="checkNA(this)">
+                                    <label for="null_toC" class="form-check-label">N/A</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="h_levelC" required>
+                    </div>
+                    <div class="col na">
                         <!-- YEAR GRADUATED -->
-                        <div class="col">
-                            <input type="number" class="form-control" id="year_graduatedV" required
-                                style="display: inline-block; width:70%">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="null_yearV">
-                                <label for="null_yearV" class="form-check-label">N/A</label>
-                            </div>
-                        </div>
-                        <!-- SCHOLARSHIP/ ACADEMIC HONORS RECEIVED -->
-                        <div class="col">
-                            <input type="text" class="form-control" id="v_scholarship" required
-                                style="display: inline-block; width: 81%;">
-                            <div class="form-check form-check-inline mx-0 my-0 p-0">
-                                <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipV">
-                                <label for="null_scholarshipV" class="form-check-label mx-0 my-0">N/A</label>
-                            </div>
+                        <input type="number" class="form-control" id="year_graduatedC" required
+                            style="display: inline-block; width:70%">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="null_yearC" onchange="checkNA(this)">
+                            <label for="null_yearC" class="form-check-label">N/A</label>
                         </div>
                     </div>
-                    <!-- COLLEGE -->
-                    <div class="row mt-3 ms-1">
-                        <div class="col-1 text-center d-flex mb-4 ms-0">COLLEGE
-                            <button type="button" class=" delete-row-button ms-4"
-                                style="display:none; background-color: transparent; border: none; color: red;"><i
-                                    class="fa-solid fa-xmark fa-2xl ms-4"></i>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="name_schoolC" required>
-                            <i class="fa-solid fa-plus mt-2 ms-2" id="c_addrow" name="c_addrow"></i><span
-                                class="ms-2 mt-2 add-row-text">Add new College row</span>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="degree_C" required>
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <!-- FROM -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_fromC" required
-                                        style="display: inline-block; width: 48%" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="null_fromC">
-                                        <label for="null_fromC" class="form-check-label mx-0">N/A</label>
-                                    </div>
-                                </div>
-                                <!-- TO -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_toC" required
-                                        style="display: inline-block; width: 48%;" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="null_toC">
-                                        <label for="null_toC" class="form-check-label">N/A</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="h_levelC" required>
-                        </div>
-                        <div class="col">
-                            <!-- YEAR GRADUATED -->
-                            <input type="number" class="form-control" id="year_graduatedC" required
-                                style="display: inline-block; width:70%">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="null_yearC">
-                                <label for="null_yearC" class="form-check-label">N/A</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="c_scholarship" required
-                                style="display: inline-block; width: 81%;">
-                            <div class="form-check form-check-inline mx-0 my-0 p-0">
-                                <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipC">
-                                <label for="null_scholarshipC" class="form-check-label mx-0 my-0">N/A</label>
-                            </div>
+                    <div class="col na">
+                        <input type="text" class="form-control" id="c_scholarship" required
+                            style="display: inline-block; width: 81%;">
+                        <div class="form-check form-check-inline mx-0 my-0 p-0">
+                            <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipC"
+                                onchange="checkNA(this)">
+                            <label for="null_scholarshipC" class="form-check-label mx-0 my-0">N/A</label>
                         </div>
                     </div>
+                </div>
 
-                    <!-- GRADUATE STUDIES -->
-                    <div class="row mt-3 ms-1">
-                        <div class="col-1 text-center d-flex align-items-center justify-content-center">GRADUATE STUDIES
-                            <input type="checkbox" class="not_app mb-3 pb-3 ms-3" id="null_graduate">
-                            <label for="null_graduate" class="form-check-label na-text mb-3 pb-3">N/A</label>
-                            <button type="button" class="delete-row-button ms-4"
-                                style="display:none; background-color: transparent; border: none; color: red;">
-                            </button>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="name_schoolG" required>
-                            <i class="fa-solid fa-plus mt-2 ms-2" id="g_addrow" name="g_addrow"></i><span
-                                class="ms-2 mt-2 small add-row-text">Add new Graduate Studies row</span>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="degree_g" required>
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <!-- FROM -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_fromG" required
-                                        style="display: inline-block; width: 48%" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="null_fromG">
-                                        <label for="null_fromG" class="form-check-label mx-0">N/A</label>
-                                    </div>
-                                </div>
-                                <!-- TO -->
-                                <div class="col checkbox-container px-0 mx-0">
-                                    <input type="number" class="form-control" id="p_attendance_toG" required
-                                        style="display: inline-block; width: 48%;" min="1900" max="3000">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="null_toG">
-                                        <label for="null_toG" class="form-check-label">N/A</label>
-                                    </div>
+                <!-- GRADUATE STUDIES -->
+                <div class="row mt-3 ms-1">
+                    <div class="col-1 text-center d-flex align-items-center justify-content-center">GRADUATE STUDIES
+                        <input type="checkbox" class="not_app mb-3 pb-3 ms-3" id="null_graduate">
+                        <label for="null_graduate" class="form-check-label na-text mb-3 pb-3">N/A</label>
+                        <button type="button" class="delete-row-button ms-4"
+                            style="display:none; background-color: transparent; border: none; color: red;">
+                        </button>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="name_schoolG" required>
+                        <i class="fa-solid fa-plus mt-2 ms-2" id="g_addrow" name="g_addrow"></i><span
+                            class="ms-2 mt-2 small add-row-text">Add new Graduate Studies row</span>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="degree_g" required>
+                    </div>
+                    <div class="col-2">
+                        <div class="row">
+                            <!-- FROM -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_fromG" required
+                                    style="display: inline-block; width: 48%" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="null_fromG"
+                                        onchange="checkNA(this)">
+                                    <label for="null_fromG" class="form-check-label mx-0">N/A</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" id="h_levelG" required>
-                        </div>
-                        <!-- YEAR GRADUATED -->
-                        <div class="col">
-                            <input type="number" class="form-control" id="year_graduatedG" required
-                                style="display: inline-block; width:70%">
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="null_yearG">
-                                <label for="null_yearG" class="form-check-label">N/A</label>
-                            </div>
-                        </div>
-                        <!-- SCHOLARSHIP -->
-                        <div class="col">
-                            <input type="text" class="form-control" id="g_scholarship" required
-                                style="display: inline-block; width: 81%;">
-                            <div class="form-check form-check-inline mx-0 my-0 p-0">
-                                <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipG">
-                                <label for="null_scholarshipG" class="form-check-label mx-0 my-0">N/A</label>
+                            <!-- TO -->
+                            <div class="col na checkbox-container px-0 mx-0">
+                                <input type="number" class="form-control" id="p_attendance_toG" required
+                                    style="display: inline-block; width: 48%;" min="1900" max="3000">
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="null_toG"
+                                        onchange="checkNA(this)">
+                                    <label for="null_toG" class="form-check-label">N/A</label>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="h_levelG" required>
+                    </div>
+                    <!-- YEAR GRADUATED -->
+                    <div class="col na">
+                        <input type="number" class="form-control" id="year_graduatedG" required
+                            style="display: inline-block; width:70%">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA(this)">
+                            <label for="null_yearG" class="form-check-label">N/A</label>
+                        </div>
+                    </div>
+                    <!-- SCHOLARSHIP -->
+                    <div class="col na">
+                        <input type="text" class="form-control" id="g_scholarship" required
+                            style="display: inline-block; width: 81%;">
+                        <div class="form-check form-check-inline mx-0 my-0 p-0">
+                            <input type="checkbox" class="form-check-label mx-0 my-0" id="null_scholarshipG"
+                                onchange="checkNA(this)">
+                            <label for="null_scholarshipG" class="form-check-label mx-0 my-0">N/A</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!-- <script type="text/javascript" src="educational_bg_script.js"></script> -->
 
     <script>
-        // Define handleNA function
-        function handleNA(checkboxId, inputId) {
-            const checkbox = document.getElementById(checkboxId);
-            const input = document.getElementById(inputId);
+        function checkNA(checkbox) {
+            var chk_col = checkbox.closest('.na');
+            var chk_inp = chk_col.querySelector("input");
 
-            checkbox.addEventListener("change", function () {
-                if (this.checked) {
-                    input.type = "text"; //Change input type to text 
-                    input.value = "N/A";
-                    input.disabled = true;
-                } else {
-                    input.type = "number" //Change input type back to number
-                    input.value = "";
-                    input.disabled = false;
-                }
-            })
+            if (checkbox.checked) {
+                chk_inp.type = "text";
+                chk_inp.value = "N/A";
+                chk_inp.disabled = true;
+            } else {
+                var scholarshipIDs = ["e_scholarship", "s_scholarship", "v_scholarship", "c_scholarship", "g_scholarship"];
+                chk_inp.type = scholarshipIDs.includes(chk_inp.id) ? "text" : "number";
+
+                chk_inp.value = "";
+                chk_inp.disabled = false;
+            }
         }
-
-        // Call handleNA function for each pair of checkbox and input
-        handleNA("null_fromE", "p_attendance_fromE");
-        handleNA("null_toE", "p_attendance_toE");
-        handleNA("null_yearE", "year_graduatedE");
-        handleNA("null_scholarshipE", "e_scholarship");
-        handleNA("null_fromS", "p_attendance_fromS")
-        handleNA("null_toS", "p_attendance_toS");
-        handleNA("null_yearS", "year_graduatedS");
-        handleNA("null_scholarshipS", "s_scholarship");
-        handleNA("null_fromV", "p_attendance_fromV");
-        handleNA("null_toV", "p_attendance_toV");
-        handleNA("null_yearV", "year_graduatedV");
-        handleNA("null_scholarshipV", "v_scholarship");
-        handleNA("null_fromC", "p_attendance_fromC");
-        handleNA("null_toC", "p_attendance_toC");
-        handleNA("null_yearC", "year_graduatedC");
-        handleNA("null_scholarshipC", "c_scholarship");
-        handleNA("null_fromG", "p_attendance_fromG");
-        handleNA("null_toG", "p_attendance_toG");
-        handleNA("null_yearG", "year_graduatedG");
-        handleNA("null_scholarshipG", "g_scholarship");
 
         function handleNAArray(checkboxId, inputIds, chkboxIds) {
             const checkbox = document.getElementById(checkboxId);
@@ -449,6 +442,27 @@
                         chkbx.checked = false;
                         chkbx.disabled = false;
                     });
+                }
+
+                //Handle newly added rows
+                const parentRow = checkbox.closest(".row");
+                const addRowText = parentRow.querySelector(".add-row-text");
+                if (addRowText && !addRowText.parentNode.classList.contains('new-row')) {
+                    const plusIcon = parentRow.querySelector(".fa-plus");
+                    const clonedRow = parentRow.cloneNode(true);
+                    const clonedInputs = clonedRow.querySelectorAll("input");
+                    const clonedNaCheckbox = clonedRow.querySelectorAll("input[type='checkbox'");
+
+                    if (this.checked) {
+                        clonedInputs.forEach(input => {
+                            input.value = "";
+                            input.disabled = false;
+                        });
+                        checkboxes.forEach(chkbx => {
+                            chkbx.checked = true;
+                            chkbx.disabled = true;
+                        });
+                    }
                 }
             });
         }
@@ -513,6 +527,14 @@
 
                     // Clone the parent row
                     const clonedRow = parentRow.cloneNode(true);
+                    //Add the new-row class to the cloned row 
+                    clonedRow.classList.add('new-row');
+
+                    //Clear checkbox values
+                    const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = false;
+                    });
 
                     //Remove the n/a checkbox and its associated text from the cloned row
                     const clonedNaCheckbox = clonedRow.querySelector(".not_app");
@@ -522,8 +544,8 @@
                     const clonedNaText = clonedRow.querySelector(".na-text");
                     if (clonedNaText) {
                         clonedNaText.parentNode.removeChild(clonedNaText);
-
                     }
+
                     //find the delete button in the cloned row and enable it 
                     const deleteButton = clonedRow.querySelector(".delete-row-button");
                     if (deleteButton) {
@@ -541,8 +563,16 @@
                         const newId = generateUniqueId(oldId); // Generate a unique id 
                         input.setAttribute("id", newId);
 
+                        //Update corresponding label ID
+                        const labelFor = input.getAttribute("id");
+                        const label = clonedRow.querySelector(`label[for="${oldId}"]`);
+                        if (label) {
+                            label.setAttribute("for", newId);
+                        }
+
                         // Optionally, clear input values in cloned row
                         input.value = "";
+                        input.disabled = false;
                     });
 
                     //Find the "Add new row" text span
@@ -558,7 +588,7 @@
                     }
 
                     // Append the cloned row before the "Add new row" text 
-                    parentRow.parentNode.insertBefore(clonedRow, parentRow);
+                    parentRow.insertAdjacentElement("afterend", clonedRow);
                 });
             });
         });
