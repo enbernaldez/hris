@@ -370,124 +370,125 @@ $_SESSION['user_type'] = 'V';
                                             </div>
                                         </div>
                                     </div>
-                                    <script
-                                        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-                                    <script>
-                                        function addInput(section) {
-                                            var container = document.querySelector('.' + section + '-container');
-                                            var inputGroup = document.createElement('div');
-                                            inputGroup.classList.add('input-group');
-                                            inputGroup.classList.add('mb-2');
-
-                                            var checkbox = document.createElement('input');
-                                            checkbox.classList.add('form-check-input');
-                                            checkbox.classList.add('me-2');
-                                            checkbox.setAttribute('type', 'checkbox');
-                                            checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
-                                            checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
-                                            checkbox.required = true;
-
-                                            var checkboxLabel = document.createElement('label');
-                                            checkboxLabel.classList.add('form-check-label');
-                                            checkboxLabel.classList.add('me-2');
-                                            checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
-                                            checkboxLabel.textContent = 'Delete'; // Change label text
-
-                                            inputGroup.appendChild(checkbox);
-                                            inputGroup.appendChild(checkboxLabel);
-
-                                            var input = document.createElement('input');
-                                            input.setAttribute('type', 'text');
-                                            input.setAttribute('name', section + '[]');
-                                            input.classList.add('form-control');
-                                            input.required = true;
-
-                                            inputGroup.appendChild(input);
-
-                                            container.appendChild(inputGroup);
-                                        }
-
-                                        //Delete added row
-                                        function deleteRow(checkbox) {
-                                            var row = checkbox.closest('.input-group');
-                                            row.remove();
-                                        }
-
-                                        function checkNA(section) {
-                                            var checkbox = document.getElementById(section + '_na');
-                                            var inputs = document.querySelectorAll('.' + section + '-container input[type="text"]');
-                                            inputs.forEach(function (input) {
-                                                if (checkbox.checked) {
-                                                    input.value = "N/A";
-                                                    input.disabled = true;
-                                                } else {
-                                                    input.value = "";
-                                                    input.disabled = false;
-                                                }
-                                            });
-                                        }
-
-
-
-                                        // Function to enable/disable input fields based on radio button selection
-                                        function toggleInput(inputId, radioId) {
-                                            const inputBox = document.getElementById(inputId);
-                                            const radioButton = document.getElementById(radioId);
-
-                                            radioButton.addEventListener('change', function () {
-                                                inputBox.disabled = (this.value === 'no');
-                                                if (this.value === 'no') {
-                                                    inputBox.value = ''; // Clear input field when "No" is selected
-                                                    if (inputId === 'input_status') {
-                                                        document.getElementById('input_status').disabled = true;
-                                                    }
-                                                } else {
-                                                    if (inputId === 'input_status') {
-                                                        document.getElementById('input_status').disabled = false;
-                                                    }
-                                                }
-                                            });
-                                        }
-
-                                        // Call the function for each pair of radio and input
-                                        toggleInput("input_degree", "radio_degree1"); // For Yes
-                                        toggleInput("input_degree", "radio_degree"); // For No
-
-                                        toggleInput("input_guilty", "radio_guilty1");
-                                        toggleInput("input_guilty", "radio_guilty");
-
-                                        toggleInput("input_filed", "radio_filed1"); //to disable and remove text for status of case/s
-                                        toggleInput("input_filed", "radio_filed");
-
-                                        toggleInput("input_status", "radio_filed1");
-                                        toggleInput("input_status", "radio_filed");
-
-                                        toggleInput("input_convicted", "radio_convicted1");
-                                        toggleInput("input_convicted", "radio_convicted");
-
-                                        toggleInput("input_seperated", "radio_seperated1");
-                                        toggleInput("input_seperated", "radio_seperated");
-
-                                        toggleInput("input_resigned", "radio_resigned1");
-                                        toggleInput("input_resigned", "radio_resigned");
-
-                                        toggleInput("input_immigrant", "radio_immigrant1");
-                                        toggleInput("input_immigrant", "radio_immigrant");
-
-                                        toggleInput("input_indigenous", "radio_indigenous1");
-                                        toggleInput("input_indigenous", "radio_indigenous");
-
-                                        toggleInput("input_disability", "radio_disability1");
-                                        toggleInput("input_disability", "radio_disability");
-
-                                        toggleInput("input_solo", "radio_solo1");
-                                        toggleInput("input_solo", "radio_solo");
-                                    </script>
 
 
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addInput(section) {
+            var container = document.querySelector('.' + section + '-container');
+            var inputGroup = document.createElement('div');
+            inputGroup.classList.add('input-group');
+            inputGroup.classList.add('mb-2');
+
+            var checkbox = document.createElement('input');
+            checkbox.classList.add('form-check-input');
+            checkbox.classList.add('me-2');
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
+            checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
+            checkbox.required = true;
+
+            var checkboxLabel = document.createElement('label');
+            checkboxLabel.classList.add('form-check-label');
+            checkboxLabel.classList.add('me-2');
+            checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
+            checkboxLabel.textContent = 'Delete'; // Change label text
+
+            inputGroup.appendChild(checkbox);
+            inputGroup.appendChild(checkboxLabel);
+
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('name', section + '[]');
+            input.classList.add('form-control');
+            input.required = true;
+
+            inputGroup.appendChild(input);
+
+            container.appendChild(inputGroup);
+        }
+
+        //Delete added row
+        function deleteRow(checkbox) {
+            var row = checkbox.closest('.input-group');
+            row.remove();
+        }
+
+        function checkNA(section) {
+            var checkbox = document.getElementById(section + '_na');
+            var inputs = document.querySelectorAll('.' + section + '-container input[type="text"]');
+            inputs.forEach(function (input) {
+                if (checkbox.checked) {
+                    input.value = "N/A";
+                    input.disabled = true;
+                } else {
+                    input.value = "";
+                    input.disabled = false;
+                }
+            });
+        }
+        
+        // Function to enable/disable input fields based on radio button selection
+        function toggleInput(inputId, radioId) {
+            const inputBox = document.getElementById(inputId);
+            const radioButton = document.getElementById(radioId);
+
+            radioButton.addEventListener('change', function () {
+                inputBox.disabled = (this.value === 'no');
+                if (this.value === 'no') {
+                    inputBox.value = ''; // Clear input field when "No" is selected
+                    if (inputId === 'input_status') {
+                        document.getElementById('input_status').disabled = true;
+                    }
+                } else {
+                    if (inputId === 'input_status') {
+                        document.getElementById('input_status').disabled = false;
+                    }
+                }
+            });
+        }
+
+        // Call the function for each pair of radio and input
+        toggleInput("input_degree", "radio_degree1"); // For Yes
+        toggleInput("input_degree", "radio_degree"); // For No
+
+        toggleInput("input_guilty", "radio_guilty1");
+        toggleInput("input_guilty", "radio_guilty");
+
+        toggleInput("input_filed", "radio_filed1"); //to disable and remove text for status of case/s
+        toggleInput("input_filed", "radio_filed");
+
+        toggleInput("input_status", "radio_filed1");
+        toggleInput("input_status", "radio_filed");
+
+        toggleInput("input_convicted", "radio_convicted1");
+        toggleInput("input_convicted", "radio_convicted");
+
+        toggleInput("input_seperated", "radio_seperated1");
+        toggleInput("input_seperated", "radio_seperated");
+
+        toggleInput("input_resigned", "radio_resigned1");
+        toggleInput("input_resigned", "radio_resigned");
+
+        toggleInput("input_immigrant", "radio_immigrant1");
+        toggleInput("input_immigrant", "radio_immigrant");
+
+        toggleInput("input_indigenous", "radio_indigenous1");
+        toggleInput("input_indigenous", "radio_indigenous");
+
+        toggleInput("input_disability", "radio_disability1");
+        toggleInput("input_disability", "radio_disability");
+
+        toggleInput("input_solo", "radio_solo1");
+        toggleInput("input_solo", "radio_solo");
+    </script>
 </body>
 
 </html>

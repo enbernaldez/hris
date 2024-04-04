@@ -9,12 +9,31 @@ $_SESSION['user_type'] = 'V';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Information</title>
+    <title>Personal Data Sheet</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="icons/bootstrap-icons.css">
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
+    <style>
+        .edit-link {
+            float: right;
+            margin-right: 20px;
+            color: #007bff;
+        }
+
+        .paragraph-margin {
+            margin-bottom: 10px;
+        }
+
+        .desc {
+            text-align: center;
+        }
+
+        hr {
+            color: antiquewhite;
+        }
+    </style>
 </head>
 
 <body style="background-color: #80A1F5">
@@ -66,9 +85,7 @@ $_SESSION['user_type'] = 'V';
                                 include_once "pds_sections/lnd.php";
                                 break;
                             case "other_info":
-                                ?>
-                                <!-- OTHER INFORMATION -->
-                                <?php
+                                include_once "pds_sections/other_info.php";
                                 break;
                             case "references":
                                 ?>
