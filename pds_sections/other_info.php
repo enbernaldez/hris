@@ -2,73 +2,105 @@
     <div class="row">
         <div class="row mt-5">
             <div class="col-4">
-                <p class="desc">SPECIAL SKILLS AND HOBBIES</p>
+                <p class="desc">
+                    SPECIAL SKILLS AND HOBBIES
+                </p>
                 <div class="skills-container">
                     <div class="input-group mb-2">
                         <input class="form-check-input me-2" type="checkbox" id="skills_na" onclick="checkNA('skills')"
                             required>
-                        <label class="form-check-label me-2" for="skills_na">N/A</label>
+                        <label class="form-check-label me-2" for="skills_na">
+                            N/A
+                        </label>
                         <input type="text" name="skills[]" class="form-control" required>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary add-row-button float-end" id="oi_skills_addrow" onclick="addInput('skills')">ADD
-                    ROW</button>
+                <button type="button" class="btn btn-primary add-row-button float-end" id="oi_skills_addrow"
+                    onclick="addInput('skills')">
+                    ADD ROW
+                </button>
             </div>
             <div class="col-4">
-                <p class="desc">NON-ACADEMIC DISTINCTIONS/DISTINCTIONS (Write in full)</p>
+                <p class="desc">
+                    NON-ACADEMIC DISTINCTIONS/DISTINCTIONS (Write in full)
+                </p>
                 <div class="distinctions-container">
                     <div class="input-group mb-2">
                         <input class="form-check-input me-2" type="checkbox" id="distinctions_na"
                             onclick="checkNA('distinctions')" required>
-                        <label class="form-check-label me-2" for="distinctions_na">N/A</label>
+                        <label class="form-check-label me-2" for="distinctions_na">
+                            N/A
+                        </label>
                         <input type="text" name="distinctions[]" class="form-control" required>
                     </div>
                 </div>
                 <button type="button" class="btn btn-primary add-row-button float-end" id="oi_distinctions_addrow"
-                    onclick="addInput('distinctions')">ADD ROW</button>
+                    onclick="addInput('distinctions')">
+                    ADD ROW
+                </button>
             </div>
             <div class="col-4">
-                <p class="desc">MEMBERS IN ASSOCIATION/ORGANIZATION (Write in full)</p>
+                <p class="desc">
+                    MEMBERS IN ASSOCIATION/ORGANIZATION (Write in full)
+                </p>
                 <div class="members-container">
                     <div class="input-group mb-2">
                         <input class="form-check-input me-2" type="checkbox" id="members_na"
                             onclick="checkNA('members')" required>
-                        <label class="form-check-label me-2" for="members_na">N/A</label>
+                        <label class="form-check-label me-2" for="members_na">
+                            N/A
+                        </label>
                         <input type="text" name="members[]" class="form-control" required>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary add-row-button float-end" id="oi_members_addrow" onclick="addInput('members')">ADD
-                    ROW</button>
+                <button type="button" class="btn btn-primary add-row-button float-end" id="oi_members_addrow"
+                    onclick="addInput('members')">
+                    ADD ROW
+                </button>
             </div>
         </div>
         <!-- QUESTIONS -->
         <div class="row mt-3">
             <div class="col-12">
-                <p>Are you related by consanguinity or affinity to the appointing or recommending authority, or
-                    to the chief of bureau or office or to the person who has immediate supervision over you in
-                    the Office, Bureau or Department where you will be appointed?</p>
+                <p>
+                    Are you related by consanguinity or affinity to the appointing or recommending authority,
+                    or to the chief of bureau or office or to the person who has immediate supervision over you
+                    in the Office, Bureau or Department where you will be appointed?
+                </p>
                 <div>
-                    <p>a. within the third degree?</p>
+                    <p>
+                        a. within the third degree?
+                    </p>
                     <div>
-                        &emsp;<input type="radio" id="radio_consanguinity1" name="radio_consanguinity" value="yes"
-                            required> Yes
+                        &emsp;
+                        <input type="radio" id="radio_consanguinity1" name="radio_consanguinity" value="yes" required>
+                        Yes
                     </div>
                     <div>
-                        &emsp;<input type="radio" id="radio_consanguinity" name="radio_consanguinity" value="no"
-                            required> No
+                        &emsp;
+                        <input type="radio" id="radio_consanguinity" name="radio_consanguinity" value="no" required>
+                        No
                     </div>
                 </div>
                 <div>
-                    <p>b. within the fourth degree (for Local Government Unit - Career Employees)?</p>
+                    <p>
+                        b. within the fourth degree (for Local Government Unit - Career Employees)?
+                    </p>
                     <div>
-                        &emsp;<input type="radio" id="radio_degree1" name="radio_degree" value="yes"> Yes
+                        &emsp;
+                        <input type="radio" id="radio_degree1" name="radio_degree" value="yes">
+                        Yes
                     </div>
                     <div>
-                        &emsp;<input type="radio" id="radio_degree" name="radio_degree" value="no"> No
+                        &emsp;
+                        <input type="radio" id="radio_degree" name="radio_degree" value="no">
+                        No
                     </div>
                     <div class="row">
                         <div class="col-3">
-                            <p>If YES, please give details:</p>
+                            <p>
+                                If YES, please give details:
+                            </p>
                         </div>
                         <div class="col-4">
                             <input type="text" id="input_degree" name="input_degree" class="form-control" required
@@ -82,16 +114,23 @@
             <div class="row mt-3">
                 <div class="col-12">
                     <div>
-                        <p>a. Have you ever been found guilty of any administrative offense?</p>
+                        <p>
+                            a. Have you ever been found guilty of any administrative offense?
+                        </p>
                         <div>
-                            &emsp;<input type="radio" id="radio_guilty1" name="radio_guilty" value="yes"> Yes
+                            &emsp;
+                            <input type="radio" id="radio_guilty1" name="radio_guilty" value="yes"> Yes
                         </div>
                         <div>
-                            &emsp;<input type="radio" id="radio_guilty" name="radio_guilty" value="no"> No
+                            &emsp;
+                            <input type="radio" id="radio_guilty" name="radio_guilty" value="no">
+                            No
                         </div>
                         <div class="row">
                             <div class="col-3">
-                                <p>If YES, please give details:</p>
+                                <p>
+                                    If YES, please give details:
+                                </p>
                             </div>
                             <div class="col-4">
                                 <input type="text" id="input_guilty" name="input_guilty" class="form-control" required
@@ -100,17 +139,27 @@
                         </div>
                     </div>
                     <div>
-                        <p>b. Have you ever been criminally charged before any court?</p>
+                        <p>
+                            b. Have you ever been criminally charged before any court?
+                        </p>
                         <div>
-                            &emsp;<input type="radio" id="radio_filed1" name="radio_filed" value="yes"> Yes
+                            &emsp;
+                            <input type="radio" id="radio_filed1" name="radio_filed" value="yes">
+                            Yes
                         </div>
                         <div>
-                            &emsp;<input type="radio" id="radio_filed" name="radio_filed" value="no"> No
+                            &emsp;
+                            <input type="radio" id="radio_filed" name="radio_filed" value="no">
+                            No
                         </div>
-                        <p>If YES, please give details:</p>
+                        <p>
+                            If YES, please give details:
+                        </p>
                         <div class="row">
                             <div class="col-3 mb-2">
-                                <p>Date Filed:</p>
+                                <p>
+                                    Date Filed:
+                                </p>
                             </div>
                             <div class="col-4">
                                 <input type="date" id="input_filed" name="input_filed" class="form-control" required
@@ -119,7 +168,9 @@
                         </div>
                         <div class="row">
                             <div class="col-3 mb-2">
-                                <p>Status of Case/s:</p>
+                                <p>
+                                    Status of Case/s:
+                                </p>
                             </div>
                             <div class="col-4">
                                 <input type="text" id="input_status" name="input_status" class="form-control" required
@@ -129,10 +180,13 @@
                         <hr>
                     </div>
                     <div class="col-12">
-                        <p>Have you ever been convicted of any crime or violation of any law, decree,
-                            ordinance or regulation by any court or tribunal?</p>
+                        <p>
+                            Have you ever been convicted of any crime or violation of any
+                            law, decree, ordinance or regulation by any court or tribunal?
+                        </p>
                         <div>
-                            &emsp;<input type="radio" id="radio_convicted1" name="radio_convicted" value="yes">
+                            &emsp;
+                            <input type="radio" id="radio_convicted1" name="radio_convicted" value="yes">
                             Yes
                         </div>
                         <div>
@@ -151,19 +205,26 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <p>Have you ever been seperated from the service in any of the following modes:
-                        resignation, retirement, dropped from the rolls, dismissal, termination, end of
-                        term, finished contract or phased out (abolition) in the public or private
-                        sector?</p>
+                    <p>
+                        Have you ever been seperated from the service in any of the following modes:
+                        resignation, retirement, dropped from the rolls, dismissal, termination, end of term,
+                        finished contract or phased out (abolition) in the public or private sector?
+                    </p>
                     <div>
-                        &emsp;<input type="radio" id="radio_seperated1" name="radio_seperated" value="yes"> Yes
+                        &emsp;
+                        <input type="radio" id="radio_seperated1" name="radio_seperated" value="yes">
+                        Yes
                     </div>
                     <div>
-                        &emsp;<input type="radio" id="radio_seperated" name="radio_seperated" value="no"> No
+                        &emsp;
+                        <input type="radio" id="radio_seperated" name="radio_seperated" value="no">
+                        No
                     </div>
                     <div class="row">
                         <div class="col-3">
-                            <p>If YES, please give details:</p>
+                            <p>
+                                If YES, please give details:
+                            </p>
                         </div>
                         <div class="col-4">
                             <input type="text" id="input_seperated" name="input_seperated" class="form-control" required
@@ -174,30 +235,42 @@
                     <div>
                         <div class="col-12">
                             <div>
-                                <p>a. Have you ever been a candidate in a national or local election
+                                <p>
+                                    a. Have you ever been a candidate in a national or local election
                                     held within the last year (except Barangay Election)?
+                                </p>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_candidate1" name="radio_candidate" value="yes">
+                                    &emsp;
+                                    <input type="radio" id="radio_candidate1" name="radio_candidate" value="yes">
                                     Yes
                                 </div>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_candidate" name="radio_candidate" value="no"> No
+                                    &emsp;
+                                    <input type="radio" id="radio_candidate" name="radio_candidate" value="no">
+                                    No
                                 </div>
                             </div>
                             <div>
-                                <p>b. Have you resigned from the government service during the three
-                                    (3)-month period before the last election to promote/actively
-                                    campaign for a national or local candidate?</p>
+                                <p>
+                                    b. Have you resigned from the government service during the
+                                    three(3)-month period before the last election to
+                                    promote/actively campaign for a national or local candidate?
+                                </p>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_resigned1" name="radio_resigned" value="yes">
+                                    &emsp;
+                                    <input type="radio" id="radio_resigned1" name="radio_resigned" value="yes">
                                     Yes
                                 </div>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_resigned" name="radio_resigned" value="no"> No
+                                    &emsp;
+                                    <input type="radio" id="radio_resigned" name="radio_resigned" value="no">
+                                    No
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        <p>If YES, please give details:</p>
+                                        <p>
+                                            If YES, please give details:
+                                        </p>
                                     </div>
                                     <div class="col-4">
                                         <input type="text" id="input_resigned" name="input_resigned"
@@ -208,18 +281,26 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <p>Have you acquired the status of an immigrant or permanent resident of
-                                another country?</p>
+                            <p>
+                                Have you acquired the status of an immigrant or permanent resident of
+                                another country?
+                            </p>
                             <div>
-                                &emsp;<input type="radio" id="radio_immigrant1" name="radio_immigrant" value="yes"> Yes
+                                &emsp;
+                                <input type="radio" id="radio_immigrant1" name="radio_immigrant" value="yes">
+                                Yes
                             </div>
                             <div>
-                                &emsp;<input type="radio" id="radio_immigrant" name="radio_immigrant" value="no"> No
+                                &emsp;
+                                <input type="radio" id="radio_immigrant" name="radio_immigrant" value="no">
+                                No
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-3">
-                                <p>If YES, please give details (country):</p>
+                                <p>
+                                    If YES, please give details (country):
+                                </p>
                             </div>
                             <div class="col-4">
                                 <input type="text" id="input_immigrant" name="input_immigrant" class="form-control"
@@ -229,22 +310,30 @@
                         <hr>
                         <div class="col-12">
                             <div>
-                                <p>Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna
-                                    Carta for Disabled Persons (RA 7277); and (c) Solo Parents
-                                    Welfare Act of 2000 (RA 8972), please answer the following
-                                    items:</p>
-                                <p>a. Are you a member of any indigenous group?</p>
+                                <p>
+                                    Pursuant to: (a) Indigenous People's Act (RA 8371);
+                                    (b) Magna Carta for Disabled Persons (RA 7277);
+                                    and (c) Solo Parents Welfare Act of 2000 (RA 8972),
+                                    please answer the following items:
+                                </p>
+                                <p>
+                                    a. Are you a member of any indigenous group?
+                                </p>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_indigenous1" name="radio_indigenous"
-                                        value="yes"> Yes
+                                    &emsp;
+                                    <input type="radio" id="radio_indigenous1" name="radio_indigenous" value="yes">
+                                    Yes
                                 </div>
                                 <div>
-                                    &emsp;<input type="radio" id="radio_indigenous" name="radio_indigenous" value="no">
+                                    &emsp;
+                                    <input type="radio" id="radio_indigenous" name="radio_indigenous" value="no">
                                     No
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        <p>If YES, please specify:</p>
+                                        <p>
+                                            If YES, please specify:
+                                        </p>
                                     </div>
                                     <div class="col-4">
                                         <input type="text" id="input_indigenous" name="input_indigenous"
@@ -254,16 +343,20 @@
                                 <div>
                                     <p>b. Are you a person with disability?</p>
                                     <div>
-                                        &emsp;<input type="radio" id="radio_disability1" name="radio_disability"
-                                            value=" yes"> Yes
+                                        &emsp;
+                                        <input type="radio" id="radio_disability1" name="radio_disability" value=" yes">
+                                        Yes
                                     </div>
                                     <div>
-                                        &emsp;<input type="radio" id="radio_disability" name="radio_disability"
-                                            value="no"> No
+                                        &emsp;
+                                        <input type="radio" id="radio_disability" name="radio_disability" value="no">
+                                        No
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <p>If YES, please specify ID No:</p>
+                                            <p>
+                                                If YES, please specify ID No:
+                                            </p>
                                         </div>
                                         <div class="col-4">
                                             <input type="text" id="input_disability" name="input_disability"
@@ -272,17 +365,24 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p>c. Are you a solo parent?</p>
+                                    <p>
+                                        c. Are you a solo parent?
+                                    </p>
                                     <div>
-                                        &emsp;<input type="radio" id="radio_solo1" name="radio_solo" value="yes"> Yes
+                                        &emsp;
+                                        <input type="radio" id="radio_solo1" name="radio_solo" value="yes">
+                                        Yes
                                     </div>
                                     <div>
-                                        &emsp;<input type="radio" id="radio_solo" name="radio_solo" value="no">
+                                        &emsp;
+                                        <input type="radio" id="radio_solo" name="radio_solo" value="no">
                                         No
                                     </div>
                                     <div class="row">
                                         <div class="col-3">
-                                            <p>If YES, please specify ID:</p>
+                                            <p>
+                                                If YES, please specify ID:
+                                            </p>
                                         </div>
                                         <div class="col-4">
                                             <input type="text" id="input_solo" name="input_solo" class="form-control"
@@ -334,11 +434,6 @@
     }
 
     //Delete added row
-    function deleteRow(checkbox) {
-        var row = checkbox.closest('.input-group');
-        row.remove();
-    }
-
     function checkNA(section) {
         var checkbox = document.getElementById(section + '_na');
         var inputs = document.querySelectorAll('.' + section + '-container input[type="text"]');
