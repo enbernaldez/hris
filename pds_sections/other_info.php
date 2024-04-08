@@ -4,12 +4,14 @@
             <p class="desc">
                 SPECIAL SKILLS AND HOBBIES
             </p>
-            <div class="skills-container mb-2 checkbox-container">
-                <div class="form-check me-2">
-                    <input class="form-check-input" type="checkbox" id="skills_na" onclick="checkNA('skills')">
-                    <label class="form-check-label" for="skills_na">N/A</label>
+            <div class="skills-container">
+                <div class="checkbox-container mb-2">
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="checkbox" id="skills_na" onclick="checkNA('skills')">
+                        <label class="form-check-label" for="skills_na">N/A</label>
+                    </div>
+                    <input type="text" name="skills[]" class="form-control" required>
                 </div>
-                <input type="text" name="skills[]" class="form-control" required>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_skills_addrow"
                 onclick="addInput('skills')">
@@ -20,13 +22,15 @@
             <p class="desc">
                 NON-ACADEMIC DISTINCTIONS/RECOGNITION (Write in full)
             </p>
-            <div class="distinctions-container mb-2 checkbox-container">
-                <div class="form-check me-2">
-                    <input class="form-check-input" type="checkbox" id="distinctions_na"
-                        onclick="checkNA('distinctions')">
-                    <label class="form-check-label" for="distinctions_na">N/A</label>
+            <div class="distinctions-container">
+                <div class="checkbox-container mb-2">
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="checkbox" id="distinctions_na"
+                            onclick="checkNA('distinctions')">
+                        <label class="form-check-label" for="distinctions_na">N/A</label>
+                    </div>
+                    <input type="text" name="distinctions[]" class="form-control" required>
                 </div>
-                <input type="text" name="distinctions[]" class="form-control" required>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_distinctions_addrow"
                 onclick="addInput('distinctions')">
@@ -37,12 +41,14 @@
             <p class="desc">
                 MEMBERS IN ASSOCIATION/ORGANIZATION (Write in full)
             </p>
-            <div class="members-container mb-2 checkbox-container">
-                <div class="form-check me-2">
-                    <input class="form-check-input" type="checkbox" id="members_na" onclick="checkNA('members')">
-                    <label class="form-check-label" for="members_na">N/A</label>
+            <div class="members-container">
+                <div class="checkbox-container mb-2">
+                    <div class="form-check me-2">
+                        <input class="form-check-input" type="checkbox" id="members_na" onclick="checkNA('members')">
+                        <label class="form-check-label" for="members_na">N/A</label>
+                    </div>
+                    <input type="text" name="members[]" class="form-control" required>
                 </div>
-                <input type="text" name="members[]" class="form-control" required>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_members_addrow"
                 onclick="addInput('members')">
@@ -52,7 +58,7 @@
     </div>
     <hr>
     <!-- QUESTIONS -->
-    <div class="row">
+    <div class="container">
         <div class="container">
             <p>
                 Are you related by consanguinity or affinity to the appointing or recommending authority,
@@ -84,7 +90,7 @@
                     <input type="radio" id="radio_degree" name="radio_degree" value="no">
                     <label for="radio_degree">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
@@ -108,7 +114,7 @@
                     <input type="radio" id="radio_guilty" name="radio_guilty" value="no">
                     <label for="radio_guilty">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
@@ -129,21 +135,25 @@
                     <input type="radio" id="radio_filed" name="radio_filed" value="no">
                     <label for="radio_filed">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="my-3">
                     <p>If YES, please give details:</p>
-                    <div class="col-3">
-                        <p>Date Filed:</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <p>Date Filed:</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="date" id="input_filed" name="input_filed" class="form-control" required
+                                disabled>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <input type="date" id="input_filed" name="input_filed" class="form-control" required disabled>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <p>Status of Case/s:</p>
-                    </div>
-                    <div class="col">
-                        <input type="text" id="input_status" name="input_status" class="form-control" required disabled>
+                    <div class="row">
+                        <div class="col-3">
+                            <p>Status of Case/s:</p>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="input_status" name="input_status" class="form-control" required
+                                disabled>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,7 +175,7 @@
                     <input type="radio" id="radio_convicted" name="radio_convicted" value="no">
                     <label for="radio_convicted">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
@@ -193,7 +203,7 @@
                 <input type="radio" id="radio_seperated" name="radio_seperated" value="no">
                 <label for="radio_seperated">No</label>
             </div>
-            <div class="row mt-3">
+            <div class="row my-3">
                 <div class="col-3">
                     <p>If YES, please give details:</p>
                 </div>
@@ -237,7 +247,7 @@
                     <input type="radio" id="radio_resigned" name="radio_resigned" value="no">
                     <label for="radio_resigned">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
@@ -261,7 +271,7 @@
                 <input type="radio" id="radio_immigrant" name="radio_immigrant" value="no">
                 <label for="radio_immigrant">No</label>
             </div>
-            <div class="row mt-3">
+            <div class="row my-3">
                 <div class="col-3">
                     <p>If YES, please give details (country):</p>
                 </div>
@@ -291,7 +301,7 @@
                     <input type="radio" id="radio_indigenous" name="radio_indigenous" value="no">
                     <label for="radio_indigenous">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify:</p>
                     </div>
@@ -313,7 +323,7 @@
                     <input type="radio" id="radio_disability" name="radio_disability" value="no">
                     <label for="radio_disability">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify ID No:</p>
                     </div>
@@ -335,7 +345,7 @@
                     <input type="radio" id="radio_solo" name="radio_solo" value="no">
                     <label for="radio_solo">No</label>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify ID:</p>
                     </div>
@@ -351,24 +361,28 @@
     function addInput(section) {
         var container = document.querySelector('.' + section + '-container');
         var inputGroup = document.createElement('div');
+        inputGroup.classList.add('checkbox-container');
         inputGroup.classList.add('mb-2');
+
+        var naDiv = document.createElement('div');
+        naDiv.classList.add('form-check');
+        naDiv.classList.add('me-2');
+
+        inputGroup.appendChild(naDiv);
 
         var checkbox = document.createElement('input');
         checkbox.classList.add('form-check-input');
-        checkbox.classList.add('me-2');
         checkbox.setAttribute('type', 'checkbox');
         checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
         checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
-        checkbox.required = true;
 
         var checkboxLabel = document.createElement('label');
         checkboxLabel.classList.add('form-check-label');
-        checkboxLabel.classList.add('me-2');
         checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
         checkboxLabel.textContent = 'Delete'; // Change label text
 
-        inputGroup.appendChild(checkbox);
-        inputGroup.appendChild(checkboxLabel);
+        naDiv.appendChild(checkbox);
+        naDiv.appendChild(checkboxLabel);
 
         var input = document.createElement('input');
         input.setAttribute('type', 'text');
@@ -398,6 +412,11 @@
         }
     }
 
+    function deleteRow(button) {
+        var row = button.closest(".checkbox-container");
+        row.remove();
+    }
+
     // Function to enable/disable input fields based on radio button selection
     function toggleInput(inputId, radioId) {
         const inputBox = document.getElementById(inputId);
@@ -405,16 +424,6 @@
 
         radioButton.addEventListener('change', function () {
             inputBox.disabled = (this.value === 'no');
-            if (this.value === 'no') {
-                inputBox.value = ''; // Clear input field when "No" is selected
-                if (inputId === 'input_status') {
-                    document.getElementById('input_status').disabled = true;
-                }
-            } else {
-                if (inputId === 'input_status') {
-                    document.getElementById('input_status').disabled = false;
-                }
-            }
         });
     }
 
