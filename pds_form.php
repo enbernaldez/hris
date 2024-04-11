@@ -20,6 +20,10 @@ $_SESSION['user_type'] = 'V';
             color: antiquewhite;
             margin: 2em;
         }
+
+        .ref-prepend {
+            width: 200px;
+        }
     </style>
 </head>
 
@@ -74,8 +78,8 @@ $_SESSION['user_type'] = 'V';
                             case "other_info":
                                 include_once "pds_sections/other_info.php";
                                 break;
-                            case "references":
-                                // REFERENCES
+                            case "ref":
+                                include_once "pds_sections/ref.php";
                                 break;
                         }
                     }

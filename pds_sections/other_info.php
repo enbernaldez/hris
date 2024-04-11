@@ -59,7 +59,7 @@
     <hr>
     <!-- QUESTIONS -->
     <div class="container">
-        <div class="container">
+        <div class="row">
             <p>
                 Are you related by consanguinity or affinity to the appointing or recommending authority,
                 or to the chief of bureau or office or to the person who has immediate supervision over you
@@ -101,7 +101,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <div>
                 <p>a. Have you ever been found guilty of any administrative offense?</p>
                 <div>
@@ -159,7 +159,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <div>
                 <p>
                     Have you ever been convicted of any crime or violation of any
@@ -187,7 +187,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <p>
                 Have you ever been seperated from the service in any of the following modes:
                 resignation, retirement, dropped from the rolls, dismissal, termination, end of term,
@@ -214,7 +214,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <div>
                 <p>
                     a. Have you ever been a candidate in a national or local election
@@ -259,7 +259,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <p>Have you acquired the status of an immigrant or permanent resident of another country?</p>
             <div>
                 &emsp;
@@ -282,7 +282,7 @@
             </div>
         </div>
         <hr>
-        <div class="container">
+        <div class="row">
             <p>
                 Pursuant to: (a) Indigenous People's Act (RA 8371);
                 (b) Magna Carta for Disabled Persons (RA 7277);
