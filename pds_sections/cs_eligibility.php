@@ -37,25 +37,25 @@
                         <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA(this)">
                         <label class="form-check-label">N/A</label>
                     </div>
-                    <input type="text" name="careerservice" id="careerservice" class="form-control group-na">
+                    <input type="text" name="careerservice[]" id="careerservice" class="form-control group-na">
                 </div>
             </div>
             <div class="col-1">
-                <input type="text" name="rating" id="rating" class="form-control group-na">
+                <input type="text" name="rating[]" id="rating" class="form-control group-na">
             </div>
             <div class="col-2">
-                <input type="date" name="dateofexamination" id="dateofexamination" class="form-control group-na">
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control group-na">
             </div>
             <div class="col-2">
-                <input type="text" name="placeofexamination" id="placeofexamination" class="form-control group-na">
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control group-na">
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="number" name="number" id="number" class="form-control group-na">
+                        <input type="number" name="license_number[]" id="license_number" class="form-control group-na">
                     </div>
                     <div class="col-6">
-                        <input type="date" name="dateofvalidity" id="dateofvalidity" class="form-control group-na">
+                        <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity" class="form-control group-na">
                     </div>
                 </div>
             </div>
@@ -106,8 +106,8 @@
         } else {
             inputs.forEach(function (input) {
                 
-                input.id == "dateofexamination" || input.id == "dateofvalidity" ? input.type = "date" :
-                    input.id == "number" ? input.type = "number" :
+                input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
+                    input.id == "license_number" ? input.type = "number" :
                         input.type = "text";
 
                 input.value = "";

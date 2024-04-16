@@ -51,32 +51,32 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <input type="date" required name="we_from" id="we_from" class="form-control group_na">
+                            <input type="date" required name="we_date_from[]" id="we_date_from" class="form-control group_na">
                         </div>
                         <div class="col-6">
-                            <input type="date" required name="we_to" id="we_to" class="form-control group_na">
+                            <input type="date" required name="we_date_to[]" id="we_date_to" class="form-control group_na">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-2">
-                <input type="text" name="we_position_title" id="we_position_title" class="form-control group_na">
+                <input type="text" name="we_position[]" id="we_position" class="form-control group_na">
             </div>
             <div class="col-2">
-                <input type="text" name="we_dept_agency" id="we_dept_agency" class="form-control group_na">
+                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na">
             </div>
             <div class="col-1">
-                <input type="text" name="we_mo_salary" id="we_mo_salary" class="form-control group_na">
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na">
             </div>
             <div class="col-1">
-                <input type="text" name="we_sg" id="we_sg" class="form-control group_na">
+                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na">
             </div>
             <div class="col-2">
-                <input type="text" name="we_appointment_status" id="we_appointment_status"
+                <input type="text" name="we_status[]" id="we_status"
                     class="form-control group_na">
             </div>
             <div class="col-1">
-                <select id="we_govt_service" required name="we_govt_service" id="we_govt_service" class="form-select group_na">
+                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na">
                     <option value="" disabled selected value>--select--</option>
                     <option value='Y'>Yes</option>
                     <option value='N'>No</option>
@@ -111,7 +111,7 @@
             } else {
                 inputs.forEach((input) => {
 
-                    input.id == "we_from" || input.id == "we_to" ? input.type = "date" :
+                    input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" :
                         input.type = "text";
 
                     input.value = "";
@@ -123,14 +123,14 @@
 
     // WORK EXPERIENCE
     setupNullInputArray("null_work_exp", [
-        "we_from",
-        "we_to",
-        "we_position_title",
-        "we_dept_agency",
-        "we_mo_salary",
+        "we_date_from",
+        "we_date_to",
+        "we_position",
+        "we_agency",
+        "we_salary",
         "we_sg",
-        "we_appointment_status",
-        "we_govt_service",
+        "we_status",
+        "we_govtsvcs",
         "we_addrow",
     ]);
 
