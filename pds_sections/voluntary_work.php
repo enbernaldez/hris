@@ -111,7 +111,7 @@
         });
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".row-container").appendChild(newRow); 
 
         // Change the N/A checkbox to a delete button
         var checkbox = newRow.querySelector(".form-check-input");
