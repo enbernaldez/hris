@@ -92,30 +92,30 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="gsis">GSIS ID NO.</label><br>
-            <input type="text" required name="gsis" id="gsis" class="form-control uppercase">
+            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase">
         </div>
         <div class="col mx-2">
             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-            <input type="text" required name="pagibig" id="pagibig" class="form-control uppercase">
+            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase">
         </div>
         <div class="col mx-2">
             <label for="philhealth">PHILHEALTH NO.</label><br>
-            <input type="text" required name="philhealth" id="philhealth" class="form-control uppercase">
+            <input type="text" required name="id_philhealth" id="philhealth" class="form-control uppercase">
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="sss">SSS NO.</label><br>
-            <input type="text" required name="sss" id="sss" class="form-control uppercase">
+            <input type="text" required name="id_sss" id="sss" class="form-control uppercase">
         </div>
         <div class="col mx-2">
             <label for="tin">TIN NO.</label><br>
-            <input type="text" required name="tin" id="tin" class="form-control uppercase">
+            <input type="text" required name="id_tin" id="tin" class="form-control uppercase">
         </div>
         <div class="col mx-2">
             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-            <input type="text" required name="employee_no" id="employee_no" class="form-control uppercase">
+            <input type="text" required name="id_agency" id="employee_no" class="form-control uppercase">
         </div>
     </div>
 
@@ -310,9 +310,9 @@
     <!-- CONTACT DETAILS -->
     <div class="row mt-5">
         <div class="col mx-2">
-            <label for="tel_no">TELEPHONE NO.</label><br>
+            <label for="no_tel">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="tel" required name="tel_no" id="tel_no" class="form-control">
+                <input type="tel" required name="no_tel" id="no_tel" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_telno">
                     <label class="form-check-label" for="null_telno">N/A</label>
@@ -320,13 +320,13 @@
             </div>
         </div>
         <div class="col mx-2">
-            <label for="mobile_no">MOBILE NO.</label><br>
-            <input type="tel" required name="mobile_no" id="mobile_no" class="form-control" maxlength="11">
+            <label for="no_mobile">MOBILE NO.</label><br>
+            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control" maxlength="11">
         </div>
         <div class="col mx-2">
-            <label for="email_add">EMAIL ADDRESS</label><br>
+            <label for="emailadd">EMAIL ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="email" required name="email_add" id="email_add" class="form-control">
+                <input type="email" required name="emailadd" id="emailadd" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_emailadd">
                     <label class="form-check-label" for="null_emailadd">N/A</label>
@@ -351,8 +351,8 @@
 </div>
 
 <script>
-    telTypeArray = ["tel_no"];
-    emailTypeArray = ["email_add"];
+    telTypeArray = ["no_tel"];
+    emailTypeArray = ["emailadd"];
 
     // ======================= N/A disable =======================
     function setupNullInput(checkboxId, inputId) {
@@ -368,8 +368,8 @@
 
             } else {
 
-                input.id == "tel_no" ? input.type = "tel" :
-                    input.id == "email_add" ? input.type = "email" :
+                input.id == "no_tel" ? input.type = "tel" :
+                    input.id == "emailadd" ? input.type = "email" :
                         input.type = "text";
 
                 input.value = "";
@@ -388,8 +388,8 @@
     setupNullInput("null_phbl", "padd_houseblocklot");
     setupNullInput("null_pst", "padd_street");
     setupNullInput("null_psv", "padd_subdivisionvillage");
-    setupNullInput("null_telno", "tel_no");
-    setupNullInput("null_emailadd", "email_add");
+    setupNullInput("null_telno", "no_tel");
+    setupNullInput("null_emailadd", "emailadd");
 
     // ================================= Citizenship =================================
     const citizenshipSelect = document.getElementById("citizenship");

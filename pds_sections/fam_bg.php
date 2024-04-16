@@ -3,21 +3,21 @@
     <!-- SPOUSE'S FULL NAME -->
     <div class="row mt-5">
         <div class="col mx-1">
-            <label for="spousename_last">SPOUSE'S SURNAME</label>
+            <label for="spouse_name_last">SPOUSE'S SURNAME</label>
             <div class="form-check form-check-inline ms-2">
                 <input class="form-check-input" type="checkbox" id="null_spouse">
                 <label class="form-check-label" for="null_spouse">N/A</label>
             </div>
-            <input type="text" name="spousename_last" id="spousename_last" class="form-control">
+            <input type="text" name="spouse_name_last" id="spouse_name_last" class="form-control">
         </div>
         <div class="col mx-1">
-            <label for="spousename_first">FIRST NAME</label><br>
-            <input type="text" name="spousename_first" id="spousename_first" class="form-control">
+            <label for="spouse_name_first">FIRST NAME</label><br>
+            <input type="text" name="spouse_name_first" id="spouse_name_first" class="form-control">
         </div>
         <div class="col mx-1">
-            <label for="spousename_middle">MIDDLE NAME</label><br>
+            <label for="spouse_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spousename_middle" id="spousename_middle" class="form-control">
+                <input type="text" required name="spouse_name_middle" id="spouse_name_middle" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_mi">
                     <label class="form-check-label" for="null_spouse_mi">N/A</label>
@@ -25,9 +25,9 @@
             </div>
         </div>
         <div class="col-2 mx-1">
-            <label for="spousename_extension">NAME EXTENSION</label><br>
+            <label for="spouse_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spousename_extension" id="spousename_extension" class="form-control">
+                <input type="text" required name="spouse_name_ext" id="spouse_name_ext" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_nameext">
                     <label class="form-check-label" for="null_spouse_nameext">N/A</label>
@@ -39,9 +39,9 @@
     <!-- SPOUSE'S OCCUPATION -->
     <div class="row mt-3">
         <div class="col mx-1">
-            <label for="occupation">OCCUPATION</label><br>
+            <label for="spouse_occupation">OCCUPATION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="occupation" id="occupation" class="form-control">
+                <input type="text" required name="spouse_occupation" id="spouse_occupation" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_occupation">
                     <label class="form-check-label" for="null_occupation">N/A</label>
@@ -49,9 +49,9 @@
             </div>
         </div>
         <div class="col mx-1">
-            <label for="business_name">EMPLOYEER/BUSINESS NAME</label><br>
+            <label for="spouse_bus_name">EMPLOYEER/BUSINESS NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="business_name" id="business_name" class="form-control">
+                <input type="text" required name="spouse_bus_name" id="spouse_bus_name" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_bus">
                     <label class="form-check-label" for="null_bus">N/A</label>
@@ -59,9 +59,9 @@
             </div>
         </div>
         <div class="col mx-1">
-            <label for="business_address">BUSINESS ADDRESS</label><br>
+            <label for="spouse_bus_add">BUSINESS ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="business_address" id="business_address" class="form-control">
+                <input type="text" required name="spouse_bus_add" id="spouse_bus_add" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_busadd">
                     <label class="form-check-label" for="null_busadd">N/A</label>
@@ -83,22 +83,22 @@
     <!-- FATHER'S FULL NAME -->
     <div class="row mt-3">
         <div class="col mx-1">
-            <label for="fathername_last">FATHER'S SURNAME</label>
+            <label for="father_name_last">FATHER'S SURNAME</label>
             <div class="form-check form-check-inline ms-2">
                 <input class="form-check-input" type="checkbox" id="null_father">
                 <label class="form-check-label" for="null_father">N/A</label>
             </div>
-            <input type="text" name="fathername_last" id="fathername_last" class="form-control">
+            <input type="text" name="father_name_last" id="father_name_last" class="form-control">
 
         </div>
         <div class="col mx-1">
-            <label for="fathername_first">FIRST NAME</label><br>
-            <input type="text" name="fathername_first" id="fathername_first" class="form-control">
+            <label for="father_name_first">FIRST NAME</label><br>
+            <input type="text" name="father_name_first" id="father_name_first" class="form-control">
         </div>
         <div class="col mx-1">
-            <label for="fathername_middle">MIDDLE NAME</label><br>
+            <label for="father_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="fathername_middle" id="fathername_middle" class="form-control">
+                <input type="text" required name="father_name_middle" id="father_name_middle" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_mi">
                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -106,9 +106,9 @@
             </div>
         </div>
         <div class="col-2 mx-1">
-            <label for="fathername_extension">NAME EXTENSION</label><br>
+            <label for="father_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="fathername_extension" id="fathername_extension" class="form-control">
+                <input type="text" required name="father_name_ext" id="father_name_ext" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_nameext">
                     <label class="form-check-label" for="null_father_nameext">N/A</label>
@@ -120,22 +120,22 @@
     <!-- MOTHER'S FULL NAME -->
     <div class="row mt-3">
         <div class="col mx-1">
-            <label for="mothername_last">MOTHER'S SURNAME</label>
+            <label for="mother_name_last">MOTHER'S SURNAME</label>
             <div class="form-check form-check-inline ms-2">
                 <input class="form-check-input" type="checkbox" id="null_mother">
                 <label class="form-check-label" for="null_mother">N/A</label>
             </div>
-            <input type="text" name="mothername_last" id="mothername_last" class="form-control">
+            <input type="text" name="mother_name_last" id="mother_name_last" class="form-control">
 
         </div>
         <div class="col mx-1">
-            <label for="mothername_first">FIRST NAME</label><br>
-            <input type="text" name="mothername_first" id="mothername_first" class="form-control">
+            <label for="mother_name_first">FIRST NAME</label><br>
+            <input type="text" name="mother_name_first" id="mother_name_first" class="form-control">
         </div>
         <div class="col mx-1">
-            <label for="mothername_middle">MIDDLE NAME</label><br>
+            <label for="mother_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="mothername_middle" id="mothername_middle" class="form-control">
+                <input type="text" required name="mother_name_middle" id="mother_name_middle" class="form-control">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_mother_mi">
                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -159,11 +159,11 @@
         </div>
         <div class="row row-row mb-3">
             <div class="col-8 mx-1">
-                <input type="text" name="child_name" id="child_name" class="form-control">
+                <input type="text" name="child_fullname[]" id="child_name" class="form-control">
             </div>
             <div class="col mx-1">
                 <div class="checkbox-container">
-                    <input type="date" name="child_dob" id="child_dob" class="form-control">
+                    <input type="date" name="child_birthdate[]" id="child_dob" class="form-control">
                     <div class="form-check">
                         <i class="bi bi-x-square-fill" style="color: #283872; font-size: 24px;" onclick="deleteRow(this)"></i>
                     </div>
@@ -225,15 +225,15 @@
     }
 
     // FAMILY BACKGROUND
-    setupNullInput("null_spouse_mi", "spousename_middle");
-    setupNullInput("null_spouse_nameext", "spousename_extension");
-    setupNullInput("null_occupation", "occupation");
-    setupNullInput("null_bus", "business_name");
-    setupNullInput("null_busadd", "business_address");
+    setupNullInput("null_spouse_mi", "spouse_name_middle");
+    setupNullInput("null_spouse_nameext", "spouse_name_ext");
+    setupNullInput("null_occupation", "spouse_occupation");
+    setupNullInput("null_bus", "spouse_bus_name");
+    setupNullInput("null_busadd", "spouse_bus_add");
     setupNullInput("null_spouse_telno", "spouse_telno");
-    setupNullInput("null_father_mi", "fathername_middle");
-    setupNullInput("null_father_nameext", "fathername_extension");
-    setupNullInput("null_mother_mi", "mothername_middle");
+    setupNullInput("null_father_mi", "father_name_middle");
+    setupNullInput("null_father_nameext", "father_name_ext");
+    setupNullInput("null_mother_mi", "mother_name_middle");
 
     // ============================ N/A Array Disable ============================
     function setupNullInputArray(checkboxId, inputIds, chkboxIds) {
@@ -276,13 +276,13 @@
     setupNullInputArray(
         "null_spouse",
         [
-            "spousename_last",
-            "spousename_first",
-            "spousename_middle",
-            "spousename_extension",
-            "occupation",
-            "business_name",
-            "business_address",
+            "spouse_name_last",
+            "spouse_name_first",
+            "spouse_name_middle",
+            "spouse_name_ext",
+            "spouse_occupation",
+            "spouse_bus_name",
+            "spouse_bus_add",
             "spouse_telno",
         ],
         [
@@ -297,16 +297,16 @@
     setupNullInputArray(
         "null_father",
         [
-            "fathername_last",
-            "fathername_first",
-            "fathername_middle",
-            "fathername_extension",
+            "father_name_last",
+            "father_name_first",
+            "father_name_middle",
+            "father_name_ext",
         ],
         ["null_father_mi", "null_father_nameext"]
     );
     setupNullInputArray(
         "null_mother",
-        ["mothername_last", "mothername_first", "mothername_middle"],
+        ["mother_name_last", "mother_name_first", "mother_name_middle"],
         ["null_mother_mi"]
     );
     setupNullInputArray("null_children", ["child_name", "child_dob"], []);
