@@ -31,24 +31,24 @@
                         <input class="form-check-input" type="checkbox" id="null_vw" onclick="checkNA(this)">
                         <label class="form-check-label">N/A</label>
                     </div>
-                    <input type="text" name="vw_nameaddress" id="vw_nameaddress" class="form-control group_na">
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na">
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_from" id="vw_from" class="form-control group_na">
+                        <input type="date" required name="vw_date_from[]" id="vw_date_from" class="form-control group_na">
                     </div>
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_to" id="vw_to" class="form-control group_na">
+                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control group_na">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="vw_hrs" id="vw_hrs" class="form-control group_na">
+                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na">
             </div>
             <div class="col-4">
-                <input type="text" name="vw_position" id="vw_position" class="form-control group_na">
+                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na">
             </div>
 
         </div>
@@ -79,7 +79,7 @@
             } else {
                 inputs.forEach((input) => {
 
-                    input.id == "vw_from" || input.id == "vw_to" ? input.type = "date" :
+                    input.id == "vw_date_from" || input.id == "vw_date_to" ? input.type = "date" :
                     input.id == "vw_hrs" ? input.type = "number" :
                         input.type = "text";
 
@@ -93,8 +93,8 @@
     // VOLUNTARY WORK
     setupNullInputArray("null_vw", [
         "vw_nameaddress",
-        "vw_from",
-        "vw_to",
+        "vw_date_from",
+        "vw_date_to",
         "vw_hrs",
         "vw_position",
         "vw_addrow",
@@ -111,7 +111,7 @@
         });
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".row-container").appendChild(newRow); 
 
         // Change the N/A checkbox to a delete button
         var checkbox = newRow.querySelector(".form-check-input");
