@@ -15,6 +15,7 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
+    
     <style>
         hr {
             color: antiquewhite;

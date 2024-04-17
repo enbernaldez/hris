@@ -1,15 +1,20 @@
 <div class="container-fluid">
     <div class="row mt-5">
+        <!-- Special Skills and Hobbies -->
         <div class="col-4">
             <p class="desc">
                 SPECIAL SKILLS AND HOBBIES
             </p>
             <div class="skills-container">
                 <div class="checkbox-container mb-2">
+                    <button type="button" class="delete-row-button mx-3"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
                     <div class="form-check me-2">
                         <input class="form-check-input" type="checkbox" id="skills_na" onclick="checkNA('skills')">
                         <label class="form-check-label" for="skills_na">N/A</label>
                     </div>
+
                     <input type="text" name="skills[]" class="form-control" required>
                 </div>
             </div>
@@ -18,17 +23,21 @@
                 ADD ROW
             </button>
         </div>
+        <!-- NON-ACADEMIC DISTINCTIONS/RECOGNITION -->
         <div class="col-4">
             <p class="desc">
                 NON-ACADEMIC DISTINCTIONS/RECOGNITION (Write in full)
             </p>
             <div class="distinctions-container">
-                <div class="checkbox-container mb-2">
-                    <div class="form-check me-2">
+                <div class="checkbox-container mb-2 remove_na">
+                    <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="distinctions_na"
                             onclick="checkNA('distinctions')">
                         <label class="form-check-label" for="distinctions_na">N/A</label>
                     </div>
+                    <button type="button" class="delete-row-button mx-3"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
                     <input type="text" name="distinctions[]" class="form-control" required>
                 </div>
             </div>
@@ -37,12 +46,13 @@
                 ADD ROW
             </button>
         </div>
+        <!--MEMBERS IN ASSOCIATION/ORGANIZATION (Write in full)  -->
         <div class="col-4">
             <p class="desc">
-                MEMBERSHIP IN ASSOCIATION/ORGANIZATION (Write in full)
+                MEMBERS IN ASSOCIATION/ORGANIZATION (Write in full)
             </p>
             <div class="membership-container">
-                <div class="checkbox-container mb-2">
+                <div class="checkbox-container mb-2 remove_na">
                     <div class="form-check me-2">
                         <input class="form-check-input" type="checkbox" id="membership_na"
                             onclick="checkNA('membership')">
@@ -368,25 +378,25 @@
         inputGroup.classList.add('checkbox-container');
         inputGroup.classList.add('mb-2');
 
-        var naDiv = document.createElement('div');
-        naDiv.classList.add('form-check');
-        naDiv.classList.add('me-2');
+        // var naDiv = document.createElement('div');
+        // naDiv.classList.add('form-check');
+        // naDiv.classList.add('me-2');
 
-        inputGroup.appendChild(naDiv);
+        // inputGroup.appendChild(naDiv);
 
-        var checkbox = document.createElement('input');
-        checkbox.classList.add('form-check-input');
-        checkbox.setAttribute('type', 'checkbox');
-        checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
-        checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
+        // var checkbox = document.createElement('input');
+        // checkbox.classList.add('form-check-input');
+        // checkbox.setAttribute('type', 'checkbox');
+        // checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
+        // checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
 
-        var checkboxLabel = document.createElement('label');
-        checkboxLabel.classList.add('form-check-label');
-        checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
-        checkboxLabel.textContent = 'Delete'; // Change label text
+        // var checkboxLabel = document.createElement('label');
+        // checkboxLabel.classList.add('form-check-label');
+        // checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
+        // checkboxLabel.textContent = 'Delete'; // Change label text
 
-        naDiv.appendChild(checkbox);
-        naDiv.appendChild(checkboxLabel);
+        // naDiv.appendChild(checkbox);
+        // naDiv.appendChild(checkboxLabel);
 
         var input = document.createElement('input');
         input.setAttribute('type', 'text');
@@ -394,12 +404,20 @@
         input.classList.add('form-control');
         input.required = true;
 
-        inputGroup.appendChild(input);
+        // Create delete button
+        var deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+        deleteButton.classList.add('delete-row-button');
+        deleteButton.addEventListener('click', function () {
+            inputGroup.parentNode.removeChild(inputGroup);
+        });
 
+        inputGroup.appendChild(deleteButton);
+        inputGroup.appendChild(input);
         container.appendChild(inputGroup);
     }
 
-    //Delete added row
+    //Function to handle checking NA checkboxes
     function checkNA(section) {
         var checkbox = document.getElementById(section + '_na');
         var input = document.querySelector('.' + section + '-container .form-control');
@@ -414,12 +432,19 @@
             input.disabled = false;
             addrow.disabled = false;
         }
+        // Remove cloned rows if they exist
+        const clonedRows = document.querySelectorAll("." + section + "-container .checkbox-container");
+        clonedRows.forEach((clonedRow) => {
+            if (clonedRow !== checkbox.closest('.checkbox-container')) {
+                clonedRow.remove();
+            }
+        });
     }
 
-    function deleteRow(button) {
-        var row = button.closest(".checkbox-container");
-        row.remove();
-    }
+    // function deleteRow(button) {
+    //     var row = button.closest(".checkbox-container");
+    //     row.remove();
+    // }
 
     // Function to enable/disable input fields based on radio button selection
     function toggleInput(inputId, radioId) {

@@ -37,17 +37,21 @@
         <div class="row row-row mt-3">
             <div class="col-3">
                 <div class="checkbox-container">
-                    <div class="form-check me-2">
+                    <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="null_lnd">
-                        <label class="form-check-label">N/A</label>
+                        <label class="form-check-label" for="null_lnd">N/A</label>
                     </div>
+                    <button type="button" class="delete-row-button mx-3"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
                     <input type="text" name="lnd_title[]" id="lnd_title" class="form-control group-na">
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="date" required name="lnd_date_from[]" id="lnd_date_from" class="form-control group-na">
+                        <input type="date" required name="lnd_date_from[]" id="lnd_date_from"
+                            class="form-control group-na">
                     </div>
                     <div class="col-6">
                         <input type="date" required name="lnd_date_to[]" id="lnd_date_to" class="form-control group-na">
@@ -88,6 +92,13 @@
                     input.value = "N/A";
                     input.disabled = true;
                 });
+                // Remove cloned rows if they exist
+                const clonedRows = document.querySelectorAll(".row-container .row-row");
+                clonedRows.forEach((clonedRow) => {
+                    if (clonedRow !== checkbox.closest('.row-row')) {
+                        clonedRow.remove();
+                    }
+                });
             } else {
                 inputs.forEach((input) => {
 
@@ -126,14 +137,30 @@
         // Append the cloned row to the container
         document.querySelector(".row-container").appendChild(newRow);
 
-        // Change the N/A checkbox to a delete button
-        var checkbox = newRow.querySelector(".form-check-input");
-        checkbox.checked = false; // Uncheck the checkbox
-        checkbox.id = ""; // Remove id to avoid duplication
-        checkbox.removeAttribute("onclick"); // Remove onclick event
-        checkbox.setAttribute("type", "button"); // Change type to button
-        checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
-        checkbox.nextElementSibling.textContent = "Delete"; // Change label text
+        //Remove the n/a checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
+
+        // Find the delete button in the cloned row and enable it 
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
+        }
+
+        // // Change the N/A checkbox to a delete button
+        // var checkbox = newRow.querySelector(".form-check-input");
+        // checkbox.checked = false; // Uncheck the checkbox
+        // checkbox.id = ""; // Remove id to avoid duplication
+        // checkbox.removeAttribute("onclick"); // Remove onclick event
+        // checkbox.setAttribute("type", "button"); // Change type to button
+        // checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
+        // checkbox.nextElementSibling.textContent = "Delete"; // Change label text
     }
 
     // =============== Delete Row ===============
