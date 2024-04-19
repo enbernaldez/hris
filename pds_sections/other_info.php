@@ -15,7 +15,7 @@
                         <label class="form-check-label" for="skills_na">N/A</label>
                     </div>
 
-                    <input type="text" name="skills[]" class="form-control" required>
+                    <input type="text" name="skills[]" class="form-control group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_skills_addrow"
@@ -38,7 +38,7 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="distinctions[]" class="form-control" required>
+                    <input type="text" name="distinctions[]" class="form-control group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_distinctions_addrow"
@@ -58,7 +58,7 @@
                             onclick="checkNA('membership')">
                         <label class="form-check-label" for="membership_na">N/A</label>
                     </div>
-                    <input type="text" name="membership[]" class="form-control" required>
+                    <input type="text" name="membership[]" class="form-control group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_membership_addrow"
@@ -370,33 +370,45 @@
             </div>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+
+    <!-- NEXT BUTTON -->
+    <!-- <a href="pds_form.php?form_section=ref"> -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+            <strong>NEXT</strong>
+        </button>
+    <!-- </a> -->
 </div>
 <script>
+    // ======================== Next button ====================================
+    function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group-na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function(input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=ref";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
+
     function addInput(section) {
         var container = document.querySelector('.' + section + '-container');
         var inputGroup = document.createElement('div');
         inputGroup.classList.add('checkbox-container');
         inputGroup.classList.add('mb-2');
-
-        // var naDiv = document.createElement('div');
-        // naDiv.classList.add('form-check');
-        // naDiv.classList.add('me-2');
-
-        // inputGroup.appendChild(naDiv);
-
-        // var checkbox = document.createElement('input');
-        // checkbox.classList.add('form-check-input');
-        // checkbox.setAttribute('type', 'checkbox');
-        // checkbox.setAttribute('id', section + '_delete'); // Change id to distinguish from 'N/A' checkbox
-        // checkbox.setAttribute('onclick', 'deleteRow(this)'); // Set onclick to delete row
-
-        // var checkboxLabel = document.createElement('label');
-        // checkboxLabel.classList.add('form-check-label');
-        // checkboxLabel.setAttribute('for', section + '_delete'); // Change for attribute
-        // checkboxLabel.textContent = 'Delete'; // Change label text
-
-        // naDiv.appendChild(checkbox);
-        // naDiv.appendChild(checkboxLabel);
 
         var input = document.createElement('input');
         input.setAttribute('type', 'text');
@@ -411,6 +423,7 @@
         deleteButton.addEventListener('click', function () {
             inputGroup.parentNode.removeChild(inputGroup);
         });
+        deleteButton.style.cssText = 'background-color: transparent; border: none; color: red; margin: 15px;';
 
         inputGroup.appendChild(deleteButton);
         inputGroup.appendChild(input);
@@ -440,11 +453,6 @@
             }
         });
     }
-
-    // function deleteRow(button) {
-    //     var row = button.closest(".checkbox-container");
-    //     row.remove();
-    // }
 
     // Function to enable/disable input fields based on radio button selection
     function toggleInput(inputId, radioId) {

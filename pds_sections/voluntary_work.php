@@ -64,9 +64,41 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+
+    <!-- NEXT BUTTON -->
+    <!-- <a href="pds_form.php?form_section=lnd"> -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+            <strong>NEXT</strong>
+        </button>
+    <!-- </a> -->
 </div>
 
 <script>
+    // ======================== Next button ====================================
+        function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group_na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function(input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=lnd";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
+
     // ============================ N/A Array Disable ============================
     function setupNullInputArray(checkboxId, inputIds) {
         const checkbox = document.getElementById(checkboxId);
@@ -139,20 +171,5 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
-
-        // Change the N/A checkbox to a delete button
-        // var checkbox = newRow.querySelector(".form-check-input");
-        // checkbox.checked = false; // Uncheck the checkbox
-        // checkbox.id = ""; // Remove id to avoid duplication
-        // checkbox.removeAttribute("onclick"); // Remove onclick event
-        // checkbox.setAttribute("type", "button"); // Change type to button
-        // checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
-        // checkbox.nextElementSibling.textContent = "Delete"; // Change label text
     }
-
-    // =============== Delete Row ===============
-    // function deleteRow(button) {
-    //     var row = button.closest(".row-row");
-    //     row.remove();
-    // }
 </script>

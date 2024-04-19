@@ -73,9 +73,39 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+
+    <!-- NEXT BUTTON -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick = "submitForm()">
+            <strong>NEXT</strong>
+        </button>
+    
 </div>
 
 <script>
+     // ======================== Next button ====================================
+     function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group-na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function (input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=work_exp";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
     function addRow() {
         // Clone the input-row element
         var newRow = document.querySelector(".row-row").cloneNode(true);
@@ -122,11 +152,6 @@
                     clonedRow.remove();
                 }
             });
-            //Remove cloned rows if they exist
-            // const clonedRows = document.querySelectorAll("." + newRow + "row-container");
-            // clonedRows.forEach((clonedRow) => {
-            //     clonedRow.remove();
-            // });
         } else {
             inputs.forEach(function (input) {
 
@@ -140,10 +165,5 @@
             });
         }
     }
-
-    // function deleteRow(button) {
-    //     var row = button.closest(".row-row");
-    //     row.remove();
-    // }
 
 </script>
