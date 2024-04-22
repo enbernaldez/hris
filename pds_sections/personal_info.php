@@ -132,7 +132,8 @@
         <div class="col mx-2">
             <label for="citizenship_by">CITIZENSHIP BY</label><br>
             <select id="citizenship_by" required name="citizenship_by" class="form-select" disabled>
-                <option value="" disabled selected value>--select--</option>
+                <option value="" disabled>--select--</option>
+                <option value="F" selected value hidden>N/A</option>
                 <option value='B'>Birth</option>";
                 <option value='N'>Naturalization</option>";
             </select>
@@ -140,7 +141,7 @@
         <div class="col mx-2">
             <label for="citizenship_country">If Holder of Dual Citizenship, please indicate
                 country</label><br>
-            <input type="text" required name="citizenship_country" id="citizenship_country" class="form-control"
+            <input type="text" required name="citizenship_country" id="citizenship_country" class="form-control" value="N/A"
                 disabled>
         </div>
     </div>
@@ -227,7 +228,7 @@
     <div class="mt-5">
         <h5 style="display: inline">PERMANENT ADDRESS</h5>
         <div class="form-check form-check-inline ms-2">
-            <input class="form-check-input" type="checkbox" id="same_add">
+            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true">
             <label class="form-check-label" for="same_add">Same as the Residential Address</label>
         </div>
     </div>
@@ -338,7 +339,7 @@
 
     <!-- NEXT BUTTON -->
     <a href="pds_form.php?form_section=fam_bg">
-        <button type="button" class="btn btn-primary mt-5 mx-1 button-right">
+        <button class="btn btn-primary mt-5 mx-1 button-right">
             <strong>NEXT</strong>
         </button>
     </a>
@@ -401,13 +402,15 @@
             // If Dual Citizenship is selected, enable Citizenship By and Citizenship Country
             citizenshipBySelect.disabled = false;
             citizenshipCountryInput.disabled = false;
+            citizenshipBySelect.value = "";
+            citizenshipCountryInput.value = "";
         } else {
+            // Reset Citizenship By and Citizenship Country values when Citizenship changes
+            citizenshipBySelect.value = "F";
+            citizenshipCountryInput.value = "N/A";
             // Otherwise, disable them
             citizenshipBySelect.disabled = true;
             citizenshipCountryInput.disabled = true;
-            // Reset Citizenship By and Citizenship Country values when Citizenship changes
-            citizenshipBySelect.value = "";
-            citizenshipCountryInput.value = "";
         }
     });
 
