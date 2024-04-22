@@ -27,17 +27,21 @@
         <div class="row row-row mt-3">
             <div class="col-4">
                 <div class="checkbox-container">
-                    <div class="form-check me-2">
+                    <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="null_vw" onclick="checkNA(this)">
-                        <label class="form-check-label">N/A</label>
+                        <label class="form-check-label" for="null_vw">N/A</label>
                     </div>
-                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na">
+                    <button type="button" class="delete-row-button mx-3"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na" required>
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_date_from[]" id="vw_date_from" class="form-control group_na">
+                        <input type="date" required name="vw_date_from[]" id="vw_date_from"
+                            class="form-control group_na">
                     </div>
                     <div class="col-6 px-1 mx-0">
                         <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control group_na">
@@ -45,10 +49,10 @@
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na">
+                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na" required>
             </div>
             <div class="col-4">
-                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na">
+                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na" required>
             </div>
 
         </div>
@@ -60,9 +64,41 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+
+    <!-- NEXT BUTTON -->
+    <!-- <a href="pds_form.php?form_section=lnd"> -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+            <strong>NEXT</strong>
+        </button>
+    <!-- </a> -->
 </div>
 
 <script>
+    // ======================== Next button ====================================
+        function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group_na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function(input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=lnd";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
+
     // ============================ N/A Array Disable ============================
     function setupNullInputArray(checkboxId, inputIds) {
         const checkbox = document.getElementById(checkboxId);
@@ -76,12 +112,19 @@
                     input.value = "N/A";
                     input.disabled = true;
                 });
+                // Remove cloned rows if they exist
+                const clonedRows = document.querySelectorAll(".row-container .row-row");
+                clonedRows.forEach((clonedRow) => {
+                    if (clonedRow !== checkbox.closest('.row-row')) {
+                        clonedRow.remove();
+                    }
+                });
             } else {
                 inputs.forEach((input) => {
 
                     input.id == "vw_date_from" || input.id == "vw_date_to" ? input.type = "date" :
-                    input.id == "vw_hrs" ? input.type = "number" :
-                        input.type = "text";
+                        input.id == "vw_hrs" ? input.type = "number" :
+                            input.type = "text";
 
                     input.value = "";
                     input.disabled = false;
@@ -113,19 +156,20 @@
         // Append the cloned row to the container
         document.querySelector(".row-container").appendChild(newRow);
 
-        // Change the N/A checkbox to a delete button
-        var checkbox = newRow.querySelector(".form-check-input");
-        checkbox.checked = false; // Uncheck the checkbox
-        checkbox.id = ""; // Remove id to avoid duplication
-        checkbox.removeAttribute("onclick"); // Remove onclick event
-        checkbox.setAttribute("type", "button"); // Change type to button
-        checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
-        checkbox.nextElementSibling.textContent = "Delete"; // Change label text
-    }
+        //Remove the n/a checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
 
-    // =============== Delete Row ===============
-    function deleteRow(button) {
-        var row = button.closest(".row-row");
-        row.remove();
+        // Find the delete button in the cloned row and enable it 
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
+        }
     }
 </script>

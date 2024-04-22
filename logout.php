@@ -9,5 +9,3 @@ session_destroy();
 if(!isset($_SESSION['user_id'])) {
     header("location: landing_page.php");
 }
-
-?>

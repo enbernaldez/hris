@@ -142,7 +142,7 @@ $_SESSION['user_type'] = 'V';
                                 <div class="col-3">
                                     <p>If YES, please give details:</p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col">
                                     <input type="text" id="input_degree" name="input_degree" class="form-control"
                                         required disabled>
                                 </div>
@@ -165,7 +165,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="col-3">
                                         <p>If YES, please give details:</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col">
                                         <input type="text" id="input_guilty" name="input_guilty" class="form-control"
                                             required disabled>
                                     </div>
@@ -185,7 +185,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="col-3 mb-2">
                                         <p>Date Filed:</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col">
                                         <input type="date" id="input_filed" name="input_filed" class="form-control"
                                             required disabled>
                                     </div>
@@ -194,7 +194,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="col-3 mb-2">
                                         <p>Status of Case/s:</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col">
                                         <input type="text" id="input_status" name="input_status" class="form-control"
                                             required disabled>
                                     </div>
@@ -215,7 +215,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="col-3">
                                         <p>If YES, please give details:</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col">
                                         <input type="text" id="input_convicted" name="input_convicted"
                                             class="form-control" required disabled>
                                     </div>
@@ -238,7 +238,7 @@ $_SESSION['user_type'] = 'V';
                                 <div class="col-3">
                                     <p>If YES, please give details:</p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col">
                                     <input type="text" id="input_seperated" name="input_seperated" class="form-control"
                                         required disabled>
                                 </div>
@@ -274,7 +274,7 @@ $_SESSION['user_type'] = 'V';
                                             <div class="col-3">
                                                 <p>If YES, please give details:</p>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col">
                                                 <input type="text" id="input_resigned" name="input_resigned"
                                                     class="form-control" required disabled>
                                             </div>
@@ -298,7 +298,7 @@ $_SESSION['user_type'] = 'V';
                                     <div class="col-3">
                                         <p>If YES, please give details (country):</p>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col">
                                         <input type="text" id="input_immigrant" name="input_immigrant"
                                             class="form-control" required disabled>
                                     </div>
@@ -323,7 +323,7 @@ $_SESSION['user_type'] = 'V';
                                             <div class="col-3">
                                                 <p>If YES, please specify:</p>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col">
                                                 <input type="text" id="input_indigenous" name="input_indigenous"
                                                     class="form-control" required disabled>
                                             </div>
@@ -342,7 +342,7 @@ $_SESSION['user_type'] = 'V';
                                                 <div class="col-3">
                                                     <p>If YES, please specify ID No:</p>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col">
                                                     <input type="text" id="input_disability" name="input_disability"
                                                         class="form-control" required disabled>
                                                 </div>
@@ -362,7 +362,7 @@ $_SESSION['user_type'] = 'V';
                                                 <div class="col-3">
                                                     <p>If YES, please specify ID:</p>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col">
                                                     <input type="text" id="input_solo" name="input_solo"
                                                         class="form-control" required disabled>
                                                 </div>
@@ -370,7 +370,6 @@ $_SESSION['user_type'] = 'V';
                                             </div>
                                         </div>
                                     </div>
-
 
                                 </div>
                             </div>

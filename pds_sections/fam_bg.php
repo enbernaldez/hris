@@ -8,16 +8,16 @@
                 <input class="form-check-input" type="checkbox" id="null_spouse">
                 <label class="form-check-label" for="null_spouse">N/A</label>
             </div>
-            <input type="text" name="spouse_name_last" id="spouse_name_last" class="form-control">
+            <input type="text" name="spouse_name_last" id="spouse_name_last" class="form-control group-na">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_first">FIRST NAME</label><br>
-            <input type="text" name="spouse_name_first" id="spouse_name_first" class="form-control">
+            <input type="text" name="spouse_name_first" id="spouse_name_first" class="form-control group-na">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_name_middle" id="spouse_name_middle" class="form-control">
+                <input type="text" required name="spouse_name_middle" id="spouse_name_middle" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_mi">
                     <label class="form-check-label" for="null_spouse_mi">N/A</label>
@@ -27,7 +27,7 @@
         <div class="col-2 mx-1">
             <label for="spouse_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_name_ext" id="spouse_name_ext" class="form-control">
+                <input type="text" required name="spouse_name_ext" id="spouse_name_ext" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_nameext">
                     <label class="form-check-label" for="null_spouse_nameext">N/A</label>
@@ -41,7 +41,7 @@
         <div class="col mx-1">
             <label for="spouse_occupation">OCCUPATION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_occupation" id="spouse_occupation" class="form-control">
+                <input type="text" required name="spouse_occupation" id="spouse_occupation" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_occupation">
                     <label class="form-check-label" for="null_occupation">N/A</label>
@@ -51,7 +51,7 @@
         <div class="col mx-1">
             <label for="spouse_bus_name">EMPLOYEER/BUSINESS NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_bus_name" id="spouse_bus_name" class="form-control">
+                <input type="text" required name="spouse_bus_name" id="spouse_bus_name" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_bus">
                     <label class="form-check-label" for="null_bus">N/A</label>
@@ -61,7 +61,7 @@
         <div class="col mx-1">
             <label for="spouse_bus_add">BUSINESS ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_bus_add" id="spouse_bus_add" class="form-control">
+                <input type="text" required name="spouse_bus_add" id="spouse_bus_add" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_busadd">
                     <label class="form-check-label" for="null_busadd">N/A</label>
@@ -71,7 +71,7 @@
         <div class="col mx-1">
             <label for="spouse_telno">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control">
+                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_telno">
                     <label class="form-check-label" for="null_spouse_telno">N/A</label>
@@ -88,17 +88,17 @@
                 <input class="form-check-input" type="checkbox" id="null_father">
                 <label class="form-check-label" for="null_father">N/A</label>
             </div>
-            <input type="text" name="father_name_last" id="father_name_last" class="form-control">
+            <input type="text" name="father_name_last" id="father_name_last" class="form-control group-na">
 
         </div>
         <div class="col mx-1">
             <label for="father_name_first">FIRST NAME</label><br>
-            <input type="text" name="father_name_first" id="father_name_first" class="form-control">
+            <input type="text" name="father_name_first" id="father_name_first" class="form-control group-na">
         </div>
         <div class="col mx-1">
             <label for="father_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="father_name_middle" id="father_name_middle" class="form-control">
+                <input type="text" required name="father_name_middle" id="father_name_middle" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_mi">
                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -108,7 +108,7 @@
         <div class="col-2 mx-1">
             <label for="father_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="father_name_ext" id="father_name_ext" class="form-control">
+                <input type="text" required name="father_name_ext" id="father_name_ext" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_nameext">
                     <label class="form-check-label" for="null_father_nameext">N/A</label>
@@ -125,17 +125,17 @@
                 <input class="form-check-input" type="checkbox" id="null_mother">
                 <label class="form-check-label" for="null_mother">N/A</label>
             </div>
-            <input type="text" name="mother_name_last" id="mother_name_last" class="form-control">
+            <input type="text" name="mother_name_last" id="mother_name_last" class="form-control group-na">
 
         </div>
         <div class="col mx-1">
             <label for="mother_name_first">FIRST NAME</label><br>
-            <input type="text" name="mother_name_first" id="mother_name_first" class="form-control">
+            <input type="text" name="mother_name_first" id="mother_name_first" class="form-control group-na">
         </div>
         <div class="col mx-1">
             <label for="mother_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="mother_name_middle" id="mother_name_middle" class="form-control">
+                <input type="text" required name="mother_name_middle" id="mother_name_middle" class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_mother_mi">
                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -159,14 +159,15 @@
         </div>
         <div class="row row-row mb-3">
             <div class="col-8 mx-1">
-                <input type="text" name="child_fullname[]" id="child_name" class="form-control">
+                <input type="text" name="child_fullname[]" id="child_name" class="form-control group-na">
             </div>
             <div class="col mx-1">
                 <div class="checkbox-container">
-                    <input type="date" name="child_birthdate[]" id="child_dob" class="form-control">
-                    <div class="form-check">
-                        <i class="bi bi-x-square-fill" style="color: #283872; font-size: 24px;" onclick="deleteRow(this)"></i>
-                    </div>
+                    <input type="date" name="child_birthdate[]" id="child_dob" class="form-control group-na">
+                        <button type="button" class="delete-row-button mx-2"
+                            style="display:none; background-color: transparent; border: none; color: red;">
+                        </button>
+                        <!-- <i class="bi bi-x-square-fill" style="color: #283872; font-size: 24px;" onclick="deleteRow(this)"></i> -->
                 </div>
             </div>
         </div>
@@ -186,20 +187,42 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <a href="pds_form.php?form_section=educ_bg">
-        <button class="btn btn-primary mt-5 mx-1 button-right">
+    <!-- <a href="pds_form.php?form_section=educ_bg"> -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick = "submitForm()">
             <strong>NEXT</strong>
         </button>
-    </a>
+    <!-- </a> -->
 
-    <!-- SUBMIT BUTTON -->
+    <!-- SUBMIT BUTTON
     <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
         <strong>SUBMIT</strong>
-    </button>
+    </button> -->
 
 </div>
 
 <script>
+
+    // ======================== Next button ====================================
+    function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group-na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function(input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=educ_bg";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
+
 
     // ======================= N/A disable =======================
     function setupNullInput(checkboxId, inputId) {
@@ -216,12 +239,17 @@
             } else {
                 input.id == "spouse_telno" ? input.type = "tel" : input.type = "text";
 
-                tel ? input.type = "tel" : input.type = "text";
-
                 input.value = "";
                 input.disabled = false;
             }
         });
+
+        input.addEventListener("input", function () {
+            if (this.value === "N/A") {
+                checkbox.checked = true;
+                this.disabled = true;
+            }
+        })
     }
 
     // FAMILY BACKGROUND
@@ -317,28 +345,63 @@
 
     // =================================== Add Row ===================================
     function addRow() {
-        // Clone the input-row element
-        const newRow = document.querySelector(".row-row").cloneNode(true);
-
-        // // Clear input values in the cloned row
-        // const inputFields = newRow.querySelectorAll("input");
-        // inputFields.forEach((input) => {
-        //     input.value = "present";
-        //     input.id = generateUniqueID(input.id);
-        // });
-
-        // const clonedIcon = newRow.querySelector("i");
-        // // clonedIcon.style.color = "#283872"; // Set color directly
-        // // clonedIcon.setAttribute("onclick", "deleteRow(this)");
-        // // clonedIcon.hidden = false;
-
-        // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+    // Check if the original row is set to "N/A"
+    const nullChildrenCheckbox = document.getElementById("null_children");
+    if (nullChildrenCheckbox.checked) {
+        return; // Do nothing if original row is "N/A"
     }
 
-    // =============== Delete Row ===============
-    function deleteRow(button) {
-        var row = button.closest(".row-row");
-        row.remove();
+    // Clone the input-row element
+    const newRow = document.querySelector(".row-row").cloneNode(true);
+
+    // Clear input values in the cloned row
+    newRow.querySelectorAll("input").forEach((input) => {
+        input.value = "";
+    });
+
+    // Find the delete button in the cloned row and enable it 
+    const deleteButton = newRow.querySelector(".delete-row-button");
+    if (deleteButton) {
+        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+        deleteButton.style.display = "inline-block";
+        deleteButton.addEventListener("click", function () {
+            newRow.parentNode.removeChild(newRow);
+        });
     }
+
+    // Set inputs to "N/A" if corresponding checkbox is checked
+    const checkboxes = newRow.querySelectorAll(".form-check-input");
+    checkboxes.forEach((checkbox, index) => {
+        const input = newRow.querySelectorAll("input")[index];
+        if (checkbox.checked) {
+            input.value = "N/A";
+            input.disabled = true;
+        }
+    });
+
+    // Append the cloned row to the container
+    document.querySelector(".row-container").appendChild(newRow);
+
+    // Set inputs to "N/A" when "N/A" checkbox is clicked and remove the cloned row
+    const childNameInput = newRow.querySelector("input[name='child_fullname[]']");
+    const childDobInput = newRow.querySelector("input[name='child_birthdate[]']");
+    nullChildrenCheckbox.addEventListener("change", function () {
+        if (this.checked) {
+            newRow.parentNode.removeChild(newRow);
+        } else {
+            childNameInput.value = "";
+            childNameInput.disabled = false;
+            childDobInput.value = "";
+            childDobInput.disabled = false;
+        }
+    });
+
+    // Disable the "Add Row" button if the original row is "N/A"
+    const addButton = document.getElementById("fb_addrow");
+    if (nullChildrenCheckbox.checked) {
+        addButton.disabled = true;
+    } else {
+        addButton.disabled = false;
+    }
+}
 </script>

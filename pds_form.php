@@ -15,7 +15,48 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
+    
     <style>
+        /* educational background */
+        nav {
+            background-color: #283872;
+            width: 100%;
+            box-shadow: 0px 2px 5px black;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #E4E9FF;
+        }
+
+        nav a:hover {
+            color: #FFD644;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .small-font {
+            font-size: 13px;
+        }
+
+        .delete-row-button:active {
+            outline: none;
+            border: none;
+        }
+
+        .add-row-text:active {
+            outline: none;
+            border: none;
+            color: blue;
+        }
+
+        .add-row-text {
+            margin-top: -26px;
+        }
+        /* --------------- */
         hr {
             color: antiquewhite;
             margin: 2em;
@@ -61,7 +102,7 @@ $_SESSION['user_type'] = 'V';
                                 include_once 'pds_sections/fam_bg.php';
                                 break;
                             case "educ_bg":
-                                // EDUCATIONAL BACKGROUND
+                                include_once 'pds_sections/educational_bg.php';
                                 break;
                             case "cs_eligibility":
                                 include_once 'pds_sections/cs_eligibility.php';

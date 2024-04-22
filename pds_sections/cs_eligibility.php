@@ -33,29 +33,34 @@
         <div class="row row-row mt-3">
             <div class="col-4">
                 <div class="checkbox-container">
-                    <div class="form-check me-2">
+                    <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA(this)">
-                        <label class="form-check-label">N/A</label>
+                        <label class="form-check-label" for="null_cse">N/A</label>
                     </div>
-                    <input type="text" name="careerservice[]" id="careerservice" class="form-control group-na">
+                    <button type="button" class="delete-row-button mx-3"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
+                    <input type="text" name="careerservice[]" id="careerservice" class="form-control group-na" required>
                 </div>
             </div>
             <div class="col-1">
-                <input type="text" name="rating[]" id="rating" class="form-control group-na">
+                <input type="text" name="rating[]" id="rating" class="form-control group-na" required>
             </div>
             <div class="col-2">
-                <input type="date" name="exam_date[]" id="exam_date" class="form-control group-na">
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control group-na" required>
             </div>
             <div class="col-2">
-                <input type="text" name="exam_place[]" id="exam_place" class="form-control group-na">
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control group-na" required>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="number" name="license_number[]" id="license_number" class="form-control group-na">
+                        <input type="number" name="license_number[]" id="license_number" class="form-control group-na"
+                            required>
                     </div>
                     <div class="col-6">
-                        <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity" class="form-control group-na">
+                        <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
+                            class="form-control group-na" required>
                     </div>
                 </div>
             </div>
@@ -68,9 +73,39 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+
+    <!-- NEXT BUTTON -->
+        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick = "submitForm()">
+            <strong>NEXT</strong>
+        </button>
+    
 </div>
 
 <script>
+     // ======================== Next button ====================================
+     function submitForm() {
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group-na');
+
+        // Check if all input fields are filled out
+        var allFilled = true;
+        inputs.forEach(function (input) {
+            if (!input.value.trim()) {
+                allFilled = false;
+            }
+        });
+
+        // If all input fields are filled out, submit the form
+        if (allFilled) {
+            window.location.href = "pds_form.php?form_section=work_exp";
+        } else {
+            alert("Please fill out all input fields before proceeding.");
+        }
+    }
     function addRow() {
         // Clone the input-row element
         var newRow = document.querySelector(".row-row").cloneNode(true);
@@ -83,14 +118,21 @@
         // Append the cloned row to the container
         document.querySelector(".row-container").appendChild(newRow);
 
-        // Change the N/A checkbox to a delete button
-        var checkbox = newRow.querySelector(".form-check-input");
-        checkbox.checked = false; // Uncheck the checkbox
-        checkbox.id = ""; // Remove id to avoid duplication
-        checkbox.removeAttribute("onclick"); // Remove onclick event
-        checkbox.setAttribute("type", "button"); // Change type to button
-        checkbox.setAttribute("onclick", "deleteRow(this)"); // Add delete function
-        checkbox.nextElementSibling.textContent = "Delete"; // Change label text
+        //Remove the n/a checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
+
+        // Find the delete button in the cloned row and enable it 
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
+        }
     }
 
     function checkNA(checkbox) {
@@ -103,9 +145,16 @@
                 input.disabled = true;
                 cse_addrow.disabled = true;
             });
+            // Remove cloned rows if they exist
+            const clonedRows = document.querySelectorAll(".row-container .row-row");
+            clonedRows.forEach((clonedRow) => {
+                if (clonedRow !== checkbox.closest('.row-row')) {
+                    clonedRow.remove();
+                }
+            });
         } else {
             inputs.forEach(function (input) {
-                
+
                 input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
                     input.id == "license_number" ? input.type = "number" :
                         input.type = "text";
@@ -115,11 +164,6 @@
                 cse_addrow.disabled = false;
             });
         }
-    }
-
-    function deleteRow(button) {
-        var row = button.closest(".row-row");
-        row.remove();
     }
 
 </script>
