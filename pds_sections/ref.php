@@ -62,4 +62,13 @@
             </div>
         </div>
     </div>
+    <!-- BACK BUTTON -->
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
+    </button>
+    
+    <!-- SUBMIT BUTTON -->
+    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+        <strong>SUBMIT</strong>
+    </button>
 </div>
