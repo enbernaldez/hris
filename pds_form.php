@@ -88,7 +88,7 @@ $_SESSION['user_type'] = 'V';
 
                 <!-- FORM -->
 
-                <form action="pds.php" method="post">
+                <form action="new_pds.php" method="post">
 
                     <?php
                     if (isset($_GET['form_section'])) {
