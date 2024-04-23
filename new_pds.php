@@ -25,18 +25,18 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
 
     // insert($conn, $table, $fields);
 
-    // // retrieve employee ID from db
+    // retrieve employee ID from db
     $sql = "SELECT `employee_id` 
             FROM `employees` 
             WHERE `employee_lastname` = '{$n_pi_name_last}'
             AND `employee_firstname` = '{$n_pi_name_first}'
             AND `employee_middlename` = '{$n_pi_name_middle}'
             AND `employee_nameext` = '{$n_pi_name_ext}'"; //change {$n_pi_name} to ? once finished
+    echo $sql . "<br>";
     // $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle,$n_pi_name_ext) 
     // $result = query($conn, $sql, $filter);
     // $row = $result[0];
     // $employee_id = $row['employee_id'];
-    $employee_id = $sql;
 
     //transfers value of posted variables to local variables
     $n_pi_birth_date = $_POST['birth_date'];
@@ -91,14 +91,9 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         }
     }
 
-    if ($n_pi_citizenship_country == "N/A") {
-        $citizenship_country = $n_pi_citizenship_country;
-    } else {
-        $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
-    }
+    $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
 
     echo "<br>
-        Employee ID: $employee_id<br>
         Date of Birth: $n_pi_birth_date<br>
         Place of Birth: $n_pi_birth_place<br>
         Sex: $n_pi_sex<br>
@@ -134,7 +129,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_pi_id_agency = strtoupper($_POST['id_agency']);
 
     echo "<br>
-        Employee ID: $employee_id<br>
         GSIS ID No.: $n_pi_id_gsis<br>
         PAGIBIG ID No.: $n_pi_id_pagibig<br>
         PhilHealth No.: $n_pi_id_philhealth<br>
@@ -165,33 +159,15 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_pi_radd_houseblocklot = $_POST['radd_houseblocklot'] ?? "N/A";
     $n_pi_radd_zipcode = $_POST['radd_zipcode'];
 
-    $residential_province = '';
-    $residential_citymunicipality = '';
+    $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
+    $add_types = array('B' => 'both_', 'R' => 'residential_', 'P' => 'permanent_');
 
-    $both_province = '';
-    $both_citymunicipality = '';
-    $both_barangay = '';
-    $both_subdivisionvillage = '';
-    $both_street = '';
-    $both_houseblocklot = '';
-    $both_zipcode = '';
-
-    $residential_province = '';
-    $residential_citymunicipality = '';
-    $residential_barangay = '';
-    $residential_subdivisionvillage = '';
-    $residential_street = '';
-    $residential_houseblocklot = '';
-    $residential_zipcode = '';
-
-    $permanent_province = '';
-    $permanent_citymunicipality = '';
-    $permanent_barangay = '';
-    $permanent_subdivisionvillage = '';
-    $permanent_street = '';
-    $permanent_houseblocklot = '';
-    $permanent_zipcode = '';
-
+    // initialize variables for lookupEachArea()
+    foreach ($add_types as $add_type => $prefix) {
+        foreach ($areas as $area) {
+            ${$prefix . $area} = '';
+        }
+    }
 
     function lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province)
     {
@@ -205,7 +181,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
                 'P' => "permanent_{$area}",
             };
 
-            global $$var_name;
+            global $$var_name; // beware of using the 'global' keyword
 
             $table_name = match ($area) {
                 'province' => 'provinces',
@@ -220,15 +196,14 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
             $column_name = (in_array($area, ['houseblocklot', 'zipcode'])) ? "{$area}_no" : "{$area}_name";
 
             // if barangays table and zipcode table, citymunicipality then may foreign keys
+            $column_fk = '';
+            $data_fk = '';
             if (in_array($table_name, ['barangays', 'zipcodes'])) {
                 $column_fk = 'citymunicipality_id';
                 $data_fk = $residential_citymunicipality ?? '';
             } else if ($table_name == 'city_municipality') {
                 $column_fk = 'province_id';
                 $data_fk = $residential_province ?? '';
-            } else {
-                $column_fk = '';
-                $data_fk = '';
             }
 
             $$var_name = lookupId($conn, $posted_areas[$index], $table_name, "{$area}_id", $column_name, $column_fk, $data_fk);
@@ -245,7 +220,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
 
         echo "<br>
-            Employee ID: $employee_id<br>
             RESIDENTIAL & PERMANENT ADDRESS<br>
             Province: $both_province<br>
             City/Municipality: $both_citymunicipality<br>
@@ -276,7 +250,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
 
         echo "<br>
-            Employee ID: $employee_id<br>
             RESIDENTIAL ADDRESS<br>
             Province: $residential_province<br>
             City/Municipality: $residential_citymunicipality<br>
@@ -316,7 +289,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
 
         echo "<br>
-            Employee ID: $employee_id<br>
             PERMANENT ADDRESS<br>
             Province: $permanent_province<br>
             City/Municipality: $permanent_citymunicipality<br>
@@ -349,7 +321,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_pi_emailadd = $_POST['emailadd'] ?? "N/A";
 
     echo "<br>
-        Employee ID: $employee_id<br>
         Telephone No.: $n_pi_no_tel<br>
         Mobile No.: $n_pi_no_mobile<br>
         Email Address: $n_pi_emailadd<br>
@@ -365,6 +336,8 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     );
     // insert($conn, $table, $filter);
 
+
+
     echo "<br><br><br>FAMILY BACKGROUND<br>";
     //transfers value of posted variables to local variables
     $n_fb_spouse_name_last = $_POST['spouse_name_last'];
@@ -377,22 +350,13 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_fb_spouse_telno = $_POST['spouse_telno'] ?? "N/A";
 
     // lookup occupation_id
-    if ($n_fb_spouse_occupation == "N/A") {
-        $occupation = $n_fb_spouse_occupation;
-    } else {
-        $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
-    }
+    $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
 
     // lookup employer_business_id
-    if ($n_fb_spouse_bus_name == "N/A") {
-        $employer_business = $n_fb_spouse_bus_name;
-    } else {
-        $employer_business = lookupId($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name', '', '');
-    }
+    $employer_business = lookupId($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name', '', '');
 
     echo "<br>
         SPOUSE<br>
-        Employee ID: $employee_id<br>
         Last Name:: $n_fb_spouse_name_last<br>
         First Name: $n_fb_spouse_name_first<br>
         Middle Name: $n_fb_spouse_name_middle<br>
@@ -426,7 +390,6 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
 
     echo "<br>
         FATHER<br>
-        Employee ID: $employee_id<br>
         Last Name:: $n_fb_father_name_last<br>
         First Name: $n_fb_father_name_first<br>
         Middle Name: $n_fb_father_name_middle<br>
@@ -448,11 +411,10 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     //transfers value of posted variables to local variables
     $n_fb_mother_name_last = $_POST['mother_name_last'];
     $n_fb_mother_name_first = $_POST['mother_name_first'];
-    $n_fb_mother_name_middle = $_POST['mother_name_middle'] ?? "N/A";
+    $n_fb_mother_name_middle = $_POST['mother_name_middle'] ?? "N/A"; 
 
     echo "<br>
         MOTHER<br>
-        Employee ID: $employee_id<br>
         Last Name: $n_fb_mother_name_last<br>
         First Name: $n_fb_mother_name_first<br>
         Middle Name: $n_fb_mother_name_middle<br>
@@ -476,7 +438,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     if ($n_fb_child_fullname != NULL && $n_fb_child_fullname != NULL) {
         $children = array(
             $n_fb_child_fullname, // First inner array
-            $n_fb_child_birthdate,     // Second inner array
+            $n_fb_child_birthdate, // Second inner array
         );
         // Ensure both inner arrays have the same number of elements
         $numElements = count($children[0]); // Number of elements in each inner array
@@ -499,7 +461,58 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         // insert($conn, $table, $fields);
     }
 
-    // // EDUCATIONAL BACKGROUND
+
+
+    echo "<br><br><br>EDUCATIONAL BACKGROUND<br>";
+    $n_eb_elem_school = $_POST['elem_school'];
+    $n_eb_elem_degree = $_POST['elem_degree'];
+    $n_eb_elem_attendance_from = $_POST['elem_attendance_from'];
+    $n_eb_elem_attendance_to = $_POST['elem_attendance_to'];
+    $n_eb_elem_level = $_POST['elem_level'];
+    $n_eb_elem_year = $_POST['elem_year'];
+    $n_eb_elem_scholarship = $_POST['elem_scholarship'];
+
+    $n_eb_sec_school = $_POST['sec_school'];
+    $n_eb_sec_degree = $_POST['sec_degree'];
+    $n_eb_sec_attendance_from = $_POST['sec_attendance_from'];
+    $n_eb_sec_attendance_to = $_POST['sec_attendance_to'];
+    $n_eb_sec_level = $_POST['sec_level'];
+    $n_eb_sec_year = $_POST['sec_year'];
+    $n_eb_sec_scholarship = $_POST['sec_scholarship'];
+
+    $n_eb_voc_school = $_POST['voc_school'];
+    $n_eb_voc_degree = $_POST['voc_degree'];
+    $n_eb_voc_attendance_from = $_POST['voc_attendance_from'];
+    $n_eb_voc_attendance_to = $_POST['voc_attendance_to'];
+    $n_eb_voc_level = $_POST['voc_level'];
+    $n_eb_voc_year = $_POST['voc_year'];
+    $n_eb_voc_scholarship = $_POST['voc_scholarship'];
+
+    $n_eb_voc_school = $_POST['voc_school'];
+    $n_eb_voc_degree = $_POST['voc_degree'];
+    $n_eb_voc_attendance_from = $_POST['voc_attendance_from'];
+    $n_eb_voc_attendance_to = $_POST['voc_attendance_to'];
+    $n_eb_voc_level = $_POST['voc_level'];
+    $n_eb_voc_year = $_POST['voc_year'];
+    $n_eb_voc_scholarship = $_POST['voc_scholarship'];
+
+    $n_eb_coll_school = $_POST['coll_school'];
+    $n_eb_coll_degree = $_POST['coll_degree'];
+    $n_eb_coll_attendance_from = $_POST['coll_attendance_from'];
+    $n_eb_coll_attendance_to = $_POST['coll_attendance_to'];
+    $n_eb_coll_level = $_POST['coll_level'];
+    $n_eb_coll_year = $_POST['coll_year'];
+    $n_eb_coll_scholarship = $_POST['coll_scholarship'];
+
+    $n_eb_grad_school = $_POST['grad_school'];
+    $n_eb_grad_degree = $_POST['grad_degree'];
+    $n_eb_grad_attendance_from = $_POST['grad_attendance_from'];
+    $n_eb_grad_attendance_to = $_POST['grad_attendance_to'];
+    $n_eb_grad_level = $_POST['grad_level'];
+    $n_eb_grad_year = $_POST['grad_year'];
+    $n_eb_grad_scholarship = $_POST['grad_scholarship'];
+
+
 
     // // CIVIL SERVICE ELIGBILITY
     // $n_cse_careerservice = $_POST['careerservice[]'];
