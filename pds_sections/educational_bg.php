@@ -473,34 +473,64 @@
             }
         }
     }
+    // Define an object to store the original options of each select element
+    const originalOptions = {};
 
-    function handleNAArray(checkboxId, inputIds, chkboxIds) {
+    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
+        const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
+
+        // Store the original options of each select element
+        selects.forEach((select) => {
+            originalOptions[select.id] = Array.from(select.options).map((option) => {
+                return { value: option.value, text: option.text };
+            });
+        });
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
                 inputs.forEach((input) => {
-                    input.type = "text"; //Change input type to text
                     input.value = "N/A";
                     input.disabled = true;
+                });
+                selects.forEach((select) => {
+                    // Clear existing options
+                    select.innerHTML = "";
+                    // Create new option with "N/A" value
+                    const optionNA = document.createElement("option");
+                    optionNA.text = "N/A";
+                    optionNA.value = "N/A";
+                    // Append option to select
+                    select.appendChild(optionNA);
+                    select.disabled = true;
                 });
                 checkboxes.forEach((chkbx) => {
                     chkbx.checked = true;
                     chkbx.disabled = true;
                 });
-                //Remove cloned rows if they exist
+                // Remove cloned rows if they exist
                 const clonedRows = document.querySelectorAll("." + checkboxId + ".new-row");
                 clonedRows.forEach((clonedRow) => {
                     clonedRow.remove();
                 });
             } else {
                 inputs.forEach((input) => {
-                    // input.type = "number"; //Change input type back to number
                     input.value = "";
                     input.disabled = false;
                 });
+                selects.forEach((select) => {
+                // Restore original options
+                select.innerHTML = "";
+                originalOptions[select.id].forEach((optionData) => {
+                    const option = document.createElement("option");
+                    option.text = optionData.text;
+                    option.value = optionData.value;
+                    select.appendChild(option);
+                });
+                select.disabled = false;
+            });
                 checkboxes.forEach((chkbx) => {
                     chkbx.checked = false;
                     chkbx.disabled = false;
@@ -518,16 +548,20 @@
             "h_levelV",
             "p_attendance_fromV",
             "p_attendance_toV",
-            "h_levelV",
             "year_graduatedV",
             "v_scholarship"
-        ], //Array of input fields IDs
+        ],
+        [
+            "p_attendance_fromV",
+            "p_attendance_toV",
+            "year_graduatedV",
+        ],
         [
             "null_fromV",
             "null_toV",
             "null_yearV",
             "null_scholarshipV"
-        ], // Array of checkbox IDs
+        ]
     );
     handleNAArray(
         "null_graduate",
@@ -541,12 +575,19 @@
             "g_scholarship"
         ],
         [
+            "p_attendance_fromG",
+            "p_attendance_toG",
+            "year_graduatedG",
+        ],
+        [
             "null_fromG",
             "null_toG",
             "null_yearG",
             "null_scholarshipG"
         ]
     );
+
+
 
     document.addEventListener("DOMContentLoaded", function () {
         // Find the "button"
