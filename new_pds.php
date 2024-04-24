@@ -1,7 +1,7 @@
 <?php
 include_once "db_conn.php";
 
-if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
+if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_POST['elem_school']) || isset($_POST['null_cse']) || isset($_POST['careerservice'])) {
 
     echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables
@@ -52,18 +52,18 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
 
     function lookupId($conn, $name, $table, $column_pk, $column_name, $column_fk, $column_fk_idData)
     {
-        // =============================== GLOSSARY OF ARGUMENTS ===============================
+        // ======================== GLOSSARY OF ARGUMENTS FOR lookupId() ========================
         // $name is the posted value (ex: `4503`)
         // $table is the name of the table (ex: `zipcodes` table)
         // $column_pk is the column name of the IDs (ex: `zipcode_id` column)
         // $column_name is the column name of the names (ex: `zipcode_no` column)
         // $column_fk is the column name of the foreign key (ex: `citymunicipality_id` column)
         // $column_fk_idData is the data inside the column name of the foreign key (ex: `4`)
-        // =====================================================================================
+        // ======================================================================================
 
         $finished = false;
         while ($finished == false) {
-            // see if $name exists in $table table
+            // check if $name exists in $table
             $keys = "`{$column_pk}`";
             if ($column_fk != "") {
                 $keys .= ", `{$column_fk}`";
@@ -76,11 +76,14 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
             // $result = query($conn, $sql, $filter);
 
             // if (!empty($result)) {
+            //     // retrieve ID of $name
             //     $row = $result[0];
             //     $finished = true;
+
+            //     // exit function if ID is successfully received
             //     return $row[$column_pk];
             // } else {
-            //     // insert $name to $table table
+            //     // insert $name if it doesn't exist in $table
             //     // $table = $table;
             //     $fields = array($column_name => $name);
             //     if (in_array($column_fk, ['citymunicipality_id', 'province_id'])) {
@@ -91,6 +94,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         }
     }
 
+    // lookup ID of $n_pi_citizenship_country
     $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
 
     echo "<br>
@@ -159,6 +163,15 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_pi_radd_houseblocklot = $_POST['radd_houseblocklot'] ?? "N/A";
     $n_pi_radd_zipcode = $_POST['radd_zipcode'];
 
+    //transfers value of posted variables to local variables
+    $n_pi_padd_province = $_POST['padd_province'] ?? '';
+    $n_pi_padd_citymunicipality = $_POST['padd_citymunicipality'] ?? '';
+    $n_pi_padd_barangay = $_POST['padd_barangay'] ?? '';
+    $n_pi_padd_subdivisionvillage = $_POST['padd_subdivisionvillage'] ?? "N/A";
+    $n_pi_padd_street = $_POST['padd_street'] ?? "N/A";
+    $n_pi_padd_houseblocklot = $_POST['padd_houseblocklot'] ?? "N/A";
+    $n_pi_padd_zipcode = $_POST['padd_zipcode'] ?? '';
+
     $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
     $add_types = array('B' => 'both_', 'R' => 'residential_', 'P' => 'permanent_');
 
@@ -169,19 +182,38 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         }
     }
 
-    function lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province)
-    {
-        $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
+    // create lookupEachArea()
+    // function lookupEachArea($conn, $add_type, $areas, $posted_areas, $residential_citymunicipality, $residential_province) {}
 
+    $same_add = $_POST['same_add'] ?? "false";
+    $posted_areas = array($n_pi_radd_province, $n_pi_radd_citymunicipality, $n_pi_radd_barangay, $n_pi_radd_subdivisionvillage, $n_pi_radd_street, $n_pi_radd_houseblocklot, $n_pi_radd_zipcode);
+
+    foreach ($add_types as $add_type => $prefix) {
+
+        if ($same_add == "false" && $add_type == "B") {
+            // skip to the next element of the array
+            continue;
+        }
+        if ($add_type == "P") {
+
+            $posted_areas = array($n_pi_padd_province, $n_pi_padd_citymunicipality, $n_pi_padd_barangay, $n_pi_padd_subdivisionvillage, $n_pi_padd_street, $n_pi_padd_houseblocklot, $n_pi_padd_zipcode);
+        }
+
+        // call lookupEachArea()
+        // lookupEachArea($conn, $add_type, $areas, $posted_areas, $residential_citymunicipality, $residential_province);
+        
+        // content of lookupEachArea()
         foreach ($areas as $index => $area) {
 
+            // set $var_name value to what the variable's name will be
             $var_name = match ($add_type) {
                 'B' => "both_{$area}",
                 'R' => "residential_{$area}",
                 'P' => "permanent_{$area}",
             };
 
-            global $$var_name; // beware of using the 'global' keyword
+            // 'global' keyword allows the $$var_name outside the function to be accessed
+            // global $$var_name; // beware of using the 'global' keyword
 
             $table_name = match ($area) {
                 'province' => 'provinces',
@@ -195,7 +227,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
 
             $column_name = (in_array($area, ['houseblocklot', 'zipcode'])) ? "{$area}_no" : "{$area}_name";
 
-            // if barangays table and zipcode table, citymunicipality then may foreign keys
+            // for tables with foreign keys
             $column_fk = '';
             $data_fk = '';
             if (in_array($table_name, ['barangays', 'zipcodes'])) {
@@ -206,113 +238,45 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
                 $data_fk = $residential_province ?? '';
             }
 
+            // $$var_name means that the value of $var_name will be used as the variable name
+            // lookup ID of each variable name
             $$var_name = lookupId($conn, $posted_areas[$index], $table_name, "{$area}_id", $column_name, $column_fk, $data_fk);
         }
-    }
 
-    $same_add = $_POST['same_add'] ?? "false";
-    $posted_areas = array($n_pi_radd_province, $n_pi_radd_citymunicipality, $n_pi_radd_barangay, $n_pi_radd_subdivisionvillage, $n_pi_radd_street, $n_pi_radd_houseblocklot, $n_pi_radd_zipcode);
-
-    // if same add checkbox is checked then change emp_add_type of R to B, otherwise P
-    if ($same_add == "true") {
-
-        $add_type = "B";
-        lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
-
-        echo "<br>
-            RESIDENTIAL & PERMANENT ADDRESS<br>
-            Province: $both_province<br>
-            City/Municipality: $both_citymunicipality<br>
-            Barangay: $both_barangay<br>
-            Subdivision/Village: $both_subdivisionvillage<br>
-            Street: $both_street<br>
-            House/Block/Lot No.: $both_houseblocklot<br>
-            Zipcode: $both_zipcode<br>
-        ";
+        echo "<br>" .
+            match ($add_type) {
+                'B' => 'RESIDENTIAL & PERMANENT ADDRESS',
+                'R' => 'RESIDENTIAL ADDRESS',
+                'P' => 'PERMANENT ADDRESS',
+            } . "<br>
+                Province: " . ${$prefix . 'province'} . "<br>
+                City/Municipality: " . ${$prefix . 'citymunicipality'} . "<br>
+                Barangay: " . ${$prefix . 'barangay'} . "<br>
+                Subdivision/Village: " . ${$prefix . 'subdivisionvillage'} . "<br>
+                Street: " . ${$prefix . 'street'} . "<br>
+                House/Block/Lot No.: " . ${$prefix . 'houseblocklot'} . "<br>
+                Zipcode: " . ${$prefix . 'zipcode'} . "<br>
+            ";
 
         // prepare arguments for insert function
         $table = 'employee_addresses';
         $fields = array(
             // 'employee_id' => $employee_id,
-            'province_id' => $both_province,
-            'citymunicipality_id' => $both_citymunicipality,
-            'barangay_id' => $both_barangay,
-            'subdivisionvillage_id' => $both_subdivisionvillage,
-            'street_id' => $both_street,
-            'houseblocklot_id' => $both_houseblocklot,
-            'zipcode_id' => $both_zipcode,
-            'emp_add_type' => $add_type,
-        );
-        // insert($conn, $table, $fields);
-    } else {
-
-        $add_type = "R";
-        lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
-
-        echo "<br>
-            RESIDENTIAL ADDRESS<br>
-            Province: $residential_province<br>
-            City/Municipality: $residential_citymunicipality<br>
-            Barangay: $residential_barangay<br>
-            Subdivision/Village: $residential_subdivisionvillage<br>
-            Street: $residential_street<br>
-            House/Block/Lot No.: $residential_houseblocklot<br>
-            Zipcode: $residential_zipcode<br>
-        ";
-
-        // prepare arguments for insert function
-        $table = 'employee_addresses';
-        $fields = array(
-            // 'employee_id' => $employee_id,
-            'province_id' => $residential_province,
-            'citymunicipality_id' => $residential_citymunicipality,
-            'barangay_id' => $residential_barangay,
-            'subdivisionvillage_id' => $residential_subdivisionvillage,
-            'street_id' => $residential_street,
-            'houseblocklot_id' => $residential_houseblocklot,
-            'zipcode_id' => $residential_zipcode,
+            'province_id' => ${$prefix . 'province'},
+            'citymunicipality_id' => ${$prefix . 'citymunicipality'},
+            'barangay_id' => ${$prefix . 'barangay'},
+            'subdivisionvillage_id' => ${$prefix . 'subdivisionvillage'},
+            'street_id' => ${$prefix . 'street'},
+            'houseblocklot_id' => ${$prefix . 'houseblocklot'},
+            'zipcode_id' => ${$prefix . 'zipcode'},
             'emp_add_type' => $add_type,
         );
         // insert($conn, $table, $fields);
 
-        //transfers value of posted variables to local variables
-        $n_pi_padd_province = $_POST['padd_province'];
-        $n_pi_padd_citymunicipality = $_POST['padd_citymunicipality'];
-        $n_pi_padd_barangay = $_POST['padd_barangay'];
-        $n_pi_padd_subdivisionvillage = $_POST['padd_subdivisionvillage'] ?? "N/A";
-        $n_pi_padd_street = $_POST['padd_street'] ?? "N/A";
-        $n_pi_padd_houseblocklot = $_POST['padd_houseblocklot'] ?? "N/A";
-        $n_pi_padd_zipcode = $_POST['padd_zipcode'];
-
-        $posted_areas = array($n_pi_padd_province, $n_pi_padd_citymunicipality, $n_pi_padd_barangay, $n_pi_padd_subdivisionvillage, $n_pi_padd_street, $n_pi_padd_houseblocklot, $n_pi_padd_zipcode);
-        $add_type = "P";
-        lookupEachArea($conn, $add_type, $posted_areas, $residential_citymunicipality, $residential_province);
-
-        echo "<br>
-            PERMANENT ADDRESS<br>
-            Province: $permanent_province<br>
-            City/Municipality: $permanent_citymunicipality<br>
-            Barangay: $permanent_barangay<br>
-            Subdivision/Village: $permanent_subdivisionvillage<br>
-            Street: $permanent_street<br>
-            House/Block/Lot No.: $permanent_houseblocklot<br>
-            Zipcode: $permanent_zipcode<br>
-        ";
-
-        // prepare arguments for insert function
-        $table = 'employee_addresses';
-        $fields = array(
-            // 'employee_id' => $employee_id,
-            'province_id' => $permanent_province,
-            'citymunicipality_id' => $permanent_citymunicipality,
-            'barangay_id' => $permanent_barangay,
-            'subdivisionvillage_id' => $permanent_subdivisionvillage,
-            'street_id' => $permanent_street,
-            'houseblocklot_id' => $permanent_houseblocklot,
-            'zipcode_id' => $permanent_zipcode,
-            'emp_add_type' => $add_type,
-        );
-        // insert($conn, $table, $fields);
+        if ($same_add == "true") {
+            // exit the loop
+            break;
+        }
     }
 
     //transfers value of posted variables to local variables
@@ -349,10 +313,10 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     $n_fb_spouse_bus_add = $_POST['spouse_bus_add'] ?? "N/A";
     $n_fb_spouse_telno = $_POST['spouse_telno'] ?? "N/A";
 
-    // lookup occupation_id
+    // lookup ID of $n_fb_spouse_occupation
     $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
 
-    // lookup employer_business_id
+    // lookup ID of $n_fb_spouse_bus_name
     $employer_business = lookupId($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name', '', '');
 
     echo "<br>
@@ -411,7 +375,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
     //transfers value of posted variables to local variables
     $n_fb_mother_name_last = $_POST['mother_name_last'];
     $n_fb_mother_name_first = $_POST['mother_name_first'];
-    $n_fb_mother_name_middle = $_POST['mother_name_middle'] ?? "N/A"; 
+    $n_fb_mother_name_middle = $_POST['mother_name_middle'] ?? "N/A";
 
     echo "<br>
         MOTHER<br>
@@ -442,8 +406,8 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
         );
         // Ensure both inner arrays have the same number of elements
         $numElements = count($children[0]); // Number of elements in each inner array
-        // Iterate through each index to combine corresponding elements
         echo "<br>CHILDREN<br>";
+        // Iterate through each index to combine corresponding elements
         for ($i = 0; $i < $numElements; $i++) {
             $fullName = $children[0][$i];   // Get fullName from the first inner array
             $bday = $children[1][$i];   // Get bday from the second inner array
@@ -464,73 +428,145 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"])) {
 
 
     echo "<br><br><br>EDUCATIONAL BACKGROUND<br>";
-    $n_eb_elem_school = $_POST['elem_school'];
-    $n_eb_elem_degree = $_POST['elem_degree'];
-    $n_eb_elem_attendance_from = $_POST['elem_attendance_from'];
-    $n_eb_elem_attendance_to = $_POST['elem_attendance_to'];
-    $n_eb_elem_level = $_POST['elem_level'];
-    $n_eb_elem_year = $_POST['elem_year'];
-    $n_eb_elem_scholarship = $_POST['elem_scholarship'];
 
-    $n_eb_sec_school = $_POST['sec_school'];
-    $n_eb_sec_degree = $_POST['sec_degree'];
-    $n_eb_sec_attendance_from = $_POST['sec_attendance_from'];
-    $n_eb_sec_attendance_to = $_POST['sec_attendance_to'];
-    $n_eb_sec_level = $_POST['sec_level'];
-    $n_eb_sec_year = $_POST['sec_year'];
-    $n_eb_sec_scholarship = $_POST['sec_scholarship'];
+    $educ_level = array('elem', 'sec', 'voc', 'coll', 'grad');
+    $educ_details = array('_school', '_degree', '_attendance_from', '_attendance_to', '_level', '_year', '_scholarship');
 
-    $n_eb_voc_school = $_POST['voc_school'];
-    $n_eb_voc_degree = $_POST['voc_degree'];
-    $n_eb_voc_attendance_from = $_POST['voc_attendance_from'];
-    $n_eb_voc_attendance_to = $_POST['voc_attendance_to'];
-    $n_eb_voc_level = $_POST['voc_level'];
-    $n_eb_voc_year = $_POST['voc_year'];
-    $n_eb_voc_scholarship = $_POST['voc_scholarship'];
+    foreach ($educ_level as $lvl) {
+        $title = match ($lvl) {
+            'elem' => 'ELEMENTARY',
+            'sec' => 'SECONDARY',
+            'voc' => 'VOCATIONAL',
+            'coll' => 'COLLEGE',
+            'grad' => 'GRADUATE STUDIES',
+        };
 
-    $n_eb_voc_school = $_POST['voc_school'];
-    $n_eb_voc_degree = $_POST['voc_degree'];
-    $n_eb_voc_attendance_from = $_POST['voc_attendance_from'];
-    $n_eb_voc_attendance_to = $_POST['voc_attendance_to'];
-    $n_eb_voc_level = $_POST['voc_level'];
-    $n_eb_voc_year = $_POST['voc_year'];
-    $n_eb_voc_scholarship = $_POST['voc_scholarship'];
+        foreach ($educ_details as $detail) {
+            ${"n_eb_" . $lvl . $detail} = $_POST[$lvl . $detail] ?? "N/A";
 
-    $n_eb_coll_school = $_POST['coll_school'];
-    $n_eb_coll_degree = $_POST['coll_degree'];
-    $n_eb_coll_attendance_from = $_POST['coll_attendance_from'];
-    $n_eb_coll_attendance_to = $_POST['coll_attendance_to'];
-    $n_eb_coll_level = $_POST['coll_level'];
-    $n_eb_coll_year = $_POST['coll_year'];
-    $n_eb_coll_scholarship = $_POST['coll_scholarship'];
+            if ($detail == '_school' || $detail == '_degree') {
+                $var_name = str_replace('_', '', $detail);
+                // $var_name = substr($detail, 1);
+                $$var_name = lookupId($conn, ${"n_eb_" . $lvl . $detail}, 'schools', 'school_id', 'school_name', '', '');
+            } else {
+                $var_name = str_replace('_', '', $detail);
+                // $var_name = substr($detail, 1);
+                $$var_name = ${"n_eb_" . $lvl . $detail};
+            }
+        }
 
-    $n_eb_grad_school = $_POST['grad_school'];
-    $n_eb_grad_degree = $_POST['grad_degree'];
-    $n_eb_grad_attendance_from = $_POST['grad_attendance_from'];
-    $n_eb_grad_attendance_to = $_POST['grad_attendance_to'];
-    $n_eb_grad_level = $_POST['grad_level'];
-    $n_eb_grad_year = $_POST['grad_year'];
-    $n_eb_grad_scholarship = $_POST['grad_scholarship'];
+        echo "<br>
+            $title (" . strtoupper($lvl[0]) . ")<br>
+            Name of School: $school<br>
+            Basic Education / Degree / Course: $degree<br>
+            Period of Attendance<br>
+            From: $attendancefrom&emsp;
+            To: $attendanceto<br>
+            Highest Level / Units Earned: $level<br>
+            Year Graduated: $year<br>
+            Scholarship / Academic Honors Received: $scholarship<br>
+        ";
+
+        // prepare arguments for insert function
+        $table = 'education';
+        $fields = [
+            // 'employee_id' => $employee_id,
+            'educ_acadlvl' => strtoupper($lvl[0]),
+            'school_id' => $school,
+            'bdc_id' => $degree,
+            'educ_period_from' => $attendancefrom,
+            'educ_period_to' => $attendanceto,
+            'educ_highest' => $level,
+            'educ_graduated' => $year,
+            'educ_scholarship_acad_honors' => $scholarship,
+        ];
+        // insert($conn, $table, $fields);
+    }
 
 
 
-    // // CIVIL SERVICE ELIGBILITY
-    // $n_cse_careerservice = $_POST['careerservice[]'];
-    // $n_cse_rating = $_POST['rating[]'];
-    // $n_cse_exam_date = $_POST['exam_date[]'];
-    // $n_cse_exam_place = $_POST['exam_place[]'];
-    // $n_cse_license_number = $_POST['license_number[]'];
-    // $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity[]'];
+    // CIVIL SERVICE ELIGBILITY
+    $n_cse_careerservice = $_POST['careerservice'] ?? 'N/A';
+    $n_cse_rating = $_POST['rating'] ?? 'N/A';
+    $n_cse_exam_date = $_POST['exam_date'] ?? 'N/A';
+    $n_cse_exam_place = $_POST['exam_place'] ?? 'N/A';
+    $n_cse_license_number = $_POST['license_number'] ?? 'N/A';
+    $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity'] ?? 'N/A';
 
-    // // WORK EXPERIENCE
-    // $n_we_date_from = $_POST['we_date_from[]'];
-    // $n_we_date_to = $_POST['we_date_to[]'];
-    // $n_we_position = $_POST['we_position[]'];
-    // $n_we_agency = $_POST['we_agency[]'];
-    // $n_we_salary = $_POST['we_salary[]'];
-    // $n_we_sg = $_POST['we_sg[]'];
-    // $n_we_status = $_POST['we_status[]'];
-    // $n_we_govtsvcs = $_POST['we_govtsvcs[]'];
+    for ($i = 0; $i < count($n_cse_careerservice); $i++) {
+
+        // lookup ID of $n_cse_careerservice[$i]
+        $career_service = lookupId($conn, $n_cse_careerservice[$i], 'civil_services', 'cs_id', 'cs_name', '', '');
+
+        echo "<br>
+            Career Service: $career_service<br>
+            Rating: {$n_cse_rating[$i]}<br>
+            Date of Examination / Conferment: {$n_cse_exam_date[$i]}<br>
+            Place of Examination / Conferment: {$n_cse_exam_place[$i]}<br>
+            License Number: {$n_cse_license_number[$i]}<br>
+            License's Date of Validity: {$n_cse_license_dateofvalidity[$i]}<br>
+        ";
+
+        // prepare arguments for insert function
+        $table = 'cs_eligibility';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'cs_id' => $career_service,
+            'cseligibility_rating' => $n_cse_rating[$i],
+            'cseligibility_examdate' => $n_cse_exam_date[$i],
+            'cseligibility_place' => $n_cse_exam_place[$i],
+            'cseligibility_license' => $n_cse_license_number[$i],
+            'cseligibility_datevalidity' => $n_cse_license_dateofvalidity[$i],
+        );
+        // insert($conn, $table, $fields);
+    }
+
+
+
+    // WORK EXPERIENCE
+    $n_we_date_from = $_POST['we_date_from[]'] ?? 'N/A';
+    $n_we_date_to = $_POST['we_date_to[]'] ?? 'N/A';
+    $n_we_position = $_POST['we_position[]'] ?? 'N/A';
+    $n_we_agency = $_POST['we_agency[]'] ?? 'N/A';
+    $n_we_salary = $_POST['we_salary[]'] ?? 'N/A';
+    $n_we_sg = $_POST['we_sg[]'] ?? 'N/A';
+    $n_we_status = $_POST['we_status[]'] ?? 'N/A';
+    $n_we_govtsvcs = $_POST['we_govtsvcs[]'] ?? 'N/A';
+
+    for ($i = 0; $i < count($n_we_date_from); $i++) {
+        // edit lookupId to accommodate salary grade
+        $position = lookupId($conn, $n_cse_careerservice[$i], 'positions', 'position_id', 'position_name', 'position_salarygrade', $n_we_sg[$i]);
+        $daoc = lookupId($conn, $n_we_agency[$i], 'department_agency_office_company', 'daoc_id', 'daoc_name', '', '');
+
+        echo "<br>
+            Inclusive Dates:<br>
+            From: $n_we_date_from[$i]\t
+            To: {$n_we_date_to[$i]}<br>
+            Position Title: $position<br>
+            Department/Agency/Office/Company: $daoc<br>
+            Monthly Salary: {$n_we_salary[$i]}<br>
+            Salary/Job/Pay Grade & Step: {$n_we_sg[$i]}<br>
+            Status of Appointment: {$n_we_status[$i]}<br>
+            Government Service? {$n_we_govtsvcs[$i]}<br>
+        ";
+
+        // prepare arguments for insert function
+        $table = 'cs_eligibility';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'workexp_from' => $n_we_date_from[$i],
+            'workexp_to' => $n_we_date_to[$i],
+            'position_id' => $position,
+            'daoc_id' => $daoc,
+            'workexp_salary_mo' => $n_we_salary[$i],
+            'workexp_paygrade_step' => $n_we_sg[$i],
+            'workexp_status' => $n_we_status[$i],
+            'workexp_govtsvcs' => $n_we_govtsvcs[$i],
+        );
+        // insert($conn, $table, $fields);
+    }
+
+
 
     // // VOLUNTARY WORK
     // $n_vw_nameaddress = $_POST['vw_nameaddress[]'];
