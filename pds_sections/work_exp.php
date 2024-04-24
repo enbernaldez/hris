@@ -55,32 +55,33 @@
                     <div class="row">
                         <div class="col-6">
                             <input type="date" required name="we_date_from[]" id="we_date_from"
-                                class="form-control group_na">
+                                class="form-control group_na" value="">
                         </div>
                         <div class="col-6">
                             <input type="date" required name="we_date_to[]" id="we_date_to"
-                                class="form-control group_na">
+                                class="form-control group_na" value="">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-2">
-                <input type="text" name="we_position[]" id="we_position" class="form-control group_na" required>
+                <input type="text" name="we_position[]" id="we_position" class="form-control group_na" required
+                    value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na" required>
+                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na" required value="">
             </div>
             <div class="col-1">
-                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required>
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required value="">
             </div>
             <div class="col-1">
-                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na" required>
+                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na" required value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_status[]" id="we_status" class="form-control group_na" required>
+                <input type="text" name="we_status[]" id="we_status" class="form-control group_na" required value="">
             </div>
             <div class="col-1">
-                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na">
+                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na" value="">
                     <option value="" disabled selected value>--select--</option>
                     <option value='Y'>Yes</option>
                     <option value='N'>No</option>
@@ -102,9 +103,9 @@
     </button>
 
     <!-- NEXT BUTTON -->
-        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick = "submitForm()">
-            <strong>NEXT</strong>
-        </button>
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+        <strong>NEXT</strong>
+    </button>
 </div>
 
 <script>
@@ -129,17 +130,33 @@
         }
     }
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray(checkboxId, inputIds) {
+    const originalOptions = {};
+
+    function setupNullInputArray(checkboxId, inputIds, selectIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
+        const selects = selectIds.map((id) => document.getElementById(id));
+
+        selects.forEach((select) => {
+            originalOptions[select.id] = Array.from(select.options).map((option) => {
+                return { value: option.value, text: option.text };
+            });
+        });
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
                 inputs.forEach((input) => {
-
                     input.type = "text";
                     input.value = "N/A";
                     input.disabled = true;
+                });
+                selects.forEach((select) => {
+                    select.innerHTML = "";
+                    const optionNA = document.createElement("option");
+                    optionNA.text = "N/A";
+                    optionNA.value = "N/A";
+                    select.appendChild(optionNA);
+                    select.disabled = true;
                 });
                 // Remove cloned rows if they exist
                 const clonedRows = document.querySelectorAll(".row-container .row-row");
@@ -157,6 +174,16 @@
                     input.value = "";
                     input.disabled = false;
                 });
+                selects.forEach((select) => {
+                    select.innerHTML = "";
+                    originalOptions[select.id].forEach((optionData) => {
+                        const option = document.createElement("option");
+                        option.text = optionData.text;
+                        option.value = optionData.value;
+                        select.appendChild(option);
+                    });
+                    select.disabled = false;
+                });
             }
         });
     }
@@ -170,9 +197,11 @@
         "we_salary",
         "we_sg",
         "we_status",
-        "we_govtsvcs",
         "we_addrow",
-    ]);
+    ],
+        [
+            "we_govtsvcs"
+        ]);
 
     // =================================== Add Row ===================================
     function addRow() {
