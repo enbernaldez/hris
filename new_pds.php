@@ -809,7 +809,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fileext = pathinfo($file, PATHINFO_EXTENSION); //ext
 
     $temp = $_FILES['change_photo']['tmp_name']; //temporary location
-    $n_itemimgdir = "employees_pics/" . $filename . "." . $fileext; ///target location
+    $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
 
     // prepare arguments for update function
     $table = "employees";
