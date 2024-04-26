@@ -487,7 +487,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // CIVIL SERVICE ELIGBILITY
+    echo "<br><br><br>CIVIL SERVICE ELIGIBILITY<br>";
     //transfers value of posted variables to local variables
     $n_cse_careerservice = $_POST['careerservice'] ?? array('N/A');
     $n_cse_rating = $_POST['rating'] ?? array('N/A');
@@ -495,8 +495,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_cse_exam_place = $_POST['exam_place'] ?? array('N/A');
     $n_cse_license_number = $_POST['license_number'] ?? array('N/A');
     $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity'] ?? array('N/A');
-
-    echo "<br><br><br>CIVIL SERVICE ELIGIBILITY<br>";
 
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
@@ -528,7 +526,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // WORK EXPERIENCE
+    echo "<br><br><br>WORK EXPERIENCE<br>";
     //transfers value of posted variables to local variables
     $n_we_date_from = $_POST['we_date_from'] ?? array('N/A');
     $n_we_date_to = $_POST['we_date_to'] ?? array('N/A');
@@ -538,8 +536,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_we_sg = $_POST['we_sg'] ?? array('N/A');
     $n_we_status = $_POST['we_status'] ?? array('N/A');
     $n_we_govtsvcs = $_POST['we_govtsvcs'] ?? array('N/A');
-
-    echo "<br><br><br>WORK EXPERIENCE<br>";
 
     for ($i = 0; $i < count($n_we_date_from); $i++) {
 
@@ -552,6 +548,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_name', 'position_salarygrade', $salary_grade);
         $daoc = lookupId($conn, $n_we_agency[$i], 'department_agency_office_company', 'daoc_id', 'daoc_name', '', '');
+
+        if($i == 0) {
+            $position_id = $position;
+        }
 
         echo "<br>
             Inclusive Dates:<br>
@@ -583,15 +583,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // VOLUNTARY WORK
+    echo "<br><br><br>VOLUNTARY WORK<br>";
     //transfers value of posted variables to local variables
     $n_vw_nameaddress = $_POST['vw_nameaddress'] ?? array('N/A');
     $n_vw_date_from = $_POST['vw_date_from'] ?? array('N/A');
     $n_vw_date_to = $_POST['vw_date_to'] ?? array('N/A');
     $n_vw_hrs = $_POST['vw_hrs'] ?? array('N/A');
     $n_vw_position = $_POST['vw_position'] ?? array('N/A');
-
-    echo "<br><br><br>VOLUNTARY WORK<br>";
 
     for ($i = 0; $i < count($n_vw_nameaddress); $i++) {
 
@@ -619,7 +617,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // LEARNING AND DEVELOPMENT
+    echo "<br><br><br>LEARNING AND DEVELOPMENT<br>";
     //transfers value of posted variables to local variables
     $n_lnd_title = $_POST['lnd_title'] ?? array('N/A');
     $n_lnd_date_from = $_POST['lnd_date_from'] ?? array('N/A');
@@ -627,8 +625,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_lnd_hrs = $_POST['lnd_hrs'] ?? array('N/A');
     $n_lnd_type = $_POST['lnd_type'] ?? array('N/A');
     $n_lnd_sponsor = $_POST['lnd_sponsor'] ?? array('N/A');
-
-    echo "<br><br><br>LEARNING AND DEVELOPMENT<br>";
 
     for ($i = 0; $i < count($n_lnd_title); $i++) {
 
@@ -661,13 +657,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // OTHER INFORMATION
+    echo "<br><br><br>OTHER INFORMATION<br>";
     //transfers value of posted variables to local variables
     $n_skills = $_POST['skills'] ?? array('N/A');
     $n_distinctions = $_POST['distinctions'] ?? array('N/A');
     $n_membership = $_POST['membership'] ?? array('N/A');
-
-    echo "<br><br><br>OTHER INFORMATION<br>";
 
     function insert_otherInfo($items_array, $table, $fieldName) {
         // accommodate qna
@@ -700,6 +694,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             c. $qna_c: $qna_c_ifyes<br>
         ";
 
+        // prepare arguments for insert function
         $table = 'qna';
         $fields = array(
             // 'employee_id' => $employee_id,
@@ -765,26 +760,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    // // REFERENCES
-    // $n_ref_name = $_POST['ref_name[]'];
-    // $n_ref_address = $_POST['ref_address[]'];
-    // $n_ref_telno = $_POST['ref_telno[]'];
+    echo "<br><br><br>REFERENCES<br>";
+    $n_ref_name = $_POST['ref_name'];
+    $n_ref_address = $_POST['ref_address'];
+    $n_ref_telno = $_POST['ref_telno'];
+    
+    $filtered_ref_name = array_filter($n_ref_name, function($value) {
+        return $value !== ''; 
+    });
 
-    // $n_govtid_type = $_POST['govtid_type'];
-    // $n_govtid_no = $_POST['govtid_no'];
-    // $n_govtid_issuance = $_POST['govtid_issuance'];
+    for ($i=0; $i < count($filtered_ref_name); $i++) { 
+        echo "<br>
+            Name: $n_ref_name[$i]<br>
+            Address: $n_ref_address[$i]<br>
+            Tel. No.: $n_ref_telno[$i]<br>
+        ";
 
-    // // if an employee doesn't have a middle name
-    // $middlename = ($n_pi_name_middle === "N/A") ? "" : " " . $n_pi_name_middle;
-    // // if an employee doesn't have a name extension
-    // $nameext = ($n_pi_name_ext === "N/A") ? "" : " " . $n_pi_name_ext;
+        // prepare arguments for insert function
+        $table = 'pds_references';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'ref_name' => $n_ref_name[$i],
+            'ref_add' => $n_ref_address[$i],
+            'ref_telno' => $n_ref_telno[$i],
+        );
+        // insert($conn, $table, $fields);
+    }
 
-    // // for profile picture
-    // $filename = $n_pi_name_last . ", " . $n_pi_name_first . $middlename . $nameext;
-    // $file = $_FILES['change_photo']['name']; //basename.ext
-    // $fileext = pathinfo($file, PATHINFO_EXTENSION); //ext
+    $n_govtid_type = $_POST['govtid_type'];
+    $n_govtid_no = $_POST['govtid_no'];
+    $n_govtid_issuance = $_POST['govtid_issuance'];
 
-    // $temp = $_FILES['change_photo']['tmp_name']; //temporary location
-    // $n_itemimgdir = "products/" . $filename . "." . $fileext; ///target location
+    echo "<br>
+        Government Issued ID: $n_govtid_type<br>
+        ID/License/Passport No.: $n_govtid_no<br>
+        Date/Place of Issuance: $n_govtid_issuance<br>
+    ";
+
+    // for $filename
+    // if an employee doesn't have a middle name
+    $middlename = ($n_pi_name_middle === "N/A") ? "" : " " . $n_pi_name_middle;
+    // if an employee doesn't have a name extension
+    $nameext = ($n_pi_name_ext === "N/A") ? "" : " " . $n_pi_name_ext;
+
+    // for profile picture
+    $filename = $n_pi_name_last . ", " . $n_pi_name_first . $middlename . $nameext;
+    $file = $_FILES['change_photo']['name']; //basename.ext
+    $fileext = pathinfo($file, PATHINFO_EXTENSION); //ext
+
+    $temp = $_FILES['change_photo']['tmp_name']; //temporary location
+    $n_itemimgdir = "employees_pics/" . $filename . "." . $fileext; ///target location
+
+    // prepare arguments for update function
+    $table = "employees";
+    $fields = array(
+        'position_id' => $position_id, 
+        'employee_imgdir' => $n_itemimgdir,
+    );
+    // $filter = array( 'employee_id' => $employee_id );
+    // update($conn, $table, $fields, $filter);
 
 }

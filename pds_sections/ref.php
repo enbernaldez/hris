@@ -2,29 +2,34 @@
     <div class="row mt-5 text-center">
         <div class="col-4">
             <p class="mt-3">NAME</p>
-            <?php
-            for ($i=0; $i < 3; $i++) { 
-                echo '<input type="text" name="ref_name[]" class="form-control mt-3" required>';
-            }
-            ?>
         </div>
         <div class="col-4">
             <p class="mt-3">ADDRESS</p>
-            <?php
-            for ($i=0; $i < 3; $i++) { 
-                echo '<input type="text" name="ref_address[]" class="form-control mt-3" required>';
-            }
-            ?>
         </div>
         <div class="col-4">
-            <p class="mt-3">TEL NO.</p>
-            <?php
-            for ($i= 0; $i < 3; $i++) {
-                echo '<input type="text" name="ref_telno[]" class="form-control mt-3" required>';
-            }
-            ?>
+            <p class="mt-3">TEL. NO.</p>
         </div>
     </div>
+    <?php 
+    for ($i=0; $i < 3; $i++) {
+        $required = "";
+        if ($i == 0) {
+            $required = " required";
+        }
+        echo '
+            <div class="row mt-3">
+                <div class="col-4">
+                    <input type="text" name="ref_name[]" class="form-control"' . $required . '>
+                </div>
+                <div class="col-4">
+                    <input type="text" name="ref_address[]" class="form-control"' . $required . '>
+                </div>
+                <div class="col-4">
+                    <input type="text" name="ref_telno[]" class="form-control"' . $required . ' maxlength="11">
+                </div>
+            </div>
+        ';
+    } ?>
     <!-- Input Group -->
     <div class="row mt-5 align-items-end">
         <div class="col-6">
@@ -43,7 +48,7 @@
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">ID/License/Passport No.:</span>
                 </div>
-                <input type="text" class="form-control" name="govtid_no" required>
+                <input type="text" class="form-control uppercase" name="govtid_no" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
@@ -55,9 +60,10 @@
         <!-- Image -->
         <div class="col-6">
             <div class="mt-2 d-flex flex-column align-items-end">
-                <img id="profile_img" name="profile_img" src="images/person.png" alt="profile" style="height:150px; width:auto;">
+                <img id="profile_img" name="profile_img" src="images/person.png" alt="profile"
+                    style="height:150px; width:auto;">
                 <div class="mt-3">
-                    <input type="file" class="form-control" id="change_photo" name="change_photo" style="width: 150px;">
+                    <input type="file" class="form-control" id="change_photo" name="change_photo" style="width: 150px;" required>
                 </div>
             </div>
         </div>
@@ -66,7 +72,7 @@
     <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
         <strong>BACK</strong>
     </button>
-    
+
     <!-- SUBMIT BUTTON -->
     <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
         <strong>SUBMIT</strong>

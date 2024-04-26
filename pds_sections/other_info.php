@@ -80,12 +80,12 @@
                 <p>a. within the third degree?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_3rd_yes" name="radio_degree_3rd" value="yes" required>
+                    <input type="radio" id="radio_degree_3rd_yes" name="radio_degree_3rd" value="Y" required>
                     <label for="radio_degree_3rd_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_3rd_no" name="radio_degree_3rd" value="no" required>
+                    <input type="radio" id="radio_degree_3rd_no" name="radio_degree_3rd" value="N" required>
                     <label for="radio_degree_3rd_no">No</label>
                 </div>
             </div>
@@ -93,12 +93,12 @@
                 <p>b. within the fourth degree (for Local Government Unit - Career Employees)?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_4th_yes" name="radio_degree_4th" value="yes">
+                    <input type="radio" id="radio_degree_4th_yes" name="radio_degree_4th" value="Y">
                     <label for="radio_degree_4th_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_4th_no" name="radio_degree_4th" value="no">
+                    <input type="radio" id="radio_degree_4th_no" name="radio_degree_4th" value="N">
                     <label for="radio_degree_4th_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -118,12 +118,12 @@
                 <p>a. Have you ever been found guilty of any administrative offense?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_guilty_yes" name="radio_guilty" value="yes">
+                    <input type="radio" id="radio_guilty_yes" name="radio_guilty" value="Y">
                     <label for="radio_guilty_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_guilty_no" name="radio_guilty" value="no">
+                    <input type="radio" id="radio_guilty_no" name="radio_guilty" value="N">
                     <label for="radio_guilty_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -140,12 +140,12 @@
                 <p>b. Have you ever been criminally charged before any court?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_charged_yes" name="radio_charged" value="yes">
+                    <input type="radio" id="radio_charged_yes" name="radio_charged" value="Y">
                     <label for="radio_charged_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_charged_no" name="radio_charged" value="no">
+                    <input type="radio" id="radio_charged_no" name="radio_charged" value="N">
                     <label for="radio_charged_no">No</label>
                 </div>
                 <div class="my-3">
@@ -180,12 +180,12 @@
                 </p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_convicted_yes" name="radio_convicted" value="yes">
+                    <input type="radio" id="radio_convicted_yes" name="radio_convicted" value="Y">
                     <label for="radio_convicted_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_convicted_no" name="radio_convicted" value="no">
+                    <input type="radio" id="radio_convicted_no" name="radio_convicted" value="N">
                     <label for="radio_convicted_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -208,12 +208,12 @@
             </p>
             <div>
                 &emsp;
-                <input type="radio" id="radio_seperated_yes" name="radio_seperated" value="yes">
+                <input type="radio" id="radio_seperated_yes" name="radio_seperated" value="Y">
                 <label for="radio_seperated_yes">Yes</label>
             </div>
             <div>
                 &emsp;
-                <input type="radio" id="radio_seperated_no" name="radio_seperated" value="no">
+                <input type="radio" id="radio_seperated_no" name="radio_seperated" value="N">
                 <label for="radio_seperated_no">No</label>
             </div>
             <div class="row my-3">
@@ -235,12 +235,12 @@
                 </p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_candidate_yes" name="radio_candidate" value="yes">
+                    <input type="radio" id="radio_candidate_yes" name="radio_candidate" value="Y">
                     <label for="radio_candidate_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_candidate_no" name="radio_candidate" value="no">
+                    <input type="radio" id="radio_candidate_no" name="radio_candidate" value="N">
                     <label for="radio_candidate_no">No</label>
                 </div>
             </div>
@@ -252,12 +252,12 @@
                 </p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_resigned_yes" name="radio_resigned" value="yes">
+                    <input type="radio" id="radio_resigned_yes" name="radio_resigned" value="Y">
                     <label for="radio_resigned_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_resigned_no" name="radio_resigned" value="no">
+                    <input type="radio" id="radio_resigned_no" name="radio_resigned" value="N">
                     <label for="radio_resigned_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -276,12 +276,12 @@
             <p>Have you acquired the status of an immigrant or permanent resident of another country?</p>
             <div>
                 &emsp;
-                <input type="radio" id="radio_immigrant_yes" name="radio_immigrant" value="yes">
+                <input type="radio" id="radio_immigrant_yes" name="radio_immigrant" value="Y">
                 <label for="radio_immigrant_yes">Yes</label>
             </div>
             <div>
                 &emsp;
-                <input type="radio" id="radio_immigrant_no" name="radio_immigrant" value="no">
+                <input type="radio" id="radio_immigrant_no" name="radio_immigrant" value="N">
                 <label for="radio_immigrant_no">No</label>
             </div>
             <div class="row my-3">
@@ -306,12 +306,12 @@
                 <p>a. Are you a member of any indigenous group?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_indigenous_yes" name="radio_indigenous" value="yes">
+                    <input type="radio" id="radio_indigenous_yes" name="radio_indigenous" value="Y">
                     <label for="radio_indigenous_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_indigenous_no" name="radio_indigenous" value="no">
+                    <input type="radio" id="radio_indigenous_no" name="radio_indigenous" value="N">
                     <label for="radio_indigenous_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -328,12 +328,12 @@
                 <p>b. Are you a person with disability?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_disability_yes" name="radio_disability" value="yes">
+                    <input type="radio" id="radio_disability_yes" name="radio_disability" value="Y">
                     <label for="radio_disability_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_disability_no" name="radio_disability" value="no">
+                    <input type="radio" id="radio_disability_no" name="radio_disability" value="N">
                     <label for="radio_disability_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -350,12 +350,12 @@
                 <p>c. Are you a solo parent?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_soloparent_yes" name="radio_soloparent" value="yes">
+                    <input type="radio" id="radio_soloparent_yes" name="radio_soloparent" value="Y">
                     <label for="radio_soloparent_yes">Yes</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_soloparent_no" name="radio_soloparent" value="no">
+                    <input type="radio" id="radio_soloparent_no" name="radio_soloparent" value="N">
                     <label for="radio_soloparent_no">No</label>
                 </div>
                 <div class="row my-3">
@@ -374,6 +374,11 @@
     <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
         <strong>BACK</strong>
     </button>
+
+<!-- SUBMIT BUTTON -->
+<button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+    <strong>SUBMIT</strong>
+</button>
 
     <!-- NEXT BUTTON -->
     <!-- <a href="pds_form.php?form_section=ref"> -->
