@@ -38,7 +38,7 @@
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_lnd">
+                        <input class="form-check-input" type="checkbox" id="null_lnd" name="null_lnd" value="true">
                         <label class="form-check-label" for="null_lnd">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"

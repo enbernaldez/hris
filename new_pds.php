@@ -1,7 +1,7 @@
 <?php
 include_once "db_conn.php";
 
-if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_POST['elem_school']) || isset($_POST['null_cse']) || isset($_POST['careerservice'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables
@@ -65,12 +65,14 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
         while ($finished == false) {
             // check if $name exists in $table
             $keys = "`{$column_pk}`";
+            $and_where = "";
             if ($column_fk != "") {
                 $keys .= ", `{$column_fk}`";
+                $and_where = " AND `{$column_fk}` = '{$column_fk_idData}'";
             }
             $sql = "SELECT {$keys}
                 FROM `{$table}`
-                WHERE `{$column_name}` = '{$name}'"; //change {$name} to ? once finished
+                WHERE `{$column_name}` = '{$name}'{$and_where}"; //change {$name} to ? once finished
             return $sql;
             // $filter = array($name);
             // $result = query($conn, $sql, $filter);
@@ -94,7 +96,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
         }
     }
 
-    // lookup ID of $n_pi_citizenship_country
+    // look up ID of $n_pi_citizenship_country
     $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
 
     echo "<br>
@@ -201,7 +203,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
 
         // call lookupEachArea()
         // lookupEachArea($conn, $add_type, $areas, $posted_areas, $residential_citymunicipality, $residential_province);
-        
+
         // content of lookupEachArea()
         foreach ($areas as $index => $area) {
 
@@ -239,7 +241,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
             }
 
             // $$var_name means that the value of $var_name will be used as the variable name
-            // lookup ID of each variable name
+            // look up ID of each variable name
             $$var_name = lookupId($conn, $posted_areas[$index], $table_name, "{$area}_id", $column_name, $column_fk, $data_fk);
         }
 
@@ -249,14 +251,14 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
                 'R' => 'RESIDENTIAL ADDRESS',
                 'P' => 'PERMANENT ADDRESS',
             } . "<br>
-                Province: " . ${$prefix . 'province'} . "<br>
-                City/Municipality: " . ${$prefix . 'citymunicipality'} . "<br>
-                Barangay: " . ${$prefix . 'barangay'} . "<br>
-                Subdivision/Village: " . ${$prefix . 'subdivisionvillage'} . "<br>
-                Street: " . ${$prefix . 'street'} . "<br>
-                House/Block/Lot No.: " . ${$prefix . 'houseblocklot'} . "<br>
-                Zipcode: " . ${$prefix . 'zipcode'} . "<br>
-            ";
+            Province: " . ${$prefix . 'province'} . "<br>
+            City/Municipality: " . ${$prefix . 'citymunicipality'} . "<br>
+            Barangay: " . ${$prefix . 'barangay'} . "<br>
+            Subdivision/Village: " . ${$prefix . 'subdivisionvillage'} . "<br>
+            Street: " . ${$prefix . 'street'} . "<br>
+            House/Block/Lot No.: " . ${$prefix . 'houseblocklot'} . "<br>
+            Zipcode: " . ${$prefix . 'zipcode'} . "<br>
+        ";
 
         // prepare arguments for insert function
         $table = 'employee_addresses';
@@ -313,10 +315,10 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
     $n_fb_spouse_bus_add = $_POST['spouse_bus_add'] ?? "N/A";
     $n_fb_spouse_telno = $_POST['spouse_telno'] ?? "N/A";
 
-    // lookup ID of $n_fb_spouse_occupation
+    // look up ID of $n_fb_spouse_occupation
     $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
 
-    // lookup ID of $n_fb_spouse_bus_name
+    // look up ID of $n_fb_spouse_bus_name
     $employer_business = lookupId($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name', '', '');
 
     echo "<br>
@@ -486,16 +488,19 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
 
 
     // CIVIL SERVICE ELIGBILITY
-    $n_cse_careerservice = $_POST['careerservice'] ?? 'N/A';
-    $n_cse_rating = $_POST['rating'] ?? 'N/A';
-    $n_cse_exam_date = $_POST['exam_date'] ?? 'N/A';
-    $n_cse_exam_place = $_POST['exam_place'] ?? 'N/A';
-    $n_cse_license_number = $_POST['license_number'] ?? 'N/A';
-    $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity'] ?? 'N/A';
+    //transfers value of posted variables to local variables
+    $n_cse_careerservice = $_POST['careerservice'] ?? array('N/A');
+    $n_cse_rating = $_POST['rating'] ?? array('N/A');
+    $n_cse_exam_date = $_POST['exam_date'] ?? array('N/A');
+    $n_cse_exam_place = $_POST['exam_place'] ?? array('N/A');
+    $n_cse_license_number = $_POST['license_number'] ?? array('N/A');
+    $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity'] ?? array('N/A');
+
+    echo "<br><br><br>CIVIL SERVICE ELIGIBILITY<br>";
 
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
-        // lookup ID of $n_cse_careerservice[$i]
+        // look up ID of $n_cse_careerservice[$i]
         $career_service = lookupId($conn, $n_cse_careerservice[$i], 'civil_services', 'cs_id', 'cs_name', '', '');
 
         echo "<br>
@@ -524,23 +529,33 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
 
 
     // WORK EXPERIENCE
-    $n_we_date_from = $_POST['we_date_from[]'] ?? 'N/A';
-    $n_we_date_to = $_POST['we_date_to[]'] ?? 'N/A';
-    $n_we_position = $_POST['we_position[]'] ?? 'N/A';
-    $n_we_agency = $_POST['we_agency[]'] ?? 'N/A';
-    $n_we_salary = $_POST['we_salary[]'] ?? 'N/A';
-    $n_we_sg = $_POST['we_sg[]'] ?? 'N/A';
-    $n_we_status = $_POST['we_status[]'] ?? 'N/A';
-    $n_we_govtsvcs = $_POST['we_govtsvcs[]'] ?? 'N/A';
+    //transfers value of posted variables to local variables
+    $n_we_date_from = $_POST['we_date_from'] ?? array('N/A');
+    $n_we_date_to = $_POST['we_date_to'] ?? array('N/A');
+    $n_we_position = $_POST['we_position'] ?? array('N/A');
+    $n_we_agency = $_POST['we_agency'] ?? array('N/A');
+    $n_we_salary = $_POST['we_salary'] ?? array('N/A');
+    $n_we_sg = $_POST['we_sg'] ?? array('N/A');
+    $n_we_status = $_POST['we_status'] ?? array('N/A');
+    $n_we_govtsvcs = $_POST['we_govtsvcs'] ?? array('N/A');
+
+    echo "<br><br><br>WORK EXPERIENCE<br>";
 
     for ($i = 0; $i < count($n_we_date_from); $i++) {
-        // edit lookupId to accommodate salary grade
-        $position = lookupId($conn, $n_cse_careerservice[$i], 'positions', 'position_id', 'position_name', 'position_salarygrade', $n_we_sg[$i]);
+
+        // Match the pattern '09' using regex
+        if (preg_match('/\b(\d{2})\b/', $n_we_sg[$i], $matches)) {
+            $salary_grade = $matches[1]; // Get the matched substring
+        } else {
+            $salary_grade = 0;
+        }
+
+        $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_name', 'position_salarygrade', $salary_grade);
         $daoc = lookupId($conn, $n_we_agency[$i], 'department_agency_office_company', 'daoc_id', 'daoc_name', '', '');
 
         echo "<br>
             Inclusive Dates:<br>
-            From: $n_we_date_from[$i]\t
+            From: $n_we_date_from[$i]&emsp;
             To: {$n_we_date_to[$i]}<br>
             Position Title: $position<br>
             Department/Agency/Office/Company: $daoc<br>
@@ -551,7 +566,7 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
         ";
 
         // prepare arguments for insert function
-        $table = 'cs_eligibility';
+        $table = 'work_experience';
         $fields = array(
             // 'employee_id' => $employee_id,
             'workexp_from' => $n_we_date_from[$i],
@@ -568,60 +583,187 @@ if (isset($_POST["name_last"]) || isset($_POST["spouse_name_last"]) || isset($_P
 
 
 
-    // // VOLUNTARY WORK
-    // $n_vw_nameaddress = $_POST['vw_nameaddress[]'];
-    // $n_vw_date_from = $_POST['vw_date_from[]'];
-    // $n_vw_date_to = $_POST['vw_date_to[]'];
-    // $n_vw_hrs = $_POST['vw_hrs[]'];
-    // $n_vw_position = $_POST['vw_position[]'];
+    // VOLUNTARY WORK
+    //transfers value of posted variables to local variables
+    $n_vw_nameaddress = $_POST['vw_nameaddress'] ?? array('N/A');
+    $n_vw_date_from = $_POST['vw_date_from'] ?? array('N/A');
+    $n_vw_date_to = $_POST['vw_date_to'] ?? array('N/A');
+    $n_vw_hrs = $_POST['vw_hrs'] ?? array('N/A');
+    $n_vw_position = $_POST['vw_position'] ?? array('N/A');
 
-    // // LEARNING AND DEVELOPMENT
-    // $n_lnd_title = $_POST['lnd_title[]'];
-    // $n_lnd_date_from = $_POST['lnd_date_from[]'];
-    // $n_lnd_date_to = $_POST['lnd_date_to[]'];
-    // $n_lnd_hrs = $_POST['lnd_hrs[]'];
-    // $n_lnd_type = $_POST['lnd_type[]'];
-    // $n_lnd_sponsor = $_POST['lnd_sponsor[]'];
+    echo "<br><br><br>VOLUNTARY WORK<br>";
 
-    // // OTHER INFORMATION
-    // $n_skills = $_POST['skills[]'];
-    // $n_distinctions = $_POST['distinctions[]'];
-    // $n_membership = $_POST['membership[]'];
+    for ($i = 0; $i < count($n_vw_nameaddress); $i++) {
 
-    // $n_radio_degree_3rd = $_POST['radio_degree_3rd'];
+        echo "<br>
+            Name & Address of Organization: $n_vw_nameaddress[$i]<br>
+            Inclusive Dates:<br>
+            From: {$n_vw_date_from[$i]}&emsp;
+            To: {$n_vw_date_to[$i]}<br>
+            Number of Hours: {$n_vw_hrs[$i]}<br>
+            Position / Nature of Work: {$n_vw_position[$i]}<br>
+        ";
 
-    // $n_radio_degree_4th = $_POST['radio_degree_4th'];
-    // $n_input_degree_4th = $_POST['input_degree_4th'];
+        // prepare arguments for insert function
+        $table = 'voluntary_work';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'daoc_id' => $n_vw_nameaddress[$i],
+            'workexp_from' => $n_vw_date_from[$i],
+            'workexp_to' => $n_vw_date_to[$i],
+            'workexp_salary_mo' => $n_vw_hrs[$i],
+            'position_id' => $n_vw_position[$i],
+        );
+        // insert($conn, $table, $fields);
+    }
 
-    // $n_radio_guilty = $_POST['radio_guilty'];
-    // $n_input_guilty = $_POST['input_guilty'];
 
-    // $n_radio_charged = $_POST['radio_charged'];
-    // $n_input_filed = $_POST['input_filed'];
-    // $n_input_status = $_POST['input_status'];
 
-    // $n_radio_convicted = $_POST['radio_convicted'];
-    // $n_input_convicted = $_POST['input_convicted'];
+    // LEARNING AND DEVELOPMENT
+    //transfers value of posted variables to local variables
+    $n_lnd_title = $_POST['lnd_title'] ?? array('N/A');
+    $n_lnd_date_from = $_POST['lnd_date_from'] ?? array('N/A');
+    $n_lnd_date_to = $_POST['lnd_date_to'] ?? array('N/A');
+    $n_lnd_hrs = $_POST['lnd_hrs'] ?? array('N/A');
+    $n_lnd_type = $_POST['lnd_type'] ?? array('N/A');
+    $n_lnd_sponsor = $_POST['lnd_sponsor'] ?? array('N/A');
 
-    // $n_radio_seperated = $_POST['radio_seperated'];
-    // $n_input_seperated = $_POST['input_seperated'];
+    echo "<br><br><br>LEARNING AND DEVELOPMENT<br>";
 
-    // $n_radio_candidate = $_POST['radio_candidate'];
+    for ($i = 0; $i < count($n_lnd_title); $i++) {
 
-    // $n_radio_resigned = $_POST['radio_resigned'];
-    // $n_input_resigned = $_POST['input_resigned'];
+        $lnd_title = lookupId($conn, $n_lnd_title[$i], 'ld_titles', 'ld_title_id', 'ld_title_name', '', '');
+        $lnd_sponsor = lookupId($conn, $n_lnd_sponsor[$i], 'sponsors', 'sponsor_id', 'sponsor_name', '', '');
 
-    // $n_radio_immigrant = $_POST['radio_immigrant'];
-    // $n_input_immigrant = $_POST['input_immigrant'];
+        echo "<br>
+            Title of Learning and Development: $lnd_title<br>
+            Inclusive Dates of Attendance:<br>
+            From: $n_lnd_date_from[$i]&emsp;
+            To: {$n_lnd_date_to[$i]}<br>
+            Number of Hours: $n_lnd_hrs[$i]<br>
+            Type of LD: {$n_lnd_type[$i]}<br>
+            Conducted/Sponsored By: $lnd_sponsor<br>
+        ";
 
-    // $n_radio_indigenous = $_POST['radio_indigenous'];
-    // $n_input_indigenous = $_POST['input_indigenous'];
+        // prepare arguments for insert function
+        $table = 'learning_development';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'ld_title_id' => $lnd_title,
+            'ld_from' => $n_lnd_date_from[$i],
+            'ld_to' => $n_lnd_date_to[$i],
+            'ld_hrs' => $n_lnd_hrs[$i],
+            'ld_type' => $n_lnd_type[$i],
+            'sponsor_id' => $lnd_sponsor,
+        );
+        // insert($conn, $table, $fields);
+    }
 
-    // $n_radio_disability = $_POST['radio_disability'];
-    // $n_input_disability = $_POST['input_disability'];
 
-    // $n_radio_soloparent = $_POST['radio_soloparent'];
-    // $n_input_soloparent = $_POST['input_soloparent'];
+
+    // OTHER INFORMATION
+    //transfers value of posted variables to local variables
+    $n_skills = $_POST['skills'] ?? array('N/A');
+    $n_distinctions = $_POST['distinctions'] ?? array('N/A');
+    $n_membership = $_POST['membership'] ?? array('N/A');
+
+    echo "<br><br><br>OTHER INFORMATION<br>";
+
+    function insert_otherInfo($items_array, $table, $fieldName) {
+        // accommodate qna
+        for ($i = 0; $i < count($items_array); $i++) {
+            echo "&emsp;$items_array[$i]<br>";
+            
+            $fields = array(
+                // 'employee_id' => $employee_id, 
+                $fieldName => $items_array[$i]
+            );
+            // insert($conn, $table, $fields);
+        }
+    }
+
+    echo "<br>Special Skills and Hobbies:<br>";
+    insert_otherInfo($n_skills, 'special_skills_hobbies', 'ssh_name');
+
+    echo "<br>Non-Academic distinctions/Recognition:<br>";
+    insert_otherInfo($n_distinctions, 'nonacademic_recognition', 'nar_name');
+
+    echo "<br>Membership in Association/Organization:<br>";
+    insert_otherInfo($n_membership, 'membership', 'membership_name');
+
+
+    function insert_qna($item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes) {
+        echo "<br>
+            $item_no.<br>
+            a. $qna_a: $qna_a_ifyes<br>
+            b. $qna_b: $qna_b_ifyes; $qna_b_ifyes_plus<br>
+            c. $qna_c: $qna_c_ifyes<br>
+        ";
+
+        $table = 'qna';
+        $fields = array(
+            // 'employee_id' => $employee_id,
+            'qna_a' => $qna_a,
+            'qna_a_ifyes' => $qna_a_ifyes,
+            'qna_b' => $qna_b,
+            'qna_b_ifyes' => $qna_b_ifyes,
+            'qna_b_ifyes_plus' => $qna_b_ifyes_plus,
+            'qna_c' => $qna_c,
+            'qna_c_ifyes' => $qna_c_ifyes,
+        );
+        // insert($conn, $table, $fields);
+    }
+
+    $n_radio_degree_3rd = $_POST['radio_degree_3rd'];
+
+    $n_radio_degree_4th = $_POST['radio_degree_4th'];
+    $n_input_degree_4th = $_POST['input_degree_4th'] ?? 'N/A';
+
+    insert_qna('34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A');
+
+    $n_radio_guilty = $_POST['radio_guilty'];
+    $n_input_guilty = $_POST['input_guilty'] ?? 'N/A';
+
+    $n_radio_charged = $_POST['radio_charged'];
+    $n_input_filed = $_POST['input_filed'] ?? 'N/A';
+    $n_input_status = $_POST['input_status'] ?? 'N/A';
+
+    insert_qna('35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A');
+
+    $n_radio_convicted = $_POST['radio_convicted'];
+    $n_input_convicted = $_POST['input_convicted'] ?? 'N/A';
+
+    insert_qna('36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+
+    $n_radio_seperated = $_POST['radio_seperated'];
+    $n_input_seperated = $_POST['input_seperated'] ?? 'N/A';
+
+    insert_qna('37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+
+    $n_radio_candidate = $_POST['radio_candidate'];
+
+    $n_radio_resigned = $_POST['radio_resigned'];
+    $n_input_resigned = $_POST['input_resigned'] ?? 'N/A';
+
+    insert_qna('38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A');
+
+    $n_radio_immigrant = $_POST['radio_immigrant'];
+    $n_input_immigrant = $_POST['input_immigrant'] ?? 'N/A';
+
+    insert_qna('39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+
+    $n_radio_indigenous = $_POST['radio_indigenous'];
+    $n_input_indigenous = $_POST['input_indigenous'] ?? 'N/A';
+
+    $n_radio_disability = $_POST['radio_disability'];
+    $n_input_disability = $_POST['input_disability'] ?? 'N/A';
+
+    $n_radio_soloparent = $_POST['radio_soloparent'];
+    $n_input_soloparent = $_POST['input_soloparent'] ?? 'N/A';
+
+    insert_qna('40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent);
+
+
 
     // // REFERENCES
     // $n_ref_name = $_POST['ref_name[]'];

@@ -46,7 +46,7 @@
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_work_exp">
+                        <input class="form-check-input" type="checkbox" id="null_work_exp" name="null_work_exp" value="true">
                         <label class="form-check-label" for="null_work_exp">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
@@ -72,7 +72,7 @@
                 <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na" required value="">
             </div>
             <div class="col-1">
-                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required value="">
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required value="₱">
             </div>
             <div class="col-1">
                 <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na" required value="">
