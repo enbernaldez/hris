@@ -76,7 +76,7 @@
                 or to the chief of bureau or office or to the person who has immediate supervision over you
                 in the Office, Bureau or Department where you will be appointed?
             </p>
-            <div>
+            <div class="input">
                 <p>a. within the third degree?</p>
                 <div>
                     &emsp;
@@ -89,7 +89,7 @@
                     <label for="radio_degree_3rd_no">No</label>
                 </div>
             </div>
-            <div>
+            <div class="input">
                 <p>b. within the fourth degree (for Local Government Unit - Career Employees)?</p>
                 <div>
                     &emsp;
@@ -114,7 +114,7 @@
         </div>
         <hr>
         <div class="row">
-            <div>
+            <div class="input">
                 <p>a. Have you ever been found guilty of any administrative offense?</p>
                 <div>
                     &emsp;
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="input">
                 <p>b. Have you ever been criminally charged before any court?</p>
                 <div>
                     &emsp;
@@ -173,7 +173,7 @@
         </div>
         <hr>
         <div class="row">
-            <div>
+            <div class="input">
                 <p>
                     Have you ever been convicted of any crime or violation of any
                     law, decree, ordinance or regulation by any court or tribunal?
@@ -200,7 +200,7 @@
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row input">
             <p>
                 Have you ever been seperated from the service in any of the following modes:
                 resignation, retirement, dropped from the rolls, dismissal, termination, end of term,
@@ -228,7 +228,7 @@
         </div>
         <hr>
         <div class="row">
-            <div>
+            <div class="input">
                 <p>
                     a. Have you ever been a candidate in a national or local election
                     held within the last year (except Barangay Election)?
@@ -244,7 +244,7 @@
                     <label for="radio_candidate_no">No</label>
                 </div>
             </div>
-            <div>
+            <div class="input">
                 <p>
                     b. Have you resigned from the government service during the
                     three(3)-month period before the last election to
@@ -272,7 +272,7 @@
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row input">
             <p>Have you acquired the status of an immigrant or permanent resident of another country?</p>
             <div>
                 &emsp;
@@ -302,7 +302,7 @@
                 and (c) Solo Parents Welfare Act of 2000 (RA 8972),
                 please answer the following items:
             </p>
-            <div>
+            <div class="input">
                 <p>a. Are you a member of any indigenous group?</p>
                 <div>
                     &emsp;
@@ -324,11 +324,11 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="input">
                 <p>b. Are you a person with disability?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_disability_yes" name="radio_disability" value=" yes">
+                    <input type="radio" id="radio_disability_yes" name="radio_disability" value="yes">
                     <label for="radio_disability_yes">Yes</label>
                 </div>
                 <div>
@@ -346,7 +346,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="input">
                 <p>c. Are you a solo parent?</p>
                 <div>
                     &emsp;
@@ -377,32 +377,80 @@
 
     <!-- NEXT BUTTON -->
     <!-- <a href="pds_form.php?form_section=ref"> -->
-        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
-            <strong>NEXT</strong>
-        </button>
+    <button type="button" id="nextButton" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+        <strong>NEXT</strong>
+    </button>
     <!-- </a> -->
 </div>
 <script>
-    // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group-na');
+   
+// ======================== Next button ====================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener to the "Next" button
+    document.getElementById('nextButton').addEventListener('click', submitForm);
+});
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function(input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+// Function to submit the form
+function submitForm() {
+    // Get all input fields with class "group-na"
+    var inputs = document.querySelectorAll('.group-na');
+
+    // Check if all input fields are filled out
+    var allInputsFilled = true;
+    inputs.forEach(function(input) {
+        if (!input.value.trim()) {
+            allInputsFilled = false;
+        }
+    });
+
+    // Check if all required radio buttons are selected and corresponding input boxes filled
+    var allRadioSelected = checkAllRadioSelected();
+
+    // If all input fields and radio buttons are filled out, submit the form
+    if (allInputsFilled && allRadioSelected) {
+        window.location.href = "pds_form.php?form_section=ref";
+    } else {
+        alert("Please fill out all input fields and select all required options before proceeding.");
+    }
+}
+
+// Function to check if all required radio buttons are selected and corresponding input boxes filled
+function checkAllRadioSelected() {
+    // Get all radio button groups
+    var radioGroups = document.querySelectorAll('[name^="radio_"]');
+
+    // Iterate over each radio button group
+    for (var i = 0; i < radioGroups.length; i++) {
+        var radioGroup = radioGroups[i];
+        var radioButtons = document.querySelectorAll('[name="' + radioGroup.name + '"]');
+        var isSelected = false;
+
+        // Check if at least one radio button in the group is selected
+        for (var j = 0; j < radioButtons.length; j++) {
+            if (radioButtons[j].checked) {
+                isSelected = true;
+                // If "Yes" option is selected, check if the corresponding input box is filled
+                if (radioButtons[j].value === "yes") {
+                    var input_container = radioButtons[j].closest('.input');
+                    var inputBox = input_container.querySelector('input[type="text"]');
+                    if (!inputBox.value.trim()) {
+                        return false;
+                    }
+                }
+                break;
             }
-        });
+        }
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=ref";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
+        // If no radio button in the group is selected, return false
+        if (!isSelected) {
+            return false;
         }
     }
+
+    return true; // Return true if all required radio buttons are selected and corresponding input boxes filled
+}
+
 
     function addInput(section) {
         var container = document.querySelector('.' + section + '-container');
@@ -452,7 +500,19 @@
                 clonedRow.remove();
             }
         });
+        
+        input.addEventListener("input", function () {
+            if (this.value === "N/A") {
+                checkbox.checked = true;
+                this.disabled = true;
+                addrow.disabled = true;
+            }
+        })
     }
+
+    checkNA('skills');
+    checkNA('distinctions');
+    checkNA('membership');
 
     // Function to enable/disable input fields based on radio button selection
     function toggleInput(inputId, radioId) {
