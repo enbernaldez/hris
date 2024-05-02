@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-
-<html lang="en">
 <?php
 include_once "db_conn.php";
+if ($_SESSION['user_type'] != 'A') {
+    header("location:" . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +17,7 @@ include_once "db_conn.php";
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
-    
+
     <style>
         /* educational background */
         nav {
@@ -55,6 +58,7 @@ include_once "db_conn.php";
         .add-row-text {
             margin-top: -26px;
         }
+
         /* --------------- */
         hr {
             color: antiquewhite;

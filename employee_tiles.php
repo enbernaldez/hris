@@ -3,7 +3,7 @@
 <html lang="en">
 <?php
 include_once ("db_conn.php");
-$_SESSION['user_type'] = 'V';
+$_SESSION['user_type'] ?? 'V';
 ?>
 
 <head>
@@ -37,7 +37,7 @@ $_SESSION['user_type'] = 'V';
         }
 
         /* kebab menu options */
-        .options-container {
+        /* .options-container {
             display: none;
             position: absolute;
             margin-top: -30px;
@@ -62,6 +62,32 @@ $_SESSION['user_type'] = 'V';
         .btn-link {
             text-decoration: none;
             color: black;
+        } */
+
+        #customContextMenu {
+            position: absolute;
+            background-color: #E4E9FF;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            ;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 5px 0;
+            z-index: 1000;
+        }
+
+        #customContextMenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #customContextMenu ul li {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+        #customContextMenu ul li:hover {
+            background-color: #80A1F5;
         }
     </style>
 </head>
@@ -106,7 +132,6 @@ $_SESSION['user_type'] = 'V';
                     }
                 }
                 ?>
-
                 <div class="col-10 px-5 pt-3 pb-5">
                     <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
                     <div class="row mt-3"
@@ -121,100 +146,131 @@ $_SESSION['user_type'] = 'V';
                             <?php echo $title_three; ?>
                         </h6>
                     </div>
-                    <div class="row tilerow">
+                    <?php
+                    // retrieve employees in a certain office
+                    $sql = "SELECT * FROM `employees` WHERE `employee_office` = ?";
+                    $filter = array($office);
+                    $result = query($conn, $sql, $filter);
+                    ?>
+
+                    <?php
+                    if (empty($result)) {
+                        ?>
+                        <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
+                            <p>No employees yet.</p>
+                            <a href="pds_form.php?form_section=personal_info&action=add">
+                                <button type="button" class="btn btn-primary"
+                                    style="margin-left: 10px; background-color: #283872; border: none;">
+                                    Add Employee
+                                </button>
+                            </a>
+                        </div>
                         <?php
-                        for ($i = 0; $i < 12; $i++) {
-                            ?>
-                            <!-- <div class="col-4 tile mt-3">
-                                <a href="pds_form.php?form_section=personal_info"
-                                    style="text-decoration: none; color: inherit;">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto"
-                                                style="border-radius:12px">
-                                        </div>
-                                        <div class="col-9">
-                                            <p style="margin: 0"><strong>APRIL CASSANDRA S. REGALARIO</strong></p>
-                                            <p style="margin: 0; font-size: 14px;">Chief Statical Specialist V</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div> -->
-                            <div class="col-4 tile mt-3">
-                                <a href="pds_form.php?form_section=personal_info"
-                                    style="text-decoration: none; color: inherit;">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto"
-                                                style="border-radius:12px">
-                                        </div>
-                                        <div class="col-8">
-                                            <p style="margin: 0"><strong>APRIL CASSANDRA S. REGALARIO</strong></p>
-                                            <p style="margin: 0; font-size: 14px;">Chief Statical Specialist V</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Kebab menu -->
-                                <div class="col-1"
-                                    style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
-                                    <button class="btn menu-button" id="menuButton">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <div class="options-container">
-                                        <!-- edit action -->
-                                        <a href="pds_form.php?form_section=personal_info" method="POST">
-                                            <button type="submit" class="btn btn-link">Edit</button>
-                                        </a>
-                                        <div class="underline"></div>
-                                        <!-- delete action -->
-                                        <button class="btn btn-link delete-button" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Delete Modal -->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div style="height: 300px; weight: 342px" class="modal-content">
-                                        <div class="modal-header d-flex justify-content-end align-items-center">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                                style="margin-top: 5px; margin-right: 10px;"></button>
-                                        </div>
-                                        <div class="modal-header d-flex justify-content-center align-items-center">
-                                            <h3 class="modal-title" id="deleteModalLabel"><strong>Are you sure?</strong></h3>
-                                        </div>
-                                        <div class="modal-body d-flex justify-content-center align-items-center">
-                                            <h5 style="text-align: center; font-weight: normal;">Do you really want to delete
-                                                these records?</h5>
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center align-items-center">
-                                            <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
-                                                style="height: 38px; width: 88px; border-radius: 8px;">Cancel</button>
-                                            <span style="margin-right: 40px;"></span>
-                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
-                                                style="height: 38px; width: 88px; background-color: #F90000; border-radius: 8px;">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                    } else {
+                        ?>
+                        <div class="row tilerow mt-3">
                             <?php
-                        }
-                        ?>
-                    </div>
-                    <div class="my-3">
-                        <a href="pds_form.php?form_section=personal_info">
-                            <button type="button" class="btn btn-primary"
-                                style="margin-left: 10px; background-color: #283872; border: none;">Add
-                                Employee</button></a>
+                            foreach ($result as $key => $row) {
+                                // transfer database values to local variables
+                                $id = $row['employee_id']; // get variable employee_id=$id
+                                $lastname = $row['employee_lastname'];
+                                $firstname = $row['employee_firstname'];
+                                $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
+                                $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
+                                $imgdir = $row['employee_imgdir'];
+
+                                // retrieve position title of an employee
+                                $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
+                                $filter = array($row['position_id']);
+                                $row = $result[0];
+
+                                $position = $row['position_id'];
+                                ?>
+                                <div class="col-4 tile mt-3">
+                                    <a href="pds_form.php?form_section=personal_info&employee_id='<?php echo $id; ?>'&action=view"
+                                        style="text-decoration: none; color: inherit;">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img src="id_pictures/<?php echo $imgdir; ?>"
+                                                    alt="<?php echo "$lastname, $firstname$middlename$nameext"; ?>" 
+                                                    height="80px" width="auto" style="border-radius:12px;">
+                                            </div>
+                                            <div class="col-8">
+                                                <p style="margin: 0">
+                                                    <strong><?php echo "$firstname$middlename $lastname$nameext"; ?></strong>
+                                                </p>
+                                                <p style="margin: 0; font-size: 14px;"><?php echo $position; ?></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- Kebab menu -->
+                                    <div class="col-1"
+                                        style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
+                                        <button class="btn menu-button">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Context Menu -->
+                                <div id="customContextMenu" style="display: none; width: 100px;">
+                                    <ul>
+                                        <a href="pds_form.php?form_section=personal_info&employee_id='<?php echo $id; ?>'&action=edit"
+                                            style="color: black;">
+                                            <li>Edit</li>
+                                        </a>
+                                        <li data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div style="height: 300px; weight: 342px" class="modal-content">
+                                            <div class="modal-header d-flex justify-content-end align-items-center">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                    style="margin-top: 5px; margin-right: 10px;"></button>
+                                            </div>
+                                            <div class="modal-header d-flex justify-content-center align-items-center">
+                                                <h3 class="modal-title" id="deleteModalLabel"><strong>Are you sure?</strong></h3>
+                                            </div>
+                                            <div class="modal-body d-flex justify-content-center align-items-center">
+                                                <h5 style="text-align: center; font-weight: normal;">Do you really want to delete
+                                                    these records?</h5>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center align-items-center">
+                                                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
+                                                    style="height: 38px; width: 88px; border-radius: 8px;">Cancel</button>
+                                                <span style="margin-right: 40px;"></span>
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                                                    style="height: 38px; width: 88px; background-color: #F90000; border-radius: 8px;">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                        <div class="my-3">
+                            <a href="pds_form.php?form_section=personal_info&action=add">
+                                <button type="button" class="btn btn-primary"
+                                    style="margin-left: 10px; background-color: #283872; border: none;">
+                                    Add Employee
+                                </button>
+                            </a>
+                            <?php
+                            echo '
+                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
+                                    View organizational chart
+                                </a>
+                            ';
+                            ?>
+                        </div>
                         <?php
-                        echo '
-                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">View organizational chart</a>
-                        ';
-                        ?>
-                    </div>
+                    }
+                    ?>
                 </div>
                 <?php
             }
@@ -224,29 +280,50 @@ $_SESSION['user_type'] = 'V';
 
     <!--Script-->
     <script>
-        document.querySelectorAll(".btn.menu-button").forEach(function (button) {
-            button.addEventListener("click", function () {
-                // Hide all options containers
-                document.querySelectorAll(".options-container").forEach(function (container) {
-                    container.style.display = "hidden";
-                });
 
-                var optionsContainer = this.parentElement.querySelector(".options-container");
-                // Toggle the display of the options container
-                optionsContainer.style.display = optionsContainer.style.display === "none" ? "block" : "none";
+        // Function to display custom context menu
+        function showContextMenu(x, y, target) {
+            console.log('Show context menu at:', x, y);
+            console.log('Target element:', target);
+            var menu = document.getElementById('customContextMenu');
+            menu.style.display = 'block';
+            menu.style.left = x + 'px';
+            menu.style.top = y + 'px';
+        }
+
+        var tiles = document.querySelectorAll('.tile');
+        tiles.forEach(tile => {
+            tile.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+                var x = e.clientX; // X-coordinate of mouse pointer
+                var y = e.clientY; // Y-coordinate of mouse pointer
+                showContextMenu(x, y, e.target); // Display custom context menu
+            })
+        });
+
+        var kebab_menus = document.querySelectorAll('.menu-button');
+        kebab_menus.forEach(kebab => {
+            kebab.addEventListener('click', function (e) { // Listen for 'click' event instead of 'contextmenu'
+                var rect = kebab.getBoundingClientRect();
+                var x = rect.left + window.scrollX + 25;
+                var y = rect.top + window.scrollY + 18;
+                showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
             });
         });
 
+        // Hide custom context menu when clicking outside of it
+        document.addEventListener('click', function (e) {
+            var menu = document.getElementById('customContextMenu');
+            // Check if the clicked element is not <i> or a descendant of <i>
+            var isClickInsideIcon = e.target.closest('.menu-button');
 
-        // function editItem(element) {
-        //     // Add your edit logic here
-        //     console.log("Edit clicked for menu: " + element.closest(".tile").id);
-        // }
-
-        // function deleteItem(element) {
-        //     // Add your delete logic here
-        //     console.log("Delete clicked for menu: " + element.closest(".tile").id);
-        // }
+            if (!isClickInsideIcon) {
+                // If the click is not inside <i> or its descendants, hide the menu
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                }
+            }
+        });
 
     </script>
 </body>
