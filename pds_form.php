@@ -3,7 +3,6 @@
 <html lang="en">
 <?php
 include_once "db_conn.php";
-$_SESSION['user_type'] = 'V';
 ?>
 
 <head>

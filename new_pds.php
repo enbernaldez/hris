@@ -28,10 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // retrieve employee ID from db
     $sql = "SELECT `employee_id` 
             FROM `employees` 
-            WHERE `employee_lastname` = '{$n_pi_name_last}'
-            AND `employee_firstname` = '{$n_pi_name_first}'
-            AND `employee_middlename` = '{$n_pi_name_middle}'
-            AND `employee_nameext` = '{$n_pi_name_ext}'"; //change {$n_pi_name} to ? once finished
+            WHERE `employee_lastname` = '?'
+            AND `employee_firstname` = '?'
+            AND `employee_middlename` = '?'
+            AND `employee_nameext` = '?'";
     echo $sql . "<br>";
     // $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle,$n_pi_name_ext) 
     // $result = query($conn, $sql, $filter);
@@ -70,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $keys .= ", `{$column_fk}`";
                 $and_where = " AND `{$column_fk}` = '{$column_fk_idData}'";
             }
-            $sql = "SELECT {$keys}
-                FROM `{$table}`
-                WHERE `{$column_name}` = '{$name}'{$and_where}"; //change {$name} to ? once finished
+            $sql = "SELECT `?`
+                FROM `?`
+                WHERE `?` = '?'?";
             return $sql;
-            // $filter = array($name);
+            // $filter = array($keys, $table, $column_name, $name, $and_where);
             // $result = query($conn, $sql, $filter);
 
             // if (!empty($result)) {
@@ -546,7 +546,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $salary_grade = 0;
         }
 
-        $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_name', 'position_salarygrade', $salary_grade);
+        $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_title', 'position_salarygrade', $salary_grade);
         $daoc = lookupId($conn, $n_we_agency[$i], 'department_agency_office_company', 'daoc_id', 'daoc_name', '', '');
 
         if($i == 0) {
