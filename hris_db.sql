@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 09:31 AM
+-- Generation Time: May 02, 2024 at 09:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,6 +31,37 @@ CREATE TABLE `barangays` (
   `barangay_id` int(11) NOT NULL,
   `citymunicipality_id` int(11) NOT NULL,
   `barangay_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `basiced_degree_course`
+--
+
+CREATE TABLE `basiced_degree_course` (
+  `bdc_id` int(11) NOT NULL,
+  `bdc_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `basiced_degree_course`
+--
+
+INSERT INTO `basiced_degree_course` (`bdc_id`, `bdc_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `children`
+--
+
+CREATE TABLE `children` (
+  `child_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `child_fullname` varchar(128) NOT NULL,
+  `child_bday` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -168,12 +199,91 @@ INSERT INTO `city_municipality` (`citymunicipality_id`, `province_id`, `citymuni
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `civil_services`
+--
+
+CREATE TABLE `civil_services` (
+  `cs_id` int(11) NOT NULL,
+  `cs_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `civil_services`
+--
+
+INSERT INTO `civil_services` (`cs_id`, `cs_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `countries`
 --
 
 CREATE TABLE `countries` (
   `country_id` int(11) NOT NULL,
   `country_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`country_id`, `country_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cs_eligibility`
+--
+
+CREATE TABLE `cs_eligibility` (
+  `cseligibility_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `cs_id` int(11) NOT NULL,
+  `cseligibility_rating` float(10,0) NOT NULL,
+  `cseligibility_examdate` date NOT NULL,
+  `cseligibility_examplace` varchar(128) NOT NULL,
+  `cseligibility_license` varchar(32) NOT NULL,
+  `cseligibility_datevalidity` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dept_agency_office_co`
+--
+
+CREATE TABLE `dept_agency_office_co` (
+  `daoc_id` int(11) NOT NULL,
+  `daoc_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dept_agency_office_co`
+--
+
+INSERT INTO `dept_agency_office_co` (`daoc_id`, `daoc_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `education`
+--
+
+CREATE TABLE `education` (
+  `educ_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `educ_acadlvl` char(1) NOT NULL COMMENT 'E = Elementary /\r\nS = Secondary /\r\nV = Vocational /\r\nC = College / \r\nG = Graduate',
+  `school_id` int(11) NOT NULL,
+  `bdc_id` int(11) NOT NULL,
+  `educ_period_from` varchar(4) NOT NULL,
+  `educ_period_to` varchar(4) NOT NULL,
+  `educ_highest` varchar(64) NOT NULL,
+  `educ_graduated` varchar(4) NOT NULL,
+  `educ_scholarship_acad_honors` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -184,28 +294,116 @@ CREATE TABLE `countries` (
 
 CREATE TABLE `employees` (
   `employee_id` int(11) NOT NULL,
-  `employee_agencyno` int(11) NOT NULL,
+  `position_id` int(11) DEFAULT NULL,
   `employee_lastname` varchar(64) NOT NULL,
   `employee_firstname` varchar(64) NOT NULL,
   `employee_middlename` varchar(64) NOT NULL,
-  `employee_nameext` varchar(8) DEFAULT NULL
+  `employee_nameext` varchar(4) NOT NULL,
+  `employee_imgdir` varchar(256) DEFAULT NULL,
+  `employee_office` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_addresses`
+--
+
+CREATE TABLE `employee_addresses` (
+  `emp_add_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `zipcode_id` int(11) NOT NULL,
+  `province_id` int(11) NOT NULL,
+  `citymunicipality_id` int(11) NOT NULL,
+  `barangay_id` int(11) NOT NULL,
+  `subdivisionvillage_id` int(11) NOT NULL,
+  `street_id` int(11) NOT NULL,
+  `houseblocklot_id` int(11) NOT NULL,
+  `emp_add_type` char(1) NOT NULL COMMENT 'R = Residential /\r\nP = Permanent /\r\nB = Both'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_contacts`
+--
+
+CREATE TABLE `employee_contacts` (
+  `emp_cont_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `emp_cont_tel` varchar(16) NOT NULL,
+  `emp_cont_mobile` varchar(11) NOT NULL,
+  `emp_cont_emailadd` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_details`
+--
+
+CREATE TABLE `employee_details` (
+  `emp_dets_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `emp_dets_bday` date NOT NULL,
+  `emp_dets_birthplace` varchar(128) NOT NULL,
+  `emp_dets_sex` char(1) NOT NULL COMMENT 'M = Male /\r\nF = Female',
+  `emp_dets_civilstatus` char(1) NOT NULL COMMENT 'S = Single /\r\nM = Married /\r\nC = Common law /\r\nW = Widowed /\r\nH = Separated',
+  `emp_dets_height` float NOT NULL,
+  `emp_dets_weight` float NOT NULL,
+  `emp_dets_bloodtype` varchar(2) NOT NULL,
+  `emp_dets_citizenship` char(1) NOT NULL COMMENT 'F = Filipino /\r\nB = dual citizenship by Birth /\r\nN = dual citizenship by Naturalization',
+  `citizenship_country` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_numbers`
+--
+
+CREATE TABLE `employee_numbers` (
+  `emp_no_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `emp_no_gsis` varchar(32) NOT NULL,
+  `emp_no_pagibig` varchar(32) NOT NULL,
+  `emp_no_philhealth` varchar(32) NOT NULL,
+  `emp_no_sss` varchar(32) NOT NULL,
+  `emp_no_tin` varchar(32) NOT NULL,
+  `emp_no_agency` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employer_business`
+--
+
+CREATE TABLE `employer_business` (
+  `employer_business_id` int(11) NOT NULL,
+  `employer_business_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `employees`
+-- Dumping data for table `employer_business`
 --
 
-INSERT INTO `employees` (`employee_id`, `employee_agencyno`, `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`) VALUES
-(1, 0, 'Vargas', 'Ana', 'Sotto', NULL),
-(2, 0, 'Cruz', 'Mae', 'Sario', NULL),
-(3, 0, 'Doe', 'Allen', 'Diaz', NULL),
-(4, 0, 'Vidal', 'Marta', 'Soler', NULL),
-(5, 0, 'Hernandez', 'Cristina', 'Carmona', NULL),
-(6, 0, 'Duran', 'Cristian', 'Ramos', NULL),
-(7, 0, 'Gomez', 'Cesar', 'Gil', 'III'),
-(8, 0, 'Torres', 'Angela', 'Arias', NULL),
-(9, 0, 'Lorenzo', 'Elena', 'Pilar', NULL),
-(10, 0, 'Juarez', 'Javier', 'Crespo', 'Jr.');
+INSERT INTO `employer_business` (`employer_business_id`, `employer_business_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `government_id`
+--
+
+CREATE TABLE `government_id` (
+  `govt_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `govt_id_name` varchar(64) NOT NULL,
+  `govt_id_no` varchar(32) NOT NULL,
+  `govt_id_date_place` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -215,7 +413,114 @@ INSERT INTO `employees` (`employee_id`, `employee_agencyno`, `employee_lastname`
 
 CREATE TABLE `house_block_lot` (
   `houseblocklot_id` int(11) NOT NULL,
-  `houseblocklot_no` int(11) NOT NULL
+  `houseblocklot_no` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `house_block_lot`
+--
+
+INSERT INTO `house_block_lot` (`houseblocklot_id`, `houseblocklot_no`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ld_titles`
+--
+
+CREATE TABLE `ld_titles` (
+  `ld_title_id` int(11) NOT NULL,
+  `ld_title_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `learning_development`
+--
+
+CREATE TABLE `learning_development` (
+  `ld_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `ld_title_id` int(11) NOT NULL,
+  `ld_from` date NOT NULL,
+  `ld_to` date NOT NULL,
+  `ld_hrs` int(11) NOT NULL,
+  `ld_type` varchar(32) NOT NULL,
+  `sponsor_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membership`
+--
+
+CREATE TABLE `membership` (
+  `membership_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `membership_name` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nonacademic_recognition`
+--
+
+CREATE TABLE `nonacademic_recognition` (
+  `nar_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `nar_name` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `occupations`
+--
+
+CREATE TABLE `occupations` (
+  `occupation_id` int(11) NOT NULL,
+  `occupation_name` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `occupations`
+--
+
+INSERT INTO `occupations` (`occupation_id`, `occupation_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parents`
+--
+
+CREATE TABLE `parents` (
+  `parent_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `parent_lastname` varchar(64) NOT NULL,
+  `parent_firstname` varchar(64) NOT NULL,
+  `parent_middleame` varchar(64) NOT NULL,
+  `parent_nameext` varchar(4) NOT NULL,
+  `parent_type` char(1) NOT NULL COMMENT 'F = Father /\r\nM = Mother'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pds_references`
+--
+
+CREATE TABLE `pds_references` (
+  `ref_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `ref_name` varchar(128) NOT NULL,
+  `ref_add` varchar(128) NOT NULL,
+  `ref_telno` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -280,7 +585,7 @@ CREATE TABLE `places` (
 
 CREATE TABLE `positions` (
   `position_id` int(11) NOT NULL,
-  `position_name` varchar(64) NOT NULL,
+  `position_title` varchar(64) NOT NULL,
   `position_salarygrade` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -288,27 +593,28 @@ CREATE TABLE `positions` (
 -- Dumping data for table `positions`
 --
 
-INSERT INTO `positions` (`position_id`, `position_name`, `position_salarygrade`) VALUES
-(1, 'Regional Director', 26),
-(2, 'Chief Administrative Officer', 24),
-(3, 'Chief Statistical Specialist', 24),
-(4, 'Supervising Statistical Specialist', 22),
-(5, 'Registration Officer IV', 22),
-(6, 'Senior Statistical Specialist', 19),
-(7, 'Registration Officer III', 18),
-(8, 'Accountant III', 18),
-(9, 'Statistical Specialist II', 16),
-(10, 'Administrative Officer IV', 15),
-(11, 'Administrative Officer III', 14),
-(12, 'Information Systems Analyst I', 12),
-(13, 'Information Officer I', 11),
-(14, 'Statistical Analyst', 11),
-(15, 'Administrative Assistant III', 9),
-(16, 'Assistant Statistician', 9),
-(17, 'Administrative Assistant II', 8),
-(18, 'Administrative Assistant I', 7),
-(19, 'Administrative Aide VI', 6),
-(20, 'Administrative Aide III', 3);
+INSERT INTO `positions` (`position_id`, `position_title`, `position_salarygrade`) VALUES
+(1, 'N/A', 0),
+(2, 'Regional Director', 26),
+(3, 'Chief Administrative Officer', 24),
+(4, 'Chief Statistical Specialist', 24),
+(5, 'Supervising Statistical Specialist', 22),
+(6, 'Registration Officer IV', 22),
+(7, 'Senior Statistical Specialist', 19),
+(8, 'Registration Officer III', 18),
+(9, 'Accountant III', 18),
+(10, 'Statistical Specialist II', 16),
+(11, 'Administrative Officer IV', 15),
+(12, 'Administrative Officer III', 14),
+(13, 'Information Systems Analyst I', 12),
+(14, 'Information Officer I', 11),
+(15, 'Statistical Analyst', 11),
+(16, 'Administrative Assistant III', 9),
+(17, 'Assistant Statistician', 9),
+(18, 'Administrative Assistant II', 8),
+(19, 'Administrative Assistant I', 7),
+(20, 'Administrative Aide VI', 6),
+(21, 'Administrative Aide III', 3);
 
 -- --------------------------------------------------------
 
@@ -336,6 +642,125 @@ INSERT INTO `provinces` (`province_id`, `province_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `qna`
+--
+
+CREATE TABLE `qna` (
+  `qna_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_a_ifyes` varchar(256) NOT NULL,
+  `qna_b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_b_ifyes` varchar(256) NOT NULL,
+  `qna_b_ifyes_plus` varchar(256) NOT NULL,
+  `qna_c` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_c_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_34`
+--
+
+CREATE TABLE `qna_34` (
+  `qna_34_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_34a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_34b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_34b_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_35`
+--
+
+CREATE TABLE `qna_35` (
+  `qna_35_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_35a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_35a_ifyes` varchar(256) NOT NULL,
+  `qna_35b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_35b_ifyes_datefiled` varchar(255) NOT NULL,
+  `qna_35b_ifyes_casestatus` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_36`
+--
+
+CREATE TABLE `qna_36` (
+  `qna_36_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_36` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_36_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_37`
+--
+
+CREATE TABLE `qna_37` (
+  `qna_37_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_37` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_37_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_38`
+--
+
+CREATE TABLE `qna_38` (
+  `qna_38_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_38a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_38a_ifyes` varchar(256) NOT NULL,
+  `qna_38b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_38b_ifyes` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_39`
+--
+
+CREATE TABLE `qna_39` (
+  `qna_39_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_39` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_39_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qna_40`
+--
+
+CREATE TABLE `qna_40` (
+  `qna_40_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `qna_40a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_40a_ifyes` varchar(256) NOT NULL,
+  `qna_40b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_40b_ifyes` varchar(255) NOT NULL,
+  `qna_40c` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
+  `qna_40c_ifyes` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rsso_v`
 --
 
@@ -357,6 +782,66 @@ INSERT INTO `rsso_v` (`rsso_id`, `rsso_name`, `rsso_acronym`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schools`
+--
+
+CREATE TABLE `schools` (
+  `school_id` int(11) NOT NULL,
+  `school_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`school_id`, `school_name`) VALUES
+(1, 'N/A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `special_skills_hobbies`
+--
+
+CREATE TABLE `special_skills_hobbies` (
+  `ssh_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `ssh_name` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sponsors`
+--
+
+CREATE TABLE `sponsors` (
+  `sponsor_id` int(11) NOT NULL,
+  `sponsor_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spouses`
+--
+
+CREATE TABLE `spouses` (
+  `spouse_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `spouse_lastname` varchar(64) NOT NULL,
+  `spouse_firstname` varchar(64) NOT NULL,
+  `spouse_middlename` varchar(64) NOT NULL,
+  `spouse_nameext` varchar(4) NOT NULL,
+  `occupation_id` int(11) NOT NULL,
+  `employer_business_id` int(11) NOT NULL,
+  `spouse_busadd` varchar(128) NOT NULL,
+  `spouse_telno` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `streets`
 --
 
@@ -364,6 +849,13 @@ CREATE TABLE `streets` (
   `street_id` int(11) NOT NULL,
   `street_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `streets`
+--
+
+INSERT INTO `streets` (`street_id`, `street_name`) VALUES
+(1, 'N/A');
 
 -- --------------------------------------------------------
 
@@ -376,6 +868,13 @@ CREATE TABLE `subdivision_village` (
   `subdivisionvillage_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `subdivision_village`
+--
+
+INSERT INTO `subdivision_village` (`subdivisionvillage_id`, `subdivisionvillage_name`) VALUES
+(1, 'N/A');
+
 -- --------------------------------------------------------
 
 --
@@ -384,7 +883,7 @@ CREATE TABLE `subdivision_village` (
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `user_name` varchar(32) NOT NULL,
+  `user_name` varchar(64) NOT NULL,
   `user_pwdhash` varchar(128) NOT NULL,
   `user_type` char(1) NOT NULL COMMENT 'A = Admin /\r\nE = Employee',
   `user_status` char(1) NOT NULL COMMENT 'A = Active /\r\nI = Inactive'
@@ -400,6 +899,41 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_pwdhash`, `user_type`, `user_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `voluntary_work`
+--
+
+CREATE TABLE `voluntary_work` (
+  `volwork_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `volwork_name_add` varchar(256) NOT NULL,
+  `volwork_from` date NOT NULL,
+  `volwork_to` date NOT NULL,
+  `volwork_hrs` int(11) NOT NULL,
+  `volwork_position` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `work_experience`
+--
+
+CREATE TABLE `work_experience` (
+  `workexp_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `workexp_from` date NOT NULL,
+  `workexp_to` date NOT NULL,
+  `position_id` int(11) NOT NULL,
+  `daoc_id` int(11) NOT NULL,
+  `workexp_salary_mo` varchar(12) NOT NULL,
+  `workexp_paygrade_step` varchar(12) NOT NULL,
+  `workexp_status` varchar(16) NOT NULL,
+  `workexp_govtsvcs` char(1) NOT NULL COMMENT 'Y = Yes / N = No'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `zipcodes`
 --
 
@@ -408,6 +942,13 @@ CREATE TABLE `zipcodes` (
   `citymunicipality_id` int(11) NOT NULL,
   `zipcode_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `zipcodes`
+--
+
+INSERT INTO `zipcodes` (`zipcode_id`, `citymunicipality_id`, `zipcode_no`) VALUES
+(1, 3, 4501);
 
 --
 -- Indexes for dumped tables
@@ -421,11 +962,30 @@ ALTER TABLE `barangays`
   ADD KEY `citymunicipality_id` (`citymunicipality_id`);
 
 --
+-- Indexes for table `basiced_degree_course`
+--
+ALTER TABLE `basiced_degree_course`
+  ADD PRIMARY KEY (`bdc_id`);
+
+--
+-- Indexes for table `children`
+--
+ALTER TABLE `children`
+  ADD PRIMARY KEY (`child_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
 -- Indexes for table `city_municipality`
 --
 ALTER TABLE `city_municipality`
   ADD PRIMARY KEY (`citymunicipality_id`),
   ADD KEY `province_id` (`province_id`);
+
+--
+-- Indexes for table `civil_services`
+--
+ALTER TABLE `civil_services`
+  ADD PRIMARY KEY (`cs_id`);
 
 --
 -- Indexes for table `countries`
@@ -434,16 +994,138 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`country_id`);
 
 --
+-- Indexes for table `cs_eligibility`
+--
+ALTER TABLE `cs_eligibility`
+  ADD PRIMARY KEY (`cseligibility_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `cs_id` (`cs_id`);
+
+--
+-- Indexes for table `dept_agency_office_co`
+--
+ALTER TABLE `dept_agency_office_co`
+  ADD PRIMARY KEY (`daoc_id`);
+
+--
+-- Indexes for table `education`
+--
+ALTER TABLE `education`
+  ADD PRIMARY KEY (`educ_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `school_id` (`school_id`),
+  ADD KEY `bdc_id` (`bdc_id`);
+
+--
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
-  ADD PRIMARY KEY (`employee_id`);
+  ADD PRIMARY KEY (`employee_id`),
+  ADD KEY `position_id` (`position_id`);
+
+--
+-- Indexes for table `employee_addresses`
+--
+ALTER TABLE `employee_addresses`
+  ADD PRIMARY KEY (`emp_add_id`),
+  ADD KEY `radd_zipcode_id` (`zipcode_id`),
+  ADD KEY `radd_province_id` (`province_id`),
+  ADD KEY `radd_citymunicipality_id` (`citymunicipality_id`),
+  ADD KEY `radd_barangay_id` (`barangay_id`),
+  ADD KEY `radd_subdivisionvillage_id` (`subdivisionvillage_id`),
+  ADD KEY `radd_street_id` (`street_id`),
+  ADD KEY `radd_houseblocklot_id` (`houseblocklot_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `employee_contacts`
+--
+ALTER TABLE `employee_contacts`
+  ADD PRIMARY KEY (`emp_cont_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `employee_details`
+--
+ALTER TABLE `employee_details`
+  ADD PRIMARY KEY (`emp_dets_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `citizenship_country_id` (`citizenship_country`);
+
+--
+-- Indexes for table `employee_numbers`
+--
+ALTER TABLE `employee_numbers`
+  ADD PRIMARY KEY (`emp_no_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `employer_business`
+--
+ALTER TABLE `employer_business`
+  ADD PRIMARY KEY (`employer_business_id`);
+
+--
+-- Indexes for table `government_id`
+--
+ALTER TABLE `government_id`
+  ADD PRIMARY KEY (`govt_id`),
+  ADD KEY `employee_id` (`employee_id`);
 
 --
 -- Indexes for table `house_block_lot`
 --
 ALTER TABLE `house_block_lot`
   ADD PRIMARY KEY (`houseblocklot_id`);
+
+--
+-- Indexes for table `ld_titles`
+--
+ALTER TABLE `ld_titles`
+  ADD PRIMARY KEY (`ld_title_id`);
+
+--
+-- Indexes for table `learning_development`
+--
+ALTER TABLE `learning_development`
+  ADD PRIMARY KEY (`ld_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `ld_title_id` (`ld_title_id`),
+  ADD KEY `sponsor_id` (`sponsor_id`);
+
+--
+-- Indexes for table `membership`
+--
+ALTER TABLE `membership`
+  ADD PRIMARY KEY (`membership_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `nonacademic_recognition`
+--
+ALTER TABLE `nonacademic_recognition`
+  ADD PRIMARY KEY (`nar_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `occupations`
+--
+ALTER TABLE `occupations`
+  ADD PRIMARY KEY (`occupation_id`);
+
+--
+-- Indexes for table `parents`
+--
+ALTER TABLE `parents`
+  ADD PRIMARY KEY (`parent_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `pds_references`
+--
+ALTER TABLE `pds_references`
+  ADD PRIMARY KEY (`ref_id`),
+  ADD KEY `employee_id` (`employee_id`);
 
 --
 -- Indexes for table `personal_information`
@@ -488,10 +1170,94 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`province_id`);
 
 --
+-- Indexes for table `qna`
+--
+ALTER TABLE `qna`
+  ADD PRIMARY KEY (`qna_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_34`
+--
+ALTER TABLE `qna_34`
+  ADD PRIMARY KEY (`qna_34_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_35`
+--
+ALTER TABLE `qna_35`
+  ADD PRIMARY KEY (`qna_35_id`),
+  ADD KEY `qna_35_ibfk_1` (`employee_id`);
+
+--
+-- Indexes for table `qna_36`
+--
+ALTER TABLE `qna_36`
+  ADD PRIMARY KEY (`qna_36_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_37`
+--
+ALTER TABLE `qna_37`
+  ADD PRIMARY KEY (`qna_37_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_38`
+--
+ALTER TABLE `qna_38`
+  ADD PRIMARY KEY (`qna_38_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_39`
+--
+ALTER TABLE `qna_39`
+  ADD PRIMARY KEY (`qna_39_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `qna_40`
+--
+ALTER TABLE `qna_40`
+  ADD PRIMARY KEY (`qna_40_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
 -- Indexes for table `rsso_v`
 --
 ALTER TABLE `rsso_v`
   ADD PRIMARY KEY (`rsso_id`);
+
+--
+-- Indexes for table `schools`
+--
+ALTER TABLE `schools`
+  ADD PRIMARY KEY (`school_id`);
+
+--
+-- Indexes for table `special_skills_hobbies`
+--
+ALTER TABLE `special_skills_hobbies`
+  ADD PRIMARY KEY (`ssh_id`),
+  ADD KEY `employee_id` (`employee_id`);
+
+--
+-- Indexes for table `sponsors`
+--
+ALTER TABLE `sponsors`
+  ADD PRIMARY KEY (`sponsor_id`);
+
+--
+-- Indexes for table `spouses`
+--
+ALTER TABLE `spouses`
+  ADD PRIMARY KEY (`spouse_id`),
+  ADD KEY `occupation_id` (`occupation_id`),
+  ADD KEY `employer_business_id` (`employer_business_id`),
+  ADD KEY `employee_id` (`employee_id`);
 
 --
 -- Indexes for table `streets`
@@ -512,6 +1278,22 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `voluntary_work`
+--
+ALTER TABLE `voluntary_work`
+  ADD PRIMARY KEY (`volwork_id`),
+  ADD KEY `voluntary_work_ibfk_1` (`employee_id`);
+
+--
+-- Indexes for table `work_experience`
+--
+ALTER TABLE `work_experience`
+  ADD PRIMARY KEY (`workexp_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `position_id` (`position_id`),
+  ADD KEY `daoc_id` (`daoc_id`);
+
+--
 -- Indexes for table `zipcodes`
 --
 ALTER TABLE `zipcodes`
@@ -529,16 +1311,52 @@ ALTER TABLE `barangays`
   MODIFY `barangay_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `basiced_degree_course`
+--
+ALTER TABLE `basiced_degree_course`
+  MODIFY `bdc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `children`
+--
+ALTER TABLE `children`
+  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `city_municipality`
 --
 ALTER TABLE `city_municipality`
   MODIFY `citymunicipality_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
+-- AUTO_INCREMENT for table `civil_services`
+--
+ALTER TABLE `civil_services`
+  MODIFY `cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cs_eligibility`
+--
+ALTER TABLE `cs_eligibility`
+  MODIFY `cseligibility_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dept_agency_office_co`
+--
+ALTER TABLE `dept_agency_office_co`
+  MODIFY `daoc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `education`
+--
+ALTER TABLE `education`
+  MODIFY `educ_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -547,10 +1365,88 @@ ALTER TABLE `employees`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `employee_addresses`
+--
+ALTER TABLE `employee_addresses`
+  MODIFY `emp_add_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employee_contacts`
+--
+ALTER TABLE `employee_contacts`
+  MODIFY `emp_cont_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employee_details`
+--
+ALTER TABLE `employee_details`
+  MODIFY `emp_dets_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employee_numbers`
+--
+ALTER TABLE `employee_numbers`
+  MODIFY `emp_no_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employer_business`
+--
+ALTER TABLE `employer_business`
+  MODIFY `employer_business_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `government_id`
+--
+ALTER TABLE `government_id`
+  MODIFY `govt_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `house_block_lot`
 --
 ALTER TABLE `house_block_lot`
-  MODIFY `houseblocklot_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `houseblocklot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ld_titles`
+--
+ALTER TABLE `ld_titles`
+  MODIFY `ld_title_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `learning_development`
+--
+ALTER TABLE `learning_development`
+  MODIFY `ld_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `membership`
+--
+ALTER TABLE `membership`
+  MODIFY `membership_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `nonacademic_recognition`
+--
+ALTER TABLE `nonacademic_recognition`
+  MODIFY `nar_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `occupations`
+--
+ALTER TABLE `occupations`
+  MODIFY `occupation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `parents`
+--
+ALTER TABLE `parents`
+  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pds_references`
+--
+ALTER TABLE `pds_references`
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_information`
@@ -568,7 +1464,7 @@ ALTER TABLE `places`
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -577,22 +1473,94 @@ ALTER TABLE `provinces`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `qna`
+--
+ALTER TABLE `qna`
+  MODIFY `qna_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_34`
+--
+ALTER TABLE `qna_34`
+  MODIFY `qna_34_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_35`
+--
+ALTER TABLE `qna_35`
+  MODIFY `qna_35_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_36`
+--
+ALTER TABLE `qna_36`
+  MODIFY `qna_36_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_37`
+--
+ALTER TABLE `qna_37`
+  MODIFY `qna_37_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_38`
+--
+ALTER TABLE `qna_38`
+  MODIFY `qna_38_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_39`
+--
+ALTER TABLE `qna_39`
+  MODIFY `qna_39_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qna_40`
+--
+ALTER TABLE `qna_40`
+  MODIFY `qna_40_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `rsso_v`
 --
 ALTER TABLE `rsso_v`
   MODIFY `rsso_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `schools`
+--
+ALTER TABLE `schools`
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `special_skills_hobbies`
+--
+ALTER TABLE `special_skills_hobbies`
+  MODIFY `ssh_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sponsors`
+--
+ALTER TABLE `sponsors`
+  MODIFY `sponsor_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `spouses`
+--
+ALTER TABLE `spouses`
+  MODIFY `spouse_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `streets`
 --
 ALTER TABLE `streets`
-  MODIFY `street_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `street_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subdivision_village`
 --
 ALTER TABLE `subdivision_village`
-  MODIFY `subdivisionvillage_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subdivisionvillage_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -601,10 +1569,22 @@ ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `voluntary_work`
+--
+ALTER TABLE `voluntary_work`
+  MODIFY `volwork_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `work_experience`
+--
+ALTER TABLE `work_experience`
+  MODIFY `workexp_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `zipcodes`
 --
 ALTER TABLE `zipcodes`
-  MODIFY `zipcode_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `zipcode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -617,10 +1597,100 @@ ALTER TABLE `barangays`
   ADD CONSTRAINT `barangays_ibfk_1` FOREIGN KEY (`citymunicipality_id`) REFERENCES `city_municipality` (`citymunicipality_id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `children`
+--
+ALTER TABLE `children`
+  ADD CONSTRAINT `children_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `city_municipality`
 --
 ALTER TABLE `city_municipality`
   ADD CONSTRAINT `city_municipality_ibfk_1` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`province_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `cs_eligibility`
+--
+ALTER TABLE `cs_eligibility`
+  ADD CONSTRAINT `cs_eligibility_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `cs_eligibility_ibfk_2` FOREIGN KEY (`cs_id`) REFERENCES `civil_services` (`cs_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `education`
+--
+ALTER TABLE `education`
+  ADD CONSTRAINT `education_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `education_ibfk_2` FOREIGN KEY (`school_id`) REFERENCES `schools` (`school_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `education_ibfk_3` FOREIGN KEY (`bdc_id`) REFERENCES `basiced_degree_course` (`bdc_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employees`
+--
+ALTER TABLE `employees`
+  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employee_addresses`
+--
+ALTER TABLE `employee_addresses`
+  ADD CONSTRAINT `employee_addresses_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employee_contacts`
+--
+ALTER TABLE `employee_contacts`
+  ADD CONSTRAINT `employee_contacts_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employee_details`
+--
+ALTER TABLE `employee_details`
+  ADD CONSTRAINT `employee_details_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `employee_details_ibfk_2` FOREIGN KEY (`citizenship_country`) REFERENCES `countries` (`country_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `employee_numbers`
+--
+ALTER TABLE `employee_numbers`
+  ADD CONSTRAINT `employee_numbers_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `government_id`
+--
+ALTER TABLE `government_id`
+  ADD CONSTRAINT `government_id_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `learning_development`
+--
+ALTER TABLE `learning_development`
+  ADD CONSTRAINT `learning_development_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `learning_development_ibfk_2` FOREIGN KEY (`ld_title_id`) REFERENCES `ld_titles` (`ld_title_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `learning_development_ibfk_3` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsors` (`sponsor_id`);
+
+--
+-- Constraints for table `membership`
+--
+ALTER TABLE `membership`
+  ADD CONSTRAINT `membership_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `nonacademic_recognition`
+--
+ALTER TABLE `nonacademic_recognition`
+  ADD CONSTRAINT `nonacademic_recognition_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `parents`
+--
+ALTER TABLE `parents`
+  ADD CONSTRAINT `parents_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pds_references`
+--
+ALTER TABLE `pds_references`
+  ADD CONSTRAINT `pds_references_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `personal_information`
@@ -644,6 +1714,82 @@ ALTER TABLE `personal_information`
   ADD CONSTRAINT `personal_information_ibfk_7` FOREIGN KEY (`radd_citymunicipality_id`) REFERENCES `city_municipality` (`citymunicipality_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `personal_information_ibfk_8` FOREIGN KEY (`radd_barangay_id`) REFERENCES `barangays` (`barangay_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `personal_information_ibfk_9` FOREIGN KEY (`radd_subdivisionvillage_id`) REFERENCES `subdivision_village` (`subdivisionvillage_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna`
+--
+ALTER TABLE `qna`
+  ADD CONSTRAINT `qna_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_34`
+--
+ALTER TABLE `qna_34`
+  ADD CONSTRAINT `qna_34_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_35`
+--
+ALTER TABLE `qna_35`
+  ADD CONSTRAINT `qna_35_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_36`
+--
+ALTER TABLE `qna_36`
+  ADD CONSTRAINT `qna_36_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_37`
+--
+ALTER TABLE `qna_37`
+  ADD CONSTRAINT `qna_37_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_38`
+--
+ALTER TABLE `qna_38`
+  ADD CONSTRAINT `qna_38_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_39`
+--
+ALTER TABLE `qna_39`
+  ADD CONSTRAINT `qna_39_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qna_40`
+--
+ALTER TABLE `qna_40`
+  ADD CONSTRAINT `qna_40_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `special_skills_hobbies`
+--
+ALTER TABLE `special_skills_hobbies`
+  ADD CONSTRAINT `special_skills_hobbies_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `spouses`
+--
+ALTER TABLE `spouses`
+  ADD CONSTRAINT `spouses_ibfk_1` FOREIGN KEY (`occupation_id`) REFERENCES `occupations` (`occupation_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `spouses_ibfk_2` FOREIGN KEY (`employer_business_id`) REFERENCES `employer_business` (`employer_business_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `spouses_ibfk_3` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `voluntary_work`
+--
+ALTER TABLE `voluntary_work`
+  ADD CONSTRAINT `voluntary_work_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `work_experience`
+--
+ALTER TABLE `work_experience`
+  ADD CONSTRAINT `work_experience_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `work_experience_ibfk_2` FOREIGN KEY (`position_id`) REFERENCES `positions` (`position_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `work_experience_ibfk_3` FOREIGN KEY (`daoc_id`) REFERENCES `dept_agency_office_co` (`daoc_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `zipcodes`
