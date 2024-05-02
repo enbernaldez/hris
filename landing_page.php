@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php
-// include_once "db_conn.php";
-$_SESSION['user_type'] = 'V';
-?>
+<?php include_once "db_conn.php"; ?>
 
 <head>
     <meta charset="UTF-8">
@@ -25,11 +22,11 @@ $_SESSION['user_type'] = 'V';
             <!-- Logo and content -->
             <div class="col-10">
                 <img src="images/PSA banner.jpg" alt="PSA Banner" height="auto" class="img-fluid">
-                <div class="row mt-4">
+                <div class="row mt-5">
                     <!-- Column 1: Vision and Mission -->
-                    <div class="col-3">
+                    <div class="col-3 my-auto">
                         <div class="content text-center">
-                            <?php include_once "vision_content.html"; ?>
+                            <?php include_once "landingpage_contents/vision_content.html"; ?>
                             <!-- <h5 contenteditable="true" id="visionHeading">VISION</h5>
                             <p class="fs-6" contenteditable="true" id="visionContent">
                                 Solid, responsive, and world-class authority on quality
@@ -37,7 +34,7 @@ $_SESSION['user_type'] = 'V';
                                 identification system.
                             </p> -->
                             <br><br>
-                            <?php include_once "mission_content.html"; ?>
+                            <?php include_once "landingpage_contents/mission_content.html"; ?>
                             <!-- <h5 contenteditable="true" id="missionHeading">MISSION</h5>
                             <p class="fs-6" contenteditable="true" id="missionContent">
                                 Deliver relevant and reliable statistics, efficient civil
@@ -49,12 +46,15 @@ $_SESSION['user_type'] = 'V';
                     </div>
 
                     <!-- Column 3: Core Values -->
-                    <div class="col-4 text-center">
+                    <div class="col-4 text-center my-auto">
                         <div class="content">
                             <h5 id="corevaluesHeading">CORE VALUES</h5>
-                            <?php include_once "firstCorevalues_content.html"; ?>
-                            <?php include_once "secondCorevalues_content.html"; ?>
-                            <?php include_once "thirdCorevalues_content.html"; ?>
+                            <br>
+                            <?php include_once "landingpage_contents/firstCorevalues_content.html"; ?>
+                            <br>
+                            <?php include_once "landingpage_contents/secondCorevalues_content.html"; ?>
+                            <br>
+                            <?php include_once "landingpage_contents/thirdCorevalues_content.html"; ?>
                             <!-- <h5 contenteditable="true">CORE VALUES</h5>
                             <div class="core-values">
                                 <div class="core-value">
@@ -93,9 +93,9 @@ $_SESSION['user_type'] = 'V';
                     </div>
 
                     <!-- Column 4: Quality Policy -->
-                    <div class="col-5 text-center">
+                    <div class="col-5 text-center my-auto">
                         <div class="content">
-                            <?php include_once "qualitypolicy_content.html"; ?>
+                            <?php include_once "landingpage_contents/qualitypolicy_content.html"; ?>
                             <!-- <h5 contenteditable="true">QUALITY POLICY</h5>
                             <p class="fs-6 me-3" contenteditable="true">
                                 We, the Philippine Statistics Authority, commit to deliver
@@ -120,7 +120,13 @@ $_SESSION['user_type'] = 'V';
             </div>
         </div>
     </div>
-    </div>
+    <?php
+    $user_type = $_SESSION['user_type'] ?? 'V';
+    echo ($user_type == 'A') ?
+        '<div style="position: absolute; z-index: 10; bottom: 50px; right: 50px;">
+            <button type="button" class="btn btn-primary" onclick="editText(this)">Edit</button>
+        </div>' : '';
+    ?>
 
     <script>
         // Get the elements by their IDs
@@ -138,12 +144,12 @@ $_SESSION['user_type'] = 'V';
         }
 
         // Call the function for each pair of heading and content elements
-        addInputListener('visionHeading', 'visionContent', 'vision_content.html');
-        addInputListener('missionHeading', 'missionContent', 'mission_content.html');
-        addInputListener('qualitypolicyHeading', 'qualitypolicyContent', 'qualitypolicy_content.html');
-        addInputListener('firstCorevaluesHeading', 'firstCorevaluesContent', 'firstCorevalues_content.html');
-        addInputListener('secondCorevaluesHeading', 'secondCorevaluesContent', 'secondCorevalues_content.html');
-        addInputListener('thirdCorevaluesHeading', 'thirdCorevaluesContent', 'thirdCorevalues_content.html');
+        addInputListener('visionHeading', 'visionContent', 'landingpage_contents/vision_content.html');
+        addInputListener('missionHeading', 'missionContent', 'landingpage_contents/mission_content.html');
+        addInputListener('qualitypolicyHeading', 'qualitypolicyContent', 'landingpage_contents/qualitypolicy_content.html');
+        addInputListener('firstCorevaluesHeading', 'firstCorevaluesContent', 'landingpage_contents/firstCorevalues_content.html');
+        addInputListener('secondCorevaluesHeading', 'secondCorevaluesContent', 'landingpage_contents/secondCorevalues_content.html');
+        addInputListener('thirdCorevaluesHeading', 'thirdCorevaluesContent', 'landingpage_contents/thirdCorevalues_content.html');
 
         // Function to update content in HTML file via AJAX
         function updateContent(file, headingId, heading, contentId, content) {
@@ -165,6 +171,30 @@ $_SESSION['user_type'] = 'V';
                 }
             };
             xhr.send('file=' + encodeURIComponent(file) + '&headingId=' + encodeURIComponent(headingId) + '&heading=' + encodeURIComponent(heading) + '&contentId=' + encodeURIComponent(contentId) + '&content=' + encodeURIComponent(content));
+        }
+
+        function editText(button) {
+            if (button.textContent == 'Edit') {
+                // Get all <p> elements on the page
+                var paragraphs = document.querySelectorAll('p');
+
+                // Loop through each <p> element
+                paragraphs.forEach(paragraph => {
+                    // Enable editing mode
+                    paragraph.setAttribute("contenteditable", "true");
+                    button.textContent = 'Done'; // Update button text
+                });
+            } else if (button.textContent == 'Done') {
+                // Get all <p> elements on the page
+                var paragraphs = document.querySelectorAll('p');
+
+                // Loop through each <p> element
+                paragraphs.forEach(paragraph => {
+                    // Disable editing mode
+                    paragraph.setAttribute("contenteditable", "false");
+                    button.textContent = 'Edit'; // Update button text
+                });
+            }
         }
 
     </script>

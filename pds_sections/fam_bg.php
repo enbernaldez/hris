@@ -17,7 +17,8 @@
         <div class="col mx-1">
             <label for="spouse_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_name_middle" id="spouse_name_middle" class="form-control group-na">
+                <input type="text" required name="spouse_name_middle" id="spouse_name_middle"
+                    class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_mi">
                     <label class="form-check-label" for="null_spouse_mi">N/A</label>
@@ -41,7 +42,8 @@
         <div class="col mx-1">
             <label for="spouse_occupation">OCCUPATION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_occupation" id="spouse_occupation" class="form-control group-na">
+                <input type="text" required name="spouse_occupation" id="spouse_occupation"
+                    class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_occupation">
                     <label class="form-check-label" for="null_occupation">N/A</label>
@@ -98,7 +100,8 @@
         <div class="col mx-1">
             <label for="father_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="father_name_middle" id="father_name_middle" class="form-control group-na">
+                <input type="text" required name="father_name_middle" id="father_name_middle"
+                    class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_mi">
                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -135,7 +138,8 @@
         <div class="col mx-1">
             <label for="mother_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="mother_name_middle" id="mother_name_middle" class="form-control group-na">
+                <input type="text" required name="mother_name_middle" id="mother_name_middle"
+                    class="form-control group-na">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_mother_mi">
                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -164,10 +168,10 @@
             <div class="col mx-1">
                 <div class="checkbox-container">
                     <input type="date" name="child_birthdate[]" id="child_dob" class="form-control group-na">
-                        <button type="button" class="delete-row-button mx-2"
-                            style="display:none; background-color: transparent; border: none; color: red;">
-                        </button>
-                        <!-- <i class="bi bi-x-square-fill" style="color: #283872; font-size: 24px;" onclick="deleteRow(this)"></i> -->
+                    <button type="button" class="delete-row-button mx-2"
+                        style="display:none; background-color: transparent; border: none; color: red;">
+                    </button>
+                    <!-- <i class="bi bi-x-square-fill" style="color: #283872; font-size: 24px;" onclick="deleteRow(this)"></i> -->
                 </div>
             </div>
         </div>
@@ -187,20 +191,116 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <!-- <a href="pds_form.php?form_section=educ_bg"> -->
-        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick = "submitForm()">
-            <strong>NEXT</strong>
-        </button>
-    <!-- </a> -->
-
-    <!-- SUBMIT BUTTON
-    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
-        <strong>SUBMIT</strong>
-    </button> -->
-
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+        <strong>NEXT</strong>
+    </button>
 </div>
 
 <script>
+    var naChecked = false;
+
+    // Function to save form data to local storage
+    function saveFormData() {
+        var formValues = {};
+
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group-na');
+        inputs.forEach(function (input) {
+            formValues[input.id] = input.value;
+        });
+
+        // Save the state of checkboxes using their IDs
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            formValues[checkbox.id] = checkbox.checked;
+        });
+
+        // Save the state of "N/A" checkboxes
+        var naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+        naCheckboxes.forEach(function (naCheckbox) {
+            formValues[naCheckbox.id] = naCheckbox.checked;
+        });
+            // // Save the state of input fields with type "date" and value "N/A"
+            // var dateInputs = document.querySelectorAll('.group-na input[type="date"]');
+            // dateInputs.forEach(function (dateInput) {
+            //     if (dateInput.value.trim().toLowerCase() === 'n/a') {
+            //         formValues[dateInput.id] = 'N/A';
+            //         dateInput.disabled = true;
+            //     } else {
+            //         formValues[dateInput.id] = dateInput.value;
+            //     }
+            // });
+
+        localStorage.setItem('pdsFormData', JSON.stringify(formValues));
+    }
+
+    // Function to load form data from local storage
+    function loadFormData() {
+        const storedData = localStorage.getItem('pdsFormData');
+        if (storedData) {
+            try {
+                const formValues = JSON.parse(storedData);
+
+                // Populate form fields with stored values
+                Object.keys(formValues).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = formValues[key];
+                        } else {
+                            element.value = formValues[key];
+                        }
+                    }
+                });
+
+                // Check the state of the "N/A" checkboxes and disable input fields if necessary
+                const naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+                naCheckboxes.forEach(naCheckbox => {
+                    const inputFields = naCheckbox.closest('.checkbox-container').querySelectorAll('input[type="text"], input[type="number"]');
+                    if (naCheckbox.checked) {
+                        naChecked = true;
+                        inputFields.forEach(inputField => {
+                            inputField.disabled = true;
+                            inputField.value = "N/A";
+                        });
+                    }
+                });
+                // Disable input fields with value "N/A"
+                const inputs = document.querySelectorAll('.group-na');
+                inputs.forEach(input => {
+                    if (input.value.trim().toLowerCase() === 'n/a') {
+                        input.disabled = true;
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error parsing stored form data:', error);
+            }
+        }
+    }
+
+    // Call loadFormData() when the page loads
+    window.addEventListener('load', loadFormData);
+
+    // Save form data to local storage before refreshing or leaving the page
+    window.addEventListener('beforeunload', saveFormData);
+
+    // Function to disable input fields based on the state of "N/A" checkboxes
+    function disableInputs() {
+        const naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+        naCheckboxes.forEach(naCheckbox => {
+            const inputFields = naCheckbox.closest('.checkbox-container').querySelectorAll('input[type="text"], input[type="number"]');
+            inputFields.forEach(inputField => {
+                if (naCheckbox.checked) {
+                    inputField.disabled = true;
+                    inputField.value = "N/A";
+                } else {
+                    inputField.disabled = false;
+                    inputField.value = "";
+                }
+            });
+        });
+    }
 
     // ======================== Next button ====================================
     function submitForm() {
@@ -209,7 +309,7 @@
 
         // Check if all input fields are filled out
         var allFilled = true;
-        inputs.forEach(function(input) {
+        inputs.forEach(function (input) {
             if (!input.value.trim()) {
                 allFilled = false;
             }
@@ -245,7 +345,7 @@
         });
 
         input.addEventListener("input", function () {
-            if (this.value === "N/A") {
+            if (this.value.trim().toLowerCase() === "n/a") {
                 checkbox.checked = true;
                 this.disabled = true;
             }
@@ -345,63 +445,63 @@
 
     // =================================== Add Row ===================================
     function addRow() {
-    // Check if the original row is set to "N/A"
-    const nullChildrenCheckbox = document.getElementById("null_children");
-    if (nullChildrenCheckbox.checked) {
-        return; // Do nothing if original row is "N/A"
-    }
+        // Check if the original row is set to "N/A"
+        const nullChildrenCheckbox = document.getElementById("null_children");
+        if (nullChildrenCheckbox.checked) {
+            return; // Do nothing if original row is "N/A"
+        }
 
-    // Clone the input-row element
-    const newRow = document.querySelector(".row-row").cloneNode(true);
+        // Clone the input-row element
+        const newRow = document.querySelector(".row-row").cloneNode(true);
 
-    // Clear input values in the cloned row
-    newRow.querySelectorAll("input").forEach((input) => {
-        input.value = "";
-    });
-
-    // Find the delete button in the cloned row and enable it 
-    const deleteButton = newRow.querySelector(".delete-row-button");
-    if (deleteButton) {
-        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-        deleteButton.style.display = "inline-block";
-        deleteButton.addEventListener("click", function () {
-            newRow.parentNode.removeChild(newRow);
+        // Clear input values in the cloned row
+        newRow.querySelectorAll("input").forEach((input) => {
+            input.value = "";
         });
-    }
 
-    // Set inputs to "N/A" if corresponding checkbox is checked
-    const checkboxes = newRow.querySelectorAll(".form-check-input");
-    checkboxes.forEach((checkbox, index) => {
-        const input = newRow.querySelectorAll("input")[index];
-        if (checkbox.checked) {
-            input.value = "N/A";
-            input.disabled = true;
+        // Find the delete button in the cloned row and enable it 
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
         }
-    });
 
-    // Append the cloned row to the container
-    document.querySelector(".row-container").appendChild(newRow);
+        // Set inputs to "N/A" if corresponding checkbox is checked
+        const checkboxes = newRow.querySelectorAll(".form-check-input");
+        checkboxes.forEach((checkbox, index) => {
+            const input = newRow.querySelectorAll("input")[index];
+            if (checkbox.checked) {
+                input.value = "N/A";
+                input.disabled = true;
+            }
+        });
 
-    // Set inputs to "N/A" when "N/A" checkbox is clicked and remove the cloned row
-    const childNameInput = newRow.querySelector("input[name='child_fullname[]']");
-    const childDobInput = newRow.querySelector("input[name='child_birthdate[]']");
-    nullChildrenCheckbox.addEventListener("change", function () {
-        if (this.checked) {
-            newRow.parentNode.removeChild(newRow);
+        // Append the cloned row to the container
+        document.querySelector(".row-container").appendChild(newRow);
+
+        // Set inputs to "N/A" when "N/A" checkbox is clicked and remove the cloned row
+        const childNameInput = newRow.querySelector("input[name='child_fullname[]']");
+        const childDobInput = newRow.querySelector("input[name='child_birthdate[]']");
+        nullChildrenCheckbox.addEventListener("change", function () {
+            if (this.checked) {
+                newRow.parentNode.removeChild(newRow);
+            } else {
+                childNameInput.value = "";
+                childNameInput.disabled = false;
+                childDobInput.value = "";
+                childDobInput.disabled = false;
+            }
+        });
+
+        // Disable the "Add Row" button if the original row is "N/A"
+        const addButton = document.getElementById("fb_addrow");
+        if (nullChildrenCheckbox.checked) {
+            addButton.disabled = true;
         } else {
-            childNameInput.value = "";
-            childNameInput.disabled = false;
-            childDobInput.value = "";
-            childDobInput.disabled = false;
+            addButton.disabled = false;
         }
-    });
-
-    // Disable the "Add Row" button if the original row is "N/A"
-    const addButton = document.getElementById("fb_addrow");
-    if (nullChildrenCheckbox.checked) {
-        addButton.disabled = true;
-    } else {
-        addButton.disabled = false;
     }
-}
 </script>

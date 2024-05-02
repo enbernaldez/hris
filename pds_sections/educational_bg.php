@@ -162,18 +162,18 @@
             </div>
             <!-- name of school -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="name_schoolV" name="voc_school" required>
+                <input type="text" class="form-control next_button" id="name_schoolV" name="voc_school[]" required>
             </div>
             <!-- basic education/degree/course -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="degree_v" name="voc_degree" required>
+                <input type="text" class="form-control next_button" id="degree_v" name="voc_degree[]" required>
             </div>
             <!-- period of attendance -->
             <div class="col-2">
                 <div class="row">
                     <!-- FROM -->
                     <div class="col na checkbox-container pe-1 small-font">
-                        <select class="form-select year-select next_button" name="voc_attendance_from"
+                        <select class="form-select year-select next_button" name="voc_attendance_from[]"
                             id="p_attendance_fromV" required>
                             <option value=""></option>
                         </select>
@@ -184,7 +184,7 @@
                     </div>
                     <!-- TO -->
                     <div class="col na checkbox-container ps-1 small-font">
-                        <select class="form-select year-select next_button" name="voc_attendance_to"
+                        <select class="form-select year-select next_button" name="voc_attendance_to[]"
                             id="p_attendance_toV" required>
                             <option value=""></option>
                         </select>
@@ -197,11 +197,11 @@
             </div>
             <!-- highest level earned -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="h_levelV" name="voc_level" required>
+                <input type="text" class="form-control next_button" id="h_levelV" name="voc_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
             <div class="col na checkbox-container small-font">
-                <select class="form-select year-select next_button" name="voc_year" id="year_graduatedV" required>
+                <select class="form-select year-select next_button" id="year_graduatedV" name="voc_year[]" required>
                     <option value=""></option>
                 </select>
                 <div class="form-check ms-2">
@@ -211,7 +211,7 @@
             </div>
             <!-- SCHOLARSHIP/ ACADEMIC HONORS RECEIVED -->
             <div class="col na checkbox-container small-font">
-                <input type="text" class="form-control next_button" id="v_scholarship" name="voc_scholarship"
+                <input type="text" class="form-control next_button" id="v_scholarship" name="voc_scholarship[]"
                     required />
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA(this)">
@@ -236,18 +236,18 @@
             </div>
             <!-- name of school -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="name_schoolC" name="coll_school" required>
+                <input type="text" class="form-control next_button" id="name_schoolC" name="coll_school[]" required>
             </div>
             <!-- basic education/degree/course -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="degree_C" name="coll_degree" required>
+                <input type="text" class="form-control next_button" id="degree_C" name="coll_degree[]" required>
             </div>
             <!-- period of attendance -->
             <div class="col-2">
                 <div class="row">
                     <!-- FROM -->
                     <div class="col na checkbox-container pe-1 small-font">
-                        <select class="form-select year-select next_button" name="coll_attendance_from"
+                        <select class="form-select year-select next_button" name="coll_attendance_from[]"
                             id="p_attendance_fromC" required>
                             <option value=""></option>
                         </select>
@@ -258,7 +258,7 @@
                     </div>
                     <!-- TO -->
                     <div class="col na checkbox-container ps-1 small-font">
-                        <select class="form-select year-select next_button" name="coll_attendance_to"
+                        <select class="form-select year-select next_button" name="coll_attendance_to[]"
                             id="p_attendance_toC" required>
                             <option value=""></option>
                         </select>
@@ -271,11 +271,11 @@
             </div>
             <!-- highest level earned -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="h_levelC" name="coll_level" required>
+                <input type="text" class="form-control next_button" id="h_levelC" name="coll_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
             <div class="col na checkbox-container small-font">
-                <select class="form-select year-select next_button" name="coll_year" id="year_graduatedC" required>
+                <select class="form-select year-select next_button" id="year_graduatedC" name="coll_year[]" required>
                     <option value=""></option>
                 </select>
                 <div class="form-check ms-2">
@@ -285,7 +285,7 @@
             </div>
             <!-- scholarship/academic honors received -->
             <div class="col na checkbox-container small-font">
-                <input type="text" class="form-control next_button" id="c_scholarship" name="coll_scholarship"
+                <input type="text" class="form-control next_button" id="c_scholarship" name="coll_scholarship[]"
                     required />
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA(this)">
@@ -318,17 +318,17 @@
             </div>
             <!-- name of school -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="name_schoolG" name="grad_school" required>
+                <input type="text" class="form-control next_button" id="name_schoolG" name="grad_school[]" required>
             </div>
             <!-- basic education/degree/course -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="degree_g" name="grad_degree" required>
+                <input type="text" class="form-control next_button" id="degree_g" name="grad_degree[]" required>
             </div>
             <div class="col-2">
                 <div class="row">
                     <!-- FROM -->
                     <div class="col na checkbox-container pe-1 small-font">
-                        <select class="form-select year-select next_button" name="grad_attendance_from"
+                        <select class="form-select year-select next_button" name="grad_attendance_from[]"
                             id="p_attendance_fromG" required>
                             <option value=""></option>
                         </select>
@@ -339,7 +339,7 @@
                     </div>
                     <!-- TO -->
                     <div class="col na checkbox-container ps-1 small-font">
-                        <select class="form-select year-select next_button" name="grad_attendance_to"
+                        <select class="form-select year-select next_button" name="grad_attendance_to[]"
                             id="p_attendance_toG" required>
                             <option value=""></option>
                         </select>
@@ -352,11 +352,11 @@
             </div>
             <!-- highest level earned -->
             <div class="col">
-                <input type="text" class="form-control next_button" id="h_levelG" name="grad_level" required>
+                <input type="text" class="form-control next_button" id="h_levelG" name="grad_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
             <div class="col na checkbox-container small-font">
-                <select class="form-select year-select next_button" name="grad_year" id="year_graduatedG" required>
+                <select class="form-select year-select next_button" id="year_graduatedG" name="grad_year[]" required>
                     <option value=""></option>
                 </select>
                 <div class="form-check ms-2">
@@ -366,7 +366,7 @@
             </div>
             <!-- SCHOLARSHIP -->
             <div class="col na checkbox-container small-font">
-                <input type="text" class="form-control next_button" id="g_scholarship" name="grad_scholarship"
+                <input type="text" class="form-control next_button" id="g_scholarship" name="grad_scholarship[]"
                     required />
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA(this)">

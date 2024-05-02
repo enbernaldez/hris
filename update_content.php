@@ -13,7 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $content = $_POST['content'];
 
         // Construct the HTML content to be written to the file
-        $htmlContent = '<h5 contenteditable="true" id="' . $headingId . '">' . $heading . '</h5><p class="fs-6" contenteditable="true" id="' . $contentId . '">' . htmlspecialchars($content) . '</p>';
+        $heading_tag = (in_array($headingId, ['visionHeading', 'missionHeading', 'qualitypolicyHeading'])) ? 'h5' : 'h6';
+        $htmlContent = '
+<div class="section" style="position: relative;">
+    <' . $heading_tag . ' id="' . $headingId . '">
+        ' . $heading . '
+    </' . $heading_tag . '>
+    <p class="fs-6" contenteditable="false" id="' . $contentId . '">
+        ' . htmlspecialchars($content) . '
+    </p>
+</div>
+        ';
 
         // Write the HTML content to the file
         if (file_put_contents($file, $htmlContent) !== false) {

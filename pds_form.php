@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-
-<html lang="en">
 <?php
 include_once "db_conn.php";
-$_SESSION['user_type'] = 'V';
+if ($_SESSION['user_type'] != 'A') {
+    header("location:" . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +17,7 @@ $_SESSION['user_type'] = 'V';
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
-    
+
     <style>
         /* educational background */
         nav {
@@ -56,6 +58,7 @@ $_SESSION['user_type'] = 'V';
         .add-row-text {
             margin-top: -26px;
         }
+
         /* --------------- */
         hr {
             color: antiquewhite;
@@ -88,7 +91,7 @@ $_SESSION['user_type'] = 'V';
 
                 <!-- FORM -->
 
-                <form action="new_pds.php" method="post">
+                <form action="new_pds.php" method="post" enctype="multipart/form-data">
 
                     <?php
                     if (isset($_GET['form_section'])) {
