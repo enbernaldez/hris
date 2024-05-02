@@ -36,33 +36,7 @@ $_SESSION['user_type'] ?? 'V';
             margin: 0;
         }
 
-        /* kebab menu options */
-        /* .options-container {
-            display: none;
-            position: absolute;
-            margin-top: -30px;
-            margin-left: -70px;
-            height: 79px;
-            width: 129px;
-            transform: translateX(-50%);
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 16px;
-        }
-
-        .options-container button {
-            margin-top: -8px;
-        }
-
-        .underline {
-            border-top: 2px solid #ccc;
-            margin: 4px;
-        }
-
-        .btn-link {
-            text-decoration: none;
-            color: black;
-        } */
+        /* context menu */
 
         #customContextMenu {
             position: absolute;
