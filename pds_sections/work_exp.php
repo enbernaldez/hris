@@ -81,7 +81,7 @@
                 <input type="text" name="we_status[]" id="we_status" class="form-control group_na" required value="">
             </div>
             <div class="col-1">
-                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na" value="">
+                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na">
                     <option value="" disabled selected value>--select--</option>
                     <option value='Y'>Yes</option>
                     <option value='N'>No</option>
@@ -109,7 +109,86 @@
 </div>
 
 <script>
-    // ======================== Next button ====================================
+    var naChecked = false;
+
+    // Function to save form data to local storage
+    function saveFormData() {
+        var formValues = {};
+
+        // Get all input fields with class "group_na"
+        var inputs = document.querySelectorAll('.group_na');
+        inputs.forEach(function (input) {
+            formValues[input.id] = input.value;
+        });
+
+        // Save the state of the "N/A" checkbox
+        var checkbox = document.getElementById('null_work_exp');
+        if (checkbox) {
+            formValues['null_work_exp_checked'] = checkbox.checked;
+        }
+
+        localStorage.setItem('pdsFormData', JSON.stringify(formValues));
+    }
+
+    // Function to load form data from local storage
+    function loadFormData() {
+        var storedData = localStorage.getItem('pdsFormData');
+        if (storedData) {
+            var formValues = JSON.parse(storedData);
+
+            // Populate form fields with stored values
+            Object.keys(formValues).forEach(function (key) {
+                var inputField = document.getElementById(key);
+                if (inputField) {
+                    inputField.value = formValues[key]; //need to fix 
+                }
+            });
+
+            // Check the state of the "N/A" checkbox
+            var checkboxState = formValues['null_work_exp_checked'];
+            if (typeof checkboxState !== 'undefined') {
+                naChecked = checkboxState;
+                var checkbox = document.getElementById('null_work_exp');
+                if (checkbox) {
+                    checkbox.checked = naChecked;
+                    if (naChecked) {
+                        disableInputs(); // Disable inputs if "N/A" checkbox was checked
+                    }
+                }
+            }
+        }
+    }
+
+    // Call loadFormData() when the page loads
+    window.addEventListener('load', loadFormData);
+
+    // Save form data to local storage before refreshing or leaving the page
+    window.onbeforeunload = saveFormData;
+
+    // Function to disable input fields if "N/A" checkbox is checked
+    function disableInputs() {
+        var inputs = document.querySelectorAll(".group_na");
+        var addRowButton = document.getElementById("we_addrow");
+        inputs.forEach(function (input) {
+            if (input.tagName.toLowerCase() === "select") {
+                input.innerHTML = ""; // Clear existing options
+                var optionNA = document.createElement("option");
+                optionNA.text = "N/A";
+                optionNA.value = "N/A";
+                input.appendChild(optionNA);
+                input.disabled = true;
+            } else {
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            }
+        });
+        if (addRowButton) {
+            addRowButton.disabled = true;
+        }
+    }
+
+    // ======================== Next Button ================================================
     function submitForm() {
         // Get all input fields with class "group_na"
         var inputs = document.querySelectorAll('.group_na');
@@ -129,6 +208,7 @@
             alert("Please fill out all input fields before proceeding.");
         }
     }
+
     // ============================ N/A Array Disable ============================
     const originalOptions = {};
 
@@ -184,6 +264,7 @@
                     });
                     select.disabled = false;
                 });
+                
             }
         });
     }
