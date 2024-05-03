@@ -1,34 +1,39 @@
-
-                        <!-- test for employee tiles if there's no employees yet -->
-                        <div class="row tilerow mt-3">
-                        <?php                        
+                    <!-- test for employee tiles if there's no employees yet -->
+                    <div class="row tilerow mt-3">
+                        <?php
                         for ($i = 0; $i < 12; $i++) {
                             ?>
                             <div class="col-4 tile mt-3">
-                                <a href="pds_form.php?form_section=personal_info&employee_id=#&action=view"
-                                    style="text-decoration: none; color: inherit;">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto"
-                                                style="border-radius:12px">
-                                        </div>
-                                        <div class="col-8">
-                                            <p style="margin: 0"><strong>APRIL CASSANDRA S. REGALARIO</strong></p>
-                                            <p style="margin: 0; font-size: 14px;">Chief Statical Specialist V</p>
-                                        </div>
+                                <?php echo ($user_type == 'A') ?
+                                    '<a href="pds_form.php?form_section=personal_info&employee_id=#&action=view"
+                                    style="text-decoration: none; color: inherit;">' : '';
+                                ?>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="images/Bercilla.jpg" alt="Anjanette Bercilla" height="80px" width="auto"
+                                            style="border-radius:12px">
                                     </div>
-                                </a>
-                                <!-- Kebab menu -->
-                                <div class="col-1"
-                                    style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
-                                    <button class="btn menu-button">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
+                                    <div class="col-8">
+                                        <p style="margin: 0"><strong>APRIL CASSANDRA S. REGALARIO</strong></p>
+                                        <p style="margin: 0; font-size: 14px;">Chief Statical Specialist V</p>
+                                    </div>
                                 </div>
+                                <?php echo ($user_type == 'A') ? '</a>' : '' ?>
+
+                                <!-- Kebab menu -->
+                                <?php
+                                echo ($user_type == 'A') ?
+                                    '<div class="col-1"
+                                        style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
+                                        <button class="btn menu-button">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                    </div>' : '';
+                                ?>
                             </div>
 
                             <!-- Context Menu -->
-                            <div id="customContextMenu" style="display: none; width: 100px;">
+                            <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                 <ul>
                                     <a href="pds_form.php?form_section=personal_info&employee_id=#&action=edit"
                                         style="color: black;">
@@ -67,19 +72,20 @@
                             <?php
                         }
                         ?>
-                        </div>
-                        <div class="mt-5">
-                            <a href="pds_form.php?form_section=personal_info&action=add">
+                    </div>
+                    <div class="mt-5">
+                        <?php
+                        echo ($user_type == 'A') ?
+                            '<a href="pds_form.php?form_section=personal_info&action=add">
                                 <button type="button" class="btn btn-primary"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
                                 </button>
+                            </a>' : '';
+                        echo '
+                            <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
+                                View organizational chart
                             </a>
-                            <?php
-                            echo '
-                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
-                                    View organizational chart
-                                </a>
-                            ';
-                            ?>
-                        </div>
+                        ';
+                        ?>
+                    </div>
