@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<?php include_once "db_conn.php"; ?>
+<?php
+include_once "db_conn.php";
+$user_type = $_SESSION['user_type'] ?? 'V';
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -121,7 +124,6 @@
         </div>
     </div>
     <?php
-    $user_type = $_SESSION['user_type'] ?? 'V';
     echo ($user_type == 'A') ?
         '<div style="position: absolute; z-index: 10; bottom: 50px; right: 50px;">
             <button type="button" class="btn btn-primary" onclick="editText(this)">Edit</button>
