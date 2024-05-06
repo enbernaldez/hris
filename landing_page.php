@@ -23,8 +23,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             include_once "sidebar1.php";
             ?>
             <!-- Logo and content -->
-            <div class="col-10">
-                <img src="images/PSA banner.jpg" alt="PSA Banner" height="auto" class="img-fluid">
+            <div class="col-10 px-5 pt-3 pb-5">
+                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
                 <div class="row mt-5">
                     <!-- Column 1: Vision and Mission -->
                     <div class="col-3 my-auto">
@@ -126,7 +126,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     <?php
     echo ($user_type == 'A') ?
         '<div style="position: absolute; z-index: 10; bottom: 50px; right: 50px;">
-            <button type="button" class="btn btn-primary" onclick="editText(this)">Edit</button>
+            <button type="button" class="btn btn-primary" style="background-color: #283872; border: none;" onclick="editText(this)">Edit</button>
         </div>' : '';
     ?>
 

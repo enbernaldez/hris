@@ -19,7 +19,8 @@ if ($_SESSION['user_type'] != 'A') {
     <link rel="stylesheet" href="local_style.css">
 
     <style>
-        /* educational background */
+        /* top navigation bar */
+
         nav {
             background-color: #283872;
             width: 100%;
@@ -35,11 +36,13 @@ if ($_SESSION['user_type'] != 'A') {
             color: #FFD644;
         }
 
+        /* checkbox */
         .checkbox-container {
             display: flex;
             align-items: center;
         }
 
+        /* small font */
         .small-font {
             font-size: 13px;
         }

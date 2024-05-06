@@ -64,7 +64,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             background-color: #80A1F5;
         }
 
-        .modal-content {
+        .modal-content-style {
             background-color: #C2CDFF;
             height: 300px;
             width: 500px;
@@ -189,15 +189,15 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                             style="color: black;">
                                             <li>Edit</li>
                                         </a>
-                                        <li data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</li>
+                                        <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
                                     </ul>
                                 </div>
 
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1" aria-labelledby="modal_deleteRecordLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
+                                        <div class="modal-content modal-content-style">
                                             <div class="modal-header">
                                                 <h6 class="modal-title" id="delete">Delete Records</h6>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -297,21 +297,20 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                             style="color: black;">
                                             <li>Edit</li>
                                         </a>
-                                        <li data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</li>
+                                        <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
                                     </ul>
                                 </div>
 
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1" aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
-                                        <div style="height: 300px; weight: 342px" class="modal-content">
+                                        <div style="height: 300px; weight: 342px" class="modal-content modal-content-style">
                                             <div class="modal-header d-flex justify-content-end align-items-center">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                                     style="margin-top: 5px; margin-right: 10px;"></button>
                                             </div>
                                             <div class="modal-header d-flex justify-content-center align-items-center">
-                                                <h3 class="modal-title" id="deleteModalLabel"><strong>Are you sure?</strong></h3>
+                                                <h3 class="modal-title" id="modal_deleteRecordLabel"><strong>Are you sure?</strong></h3>
                                             </div>
                                             <div class="modal-body d-flex justify-content-center align-items-center">
                                                 <h5 style="text-align: center; font-weight: normal;">Do you really want to delete
@@ -321,7 +320,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                                 <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
                                                     style="height: 38px; width: 88px; border-radius: 8px;">Cancel</button>
                                                 <span style="margin-right: 40px;"></span>
-                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                                                <button type="button" class="btn btn-secondary btn-sm"
                                                     style="height: 38px; width: 88px; background-color: #F90000; border-radius: 8px;">Delete</button>
                                             </div>
                                         </div>
