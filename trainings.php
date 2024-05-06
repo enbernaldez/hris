@@ -132,40 +132,42 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <td>Supervisory</td>
                                 <td>04/20/2023</td>
                             </tr>
-                        </thead>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+
+        <!-- Add Training Modal -->
+        <div class="modal fade" id="modal_addTraining" tabindex="-1" aria-labelledby="modal_addTrainingLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content size">
+                <div class="modal-content modal-content-style">
+
                     <div class="modal-header">
+                        <h6 class="modal-title" id="delete">Add Training</h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body align-top">
-                        <form>
-                            <div class="mb-3">
-                                <label for="title" class="form-label">TITLE:</label>
+
+                    <div class="modal-body px-4">
+                        <form action="trainings_new.php" method="POST">
+                            <div class="my-3">
+                                <label for="titleInput" class="form-label">TITLE:</label>
                                 <input type="text" class="form-control" id="titleInput">
                             </div>
-                            <div class="mb-3">
-                                <label for="type_of_ld" class="form-label">TYPE OF LD:</label>
+                            <div class="my-3">
+                                <label for="typeOfLdInput" class="form-label">TYPE OF LD:</label>
                                 <input type="text" class="form-control" id="typeOfLdInput">
                             </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <div class="me-auto">
-                            <button type="button" class="btn btn-secondary custom-btn" data-bs-dismiss="modal"
-                                style="background-color: #FFA51F;">Cancel</button>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary custom-btn"
-                                style="background-color: #1243EF;">Save</button>
-                        </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <span style="margin-right: 40px;"></span>
+                        <button type="button" class="btn btn-primary">Save</button>
                     </div>
+                    
                 </div>
             </div>
         </div>
