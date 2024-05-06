@@ -1,66 +1,44 @@
 <!DOCTYPE html>
 <?php
 include_once "db_conn.php";
-$_SESSION['user_type'] = 'V';
+$user_type = $_SESSION['user_type'] ?? 'V';
 ?>
 <html lang="en">
 
 <head>
     <title>HRIS - Trainings</title>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
 
     <style>
-        .tile {
-            width: 320px;
-            height: 310px;
+        /* title bar */
+        .titletext {
+            color: #E4E9FF;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* search box */
+        .search-box {
+            border: 1px solid #939393;
+            background-color: #F5F5F5;
+        }
+
+        /* modal */
+        .modal-content-style {
             background-color: #80A1F5;
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        .titletext {
-            color: #E4E9FF;
-            text-align: center;
-            margin: 0;
-        }
-
-        .custom-btn {
-            background-color: #B8B8B8;
-            color: black;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            padding: 9px 18px;
-        }
-
-        .search-input {
-            border: 1px solid #727272;
-            background-color: #F2F2F2;
-            border-radius: 12px;
-            padding: 9px;
-            width: 100%;
-        }
-
-        /* Modal */
-        .modal-content {
-            border-radius: 17px;
-            background-color: #86a7fc;
-        }
-
-        .size {
             height: 350px;
+            width: 500px;
         }
 
-        .titletext {
-            color: #E4E9FF;
-            text-align: center;
-            margin: 0;
-        }
+        /* table */
 
         table {
             width: 100%;
@@ -77,7 +55,6 @@ $_SESSION['user_type'] = 'V';
         th {
             background-color: #f2f2f2;
             text-align: center;
-            /* Center the text */
         }
 
         tr:nth-child(even) {
@@ -89,37 +66,51 @@ $_SESSION['user_type'] = 'V';
 <body>
     <div class="container-fluid">
         <div class="row vh-100">
+            <!-- SIDEBAR -->
             <?php include_once "sidebar1.php"; ?>
-            <!-- Logo and content -->
+
+            <!-- CONTENT -->
             <div class="col-10 px-5 pt-3 pb-5">
-                <img src="images/PSA banner.jpg" alt="PSA Banner" height="auto" width="100%" class="img-fluid">
-                <div class="col-10 mt-5px d-none d-sm-inline" style="margin-top: 20px;">
-                    <div class="row mt-3"
-                        style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
-                        <h4 class="titletext"><strong>TRAININGS</strong></h4>
-                    </div>
+                <!-- logo -->
+                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
+                
+                <!-- title bar -->
+                <div class="row mt-3"
+                    style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
+                    <h4 class="titletext"><strong>TRAININGS</strong></h4>
                 </div>
-                <!-- Input box for search and Add button -->
-                <div class="row">
+                
+                <div class="row mt-5">
+                    <!-- white space -->
                     <div class="col"></div>
-                    <div class="col-1 mt-5 search-add">
-                        <button class="btn-add btn-primary custom-btn" data-bs-toggle="modal"
-                            data-bs-target="#addModal">+ADD</button>
+                    <!-- add trainings button -->
+                    <div class="col-1">
+                        <button class="btn btn-primary" style="float: left; background-color: #283872; border: none;"
+                            data-bs-toggle="modal" data-bs-target="#modal_addTraining">+ ADD</button>
                     </div>
-                    <div class="col-4 mt-5 search-add">
-                        <input type="text" name="search" class="search-input form-control" placeholder="Search..." />
+                    <!-- search box -->
+                    <div class="col-4">
+                        <div class="input-group rounded">
+                            <input type="search" name="search_input" class="form-control search-box"
+                                placeholder="Search..." aria-label="Search" aria-describedby="search-trainings">
+                            <button type="button" class="btn btn-secondary">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col 10"></div>
-                <div class="mt-3">
+                <!-- table -->
+                <div class="row mt-4">
                     <table>
                         <thead>
                             <tr>
                                 <th class=col-8>Title</th>
                                 <th class=col-2>Type of LD</th>
-                                <th class=col-2>Las Updated</th>
+                                <th class=col-2>Last Updated</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr>
                                 <td>Webinar on Health and Wellness: Recognizing Common Signs and Symptoms and its
                                     Management</td>
