@@ -111,27 +111,67 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Webinar on Health and Wellness: Recognizing Common Signs and Symptoms and its
-                                    Management</td>
-                                <td>Managerial</td>
-                                <td>02/02/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Data Management in Excel Part 1</td>
-                                <td>Managerial</td>
-                                <td>04/10/2023</td>
-                            </tr>
-                            <tr>
-                                <td>Data Mangement in Excel Part 2</td>
-                                <td>Managerial</td>
-                                <td>04/10/2023</td>
-                            </tr>
-                            <tr>
-                                <td>2022 Census Something Something</td>
-                                <td>Supervisory</td>
-                                <td>04/20/2023</td>
-                            </tr>
+                            <?php
+                            // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
+                            $sql = "SELECT DISTINCT `ld_title_id`
+                                    FROM `learning_development`
+                                    WHERE (`ld_title_id`, `date_added`) IN (
+                                        SELECT 'ld_title_id', MAX(`date_added`)
+                                        FROM `learning_development`
+                                        GROUP BY `ld_title_id`
+                                    )";
+                            $filter = array();
+                            $result = query($conn, $sql, $filter);
+                            if (empty($result)) {
+                                ?>
+                                <tr onclick="redirect()">
+                                    <td>Webinar on Health and Wellness: Recognizing Common Signs and Symptoms and its
+                                        Management</td>
+                                    <td>Managerial</td>
+                                    <td>02/02/2023</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Management in Excel Part 1</td>
+                                    <td>Managerial</td>
+                                    <td>04/10/2023</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Mangement in Excel Part 2</td>
+                                    <td>Managerial</td>
+                                    <td>04/10/2023</td>
+                                </tr>
+                                <tr>
+                                    <td>2022 Census Something Something</td>
+                                    <td>Supervisory</td>
+                                    <td>04/20/2023</td>
+                                </tr>
+                                <?php
+                            }
+                            foreach ($result as $key => $row) {
+                                $title_id = $row['ld_title_id'];
+                                $last_updated = $row['date_added'];
+
+                                // write sql to retrieve all ld types for a specific title
+                                $sql = "SELECT `ld_type`
+                                        FROM `learning_development`
+                                        WHERE `ld_title_id` = ?";
+                                $filter = array($row['ld_title_id']);
+                                $result = query($conn, $sql, $filter);
+                                $ld_type = "";
+                                foreach ($result as $key => $value) {
+                                    if ($key > 0) {
+                                        $ld_type .= "/";
+                                    }
+                                    $ld_type .= $value['ld_type'];
+                                }
+
+                                echo "<tr onclick='redirect(" . $row['ld_title_id'] . ")'>";
+                                echo "<td>" . $row['title'] . "</td>";
+                                echo "<td>" . $ld_type . "</td>";
+                                echo "<td>" . $row['last_updated'] . "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
