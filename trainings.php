@@ -34,7 +34,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         /* modal */
         .modal-content-style {
             background-color: #80A1F5;
-            height: 350px;
+            height: auto;
             width: 500px;
         }
 
@@ -73,13 +73,13 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             <div class="col-10 px-5 pt-3 pb-5">
                 <!-- logo -->
                 <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
-                
+
                 <!-- title bar -->
                 <div class="row mt-3"
                     style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
                     <h4 class="titletext"><strong>TRAININGS</strong></h4>
                 </div>
-                
+
                 <div class="row mt-5">
                     <!-- white space -->
                     <div class="col"></div>
@@ -102,12 +102,12 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
                 <!-- table -->
                 <div class="row mt-4">
-                    <table>
+                    <table id="trainings">
                         <thead>
                             <tr>
-                                <th class=col-8>Title</th>
-                                <th class=col-2>Type of LD</th>
-                                <th class=col-2>Last Updated</th>
+                                <th class="col-8">Title</th>
+                                <th class="col-2">Type of LD</th>
+                                <th class="col-2">Last Updated</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,11 +153,34 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <form action="trainings_new.php" method="POST">
                             <div class="my-3">
                                 <label for="titleInput" class="form-label">TITLE:</label>
-                                <input type="text" class="form-control" id="titleInput">
+                                <input type="text" class="form-control" id="titleInput" required>
                             </div>
                             <div class="my-3">
                                 <label for="typeOfLdInput" class="form-label">TYPE OF LD:</label>
-                                <input type="text" class="form-control" id="typeOfLdInput">
+                                <input type="text" class="form-control" id="typeOfLdInput" required>
+                            </div>
+                            <div class="my-3">
+                                <label for="employees" class="form-label">Employees</label>
+                                <select name="training_employee" id="training_employee" required class="form-select">
+                                    <option value="" disabled selected value>--select--</option>
+                                    <?php
+                                    $list_employees = query($conn, "SELECT * FROM `employees`");
+                                    foreach ($list_employees as $key => $value) {
+                                        $employee_id = $value['employee_id'];
+                                        $firstname = $value['employee_firstname'];
+                                        $middlename = $value['employee_middlename'];
+                                        $middlename = ($middlename === 'N/A') ? '' : " $middlename";
+                                        $lastname = $value['employee_lastname'];
+                                        $nameext = $value['employee_nameext'];
+                                        $nameext = ($nameext === 'N/A') ? '' : " $nameext";
+
+                                        echo "<option value='" . $employee_id . "'>" . $firstname . $middlename . $lastname . $nameext ."</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="my-3">
+                                
                             </div>
                         </form>
                     </div>
@@ -167,11 +190,19 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <span style="margin-right: 40px;"></span>
                         <button type="button" class="btn btn-primary">Save</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function redirect() {
+            window.location = "training_employee.php";
+        }
+        // function redirect($ld_title_id) {
+        //     window.location = "training_employee.php?title_id=" . $ld_title_id;
+        // }
+    </script>
 </body>
 
 </html>

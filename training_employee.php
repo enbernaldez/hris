@@ -102,9 +102,8 @@
                 <div class="row">
                     <div class="col-2">
                         <div class="mt-3 d-flex justify-content-start align-items-left">
-                            <a href="#">
-                                <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px;"></i>
-                            </a>
+                            <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px;"
+                                onclick="history.back()"></i>
                         </div>
                     </div>
                     <div class="col-10"></div>
