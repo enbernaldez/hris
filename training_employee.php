@@ -180,6 +180,18 @@
                                     $nameext = $row['employee_nameext'];
                                     $nameext = ($nameext === 'N/A') ? '' : " $nameext";
 
+                                    // retrieve all data from sponsors table
+                                    $sql = "SELECT *
+                                            FROM `sponsors`
+                                            WHERE `sponsor_id` = ?";
+                                    $filter = array($sponsor_id);
+                                    $result = query($conn, $sql, $filter);
+
+                                    $row = $result[0];
+
+                                    // transfers value of retrieved variables to local variables
+                                    $sponsor = $row['sponsor_name'];
+
                                     echo "
                                         <tr>
                                             <td>$firstname$middlename $lastname$nameext</td>
