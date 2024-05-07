@@ -28,13 +28,15 @@
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_vw" name="null_vw" value="true" onclick="checkNA(this)">
+                        <input class="form-check-input" type="checkbox" id="null_vw" name="null_vw" value="true"
+                            onclick="checkNA(this)">
                         <label class="form-check-label" for="null_vw">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na" required>
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na"
+                        required>
                 </div>
             </div>
             <div class="col-3">
@@ -71,21 +73,115 @@
 
     <!-- NEXT BUTTON -->
     <!-- <a href="pds_form.php?form_section=lnd"> -->
-        <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
-            <strong>NEXT</strong>
-        </button>
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+        <strong>NEXT</strong>
+    </button>
     <!-- </a> -->
 </div>
 
 <script>
+    var naChecked = false;
+    // Function to save form data to local storage
+    function saveFormData() {
+        var formDataArray = [];
+
+        // Get all input rows with class "row-row"
+        var rows = document.querySelectorAll('.row-row');
+
+        rows.forEach(function (row, index) {
+            var rowValues = {};
+            var inputs = row.querySelectorAll('.group_na');
+
+            inputs.forEach(function (input) {
+                rowValues[input.id] = input.value;
+            });
+
+            formDataArray.push(rowValues);
+        });
+
+        // Save the "N/A" checkbox state
+        localStorage.setItem('naChecked', naChecked);
+
+        // Save the form data array
+        localStorage.setItem('formDataArray', JSON.stringify(formDataArray));
+    }
+
+    // Function to load form data from local storage
+    function loadFormData() {
+        var storedDataArray = localStorage.getItem('formDataArray');
+        if (storedDataArray) {
+            var formDataArray = JSON.parse(storedDataArray);
+
+            formDataArray.forEach(function (rowData, index) {
+                if (index > 0) {
+                    // Clone the original row to add a new row
+                    var newRow = document.querySelector(".row-row").cloneNode(true);
+                    document.querySelector(".row-container").appendChild(newRow);
+
+                    // Remove the "N/A" checkbox and its associated label from the cloned row
+                    const clonedNaCheckbox = newRow.querySelector(".remove_na");
+                    if (clonedNaCheckbox) {
+                        clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+                    }
+
+                    // Find the delete button in the cloned row and enable it 
+                    const deleteButton = newRow.querySelector(".delete-row-button");
+                    if (deleteButton) {
+                        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+                        deleteButton.style.display = "inline-block";
+                        deleteButton.addEventListener("click", function () {
+                            newRow.parentNode.removeChild(newRow);
+                        });
+                    }
+                }
+
+                // Get the current row
+                var currentRow = document.querySelectorAll(".row-row")[index];
+
+                // Populate the input fields in the current row with stored values
+                Object.keys(rowData).forEach(function (key) {
+                    var inputField = currentRow.querySelector("#" + key);
+                    if (inputField) {
+                        inputField.value = rowData[key];
+                    }
+                });
+            });
+
+            naChecked = localStorage.getItem('naChecked') === 'true';
+            console.log(naChecked);
+            var checkbox = document.getElementById('null_vw');
+            if (naChecked && checkbox) {
+                checkbox.checked = true;
+                disableInputs();
+            }
+        }
+    }
+
+    // Call loadFormData() when the page loads
+    window.addEventListener('load', loadFormData);
+
+    // Save form data to local storage before refreshing or leaving the page
+    window.addEventListener('beforeunload', saveFormData);
+
+    function disableInputs() {
+        var inputs = document.querySelectorAll(".group_na");
+        var vw_addrow = document.getElementById("vw_addrow");
+        inputs.forEach(function (input) {
+            input.type = "text";
+            input.value = "N/A";
+            input.disabled = true;
+            vw_addrow.disabled = true;
+        });
+    }
+
     // ======================== Next button ====================================
-        function submitForm() {
+    function submitForm() {
         // Get all input fields with class "group_na"
         var inputs = document.querySelectorAll('.group_na');
 
         // Check if all input fields are filled out
         var allFilled = true;
-        inputs.forEach(function(input) {
+        inputs.forEach(function (input) {
             if (!input.value.trim()) {
                 allFilled = false;
             }
@@ -99,6 +195,37 @@
         }
     }
 
+    // =================================== Add Row ===================================
+    function addRow() {
+        // Clone the input-row element
+        var newRow = document.querySelector(".row-row").cloneNode(true);
+
+        // Clear input values in the cloned row
+        newRow.querySelectorAll("input").forEach((input) => {
+            input.value = "";
+        });
+
+        //Remove the n/a checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
+
+        // Find the delete button in the cloned row and enable it 
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
+        }
+
+        // Append the cloned row to the container
+        document.querySelector(".row-container").appendChild(newRow);
+    }
+
+
     // ============================ N/A Array Disable ============================
     function setupNullInputArray(checkboxId, inputIds) {
         const checkbox = document.getElementById(checkboxId);
@@ -106,6 +233,7 @@
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
+                naChecked = true;
                 inputs.forEach((input) => {
 
                     input.type = "text";
@@ -120,6 +248,7 @@
                     }
                 });
             } else {
+                naChecked = false;
                 inputs.forEach((input) => {
 
                     input.id == "vw_date_from" || input.id == "vw_date_to" ? input.type = "date" :
@@ -142,34 +271,4 @@
         "vw_position",
         "vw_addrow",
     ]);
-
-    // =================================== Add Row ===================================
-    function addRow() {
-        // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
-
-        // Clear input values in the cloned row
-        newRow.querySelectorAll("input").forEach((input) => {
-            input.value = "";
-        });
-
-        // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
-
-        //Remove the n/a checkbox and its associated text from the cloned row
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
-        }
-
-        // Find the delete button in the cloned row and enable it 
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
-            });
-        }
-    }
 </script>
