@@ -69,6 +69,7 @@
                 <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
 
                 <?php
+                // // retrieve lnd title from db
                 // $sql = "SELECT `ld_title_name`
                 //         FROM `ld_titles`
                 //         WHERE `ld_title_id` = ?";
@@ -77,6 +78,7 @@
                 
                 // $row = $result[0];
                 
+                // // transfers value of retrieved variables to local variables
                 // $title = $row['ld_title_name'];
                 ?>
 
@@ -112,14 +114,12 @@
                                 <th colspan="2">Inclusive Dates</th>
                                 <th>Number of Hours</th>
                                 <th>Type of LD</th>
-                                <th>
-                                    <span>Conducted/Sponsored by</span>
-                                    <span>(Write in Full)</span>
-                                </th>
+                                <th>Conducted/Sponsored by</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+                            // retrieve all data from learning_development table
                             $sql = "SELECT * FROM `learning_development` WHERE `ld_title_id` = '3'";
                             // $sql = "SELECT *
                             //         FROM `learning_development`
@@ -129,34 +129,35 @@
                             $result = query($conn, $sql);
 
                             if (empty($result)) {
-                            ?>
-                            <tr>
-                                <td>April Cassandra Sasa Regalario</td>
-                                <td>01/27/2021</td>
-                                <td>01/27/2021</td>
-                                <td>4</td>
-                                <td>Managerial</td>
-                                <td>PSA-Albay</td>
-                            </tr>
-                            <tr>
-                                <td>José Protasio Rizal Mercado y Alonso Realonda</td>
-                                <td>01/27/2021</td>
-                                <td>01/27/2021</td>
-                                <td>4</td>
-                                <td>Managerial</td>
-                                <td>PSA-Albay</td>
-                            </tr>
-                            <tr>
-                                <td>José Protasio Rizal Mercado y Alonso Realonda</td>
-                                <td>01/27/2021</td>
-                                <td>01/29/2021</td>
-                                <td>24</td>
-                                <td>Managerial</td>
-                                <td>PSA-Albay</td>
-                            </tr>
-                            <?php
+                                ?>
+                                <tr>
+                                    <td>April Cassandra Sasa Regalario</td>
+                                    <td>01/27/2021</td>
+                                    <td>01/27/2021</td>
+                                    <td>4</td>
+                                    <td>Managerial</td>
+                                    <td>PSA-Albay</td>
+                                </tr>
+                                <tr>
+                                    <td>José Protasio Rizal Mercado y Alonso Realonda</td>
+                                    <td>01/27/2021</td>
+                                    <td>01/27/2021</td>
+                                    <td>4</td>
+                                    <td>Managerial</td>
+                                    <td>PSA-Albay</td>
+                                </tr>
+                                <tr>
+                                    <td>José Protasio Rizal Mercado y Alonso Realonda</td>
+                                    <td>01/27/2021</td>
+                                    <td>01/29/2021</td>
+                                    <td>24</td>
+                                    <td>Managerial</td>
+                                    <td>PSA-Albay</td>
+                                </tr>
+                                <?php
                             } else {
                                 foreach ($result as $key => $row) {
+                                    // transfers value of retrieved variables to local variables
                                     $employee_id = $row['employee_id'];
                                     $ld_from = $row['ld_from'];
                                     $ld_to = $row['ld_to'];
@@ -164,6 +165,7 @@
                                     $ld_type = $row['ld_type'];
                                     $sponsor_id = $row['sponsor_id'];
 
+                                    // retrieve all data from employees table
                                     $sql = "SELECT *
                                             FROM `employees`
                                             WHERE `employee_id` = ?";
@@ -172,7 +174,7 @@
 
                                     $row = $result[0];
 
-                                    $employee_id = $row['employee_id'];
+                                    // transfers value of retrieved variables to local variables
                                     $firstname = $row['employee_firstname'];
                                     $middlename = $row['employee_middlename'];
                                     $middlename = ($middlename === 'N/A') ? '' : " $middlename";
@@ -199,7 +201,7 @@
                                             <td>" . $ld_to . "</td>
                                             <td>" . $ld_hrs . "</td>
                                             <td>" . $ld_type . "</td>
-                                            <td>" . $sponsor_id . "</td>
+                                            <td>" . $sponsor . "</td>
                                         </tr>
                                     ";
                                 }

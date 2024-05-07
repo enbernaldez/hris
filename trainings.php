@@ -112,6 +112,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         </thead>
                         <tbody>
                             <?php
+                            // retrieve all data from employees table
                             // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
                             $sql = "SELECT `ld_title_id`, MAX(`date_added`) AS `latest_date`
                                     FROM `learning_development`
@@ -143,12 +144,21 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <?php
                             } else {
                                 foreach ($result as $key => $row) {
+                                    // transfers value of retrieved variables to local variables
                                     $title_id = $row['ld_title_id'];
                                     $last_updated = $row['latest_date'];
 
+                                    // // retrieve both lnd title and type at the same time from db
+                                    // $sql = "SELECT lt.ld_title_name, ld.ld_type
+                                    //         FROM learning_development ld
+                                    //         JOIN ld_titles lt ON ld.ld_title_id = lt.ld_title_id
+                                    //         WHERE ld.ld_title_id = 3
+                                    // ";
+
+                                    // retrieve lnd title from db
                                     $sql = "SELECT `ld_title_name`
-                                        FROM `ld_titles`
-                                        WHERE `ld_title_id` = ?";
+                                            FROM `ld_titles`
+                                            WHERE `ld_title_id` = ?";
                                     $filter = array($title_id);
                                     $result = query($conn, $sql, $filter);
 
@@ -156,6 +166,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
                                     $title = $row['ld_title_name'];
 
+                                    // retrieve lnd type from db
                                     $sql = "SELECT `ld_type`
                                         FROM `learning_development`
                                         WHERE `ld_title_id` = ?";
@@ -212,8 +223,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <select name="training_employee" id="training_employee" required class="form-select">
                                     <option value="" disabled selected value>--select--</option>
                                     <?php
+                                    // retrieve all data from employees table
                                     $list_employees = query($conn, "SELECT * FROM `employees`");
                                     foreach ($list_employees as $key => $row) {
+                                        // transfers value of retrieved variables to local variables
                                         $employee_id = $row['employee_id'];
                                         $firstname = $row['employee_firstname'];
                                         $middlename = $row['employee_middlename'];
