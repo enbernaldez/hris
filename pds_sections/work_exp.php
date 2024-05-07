@@ -46,7 +46,8 @@
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_work_exp" name="null_work_exp" value="true">
+                        <input class="form-check-input" type="checkbox" id="null_work_exp" name="null_work_exp"
+                            value="true">
                         <label class="form-check-label" for="null_work_exp">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
@@ -113,62 +114,95 @@
 
     // Function to save form data to local storage
     function saveFormData() {
-        var formValues = {};
+        var formDataArray = [];
 
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group_na');
-        inputs.forEach(function (input) {
-            formValues[input.id] = input.value;
+        // Get all input rows with class "row-row"
+        var rows = document.querySelectorAll('.row-row');
+
+        rows.forEach(function (row) {
+            var rowValues = {};
+            var inputs = row.querySelectorAll('.group_na');
+
+            inputs.forEach(function (input) {
+                rowValues[input.id] = input.value;
+            });
+
+            formDataArray.push(rowValues);
         });
 
-        // Save the state of the "N/A" checkbox
+        // Save the "N/A" checkbox state
         var checkbox = document.getElementById('null_work_exp');
         if (checkbox) {
-            formValues['null_work_exp_checked'] = checkbox.checked;
+            naChecked = checkbox.checked;
+            localStorage.setItem('naChecked', naChecked);
         }
 
-        localStorage.setItem('pdsFormData', JSON.stringify(formValues));
+        // Save the form data array
+        localStorage.setItem('formDataArray', JSON.stringify(formDataArray));
     }
 
     // Function to load form data from local storage
     function loadFormData() {
-        var storedData = localStorage.getItem('pdsFormData');
-        if (storedData) {
-            var formValues = JSON.parse(storedData);
+        var storedDataArray = localStorage.getItem('formDataArray');
+        if (storedDataArray) {
+            var formDataArray = JSON.parse(storedDataArray);
 
-            // Populate form fields with stored values
-            Object.keys(formValues).forEach(function (key) {
-                var inputField = document.getElementById(key);
-                if (inputField) {
-                    inputField.value = formValues[key]; //need to fix 
+            formDataArray.forEach(function (rowData, index) {
+                if (index > 0) {
+                    // Clone the original row to add a new row
+                    var newRow = document.querySelector(".row-row").cloneNode(true);
+                    document.querySelector(".row-container").appendChild(newRow);
+
+                    //Remove the "N/A" checkbox and its associated label from the cloned row
+                    const clonedNaCheckbox = newRow.querySelector(".remove_na");
+                    if (clonedNaCheckbox) {
+                        clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+                    }
+
+                    // Find the delete button in the cloned row and enable it 
+                    const deleteButton = newRow.querySelector(".delete-row-button");
+                    if (deleteButton) {
+                        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+                        deleteButton.style.display = "inline-block";
+                        deleteButton.addEventListener("click", function () {
+                            newRow.parentNode.removeChild(newRow);
+                        });
+                    }
                 }
+
+                // Get the current row
+                var currentRow = document.querySelectorAll(".row-row")[index];
+
+                // Populate the input fields in the current row with stored values
+                Object.keys(rowData).forEach(function (key) {
+                    var inputField = currentRow.querySelector("#" + key);
+                    if (inputField) {
+                        inputField.value = rowData[key];
+                    }
+                });
             });
 
             // Check the state of the "N/A" checkbox
-            var checkboxState = formValues['null_work_exp_checked'];
-            if (typeof checkboxState !== 'undefined') {
-                naChecked = checkboxState;
-                var checkbox = document.getElementById('null_work_exp');
-                if (checkbox) {
-                    checkbox.checked = naChecked;
-                    if (naChecked) {
-                        disableInputs(); // Disable inputs if "N/A" checkbox was checked
-                    }
-                }
+            naChecked = localStorage.getItem('naChecked') === 'true';
+            var checkbox = document.getElementById('null_work_exp');
+            if (naChecked && checkbox) {
+                checkbox.checked = true;
+                disableInputs(); // Disable inputs if "N/A" checkbox was checked
             }
         }
     }
 
+
     // Call loadFormData() when the page loads
     window.addEventListener('load', loadFormData);
 
-    // Save form data to local storage before refreshing or leaving the page
+    // Save form to data local storage before refreshing or leaving the page
     window.onbeforeunload = saveFormData;
 
     // Function to disable input fields if "N/A" checkbox is checked
     function disableInputs() {
         var inputs = document.querySelectorAll(".group_na");
-        var addRowButton = document.getElementById("we_addrow");
+        var we_addrow = document.getElementById("we_addrow");
         inputs.forEach(function (input) {
             if (input.tagName.toLowerCase() === "select") {
                 input.innerHTML = ""; // Clear existing options
@@ -181,13 +215,10 @@
                 input.type = "text";
                 input.value = "N/A";
                 input.disabled = true;
+                we_addrow.disabled = true;
             }
         });
-        if (addRowButton) {
-            addRowButton.disabled = true;
-        }
     }
-
     // ======================== Next Button ================================================
     function submitForm() {
         // Get all input fields with class "group_na"
@@ -264,7 +295,7 @@
                     });
                     select.disabled = false;
                 });
-                
+
             }
         });
     }

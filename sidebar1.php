@@ -1,10 +1,10 @@
 <?php
-include_once("db_conn.php");
+include_once ("db_conn.php");
 
 if (isset($_SESSION['user_id'])) {
     $log = "LOG OUT";
     $li_att = ' data-bs-toggle="modal" data-bs-target="#logoutModal"'; // Added logout trigger
-    $a_att = ''; 
+    $a_att = '';
 } else {
     $log = "LOG IN";
     $li_att = ' data-bs-toggle="modal" data-bs-target="#exampleModal"';
@@ -14,12 +14,14 @@ if (isset($_SESSION['user_id'])) {
 <style>
     .dropdown-icon {
         position: absolute;
-        right: 10px;
+        right: 0;
+        padding-right: 13px;
     }
 
     .sidebar-item {
         position: relative;
-        width: 200px;
+        width: 100%;
+        font-size: 18px;
     }
 
     .sidebar-item a {
@@ -28,25 +30,51 @@ if (isset($_SESSION['user_id'])) {
         text-decoration: none;
         padding: 10px 0;
     }
-   
+
+    .center-text {
+        text-align: center;
+        width: 100%;
+    }
+
+    .col-10 {
+        padding-left: 15px;
+    }
+
+    @media (max-width: 1000px) {
+        .col-2 {
+            width: 25%;
+        }
+
+        .col-10 {
+            width: 75%;
+        }
+    }
 </style>
 
 <div class="col-2 bg d-flex col-xl-2 px-sm-2 px-0">
-    <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white position-fixed top-0 start-0">
-        <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+    <div
+        class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white top-0 start-0">
+        <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
+            id="menu">
+            <span class="uppercase center-text mt-3">
+                <h1>HRIS</h1>
+            </span>
             <div class="input-group custom-rounded mt-3">
-                <input type="search" class="form-control text-center mt-5 custom-rounded d-none d-lg-inline" placeholder="Search" />
+                <input type="search" class="form-control text-center mt-3 custom-rounded" placeholder="Search" />
             </div>
-            <div class="divider-top d-none d-lg-inline"></div>
+            
+            <div class="divider-top"></div>
             <li class="sidebar-item nav-item mt-3">
                 <a href="landing_page.php" class="nav-link px-sm-0 px-2">
-                    <span class="uppercase d-none d-lg-inline">Home</span>
+                    <span class="uppercase">Home</span>
                 </a>
             </li>
 
+
             <!-- Accordion -->
-            <li class="sidebar-item d-none d-lg-inline mt-2">
-                <a class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
+            <li class="sidebar-item mt-2">
+                <a class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
+                    aria-expanded="false" aria-controls="pages">
                     RSSO V
                     <span class="dropdown-icon"></span>
                 </a>
@@ -75,13 +103,13 @@ if (isset($_SESSION['user_id'])) {
                 echo '
                 <li class="sidebar-item mt-2">
                     <a href="employee_tiles.php?scope=province&office=' . $prov_name . '" class="nav-link px-sm-0 px-2">
-                        <span class="d-none d-lg-inline uppercase">' . $prov_name . '</span>
+                        <span class="uppercase">' . $prov_name . '</span>
                     </a>
                 </li>
                 ';
             } ?>
 
-            <div class="divider-bottom d-none d-lg-inline mb-2"></div>
+            <div class="divider-bottom mb-2"></div>
 
             <!-- SETTINGS -->
             <?php
@@ -89,15 +117,15 @@ if (isset($_SESSION['user_id'])) {
                 echo '
                 <li class="sidebar-item nav-item mt-2">
                     <a href="trainings.php" class="nav-link px-sm-0 px-2">
-                        <span class="d-none d-lg-inline">TRAININGS</span>
+                        <span class="">TRAININGS</span>
                     </a>
                 </li>
                 ';
             }
             ?>
-            <li class="sidebar-item nav-item mt-2"<?php echo $li_att; ?>>
-                <a class="nav-link px-sm-0 px-2"<?php echo $a_att; ?>>
-                    <span class="d-none d-lg-inline">
+            <li class="sidebar-item nav-item mt-2" <?php echo $li_att; ?>>
+                <a class="nav-link px-sm-0 px-2" <?php echo $a_att; ?>>
+                    <span class="">
                         <?php echo $log; ?>
                     </span>
                 </a>
@@ -120,12 +148,12 @@ if (isset($_SESSION['user_id'])) {
                 }
             }
             ?>
-
+            <div class="col-10"></div>
         </ul>
-    </div>   
+    </div>
 </div>
 
-   <!-- Log In Modal -->
+<!-- Log In Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -136,17 +164,20 @@ if (isset($_SESSION['user_id'])) {
                 <h1 class="text-dark text-center">LOG IN</h1>
                 <form action="login.php" method="POST">
                     <div class="px-3 mt-5">
-                        <input type="text" class="form-control" id="login_username" name="login_username" placeholder="username" aria-describedby="usernameHelp" required>
+                        <input type="text" class="form-control" id="login_username" name="login_username"
+                            placeholder="username" aria-describedby="usernameHelp" required>
                     </div>
                     <div class="px-3 mt-4">
-                        <input type="password" class="form-control" id="login_password" name="login_password" placeholder="password" required>
+                        <input type="password" class="form-control" id="login_password" name="login_password"
+                            placeholder="password" required>
                         <div class="form-check form-check-inline mt-1">
-                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="myFunction()">
+                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass"
+                                onclick="myFunction()">
                             <label class="form-check-label" for="show_pass">Show Password</label>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center mt-4"> 
-                        <button type="submit" class="btn custom-button text-white" id="log"> 
+                    <div class="d-flex justify-content-center mt-4">
+                        <button type="submit" class="btn custom-button text-white" id="log">
                             <strong>
                                 <?php echo $log; ?>
                             </strong>
@@ -161,24 +192,26 @@ if (isset($_SESSION['user_id'])) {
 <!-- Logout Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div style="height: 260px;" class="modal-content"> 
+        <div style="height: 260px;" class="modal-content">
             <div class="modal-header d-flex justify-content-end align-items-center">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-top: 5px; margin-right: 10px;"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    style="margin-top: 5px; margin-right: 10px;"></button>
             </div>
-            <div class="modal-header d-flex justify-content-center align-items-center"> 
+            <div class="modal-header d-flex justify-content-center align-items-center">
                 <h4 class="modal-title" id="logoutModalLabel">Logout</h4>
             </div>
             <div class="modal-body d-flex justify-content-center align-items-center">
                 <h5 style="text-align: center; font-weight: normal;">Are you sure you want to logout?</h5>
             </div>
             <div class="modal-footer d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal" style="height: 30px; width: 60px;">No</button>
+                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
+                    style="height: 30px; width: 60px;">No</button>
                 <span style="margin-right: 40px;"></span>
                 <a href="logout.php" class="btn btn-primary btn-sm" style="height: 30px; width: 60px;">Yes</a>
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
