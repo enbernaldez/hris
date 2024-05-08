@@ -19,13 +19,13 @@
         echo '
             <div class="row mt-3">
                 <div class="col-4">
-                    <input type="text" name="ref_name[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_name['.$i.']" class="form-control"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_address[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_address['.$i.']" class="form-control"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_telno[]" class="form-control"' . $required . ' maxlength="11">
+                    <input type="number" name="ref_telno['.$i.']" class="form-control"' . $required . ' maxlength="11">
                 </div>
             </div>
         ';
@@ -42,13 +42,13 @@
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">Government Issued ID:</span>
                 </div>
-                <input type="text" class="form-control" name="govtid_type" required>
+                <input type="number" class="form-control" name="govtid_type" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">ID/License/Passport No.:</span>
                 </div>
-                <input type="text" class="form-control uppercase" name="govtid_no" required>
+                <input type="number" class="form-control uppercase" name="govtid_no" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
@@ -78,3 +78,84 @@
         <strong>SUBMIT</strong>
     </button>
 </div>
+
+<script>
+    // Function to save form data to local storage
+    function saveFormData() {
+        var formData = {};
+
+        // Save values from text and number inputs
+        var textInputs = document.querySelectorAll('input[type="text"], input[type="number"]');
+        textInputs.forEach(function(input) {
+            formData[input.name] = input.value;
+        });
+
+        // Save values from select inputs
+        var selectInputs = document.querySelectorAll('select');
+        selectInputs.forEach(function(input) {
+            formData[input.name] = input.value;
+        });
+
+        // Save values from textarea inputs
+        var textareaInputs = document.querySelectorAll('textarea');
+        textareaInputs.forEach(function(input) {
+            formData[input.name] = input.value;
+        });
+
+        // Save the image data URL
+        var imageInput = document.getElementById('change_photo');
+        if (imageInput.files && imageInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                formData['profile_img'] = e.target.result;
+                // Save the form data object to local storage
+                localStorage.setItem('formData', JSON.stringify(formData));
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+
+            var storedFormData = localStorage.getItem('formData');
+            if (storedFormData) {
+                var storedData = JSON.parse(storedFormData);
+                if (storedData['profile_img']) {
+                    formData['profile_img'] = storedData['profile_img'];
+                }
+            }
+
+
+
+
+            // Save the form data object to local storage without the image
+            localStorage.setItem('formData', JSON.stringify(formData));
+        }
+    }
+
+    // Function to load form data from local storage
+    function loadFormData() {
+        var storedFormData = localStorage.getItem('formData');
+        if (storedFormData) {
+            var formData = JSON.parse(storedFormData);
+
+            // Set values to text inputs, select inputs, and textarea inputs
+            var allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(function(input) {
+                if (formData[input.name]) {
+                    input.value = formData[input.name];
+                }
+            });
+
+            // Set the image preview
+            var profileImg = document.getElementById('profile_img');
+            if (formData['profile_img']) {
+                profileImg.src = formData['profile_img'];
+            }
+        }
+    }
+
+    // Call loadFormData() when the page loads
+    window.addEventListener('load', loadFormData);
+
+    // Save form data to local storage before refreshing or leaving the page
+    window.addEventListener('beforeunload', saveFormData);
+</script>
+
