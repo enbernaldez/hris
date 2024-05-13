@@ -438,7 +438,7 @@
                 if (radioButtons[j].checked) {
                     isSelected = true;
                     // If "Yes" option is selected, check if the corresponding input box is filled
-                    if (radioButtons[j].value === "yes") {
+                    if (radioButtons[j].value === "Y") {
                         var input_container = radioButtons[j].closest('.input');
                         var inputBox = input_container.querySelector('input[type="text"]');
                         if (!inputBox.value.trim()) {
@@ -527,7 +527,7 @@
         const radioButton = document.getElementById(radioId);
 
         radioButton.addEventListener('change', function () {
-            if (this.value === "yes") {
+            if (this.value === "Y") {
                 if (inputBox.id == "input_filed") {
                     inputBox.type = "date";
                 }
