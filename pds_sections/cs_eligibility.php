@@ -55,7 +55,7 @@
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="number" name="license_number[]" id="license_number" class="form-control group-na"
+                        <input type="text" name="license_number[]" id="license_number" class="form-control group-na"
                             required>
                     </div>
                     <div class="col-6">
