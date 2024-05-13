@@ -15,6 +15,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .tilerow {
             display: flex;
@@ -155,7 +156,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 ?>
                                 <div class="col-4 tile mt-3">
                                     <?php echo ($user_type == 'A') ?
-                                        '<a href="pds_form.php?form_section=personal_info&employee_id=#&action=view"
+                                        '<a href="pds_form.php?form_section=personal_info&action=view&office=' . $_GET['office'] . '&employee_id=#"
                                             style="text-decoration: none; color: inherit;">' : '';
                                     ?>
                                     <div class="row">
@@ -185,7 +186,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <!-- Context Menu -->
                                 <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                     <ul>
-                                        <a href="pds_form.php?form_section=personal_info&employee_id=#&action=edit"
+                                        <a href="pds_form.php?form_section=personal_info&action=edit&office=' . $_GET['office'] . '&employee_id=#"
                                             style="color: black;">
                                             <li>Edit</li>
                                         </a>
@@ -194,8 +195,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 </div>
 
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1" aria-labelledby="modal_deleteRecordLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1"
+                                    aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content modal-content-style">
                                             <div class="modal-header">
@@ -253,22 +254,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
                                 $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
                                 $imgdir = $row['employee_imgdir'];
+                                $position_id = $row['position_id'];
 
                                 // retrieve position title of an employee
                                 $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
-                                $filter = array($row['position_id']);
+                                $filter = array($position_id);
+                                $result = query($conn, $sql, $filter);
                                 $row = $result[0];
 
-                                $position = $row['position_id'];
+                                $position = $row['position_title'];
                                 ?>
                                 <div class="col-4 tile mt-3">
                                     <?php
                                     echo ($user_type == 'A') ?
-                                        '<a href="pds_form.php?form_section=personal_info&employee_id=' . $id . '&action=view"
+                                        '<a href="pds_form.php?form_section=personal_info&action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
                                             style="text-decoration: none; color: inherit;">' : '';
                                     echo '<div class="row">
                                             <div class="col-3">
-                                                <img src="id_pictures/ . $imgdir . "
+                                                <img src="' . $imgdir . '"
                                                     alt="' . "$lastname, $firstname$middlename$nameext" . '" height="80px"
                                                     width="auto" style="border-radius:12px;">
                                             </div>
@@ -293,7 +296,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <!-- Context Menu -->
                                 <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                     <ul>
-                                        <a href="pds_form.php?form_section=personal_info&employee_id='<?php echo $id; ?>'&action=edit"
+                                        <a href="pds_form.php?form_section=personal_info&action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
                                             style="color: black;">
                                             <li>Edit</li>
                                         </a>
@@ -302,7 +305,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 </div>
 
                                 <!-- Delete Modal -->
-                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1" aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
+                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1"
+                                    aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div style="height: 300px; weight: 342px" class="modal-content modal-content-style">
                                             <div class="modal-header d-flex justify-content-end align-items-center">
@@ -310,7 +314,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                                     style="margin-top: 5px; margin-right: 10px;"></button>
                                             </div>
                                             <div class="modal-header d-flex justify-content-center align-items-center">
-                                                <h3 class="modal-title" id="modal_deleteRecordLabel"><strong>Are you sure?</strong></h3>
+                                                <h3 class="modal-title" id="modal_deleteRecordLabel"><strong>Are you sure?</strong>
+                                                </h3>
                                             </div>
                                             <div class="modal-body d-flex justify-content-center align-items-center">
                                                 <h5 style="text-align: center; font-weight: normal;">Do you really want to delete
@@ -358,6 +363,42 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
     <!--Script-->
     <script>
+        <?php
+        switch ($_GET['add_employee']) {
+            case 'success':
+                $id = $_GET['id'];
+
+                $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
+                        FROM `employees`
+                        WHERE `employee_id` = ?";
+                $filter = array($id);
+                $result = query($conn, $sql, $filter);
+
+                $row = $result[0];
+                $last_name = $row['employee_lastname'];
+                $first_name = $row['employee_firstname'];
+                $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
+                $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
+                
+                echo '
+                    swal("New employee added!", 
+                        "Employee, ' . $first_name . $middle_name . " " . $last_name . $name_ext . ', has been added to database.", 
+                        "success");
+                ';
+
+                break;
+
+            case 'failed':
+                echo '
+                    swal("", "Failed to add new employee.", "error");
+                ';
+
+                break;
+
+            default:
+                break;
+        }
+        ?>
 
         // Function to display custom context menu
         function showContextMenu(x, y, target) {

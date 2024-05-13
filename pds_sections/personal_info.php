@@ -3,7 +3,7 @@
     <?php
     if (isset($_GET['office'])) {
         $office = $_GET['office'];
-        echo '<input required type="text" name="office" value="' . $office . '">';
+        echo '<input required hidden type="text" name="office" value="' . $office . '">';
     }
     ?>
     <!-- EMPLOYEE'S FULL NAME -->
