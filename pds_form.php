@@ -2,6 +2,7 @@
 include_once "db_conn.php";
 if ($_SESSION['user_type'] != 'A') {
     header("location:" . $_SERVER['HTTP_REFERER']);
+    header("location: landing_page.php");
     exit();
 }
 ?>
@@ -94,7 +95,7 @@ if ($_SESSION['user_type'] != 'A') {
 
                 <!-- FORM -->
 
-                <form action="new_pds.php" method="post" enctype="multipart/form-data">
+                <form action="pds_new.php" method="post" enctype="multipart/form-data">
 
                     <?php
                     if (isset($_GET['form_section'])) {

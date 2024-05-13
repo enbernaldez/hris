@@ -186,12 +186,14 @@
     </div>
 
     <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -209,27 +211,11 @@
             formValues[input.id] = input.value;
         });
 
-        // Save the state of checkboxes using their IDs
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function (checkbox) {
-            formValues[checkbox.id] = checkbox.checked;
-        });
-
         // Save the state of "N/A" checkboxes
         var naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
         naCheckboxes.forEach(function (naCheckbox) {
             formValues[naCheckbox.id] = naCheckbox.checked;
         });
-            // // Save the state of input fields with type "date" and value "N/A"
-            // var dateInputs = document.querySelectorAll('.group-na input[type="date"]');
-            // dateInputs.forEach(function (dateInput) {
-            //     if (dateInput.value.trim().toLowerCase() === 'n/a') {
-            //         formValues[dateInput.id] = 'N/A';
-            //         dateInput.disabled = true;
-            //     } else {
-            //         formValues[dateInput.id] = dateInput.value;
-            //     }
-            // });
 
         localStorage.setItem('pdsFormData', JSON.stringify(formValues));
     }
@@ -286,21 +272,21 @@
     window.addEventListener('beforeunload', saveFormData);
 
     // Function to disable input fields based on the state of "N/A" checkboxes
-    function disableInputs() {
-        const naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
-        naCheckboxes.forEach(naCheckbox => {
-            const inputFields = naCheckbox.closest('.checkbox-container').querySelectorAll('input[type="text"], input[type="number"]');
-            inputFields.forEach(inputField => {
-                if (naCheckbox.checked) {
-                    inputField.disabled = true;
-                    inputField.value = "N/A";
-                } else {
-                    inputField.disabled = false;
-                    inputField.value = "";
-                }
-            });
-        });
-    }
+    // function disableInputs() {
+    //     const naCheckboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+    //     naCheckboxes.forEach(naCheckbox => {
+    //         const inputFields = naCheckbox.closest('.checkbox-container').querySelectorAll('input[type="text"], input[type="number"]');
+    //         inputFields.forEach(inputField => {
+    //             if (naCheckbox.checked) {
+    //                 inputField.disabled = true;
+    //                 inputField.value = "N/A";
+    //             } else {
+    //                 inputField.disabled = false;
+    //                 inputField.value = "";
+    //             }
+    //         });
+    //     });
+    // }
 
     // ======================== Next button ====================================
     function submitForm() {

@@ -73,13 +73,16 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+
     <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 
@@ -116,6 +119,7 @@
     // Function to load form data from local storage
     function loadFormData() {
         var storedDataArray = localStorage.getItem('formDataArray');
+        console.log(storedDataArray)
         if (storedDataArray) {
             var formDataArray = JSON.parse(storedDataArray);
 

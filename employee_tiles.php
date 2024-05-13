@@ -227,7 +227,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <div class="mt-5">
                             <?php
                             echo ($user_type == 'A') ?
-                                '<a href="pds_form.php?form_section=personal_info&action=add">
+                                '<a href="pds_form.php?form_section=personal_info&action=add&office=' . $_GET['office'] . '">
                                     <button type="button" class="btn btn-primary"
                                         style="margin-left: 10px; background-color: #283872; border: none;">
                                         Add Employee

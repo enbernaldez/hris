@@ -5,12 +5,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables
-    $n_pi_name_last = $_POST['name_last'];
-    $n_pi_name_first = $_POST['name_first'];
-    $n_pi_name_middle = $_POST['name_middle'] ?? "N/A";
-    $n_pi_name_ext = $_POST['name_ext'] ?? "N/A";
+    $n_pi_name_last = trim($_POST['name_last']);
+    $n_pi_name_first = trim($_POST['name_first']);
+    $n_pi_name_middle = trim($_POST['name_middle'] ?? "N/A");
+    $n_pi_name_ext = trim($_POST['name_ext'] ?? "N/A");
+    $n_pi_office = trim($_POST['office']);
 
-    echo "Employee: $n_pi_name_first $n_pi_name_middle $n_pi_name_last $n_pi_name_ext<br>";
+    echo "
+        Employee: $n_pi_name_first $n_pi_name_middle $n_pi_name_last $n_pi_name_ext
+        <br>$n_pi_office<br>
+    ";
 
     // prepare arguments for insert function
     $table = 'employees';
@@ -21,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'employee_firstname' => $n_pi_name_first,
         'employee_middlename' => $n_pi_name_middle,
         'employee_nameext' => $n_pi_name_ext,
+        'employee_office' => $n_pi_office,
     );
 
     // insert($conn, $table, $fields);
@@ -37,18 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $result = query($conn, $sql, $filter);
     // $row = $result[0];
     // $employee_id = $row['employee_id'];
-
-    //transfers value of posted variables to local variables
-    $n_pi_birth_date = $_POST['birth_date'];
-    $n_pi_birth_place = $_POST['birth_place'];
-    $n_pi_sex = $_POST['sex'] ?? "N/A";
-    $n_pi_civilstatus = $_POST['civilstatus'] ?? "N/A";
-    $n_pi_height = $_POST['height'];
-    $n_pi_weight = $_POST['weight'];
-    $n_pi_bloodtype = $_POST['bloodtype'] ?? "N/A";
-    // $n_pi_citizenship = $_POST['citizenship'];
-    $n_pi_citizenship_by = $_POST['citizenship_by'] ?? "F";
-    $n_pi_citizenship_country = $_POST['citizenship_country'] ?? "N/A";
 
     function lookupId($conn, $name, $table, $column_pk, $column_name, $column_fk, $column_fk_idData)
     {
@@ -70,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $keys .= ", `{$column_fk}`";
                 $and_where = " AND `{$column_fk}` = '{$column_fk_idData}'";
             }
-            $sql = "SELECT `?`
-                FROM `?`
-                WHERE `?` = '?'?";
+            $sql = "SELECT $keys
+                FROM `$table`
+                WHERE `$column_name` = '$name'$and_where";
             return $sql;
             // $filter = array($keys, $table, $column_name, $name, $and_where);
             // $result = query($conn, $sql, $filter);
@@ -96,6 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    //transfers value of posted variables to local variables
+    $n_pi_birth_date = trim($_POST['birth_date']);
+    $n_pi_birth_place = trim($_POST['birth_place']);
+    $n_pi_sex = trim($_POST['sex']) ?? "N/A";
+    $n_pi_civilstatus = trim($_POST['civilstatus'] ?? "N/A");
+    $n_pi_height = trim($_POST['height']);
+    $n_pi_weight = trim($_POST['weight']);
+    $n_pi_bloodtype = trim($_POST['bloodtype'] ?? "N/A");
+    // $n_pi_citizenship = trim($_POST['citizenship']);
+    $n_pi_citizenship_by = trim($_POST['citizenship_by'] ?? "F");
+    $n_pi_citizenship_country = trim($_POST['citizenship_country'] ?? "N/A");
+
     // look up ID of $n_pi_citizenship_country
     $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
 
@@ -113,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // prepare arguments for insert function
     $table = 'employee_details';
     $fields = array(
-        // 'employee_id' => $employee_id,
+        'employee_id' => $employee_id,
         'emp_dets_bday' => $n_pi_birth_date,
         'emp_dets_birthplace' => $n_pi_birth_place,
         'emp_dets_sex' => $n_pi_sex,
@@ -127,12 +132,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_pi_id_gsis = strtoupper($_POST['id_gsis']);
-    $n_pi_id_pagibig = strtoupper($_POST['id_pagibig']);
-    $n_pi_id_philhealth = strtoupper($_POST['id_philhealth']);
-    $n_pi_id_sss = strtoupper($_POST['id_sss']);
-    $n_pi_id_tin = strtoupper($_POST['id_tin']);
-    $n_pi_id_agency = strtoupper($_POST['id_agency']);
+    $n_pi_id_gsis = strtoupper(trim($_POST['id_gsis']));
+    $n_pi_id_pagibig = strtoupper(trim($_POST['id_pagibig']));
+    $n_pi_id_philhealth = strtoupper(trim($_POST['id_philhealth']));
+    $n_pi_id_sss = strtoupper(trim($_POST['id_sss']));
+    $n_pi_id_tin = strtoupper(trim($_POST['id_tin']));
+    $n_pi_id_agency = strtoupper(trim($_POST['id_agency']));
 
     echo "<br>
         GSIS ID No.: $n_pi_id_gsis<br>
@@ -146,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // prepare arguments for insert function
     $table = 'employee_numbers';
     $fields = array(
-        // 'employee_id' => $employee_id,
+        'employee_id' => $employee_id,
         'emp_no_gsis' => $n_pi_id_gsis,
         'emp_no_pagibig' => $n_pi_id_pagibig,
         'emp_no_philhealth' => $n_pi_id_philhealth,
@@ -157,22 +162,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_pi_radd_province = $_POST['radd_province'];
-    $n_pi_radd_citymunicipality = $_POST['radd_citymunicipality'];
-    $n_pi_radd_barangay = $_POST['radd_barangay'];
-    $n_pi_radd_subdivisionvillage = $_POST['radd_subdivisionvillage'] ?? "N/A";
-    $n_pi_radd_street = $_POST['radd_street'] ?? "N/A";
-    $n_pi_radd_houseblocklot = $_POST['radd_houseblocklot'] ?? "N/A";
-    $n_pi_radd_zipcode = $_POST['radd_zipcode'];
+    $n_pi_radd_province = trim($_POST['radd_province']);
+    $n_pi_radd_citymunicipality = trim($_POST['radd_citymunicipality']);
+    $n_pi_radd_barangay = trim($_POST['radd_barangay']);
+    $n_pi_radd_subdivisionvillage = trim($_POST['radd_subdivisionvillage'] ?? "N/A");
+    $n_pi_radd_street = trim($_POST['radd_street'] ?? "N/A");
+    $n_pi_radd_houseblocklot = trim($_POST['radd_houseblocklot'] ?? "N/A");
+    $n_pi_radd_zipcode = trim($_POST['radd_zipcode']);
 
     //transfers value of posted variables to local variables
-    $n_pi_padd_province = $_POST['padd_province'] ?? '';
-    $n_pi_padd_citymunicipality = $_POST['padd_citymunicipality'] ?? '';
-    $n_pi_padd_barangay = $_POST['padd_barangay'] ?? '';
-    $n_pi_padd_subdivisionvillage = $_POST['padd_subdivisionvillage'] ?? "N/A";
-    $n_pi_padd_street = $_POST['padd_street'] ?? "N/A";
-    $n_pi_padd_houseblocklot = $_POST['padd_houseblocklot'] ?? "N/A";
-    $n_pi_padd_zipcode = $_POST['padd_zipcode'] ?? '';
+    $n_pi_padd_province = trim($_POST['padd_province'] ?? '');
+    $n_pi_padd_citymunicipality = trim($_POST['padd_citymunicipality'] ?? '');
+    $n_pi_padd_barangay = trim($_POST['padd_barangay'] ?? '');
+    $n_pi_padd_subdivisionvillage = trim($_POST['padd_subdivisionvillage'] ?? "N/A");
+    $n_pi_padd_street = trim($_POST['padd_street'] ?? "N/A");
+    $n_pi_padd_houseblocklot = trim($_POST['padd_houseblocklot'] ?? "N/A");
+    $n_pi_padd_zipcode = trim($_POST['padd_zipcode'] ?? '');
 
     $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
     $add_types = array('B' => 'both_', 'R' => 'residential_', 'P' => 'permanent_');
@@ -250,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'B' => 'RESIDENTIAL & PERMANENT ADDRESS',
                 'R' => 'RESIDENTIAL ADDRESS',
                 'P' => 'PERMANENT ADDRESS',
-            } . "<br>
+            } . " ($add_type)<br>
             Province: " . ${$prefix . 'province'} . "<br>
             City/Municipality: " . ${$prefix . 'citymunicipality'} . "<br>
             Barangay: " . ${$prefix . 'barangay'} . "<br>
@@ -263,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'employee_addresses';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'province_id' => ${$prefix . 'province'},
             'citymunicipality_id' => ${$prefix . 'citymunicipality'},
             'barangay_id' => ${$prefix . 'barangay'},
@@ -282,9 +287,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //transfers value of posted variables to local variables
-    $n_pi_no_tel = $_POST['no_tel'] ?? "N/A";
-    $n_pi_no_mobile = $_POST['no_mobile'];
-    $n_pi_emailadd = $_POST['emailadd'] ?? "N/A";
+    $n_pi_no_tel = trim($_POST['no_tel'] ?? "N/A");
+    $n_pi_no_mobile = trim($_POST['no_mobile']);
+    $n_pi_emailadd = trim($_POST['emailadd'] ?? "N/A");
 
     echo "<br>
         Telephone No.: $n_pi_no_tel<br>
@@ -295,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // prepare arguments for insert function
     $table = 'employee_contacts';
     $filter = array(
-        // 'employee_id' => $employee_id,
+        'employee_id' => $employee_id,
         'emp_cont_tel' => $n_pi_no_tel,
         'emp_cont_mobile' => $n_pi_no_mobile,
         'emp_cont_emailadd' => $n_pi_emailadd,
@@ -306,14 +311,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br><br><br>FAMILY BACKGROUND<br>";
     //transfers value of posted variables to local variables
-    $n_fb_spouse_name_last = $_POST['spouse_name_last'];
-    $n_fb_spouse_name_first = $_POST['spouse_name_first'];
-    $n_fb_spouse_name_middle = $_POST['spouse_name_middle'];
-    $n_fb_spouse_name_ext = $_POST['spouse_name_ext'] ?? "N/A";
-    $n_fb_spouse_occupation = $_POST['spouse_occupation'] ?? "N/A";
-    $n_fb_spouse_bus_name = $_POST['spouse_bus_name'] ?? "N/A";
-    $n_fb_spouse_bus_add = $_POST['spouse_bus_add'] ?? "N/A";
-    $n_fb_spouse_telno = $_POST['spouse_telno'] ?? "N/A";
+    $n_fb_spouse_name_last = trim($_POST['spouse_name_last']);
+    $n_fb_spouse_name_first = trim($_POST['spouse_name_first']);
+    $n_fb_spouse_name_middle = trim($_POST['spouse_name_middle']);
+    $n_fb_spouse_name_ext = trim($_POST['spouse_name_ext'] ?? "N/A");
+    $n_fb_spouse_occupation = trim($_POST['spouse_occupation'] ?? "N/A");
+    $n_fb_spouse_bus_name = trim($_POST['spouse_bus_name'] ?? "N/A");
+    $n_fb_spouse_bus_add = trim($_POST['spouse_bus_add'] ?? "N/A");
+    $n_fb_spouse_telno = trim($_POST['spouse_telno'] ?? "N/A");
 
     // look up ID of $n_fb_spouse_occupation
     $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
@@ -323,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br>
         SPOUSE<br>
-        Last Name:: $n_fb_spouse_name_last<br>
+        Last Name: $n_fb_spouse_name_last<br>
         First Name: $n_fb_spouse_name_first<br>
         Middle Name: $n_fb_spouse_name_middle<br>
         Name Extension: $n_fb_spouse_name_ext<br>
@@ -349,10 +354,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_father_name_last = $_POST['father_name_last'];
-    $n_fb_father_name_first = $_POST['father_name_first'];
-    $n_fb_father_name_middle = $_POST['father_name_middle'] ?? "N/A";
-    $n_fb_father_name_ext = $_POST['father_name_ext'] ?? "N/A";
+    $n_fb_father_name_last = trim($_POST['father_name_last']);
+    $n_fb_father_name_first = trim($_POST['father_name_first']);
+    $n_fb_father_name_middle = trim($_POST['father_name_middle'] ?? "N/A");
+    $n_fb_father_name_ext = trim($_POST['father_name_ext'] ?? "N/A");
 
     echo "<br>
         FATHER<br>
@@ -365,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // prepare arguments for insert function
     $table = 'parents';
     $fields = array(
-        // 'employee_id' => $employee_id,
+        'employee_id' => $employee_id,
         'parent_lastname' => $n_fb_father_name_last,
         'parent_firstname' => $n_fb_father_name_first,
         'parent_middlename' => $n_fb_father_name_middle,
@@ -375,9 +380,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_mother_name_last = $_POST['mother_name_last'];
-    $n_fb_mother_name_first = $_POST['mother_name_first'];
-    $n_fb_mother_name_middle = $_POST['mother_name_middle'] ?? "N/A";
+    $n_fb_mother_name_last = trim($_POST['mother_name_last']);
+    $n_fb_mother_name_first = trim($_POST['mother_name_first']);
+    $n_fb_mother_name_middle = trim($_POST['mother_name_middle'] ?? "N/A");
 
     echo "<br>
         MOTHER<br>
@@ -389,17 +394,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // prepare arguments for insert function
     $table = 'parents';
     $fields = array(
-        // 'employee_id' => $employee_id,
+        'employee_id' => $employee_id,
         'parent_lastname' => $n_fb_mother_name_last,
         'parent_firstname' => $n_fb_mother_name_first,
         'parent_middlename' => $n_fb_mother_name_middle,
+        'parent_nameext' => "N/A",
         'parent_type' => "M",
     );
     // insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_child_fullname = $_POST['child_fullname'] ?? NULL;
-    $n_fb_child_birthdate = $_POST['child_birthdate'] ?? NULL;
+    $n_fb_child_fullname = array_map('trim', $_POST['child_fullname'] ?? array(NULL));
+    $n_fb_child_birthdate = array_map('trim', $_POST['child_birthdate'] ?? array(NULL));
 
     if ($n_fb_child_fullname != NULL && $n_fb_child_fullname != NULL) {
         $children = array(
@@ -414,17 +420,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fullName = $children[0][$i];   // Get fullName from the first inner array
             $bday = $children[1][$i];   // Get bday from the second inner array
 
-            echo "$fullName ($bday)<br>"; // Output the formatted element
+            if ($children[0][0] == "" && $children[1][0] == "") {
+                echo "No children";
+            } else {
+                echo "$fullName ($bday)<br>"; // Output the formatted element
+            }
+            if ($children[0][0] != "" && $children[1][0] != "") {
+                // prepare arguments for insert function
+                $table = 'children';
+                $fields = array(
+                    'employee_id' => $employee_id,
+                    'child_fullname' => $n_fb_child_fullname,
+                    'child_bday' => $n_fb_child_birthdate,
+                );
+                // insert($conn, $table, $fields);
+            }
         }
-
-        // prepare arguments for insert function
-        $table = 'children';
-        $fields = array(
-            // 'employee_id' => $employee_id,
-            'child_fullname' => $n_fb_child_fullname,
-            'child_bday' => $n_fb_child_birthdate,
-        );
-        // insert($conn, $table, $fields);
     }
 
 
@@ -432,7 +443,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<br><br><br>EDUCATIONAL BACKGROUND<br>";
 
     $educ_level = array('elem', 'sec', 'voc', 'coll', 'grad');
-    $educ_details = array('_school', '_degree', '_attendance_from', '_attendance_to', '_level', '_year', '_scholarship');
+    $educ_details = array('school', 'degree', 'attendance_from', 'attendance_to', 'level', 'year', 'scholarship');
 
     foreach ($educ_level as $lvl) {
         $title = match ($lvl) {
@@ -444,57 +455,105 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         };
 
         foreach ($educ_details as $detail) {
-            ${"n_eb_" . $lvl . $detail} = $_POST[$lvl . $detail] ?? "N/A";
+            if (in_array($lvl, ["elem", "sec"])) {
+                ${"n_eb_" . $lvl . "_" . $detail} = trim($_POST[$lvl . "_" . $detail] ?? "N/A");
 
-            if ($detail == '_school' || $detail == '_degree') {
-                $var_name = str_replace('_', '', $detail);
-                // $var_name = substr($detail, 1);
-                $$var_name = lookupId($conn, ${"n_eb_" . $lvl . $detail}, 'schools', 'school_id', 'school_name', '', '');
+                if ($detail == 'school' || $detail == 'degree') {
+                    $table_name = ($detail == "degree") ? "basiced_degree_course" : "schools";
+                    $column_name = ($detail == "degree") ? "bdc" : "school";
+                    $value = lookupId($conn, ${"n_eb_" . $lvl . "_" . $detail}, $table_name, $column_name . '_id', $column_name . '_name', '', '');
+                } else {
+                    $value = ${"n_eb_" . $lvl . "_" . $detail};
+                }
+
+                $$detail = $value;
             } else {
-                $var_name = str_replace('_', '', $detail);
-                // $var_name = substr($detail, 1);
-                $$var_name = ${"n_eb_" . $lvl . $detail};
+                $$detail = array();
+
+                ${"n_eb_" . $lvl . "_" . $detail} = array_map('trim', $_POST[$lvl . "_" . $detail] ?? array("N/A"));
+
+                foreach (${"n_eb_" . $lvl . "_" . $detail} as ${$lvl . "_" . $detail}) {
+                    if ($detail == 'school' || $detail == 'degree') {
+                        $table_name = ($detail == "degree") ? "basiced_degree_course" : "schools";
+                        $column_name = ($detail == "degree") ? "bdc" : "school";
+                        $value = lookupId($conn, ${$lvl . "_" . $detail}, $table_name, $column_name . '_id', $column_name . '_name', '', '');
+                    } else {
+                        $value = ${$lvl . "_" . $detail};
+                    }
+                    array_push($$detail, $value);
+                }
             }
         }
 
-        echo "<br>
-            $title (" . strtoupper($lvl[0]) . ")<br>
-            Name of School: $school<br>
-            Basic Education / Degree / Course: $degree<br>
-            Period of Attendance<br>
-            From: $attendancefrom&emsp;
-            To: $attendanceto<br>
-            Highest Level / Units Earned: $level<br>
-            Year Graduated: $year<br>
-            Scholarship / Academic Honors Received: $scholarship<br>
-        ";
+        if (in_array($lvl, ["elem", "sec"])) {
+            echo "<br>
+                $title (" . strtoupper($lvl[0]) . ")<br>
+                Name of School: $school<br>
+                Basic Education / Degree / Course: $degree<br>
+                Period of Attendance<br>
+                From: $attendance_from&emsp;
+                To: $attendance_to<br>
+                Highest Level / Units Earned: $level<br>
+                Year Graduated: $year<br>
+                Scholarship / Academic Honors Received: $scholarship<br>
+            ";
 
-        // prepare arguments for insert function
-        $table = 'education';
-        $fields = [
-            // 'employee_id' => $employee_id,
-            'educ_acadlvl' => strtoupper($lvl[0]),
-            'school_id' => $school,
-            'bdc_id' => $degree,
-            'educ_period_from' => $attendancefrom,
-            'educ_period_to' => $attendanceto,
-            'educ_highest' => $level,
-            'educ_graduated' => $year,
-            'educ_scholarship_acad_honors' => $scholarship,
-        ];
-        // insert($conn, $table, $fields);
+            // prepare arguments for insert function
+            $table = 'education';
+            $fields = [
+                'employee_id' => $employee_id,
+                'educ_acadlvl' => strtoupper($lvl[0]),
+                'school_id' => $school,
+                'bdc_id' => $degree,
+                'educ_period_from' => $attendance_from,
+                'educ_period_to' => $attendance_to,
+                'educ_highest' => $level,
+                'educ_graduated' => $year,
+                'educ_scholarship_acad_honors' => $scholarship,
+            ];
+            // insert($conn, $table, $fields);
+        } else {
+            for ($i = 0; $i < count($school); $i++) {
+                echo "<br>
+                    $title (" . strtoupper($lvl[0]) . ")<br>
+                    Name of School: $school[$i]<br>
+                    Basic Education / Degree / Course: $degree[$i]<br>
+                    Period of Attendance<br>
+                    From: $attendance_from[$i]&emsp;
+                    To: $attendance_to[$i]<br>
+                    Highest Level / Units Earned: $level[$i]<br>
+                    Year Graduated: $year[$i]<br>
+                    Scholarship / Academic Honors Received: $scholarship[$i]<br>
+                ";
+
+                // prepare arguments for insert function
+                $table = 'education';
+                $fields = [
+                    'employee_id' => $employee_id,
+                    'educ_acadlvl' => strtoupper($lvl[0]),
+                    'school_id' => $school[$i],
+                    'bdc_id' => $degree[$i],
+                    'educ_period_from' => $attendance_from[$i],
+                    'educ_period_to' => $attendance_to[$i],
+                    'educ_highest' => $level[$i],
+                    'educ_graduated' => $year[$i],
+                    'educ_scholarship_acad_honors' => $scholarship[$i],
+                ];
+                // insert($conn, $table, $fields);
+            }
+        }
     }
 
 
 
     echo "<br><br><br>CIVIL SERVICE ELIGIBILITY<br>";
     //transfers value of posted variables to local variables
-    $n_cse_careerservice = $_POST['careerservice'] ?? array('N/A');
-    $n_cse_rating = $_POST['rating'] ?? array('N/A');
-    $n_cse_exam_date = $_POST['exam_date'] ?? array('N/A');
-    $n_cse_exam_place = $_POST['exam_place'] ?? array('N/A');
-    $n_cse_license_number = $_POST['license_number'] ?? array('N/A');
-    $n_cse_license_dateofvalidity = $_POST['license_dateofvalidity'] ?? array('N/A');
+    $n_cse_careerservice = array_map('trim', $_POST['careerservice'] ?? array('N/A'));
+    $n_cse_rating = array_map('trim', $_POST['rating'] ?? array('N/A'));
+    $n_cse_exam_date = array_map('trim', $_POST['exam_date'] ?? array('N/A'));
+    $n_cse_exam_place = array_map('trim', $_POST['exam_place'] ?? array('N/A'));
+    $n_cse_license_number = array_map('trim', $_POST['license_number'] ?? array('N/A'));
+    $n_cse_license_dateofvalidity = array_map('trim', $_POST['license_dateofvalidity'] ?? array('N/A'));
 
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
@@ -513,7 +572,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'cs_eligibility';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'cs_id' => $career_service,
             'cseligibility_rating' => $n_cse_rating[$i],
             'cseligibility_examdate' => $n_cse_exam_date[$i],
@@ -528,14 +587,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br><br><br>WORK EXPERIENCE<br>";
     //transfers value of posted variables to local variables
-    $n_we_date_from = $_POST['we_date_from'] ?? array('N/A');
-    $n_we_date_to = $_POST['we_date_to'] ?? array('N/A');
-    $n_we_position = $_POST['we_position'] ?? array('N/A');
-    $n_we_agency = $_POST['we_agency'] ?? array('N/A');
-    $n_we_salary = $_POST['we_salary'] ?? array('N/A');
-    $n_we_sg = $_POST['we_sg'] ?? array('N/A');
-    $n_we_status = $_POST['we_status'] ?? array('N/A');
-    $n_we_govtsvcs = $_POST['we_govtsvcs'] ?? array('N/A');
+    $n_we_date_from = array_map('trim', $_POST['we_date_from'] ?? array('N/A'));
+    $n_we_date_to = array_map('trim', $_POST['we_date_to'] ?? array('N/A'));
+    $n_we_position = array_map('trim', $_POST['we_position'] ?? array('N/A'));
+    $n_we_agency = array_map('trim', $_POST['we_agency'] ?? array('N/A'));
+    $n_we_salary = array_map('trim', $_POST['we_salary'] ?? array('N/A'));
+    $n_we_sg = array_map('trim', $_POST['we_sg'] ?? array('N/A'));
+    $n_we_status = array_map('trim', $_POST['we_status'] ?? array('N/A'));
+    $n_we_govtsvcs = array_map('trim', $_POST['we_govtsvcs'] ?? array('N/A'));
 
     for ($i = 0; $i < count($n_we_date_from); $i++) {
 
@@ -549,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_title', 'position_salarygrade', $salary_grade);
         $daoc = lookupId($conn, $n_we_agency[$i], 'department_agency_office_company', 'daoc_id', 'daoc_name', '', '');
 
-        if($i == 0) {
+        if ($i == 0) {
             $position_id = $position;
         }
 
@@ -568,7 +627,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'work_experience';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'workexp_from' => $n_we_date_from[$i],
             'workexp_to' => $n_we_date_to[$i],
             'position_id' => $position,
@@ -585,11 +644,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br><br><br>VOLUNTARY WORK<br>";
     //transfers value of posted variables to local variables
-    $n_vw_nameaddress = $_POST['vw_nameaddress'] ?? array('N/A');
-    $n_vw_date_from = $_POST['vw_date_from'] ?? array('N/A');
-    $n_vw_date_to = $_POST['vw_date_to'] ?? array('N/A');
-    $n_vw_hrs = $_POST['vw_hrs'] ?? array('N/A');
-    $n_vw_position = $_POST['vw_position'] ?? array('N/A');
+    $n_vw_nameaddress = array_map('trim', $_POST['vw_nameaddress'] ?? array('N/A'));
+    $n_vw_date_from = array_map('trim', $_POST['vw_date_from'] ?? array('N/A'));
+    $n_vw_date_to = array_map('trim', $_POST['vw_date_to'] ?? array('N/A'));
+    $n_vw_hrs = array_map('trim', $_POST['vw_hrs'] ?? array('N/A'));
+    $n_vw_position = array_map('trim', $_POST['vw_position'] ?? array('N/A'));
 
     for ($i = 0; $i < count($n_vw_nameaddress); $i++) {
 
@@ -605,12 +664,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'voluntary_work';
         $fields = array(
-            // 'employee_id' => $employee_id,
-            'daoc_id' => $n_vw_nameaddress[$i],
-            'workexp_from' => $n_vw_date_from[$i],
-            'workexp_to' => $n_vw_date_to[$i],
-            'workexp_salary_mo' => $n_vw_hrs[$i],
-            'position_id' => $n_vw_position[$i],
+            'employee_id' => $employee_id,
+            'volwork_name_add' => $n_vw_nameaddress[$i],
+            'volwork_from' => $n_vw_date_from[$i],
+            'volwork_to' => $n_vw_date_to[$i],
+            'volwork_hrs' => $n_vw_hrs[$i],
+            'volwork_position' => $n_vw_position[$i],
         );
         // insert($conn, $table, $fields);
     }
@@ -619,12 +678,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br><br><br>LEARNING AND DEVELOPMENT<br>";
     //transfers value of posted variables to local variables
-    $n_lnd_title = $_POST['lnd_title'] ?? array('N/A');
-    $n_lnd_date_from = $_POST['lnd_date_from'] ?? array('N/A');
-    $n_lnd_date_to = $_POST['lnd_date_to'] ?? array('N/A');
-    $n_lnd_hrs = $_POST['lnd_hrs'] ?? array('N/A');
-    $n_lnd_type = $_POST['lnd_type'] ?? array('N/A');
-    $n_lnd_sponsor = $_POST['lnd_sponsor'] ?? array('N/A');
+    $n_lnd_title = array_map('trim', $_POST['lnd_title'] ?? array('N/A'));
+    $n_lnd_date_from = array_map('trim', $_POST['lnd_date_from'] ?? array('N/A'));
+    $n_lnd_date_to = array_map('trim', $_POST['lnd_date_to'] ?? array('N/A'));
+    $n_lnd_hrs = array_map('trim', $_POST['lnd_hrs'] ?? array('N/A'));
+    $n_lnd_type = array_map('trim', $_POST['lnd_type'] ?? array('N/A'));
+    $n_lnd_sponsor = array_map('trim', $_POST['lnd_sponsor'] ?? array('N/A'));
 
     for ($i = 0; $i < count($n_lnd_title); $i++) {
 
@@ -644,7 +703,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'learning_development';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'ld_title_id' => $lnd_title,
             'ld_from' => $n_lnd_date_from[$i],
             'ld_to' => $n_lnd_date_to[$i],
@@ -659,17 +718,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     echo "<br><br><br>OTHER INFORMATION<br>";
     //transfers value of posted variables to local variables
-    $n_skills = $_POST['skills'] ?? array('N/A');
-    $n_distinctions = $_POST['distinctions'] ?? array('N/A');
-    $n_membership = $_POST['membership'] ?? array('N/A');
+    $n_skills = array_map('trim', $_POST['skills'] ?? array('N/A'));
+    $n_distinctions = array_map('trim', $_POST['distinctions'] ?? array('N/A'));
+    $n_membership = array_map('trim', $_POST['membership'] ?? array('N/A'));
 
-    function insert_otherInfo($items_array, $table, $fieldName) {
+    function insert_otherInfo($items_array, $table, $fieldName, $employee_id)
+    {
         // accommodate qna
         for ($i = 0; $i < count($items_array); $i++) {
             echo "&emsp;$items_array[$i]<br>";
-            
+
             $fields = array(
-                // 'employee_id' => $employee_id, 
+                'employee_id' => $employee_id,
                 $fieldName => $items_array[$i]
             );
             // insert($conn, $table, $fields);
@@ -677,16 +737,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     echo "<br>Special Skills and Hobbies:<br>";
-    insert_otherInfo($n_skills, 'special_skills_hobbies', 'ssh_name');
+    insert_otherInfo($n_skills, 'special_skills_hobbies', 'ssh_name', $employee_id);
 
     echo "<br>Non-Academic distinctions/Recognition:<br>";
-    insert_otherInfo($n_distinctions, 'nonacademic_recognition', 'nar_name');
+    insert_otherInfo($n_distinctions, 'nonacademic_recognition', 'nar_name', $employee_id);
 
     echo "<br>Membership in Association/Organization:<br>";
-    insert_otherInfo($n_membership, 'membership', 'membership_name');
+    insert_otherInfo($n_membership, 'membership', 'membership_name', $employee_id);
 
 
-    function insert_qna($item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes) {
+    function insert_qna($employee_id, $item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes)
+    {
         echo "<br>
             $item_no.<br>
             a. $qna_a: $qna_a_ifyes<br>
@@ -697,7 +758,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'qna';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'qna_a' => $qna_a,
             'qna_a_ifyes' => $qna_a_ifyes,
             'qna_b' => $qna_b,
@@ -709,67 +770,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // insert($conn, $table, $fields);
     }
 
-    $n_radio_degree_3rd = $_POST['radio_degree_3rd'];
+    $n_radio_degree_3rd = trim($_POST['radio_degree_3rd']);
 
-    $n_radio_degree_4th = $_POST['radio_degree_4th'];
-    $n_input_degree_4th = $_POST['input_degree_4th'] ?? 'N/A';
+    $n_radio_degree_4th = trim($_POST['radio_degree_4th']);
+    $n_input_degree_4th = trim($_POST['input_degree_4th'] ?? 'N/A');
 
-    insert_qna('34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A');
+    insert_qna($employee_id, '34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A');
 
-    $n_radio_guilty = $_POST['radio_guilty'];
-    $n_input_guilty = $_POST['input_guilty'] ?? 'N/A';
+    $n_radio_guilty = trim($_POST['radio_guilty']);
+    $n_input_guilty = trim($_POST['input_guilty'] ?? 'N/A');
 
-    $n_radio_charged = $_POST['radio_charged'];
-    $n_input_filed = $_POST['input_filed'] ?? 'N/A';
-    $n_input_status = $_POST['input_status'] ?? 'N/A';
+    $n_radio_charged = trim($_POST['radio_charged']);
+    $n_input_filed = trim($_POST['input_filed'] ?? 'N/A');
+    $n_input_status = trim($_POST['input_status'] ?? 'N/A');
 
-    insert_qna('35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A');
+    insert_qna($employee_id, '35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A');
 
-    $n_radio_convicted = $_POST['radio_convicted'];
-    $n_input_convicted = $_POST['input_convicted'] ?? 'N/A';
+    $n_radio_convicted = trim($_POST['radio_convicted']);
+    $n_input_convicted = trim($_POST['input_convicted'] ?? 'N/A');
 
-    insert_qna('36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($employee_id, '36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_seperated = $_POST['radio_seperated'];
-    $n_input_seperated = $_POST['input_seperated'] ?? 'N/A';
+    $n_radio_seperated = trim($_POST['radio_seperated']);
+    $n_input_seperated = trim($_POST['input_seperated'] ?? 'N/A');
 
-    insert_qna('37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($employee_id, '37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_candidate = $_POST['radio_candidate'];
+    $n_radio_candidate = trim($_POST['radio_candidate']);
 
-    $n_radio_resigned = $_POST['radio_resigned'];
-    $n_input_resigned = $_POST['input_resigned'] ?? 'N/A';
+    $n_radio_resigned = trim($_POST['radio_resigned']);
+    $n_input_resigned = trim($_POST['input_resigned'] ?? 'N/A');
 
-    insert_qna('38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A');
+    insert_qna($employee_id, '38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A');
 
-    $n_radio_immigrant = $_POST['radio_immigrant'];
-    $n_input_immigrant = $_POST['input_immigrant'] ?? 'N/A';
+    $n_radio_immigrant = trim($_POST['radio_immigrant']);
+    $n_input_immigrant = trim($_POST['input_immigrant'] ?? 'N/A');
 
-    insert_qna('39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($employee_id, '39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_indigenous = $_POST['radio_indigenous'];
-    $n_input_indigenous = $_POST['input_indigenous'] ?? 'N/A';
+    $n_radio_indigenous = trim($_POST['radio_indigenous']);
+    $n_input_indigenous = trim($_POST['input_indigenous'] ?? 'N/A');
 
-    $n_radio_disability = $_POST['radio_disability'];
-    $n_input_disability = $_POST['input_disability'] ?? 'N/A';
+    $n_radio_disability = trim($_POST['radio_disability']);
+    $n_input_disability = trim($_POST['input_disability'] ?? 'N/A');
 
-    $n_radio_soloparent = $_POST['radio_soloparent'];
-    $n_input_soloparent = $_POST['input_soloparent'] ?? 'N/A';
+    $n_radio_soloparent = trim($_POST['radio_soloparent']);
+    $n_input_soloparent = trim($_POST['input_soloparent'] ?? 'N/A');
 
-    insert_qna('40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent);
+    insert_qna($employee_id, '40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent);
 
 
 
     echo "<br><br><br>REFERENCES<br>";
-    $n_ref_name = $_POST['ref_name'];
-    $n_ref_address = $_POST['ref_address'];
-    $n_ref_telno = $_POST['ref_telno'];
-    
-    $filtered_ref_name = array_filter($n_ref_name, function($value) {
-        return $value !== ''; 
+    $n_ref_name = array_map('trim', $_POST['ref_name']);
+    $n_ref_address = array_map('trim', $_POST['ref_address']);
+    $n_ref_telno = array_map('trim', $_POST['ref_telno']);
+
+    $filtered_ref_name = array_filter($n_ref_name, function ($value) {
+        return $value !== '';
     });
 
-    for ($i=0; $i < count($filtered_ref_name); $i++) { 
+    for ($i = 0; $i < count($filtered_ref_name); $i++) {
         echo "<br>
             Name: $n_ref_name[$i]<br>
             Address: $n_ref_address[$i]<br>
@@ -779,7 +840,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // prepare arguments for insert function
         $table = 'pds_references';
         $fields = array(
-            // 'employee_id' => $employee_id,
+            'employee_id' => $employee_id,
             'ref_name' => $n_ref_name[$i],
             'ref_add' => $n_ref_address[$i],
             'ref_telno' => $n_ref_telno[$i],
@@ -787,9 +848,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // insert($conn, $table, $fields);
     }
 
-    $n_govtid_type = $_POST['govtid_type'];
-    $n_govtid_no = $_POST['govtid_no'];
-    $n_govtid_issuance = $_POST['govtid_issuance'];
+    $n_govtid_type = trim($_POST['govtid_type']);
+    $n_govtid_no = trim($_POST['govtid_no']);
+    $n_govtid_issuance = trim($_POST['govtid_issuance']);
 
     echo "<br>
         Government Issued ID: $n_govtid_type<br>
@@ -811,13 +872,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $temp = $_FILES['change_photo']['tmp_name']; //temporary location
     $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
 
+    echo "<br><br><br>Position: $position_id";
+    echo "<br>Image Directory: $n_itemimgdir";
     // prepare arguments for update function
     $table = "employees";
     $fields = array(
-        'position_id' => $position_id, 
+        'position_id' => $position_id,
         'employee_imgdir' => $n_itemimgdir,
     );
-    // $filter = array( 'employee_id' => $employee_id );
+    // $filter = array('employee_id' => $employee_id);
     // update($conn, $table, $fields, $filter);
 
+    //if file is successfully moved to target loc:
+        if(move_uploaded_file($temp, $n_itemimgdir)) {
+            //if $result is empty, the param $n_itemname does not exist in db
+            if(mysqli_num_rows($result) > 0) {
+                header("location: product_index.php?new_product=failed");
+                exit();
+            }
+            //inserts arguments to db
+            else {
+                if(insert($conn, $table, $fields)) {
+                    header("location: product_index.php?new_product=success");
+                    exit();
+                } else {
+                    header("location: landing_page.php?new_product=failed");
+                    exit();
+                }
+            }
+        }
 }

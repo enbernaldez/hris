@@ -370,91 +370,93 @@
             </div>
         </div>
     </div>
-    <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+
+    <!-- SUBMIT BUTTON -->
+    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+        <strong>SUBMIT</strong>
     </button>
 
-<!-- SUBMIT BUTTON -->
-<button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
-    <strong>SUBMIT</strong>
-</button>
+    <!-- BACK BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
+    </button>
 
     <!-- NEXT BUTTON -->
-    <!-- <a href="pds_form.php?form_section=ref"> -->
-    <button type="button" id="nextButton" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
-    <!-- </a> -->
 </div>
+
 <script>
-   
-// ======================== Next button ====================================
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener to the "Next" button
-    document.getElementById('nextButton').addEventListener('click', submitForm);
-});
 
-
-// Function to submit the form
-function submitForm() {
-    // Get all input fields with class "group-na"
-    var inputs = document.querySelectorAll('.group-na');
-
-    // Check if all input fields are filled out
-    var allInputsFilled = true;
-    inputs.forEach(function(input) {
-        if (!input.value.trim()) {
-            allInputsFilled = false;
-        }
+    // ======================== Next button ====================================
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener to the "Next" button
+        document.getElementById('nextButton').addEventListener('click', submitForm);
     });
 
-    // Check if all required radio buttons are selected and corresponding input boxes filled
-    var allRadioSelected = checkAllRadioSelected();
 
-    // If all input fields and radio buttons are filled out, submit the form
-    if (allInputsFilled && allRadioSelected) {
-        window.location.href = "pds_form.php?form_section=ref";
-    } else {
-        alert("Please fill out all input fields and select all required options before proceeding.");
+    // Function to submit the form
+    function submitForm() {
+        // Get all input fields with class "group-na"
+        var inputs = document.querySelectorAll('.group-na');
+
+        // Check if all input fields are filled out
+        var allInputsFilled = true;
+        inputs.forEach(function (input) {
+            if (!input.value.trim()) {
+                allInputsFilled = false;
+            }
+        });
+
+        // Check if all required radio buttons are selected and corresponding input boxes filled
+        var allRadioSelected = checkAllRadioSelected();
+
+        // If all input fields and radio buttons are filled out, submit the form
+        if (allInputsFilled && allRadioSelected) {
+            window.location.href = "pds_form.php?form_section=ref";
+        } else {
+            alert("Please fill out all input fields and select all required options before proceeding.");
+        }
     }
-}
 
-// Function to check if all required radio buttons are selected and corresponding input boxes filled
-function checkAllRadioSelected() {
-    // Get all radio button groups
-    var radioGroups = document.querySelectorAll('[name^="radio_"]');
+    // Function to check if all required radio buttons are selected and corresponding input boxes filled
+    function checkAllRadioSelected() {
+        // Get all radio button groups
+        var radioGroups = document.querySelectorAll('[name^="radio_"]');
 
-    // Iterate over each radio button group
-    for (var i = 0; i < radioGroups.length; i++) {
-        var radioGroup = radioGroups[i];
-        var radioButtons = document.querySelectorAll('[name="' + radioGroup.name + '"]');
-        var isSelected = false;
+        // Iterate over each radio button group
+        for (var i = 0; i < radioGroups.length; i++) {
+            var radioGroup = radioGroups[i];
+            var radioButtons = document.querySelectorAll('[name="' + radioGroup.name + '"]');
+            var isSelected = false;
 
-        // Check if at least one radio button in the group is selected
-        for (var j = 0; j < radioButtons.length; j++) {
-            if (radioButtons[j].checked) {
-                isSelected = true;
-                // If "Yes" option is selected, check if the corresponding input box is filled
-                if (radioButtons[j].value === "yes") {
-                    var input_container = radioButtons[j].closest('.input');
-                    var inputBox = input_container.querySelector('input[type="text"]');
-                    if (!inputBox.value.trim()) {
-                        return false;
+            // Check if at least one radio button in the group is selected
+            for (var j = 0; j < radioButtons.length; j++) {
+                if (radioButtons[j].checked) {
+                    isSelected = true;
+                    // If "Yes" option is selected, check if the corresponding input box is filled
+                    if (radioButtons[j].value === "yes") {
+                        var input_container = radioButtons[j].closest('.input');
+                        var inputBox = input_container.querySelector('input[type="text"]');
+                        if (!inputBox.value.trim()) {
+                            return false;
+                        }
                     }
+                    break;
                 }
-                break;
+            }
+
+            // If no radio button in the group is selected, return false
+            if (!isSelected) {
+                return false;
             }
         }
 
-        // If no radio button in the group is selected, return false
-        if (!isSelected) {
-            return false;
-        }
+        return true; // Return true if all required radio buttons are selected and corresponding input boxes filled
     }
-
-    return true; // Return true if all required radio buttons are selected and corresponding input boxes filled
-}
 
 
     function addInput(section) {
@@ -505,7 +507,7 @@ function checkAllRadioSelected() {
                 clonedRow.remove();
             }
         });
-        
+
         input.addEventListener("input", function () {
             if (this.value === "N/A") {
                 checkbox.checked = true;

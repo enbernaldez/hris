@@ -34,24 +34,6 @@
             font-size: 20px;
         }
 
-        .auto-fit-container {
-            width: 100%;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .auto-fit-inner {
-            position: absolute;
-            width: 100%;
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -78,54 +60,82 @@
 <body>
     <div class="container-fluid">
         <div class="row vh-100">
+            <!-- SIDEBAR -->
             <?php include_once "sidebar1.php"; ?>
+
+            <!-- CONTENT -->
             <div class="col-10 px-5 pt-3 pb-5">
-                <img src="images/PSA banner.jpg" alt="PSA Banner" height="auto" width="100%" class="img-fluid">
-                <div class="col-10 mt-5px d-none d-sm-inline" style="margin-top: 20px;">
-                    <div class="row mt-3 px-3"
-                        style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
-                        <div class="auto-fit-container">
-                            <div class="auto-fit-inner">
-                                <h4 class="titletext auto-fit-text"><strong> Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                        ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                                        id est laborum.</strong></h4>
-                            </div>
-                        </div>
-                    </div>
+                <!-- logo -->
+                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
+
+                <?php
+                // // retrieve lnd title from db
+                // $sql = "SELECT `ld_title_name`
+                //         FROM `ld_titles`
+                //         WHERE `ld_title_id` = ?";
+                // $filter = array($_GET['title_id']);
+                // $result = query($conn, $sql, $filter);
+                
+                // $row = $result[0];
+                
+                // // transfers value of retrieved variables to local variables
+                // $title = $row['ld_title_name'];
+                ?>
+
+                <!-- title bar -->
+                <div class="row mt-3 px-3"
+                    style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
+                    <h4 class="titletext auto-fit-text">
+                        <strong>
+                            <?php // echo $title; ?>
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                            ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+                            id est laborum.
+                        </strong>
+                    </h4>
                 </div>
 
                 <!-- Table -->
-                <div class="row">
-                    <div class="col-2">
-                        <div class="mt-3 d-flex justify-content-start align-items-left">
-                            <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px;"
-                                onclick="history.back()"></i>
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-1">
+                        <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px; cursor: pointer;"
+                            onclick="history.back()"></i>
                     </div>
-                    <div class="col-10"></div>
-                    <div class="mt-3">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Employee</th>
-                                    <th colspan="2">Inclusive Dates</th>
-                                    <th>Number of Hours</th>
-                                    <th>
-                                        <span>Conducted/Sponsored by</span>
-                                        <span>(Write in Full)</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                </div>
+                <div class="row mt-3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th colspan="2">Inclusive Dates</th>
+                                <th>Number of Hours</th>
+                                <th>Type of LD</th>
+                                <th>Conducted/Sponsored by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // retrieve all data from learning_development table
+                            $sql = "SELECT * FROM `learning_development` WHERE `ld_title_id` = '3'";
+                            // $sql = "SELECT *
+                            //         FROM `learning_development`
+                            //         WHERE `ld_title_id` = ?";
+                            // $filter = array($_GET['title_id']);
+                            // $result = query($conn, $sql, $filter);
+                            $result = query($conn, $sql);
+
+                            if (empty($result)) {
+                                ?>
                                 <tr>
                                     <td>April Cassandra Sasa Regalario</td>
                                     <td>01/27/2021</td>
                                     <td>01/27/2021</td>
                                     <td>4</td>
+                                    <td>Managerial</td>
                                     <td>PSA-Albay</td>
                                 </tr>
                                 <tr>
@@ -133,18 +143,72 @@
                                     <td>01/27/2021</td>
                                     <td>01/27/2021</td>
                                     <td>4</td>
+                                    <td>Managerial</td>
                                     <td>PSA-Albay</td>
                                 </tr>
                                 <tr>
                                     <td>José Protasio Rizal Mercado y Alonso Realonda</td>
                                     <td>01/27/2021</td>
-                                    <td>01/28/2021</td>
+                                    <td>01/29/2021</td>
                                     <td>24</td>
+                                    <td>Managerial</td>
                                     <td>PSA-Albay</td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <?php
+                            } else {
+                                foreach ($result as $key => $row) {
+                                    // transfers value of retrieved variables to local variables
+                                    $employee_id = $row['employee_id'];
+                                    $ld_from = $row['ld_from'];
+                                    $ld_to = $row['ld_to'];
+                                    $ld_hrs = $row['ld_hrs'];
+                                    $ld_type = $row['ld_type'];
+                                    $sponsor_id = $row['sponsor_id'];
+
+                                    // retrieve all data from employees table
+                                    $sql = "SELECT *
+                                            FROM `employees`
+                                            WHERE `employee_id` = ?";
+                                    $filter = array($employee_id);
+                                    $result = query($conn, $sql, $filter);
+
+                                    $row = $result[0];
+
+                                    // transfers value of retrieved variables to local variables
+                                    $firstname = $row['employee_firstname'];
+                                    $middlename = $row['employee_middlename'];
+                                    $middlename = ($middlename === 'N/A') ? '' : " $middlename";
+                                    $lastname = $row['employee_lastname'];
+                                    $nameext = $row['employee_nameext'];
+                                    $nameext = ($nameext === 'N/A') ? '' : " $nameext";
+
+                                    // retrieve all data from sponsors table
+                                    $sql = "SELECT *
+                                            FROM `sponsors`
+                                            WHERE `sponsor_id` = ?";
+                                    $filter = array($sponsor_id);
+                                    $result = query($conn, $sql, $filter);
+
+                                    $row = $result[0];
+
+                                    // transfers value of retrieved variables to local variables
+                                    $sponsor = $row['sponsor_name'];
+
+                                    echo "
+                                        <tr>
+                                            <td>$firstname$middlename $lastname$nameext</td>
+                                            <td>" . $ld_from . "</td>
+                                            <td>" . $ld_to . "</td>
+                                            <td>" . $ld_hrs . "</td>
+                                            <td>" . $ld_type . "</td>
+                                            <td>" . $sponsor . "</td>
+                                        </tr>
+                                    ";
+                                }
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

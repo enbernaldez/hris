@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <?php
 include_once "db_conn.php";
-$user_type = $_SESSION['user_type'] ?? 'V';
-?>
+if ($_SESSION['user_type'] != 'A') {
+    header("location:" . $_SERVER['HTTP_REFERER']);
+    header("location:landing_page.php");
+    exit();
+}?>
 <html lang="en">
 
 <head>
@@ -112,19 +115,15 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         </thead>
                         <tbody>
                             <?php
+                            // retrieve all data from employees table
                             // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
-                            $sql = "SELECT DISTINCT `ld_title_id`
+                            $sql = "SELECT `ld_title_id`, MAX(`date_added`) AS `latest_date`
                                     FROM `learning_development`
-                                    WHERE (`ld_title_id`, `date_added`) IN (
-                                        SELECT 'ld_title_id', MAX(`date_added`)
-                                        FROM `learning_development`
-                                        GROUP BY `ld_title_id`
-                                    )";
-                            $filter = array();
-                            $result = query($conn, $sql, $filter);
+                                    GROUP BY `ld_title_id`;";
+                            $result = query($conn, $sql);
                             if (empty($result)) {
                                 ?>
-                                <tr onclick="redirect()">
+                                <tr onclick="redirect()" style="cursor: pointer;">
                                     <td>Webinar on Health and Wellness: Recognizing Common Signs and Symptoms and its
                                         Management</td>
                                     <td>Managerial</td>
@@ -146,30 +145,53 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     <td>04/20/2023</td>
                                 </tr>
                                 <?php
-                            }
-                            foreach ($result as $key => $row) {
-                                $title_id = $row['ld_title_id'];
-                                $last_updated = $row['date_added'];
+                            } else {
+                                foreach ($result as $key => $row) {
+                                    // transfers value of retrieved variables to local variables
+                                    $title_id = $row['ld_title_id'];
+                                    $last_updated = $row['latest_date'];
 
-                                // write sql to retrieve all ld types for a specific title
-                                $sql = "SELECT `ld_type`
+                                    // // retrieve both lnd title and type at the same time from db
+                                    // $sql = "SELECT lt.ld_title_name, ld.ld_type
+                                    //         FROM learning_development ld
+                                    //         JOIN ld_titles lt ON ld.ld_title_id = lt.ld_title_id
+                                    //         WHERE ld.ld_title_id = 3
+                                    // ";
+
+                                    // retrieve lnd title from db
+                                    $sql = "SELECT `ld_title_name`
+                                            FROM `ld_titles`
+                                            WHERE `ld_title_id` = ?";
+                                    $filter = array($title_id);
+                                    $result = query($conn, $sql, $filter);
+
+                                    $row = $result[0];
+
+                                    $title = $row['ld_title_name'];
+
+                                    // retrieve lnd type from db
+                                    $sql = "SELECT `ld_type`
                                         FROM `learning_development`
                                         WHERE `ld_title_id` = ?";
-                                $filter = array($row['ld_title_id']);
-                                $result = query($conn, $sql, $filter);
-                                $ld_type = "";
-                                foreach ($result as $key => $value) {
-                                    if ($key > 0) {
-                                        $ld_type .= "/";
-                                    }
-                                    $ld_type .= $value['ld_type'];
-                                }
+                                    $filter = array($title_id);
+                                    $result = query($conn, $sql, $filter);
 
-                                echo "<tr onclick='redirect(" . $row['ld_title_id'] . ")'>";
-                                echo "<td>" . $row['title'] . "</td>";
-                                echo "<td>" . $ld_type . "</td>";
-                                echo "<td>" . $row['last_updated'] . "</td>";
-                                echo "</tr>";
+                                    $ld_type = "";
+                                    foreach ($result as $key => $row) {
+                                        if ($key > 0) {
+                                            $ld_type .= "/";
+                                        }
+                                        $ld_type .= $row['ld_type'];
+                                    }
+
+                                    echo "
+                                        <tr onclick='redirect(" . $title_id . ")' style='cursor: pointer;'>
+                                            <td>" . $title . "</td>
+                                            <td>" . $ld_type . "</td>
+                                            <td>" . $last_updated . "</td>
+                                        </tr>
+                                    ";
+                                }
                             }
                             ?>
                         </tbody>
@@ -204,23 +226,25 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <select name="training_employee" id="training_employee" required class="form-select">
                                     <option value="" disabled selected value>--select--</option>
                                     <?php
+                                    // retrieve all data from employees table
                                     $list_employees = query($conn, "SELECT * FROM `employees`");
-                                    foreach ($list_employees as $key => $value) {
-                                        $employee_id = $value['employee_id'];
-                                        $firstname = $value['employee_firstname'];
-                                        $middlename = $value['employee_middlename'];
+                                    foreach ($list_employees as $key => $row) {
+                                        // transfers value of retrieved variables to local variables
+                                        $employee_id = $row['employee_id'];
+                                        $firstname = $row['employee_firstname'];
+                                        $middlename = $row['employee_middlename'];
                                         $middlename = ($middlename === 'N/A') ? '' : " $middlename";
-                                        $lastname = $value['employee_lastname'];
-                                        $nameext = $value['employee_nameext'];
+                                        $lastname = $row['employee_lastname'];
+                                        $nameext = $row['employee_nameext'];
                                         $nameext = ($nameext === 'N/A') ? '' : " $nameext";
 
-                                        echo "<option value='" . $employee_id . "'>" . $firstname . $middlename . $lastname . $nameext ."</option>";
+                                        echo "<option value='" . $employee_id . "'>" . "$firstname$middlename $lastname$nameext" . "</option>";
                                     }
                                     ?>
                                 </select>
                             </div>
                             <div class="my-3">
-                                
+
                             </div>
                         </form>
                     </div>
