@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <?php
 include_once "db_conn.php";
-$user_type = $_SESSION['user_type'] ?? 'V';
-?>
+if ($_SESSION['user_type'] != 'A') {
+    header("location:" . $_SERVER['HTTP_REFERER']);
+    header("location:landing_page.php");
+    exit();
+}?>
 <html lang="en">
 
 <head>
