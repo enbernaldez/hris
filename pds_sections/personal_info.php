@@ -1,19 +1,26 @@
-<div class="container-fluid">
+<div class="container-fluid section-pi">
 
+    <?php
+    if (isset($_GET['office'])) {
+        $office = $_GET['office'];
+        echo '<input required type="text" name="office" value="' . $office . '">';
+    }
+    ?>
     <!-- EMPLOYEE'S FULL NAME -->
     <div class="row mt-5">
+
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
-            <input type="text" required name="name_last" id="name_last" class="form-control group_na">
+            <input type="text" required name="name_last" id="name_last" class="form-control input test">
         </div>
         <div class="col mx-2">
             <label for="name_first">FIRST NAME</label><br>
-            <input type="text" required name="name_first" id="name_first" class="form-control group_na">
+            <input type="text" required name="name_first" id="name_first" class="form-control input">
         </div>
         <div class="col mx-2">
             <label for="name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_middle" id="name_middle" class="form-control group_na">
+                <input type="text" required name="name_middle" id="name_middle" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
@@ -23,7 +30,7 @@
         <div class="col-2 mx-2">
             <label for="name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_ext" id="name_ext" class="form-control group_na">
+                <input type="text" required name="name_ext" id="name_ext" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
@@ -35,16 +42,16 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="birth_date">DATE OF BIRTH</label><br>
-            <input type="date" required name="birth_date" id="birth_date" class="form-control group_na">
+            <input type="date" required name="birth_date" id="birth_date" class="form-control input">
 
         </div>
         <div class="col mx-2">
             <label for="birth_place">PLACE OF BIRTH</label><br>
-            <input type="text" required name="birth_place" id="birth_place" class="form-control group_na">
+            <input type="text" required name="birth_place" id="birth_place" class="form-control input">
         </div>
         <div class="col mx-2">
             <label for="sex">SEX</label><br>
-            <select id="sex" required name="sex" class="form-select group_na">
+            <select id="sex" required name="sex" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
                 <option value='M'>Male</option>";
                 <option value='F'>Female</option>";
@@ -52,7 +59,7 @@
         </div>
         <div class="col mx-2">
             <label for="civilstatus">CIVIL STATUS</label><br>
-            <select id="civilstatus" required name="civilstatus" class="form-select group_na">
+            <select id="civilstatus" required name="civilstatus" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
                 <option value='S'>Single</option>";
                 <option value='M'>Married</option>";
@@ -66,16 +73,16 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="height">HEIGHT (m)</label><br>
-            <input type="number" required name="height" id="height" class="form-control group_na" min="1" step="0.01"
+            <input type="number" required name="height" id="height" class="form-control input" min="1" step="0.01"
                 max="2">
         </div>
         <div class="col mx-2">
             <label for="weight">WEIGHT (kg)</label><br>
-            <input type="text" required name="weight" id="weight" class="form-control group_na">
+            <input type="text" required name="weight" id="weight" class="form-control input">
         </div>
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
-            <select id="bloodtype" required name="bloodtype" class="form-select group_na">
+            <select id="bloodtype" required name="bloodtype" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
                 <option value='O+'>O+</option>";
                 <option value='O-'>O-</option>";
@@ -93,30 +100,30 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="gsis">GSIS ID NO.</label><br>
-            <input type="text" required name="id_gsis" id="gsis" class="form-control group_na uppercase">
+            <input type="text" required name="id_gsis" id="gsis" class="form-control input uppercase">
         </div>
         <div class="col mx-2">
             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-            <input type="text" required name="id_pagibig" id="pagibig" class="form-control group_na uppercase">
+            <input type="text" required name="id_pagibig" id="pagibig" class="form-control input uppercase">
         </div>
         <div class="col mx-2">
             <label for="philhealth">PHILHEALTH NO.</label><br>
-            <input type="text" required name="id_philhealth" id="philhealth" class="form-control group_na uppercase">
+            <input type="text" required name="id_philhealth" id="philhealth" class="form-control input uppercase">
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="sss">SSS NO.</label><br>
-            <input type="text" required name="id_sss" id="sss" class="form-control group_na uppercase">
+            <input type="text" required name="id_sss" id="sss" class="form-control input uppercase">
         </div>
         <div class="col mx-2">
             <label for="tin">TIN NO.</label><br>
-            <input type="text" required name="id_tin" id="tin" class="form-control group_na uppercase">
+            <input type="text" required name="id_tin" id="tin" class="form-control input uppercase">
         </div>
         <div class="col mx-2">
             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-            <input type="text" required name="id_agency" id="employee_no" class="form-control group_na uppercase">
+            <input type="text" required name="id_agency" id="employee_no" class="form-control input uppercase">
         </div>
     </div>
 
@@ -124,7 +131,7 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="citizenship">CITIZENSHIP</label><br>
-            <select id="citizenship" required name="citizenship" class="form-select group_na">
+            <select id="citizenship" required name="citizenship" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
                 <option value='F'>Filipino</option>";
                 <option value='D'>Dual Citizenship</option>";
@@ -132,7 +139,7 @@
         </div>
         <div class="col mx-2">
             <label for="citizenship_by">CITIZENSHIP BY</label><br>
-            <select id="citizenship_by" required name="citizenship_by" class="form-select group_na" disabled>
+            <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--select--</option>
                 <option value="F" selected value hidden>N/A</option>
                 <option value='B'>Birth</option>";
@@ -143,7 +150,7 @@
             <label for="citizenship_country">If Holder of Dual Citizenship, please indicate
                 country</label><br>
             <input type="text" required name="citizenship_country" id="citizenship_country"
-                class="form-control group_na" value="N/A" disabled>
+                class="form-control input" value="N/A" disabled>
         </div>
     </div>
 
@@ -153,7 +160,7 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="radd_province">PROVINCE</label>
-            <select id="radd_province" required name="radd_province" class="form-select group_na">
+            <select id="radd_province" required name="radd_province" class="form-select input">
                 <?php
                 $list_province = query($conn, "SELECT * FROM `provinces`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -166,7 +173,7 @@
         </div>
         <div class="col mx-2">
             <label for="radd_citymunicipality">CITY/MUNICIPALITY</label>
-            <select id="radd_citymunicipality" required name="radd_citymunicipality" class="form-select group_na">
+            <select id="radd_citymunicipality" required name="radd_citymunicipality" class="form-select input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -179,7 +186,7 @@
         </div>
         <div class="col mx-2">
             <label for="radd_barangay">BARANGAY</label>
-            <input type="text" required name="radd_barangay" id="radd_barangay" class="form-control group_na">
+            <input type="text" required name="radd_barangay" id="radd_barangay" class="form-control input">
         </div>
     </div>
 
@@ -188,7 +195,7 @@
             <label for="radd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="radd_subdivisionvillage" id="radd_subdivisionvillage"
-                    class="form-control group_na">
+                    class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rsv">
                     <label class="form-check-label" for="null_rsv">N/A</label>
@@ -198,7 +205,7 @@
         <div class="col mx-2">
             <label for="radd_street">STREET</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="radd_street" id="radd_street" class="form-control group_na">
+                <input type="text" required name="radd_street" id="radd_street" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rst">
                     <label class="form-check-label" for="null_rst">N/A</label>
@@ -209,7 +216,7 @@
             <label for="radd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="radd_houseblocklot" id="radd_houseblocklot"
-                    class="form-control group_na">
+                    class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rhbl">
                     <label class="form-check-label" for="null_rhbl">N/A</label>
@@ -221,7 +228,7 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="radd_zipcode">ZIPCODE</label>
-            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control group_na" min="400"
+            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control input" min="400"
                 max="9900">
         </div>
     </div>
@@ -238,7 +245,7 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="padd_province">PROVINCE</label>
-            <select id="padd_province" required name="padd_province" class="form-select group_na">
+            <select id="padd_province" required name="padd_province" class="form-select input">
                 <?php
                 $list_province = query($conn, "SELECT * FROM `provinces`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -251,7 +258,7 @@
         </div>
         <div class="col mx-2">
             <label for="padd_citymunicipality">CITY/MUNICIPALITY</label>
-            <select id="padd_citymunicipality" required name="padd_citymunicipality" class="form-select group_na">
+            <select id="padd_citymunicipality" required name="padd_citymunicipality" class="form-select input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -264,7 +271,7 @@
         </div>
         <div class="col mx-2">
             <label for="padd_barangay">BARANGAY</label>
-            <input type="text" required name="padd_barangay" id="padd_barangay" class="form-control group_na">
+            <input type="text" required name="padd_barangay" id="padd_barangay" class="form-control input">
         </div>
     </div>
 
@@ -273,7 +280,7 @@
             <label for="padd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="padd_subdivisionvillage" id="padd_subdivisionvillage"
-                    class="form-control group_na">
+                    class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_psv">
                     <label class="form-check-label" for="null_psv">N/A</label>
@@ -283,7 +290,7 @@
         <div class="col mx-2">
             <label for="padd_street">STREET</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="padd_street" id="padd_street" class="form-control group_na">
+                <input type="text" required name="padd_street" id="padd_street" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_pst">
                     <label class="form-check-label" for="null_pst">N/A</label>
@@ -294,7 +301,7 @@
             <label for="padd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="padd_houseblocklot" id="padd_houseblocklot"
-                    class="form-control group_na">
+                    class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_phbl">
                     <label class="form-check-label" for="null_phbl">N/A</label>
@@ -306,7 +313,7 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="padd_zipcode">ZIPCODE</label>
-            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control group_na" min="400"
+            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control input" min="400"
                 max="9900">
         </div>
     </div>
@@ -316,7 +323,7 @@
         <div class="col mx-2">
             <label for="no_tel">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="tel" required name="no_tel" id="no_tel" class="form-control group_na">
+                <input type="tel" required name="no_tel" id="no_tel" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_telno">
                     <label class="form-check-label" for="null_telno">N/A</label>
@@ -325,12 +332,12 @@
         </div>
         <div class="col mx-2">
             <label for="no_mobile">MOBILE NO.</label><br>
-            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control group_na" maxlength="11">
+            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control input" maxlength="11">
         </div>
         <div class="col mx-2">
             <label for="emailadd">EMAIL ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="email" required name="emailadd" id="emailadd" class="form-control group_na">
+                <input type="email" required name="emailadd" id="emailadd" class="form-control input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_emailadd">
                     <label class="form-check-label" for="null_emailadd">N/A</label>
@@ -341,7 +348,8 @@
     </div>
 
     <!-- NEXT BUTTON -->
-    <button class="btn btn-primary mt-5 mx-1 button-right" type="button" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 
@@ -359,16 +367,10 @@
     function saveFormData() {
         var formValues = {};
 
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group_na');
+        // Get all input fields with class "input"
+        var inputs = document.querySelectorAll('.input');
         inputs.forEach(function (input) {
             formValues[input.id] = input.value;
-        });
-
-        // Save the state of checkboxes using their IDs
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function (checkbox) {
-            formValues[checkbox.id] = checkbox.checked;
         });
 
         // Save the state of "N/A" checkboxes
@@ -444,8 +446,8 @@
 
     // ======================== Next Button ================================================
     function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group_na');
+        // Get all input fields with class "input"
+        var inputs = document.querySelectorAll('.input');
 
         // Check if all input fields are filled out
         var allFilled = true;

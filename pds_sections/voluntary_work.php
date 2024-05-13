@@ -66,17 +66,18 @@
                 onclick="addRow()">ADD ROW</button>
         </div>
     </div>
+
     <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <!-- <a href="pds_form.php?form_section=lnd"> -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
-    <!-- </a> -->
 </div>
 
 <script>

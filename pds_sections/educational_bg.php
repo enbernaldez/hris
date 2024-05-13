@@ -379,14 +379,22 @@
             <i class="bi bi-plus-lg me-2" id="g_addrow" name="g_addrow"></i>Add new Graduate Studies row
         </button>
     </div>
+
     <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
+    </button>
+
+    <!-- SUBMIT BUTTON -->
+    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+        <strong>SUBMIT</strong>
     </button>
 </div>
 <script>
@@ -521,16 +529,16 @@
                     input.disabled = false;
                 });
                 selects.forEach((select) => {
-                // Restore original options
-                select.innerHTML = "";
-                originalOptions[select.id].forEach((optionData) => {
-                    const option = document.createElement("option");
-                    option.text = optionData.text;
-                    option.value = optionData.value;
-                    select.appendChild(option);
+                    // Restore original options
+                    select.innerHTML = "";
+                    originalOptions[select.id].forEach((optionData) => {
+                        const option = document.createElement("option");
+                        option.text = optionData.text;
+                        option.value = optionData.value;
+                        select.appendChild(option);
+                    });
+                    select.disabled = false;
                 });
-                select.disabled = false;
-            });
                 checkboxes.forEach((chkbx) => {
                     chkbx.checked = false;
                     chkbx.disabled = false;

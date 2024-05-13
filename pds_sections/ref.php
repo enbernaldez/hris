@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row mt-5 text-center">
+    <div class="row mt-3 text-center">
         <div class="col-4">
             <p class="mt-3">NAME</p>
         </div>
@@ -68,10 +68,12 @@
             </div>
         </div>
     </div>
-    <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
-    </button>
+
+<!-- BACK BUTTON -->
+<button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+    data-bs-slide="prev">
+    <strong>PREV</strong>
+</button>
 
     <!-- SUBMIT BUTTON -->
     <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
