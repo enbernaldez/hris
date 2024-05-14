@@ -101,80 +101,83 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 </div>
 
                 <!-- table -->
-                <div class="row mt-4">
-                    <table id="trainings">
-                        <thead>
-                            <tr>
-                                <th class="col-8">Title</th>
-                                <th class="col-2">Type of LD</th>
-                                <th class="col-2">Last Updated</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
-                            $sql = "SELECT DISTINCT `ld_title_id`
-                                                  FROM `learning_development`
-                                                  WHERE (`ld_title_id`, `date_added`) IN (
-                                                      SELECT 'ld_title_id', MAX(`date_added`)
-                                                      FROM `learning_development`
-                                                      GROUP BY `ld_title_id`
-                                                  )";
-                            $filter = array();
-                            $result = query($conn, $sql, $filter);
-                            if (empty($result)) {
-                                ?>
-                                <tr onclick="redirect()">
-                                    <td>Webinar on Health and Wellness: Recognizing Common Signs and Symptoms and its
-                                        Management</td>
-                                    <td>Managerial</td>
-                                    <td>02/02/2023</td>
-                                </tr>
+                <?php
+                // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
+                $sql = "SELECT DISTINCT `ld_title_id`, `date_added`
+                            FROM `learning_development`
+                            ORDER BY `date_added`";
+                $filter = array();
+                $result = query($conn, $sql, $filter);
+                if (!empty($result)) {
+                    ?>
+                    <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
+                        <p>No trainings yet.</p>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="row mt-4">
+                        <table id="trainings">
+                            <thead>
                                 <tr>
-                                    <td>Data Management in Excel Part 1</td>
-                                    <td>Managerial</td>
-                                    <td>04/10/2023</td>
+                                    <th class="col-8">Title</th>
+                                    <th class="col-2">Type of LD</th>
+                                    <th class="col-2">Last Updated</th>
                                 </tr>
-                                <tr>
-                                    <td>Data Mangement in Excel Part 2</td>
-                                    <td>Managerial</td>
-                                    <td>04/10/2023</td>
-                                </tr>
-                                <tr>
-                                    <td>2022 Census Something Something</td>
-                                    <td>Supervisory</td>
-                                    <td>04/20/2023</td>
-                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                            }
-                            foreach ($result as $key => $row) {
-                                $title_id = $row['ld_title_id'];
-                                $last_updated = $row['date_added'];
+                                foreach ($result as $key => $row) {
+                                    $title_id = $row['ld_title_id'];
+                                    $last_updated = $row['date_added'];
 
-                                // write sql to retrieve all ld types for a specific title
-                                $sql = "SELECT `ld_type`
-                                        FROM `learning_development`
-                                        WHERE `ld_title_id` = ?";
-                                $filter = array($row['ld_title_id']);
-                                $result = query($conn, $sql, $filter);
-                                $ld_type = "";
-                                foreach ($result as $key => $value) {
-                                    if ($key > 0) {
-                                        $ld_type .= "/";
+                                    $filter = array($row['ld_title_id']);
+
+                                    $sql = "SELECT `ld_title_name`
+                                            FROM `ld_titles`
+                                            WHERE `ld_title_id` = ?";
+                                    $result = query($conn, $sql, $filter);
+                                    $row = $result[0];
+
+                                    $title = $row['ld_title_name'];
+
+                                    // write sql to retrieve all ld types for a specific title
+                                    $sql = "SELECT `ld_type`
+                                            FROM `learning_development`
+                                            WHERE `ld_title_id` = ?";
+                                    $result = query($conn, $sql, $filter);
+
+                                    $ld_type = "";
+                                    foreach ($result as $key => $value) {
+                                        if ($key > 0) {
+                                            $ld_type .= "/";
+                                        }
+                                        $retrieved_ld_type = $value['ld_type'];
+                                        $types = explode('/', $retrieved_ld_type);
+                                        foreach ($types as $key => $type) {
+                                            if (!str_contains($ld_type, $type)) {
+                                                if ($key > 0) {
+                                                    $ld_type .= "/";
+                                                }
+                                                $ld_type .= $type;
+                                            }
+                                        }
                                     }
-                                    $ld_type .= $value['ld_type'];
-                                }
 
-                                echo "<tr onclick='redirect(" . $row['ld_title_id'] . ")'>";
-                                echo "<td>" . $row['title'] . "</td>";
-                                echo "<td>" . $ld_type . "</td>";
-                                echo "<td>" . $row['last_updated'] . "</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                                    echo "
+                                        <tr onclick='redirect(" . $title_id . ")'>
+                                            <td>" . $title . "</td>
+                                            <td>" . $ld_type . "</td>
+                                            <td>" . $last_updated . "</td>
+                                        </tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
 
