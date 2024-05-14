@@ -41,8 +41,8 @@
         </div>
     </div>
 
-    <div class="row-container text-center">
-        <div class="row row-row mt-3">
+    <div class="row-container_we text-center">
+        <div class="row row-row_we mt-3">
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
@@ -95,7 +95,7 @@
     <div class="row">
         <div class="col-3">
             <br><button type="button" class="btn btn-primary add-row-button" name="we_addrow" id="we_addrow"
-                onclick="addRow()">ADD ROW</button>
+                onclick="addRow_we()">ADD ROW</button>
         </div>
     </div>
 
@@ -114,7 +114,7 @@
 
 <script>
     // ======================== Next Button ================================================
-    function submitForm() {
+    function submitForm_we() {
         // Get all input fields with class "group_na"
         var inputs = document.querySelectorAll('.group_na');
 
@@ -137,7 +137,7 @@
     // ============================ N/A Array Disable ============================
     const originalOptions = {};
 
-    function setupNullInputArray(checkboxId, inputIds, selectIds) {
+    function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
@@ -164,9 +164,9 @@
                     select.disabled = true;
                 });
                 // Remove cloned rows if they exist
-                const clonedRows = document.querySelectorAll(".row-container .row-row");
+                const clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
                 clonedRows.forEach((clonedRow) => {
-                    if (clonedRow !== checkbox.closest('.row-row')) {
+                    if (clonedRow !== checkbox.closest('.row-row_we')) {
                         clonedRow.remove();
                     }
                 });
@@ -195,7 +195,7 @@
     }
 
     // WORK EXPERIENCE
-    setupNullInputArray("null_work_exp", [
+    setupNullInputArray_we("null_work_exp", [
         "we_date_from",
         "we_date_to",
         "we_position",
@@ -210,9 +210,9 @@
         ]);
 
     // =================================== Add Row ===================================
-    function addRow() {
+    function addRow_we() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
+        var newRow = document.querySelector(".row-row_we").cloneNode(true);
 
         // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
@@ -220,7 +220,7 @@
         });
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".row-container_we").appendChild(newRow);
 
         //Remove the n/a checkbox and its associated text from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
