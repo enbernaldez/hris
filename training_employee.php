@@ -66,35 +66,28 @@
             <!-- CONTENT -->
             <div class="col-10 px-5 pt-3 pb-5">
                 <!-- logo -->
-                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
+                <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">
 
                 <?php
-                // // retrieve lnd title from db
-                // $sql = "SELECT `ld_title_name`
-                //         FROM `ld_titles`
-                //         WHERE `ld_title_id` = ?";
-                // $filter = array($_GET['title_id']);
-                // $result = query($conn, $sql, $filter);
+                // retrieve lnd title from db
+                $sql = "SELECT `ld_title_name`
+                        FROM `ld_titles`
+                        WHERE `ld_title_id` = ?";
+                $filter = array($_GET['title_id']);
+                $result = query($conn, $sql, $filter);
                 
-                // $row = $result[0];
+                $row = $result[0];
                 
-                // // transfers value of retrieved variables to local variables
-                // $title = $row['ld_title_name'];
+                // transfers value of retrieved variables to local variables
+                $title = $row['ld_title_name'];
                 ?>
 
                 <!-- title bar -->
                 <div class="row mt-3 px-3"
                     style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
-                    <h4 class="titletext auto-fit-text">
+                    <h4 class="titletext uppercase auto-fit-text">
                         <strong>
-                            <?php // echo $title; ?>
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                            ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-                            id est laborum.
+                            <?php echo $title; ?>
                         </strong>
                     </h4>
                 </div>
@@ -120,42 +113,13 @@
                         <tbody>
                             <?php
                             // retrieve all data from learning_development table
-                            $sql = "SELECT * FROM `learning_development` WHERE `ld_title_id` = '3'";
-                            // $sql = "SELECT *
-                            //         FROM `learning_development`
-                            //         WHERE `ld_title_id` = ?";
-                            // $filter = array($_GET['title_id']);
-                            // $result = query($conn, $sql, $filter);
-                            $result = query($conn, $sql);
+                            $sql = "SELECT *
+                                    FROM `learning_development`
+                                    WHERE `ld_title_id` = ?";
+                            $filter = array($_GET['title_id']);
+                            $result = query($conn, $sql, $filter);
 
-                            if (empty($result)) {
-                                ?>
-                                <tr>
-                                    <td>April Cassandra Sasa Regalario</td>
-                                    <td>01/27/2021</td>
-                                    <td>01/27/2021</td>
-                                    <td>4</td>
-                                    <td>Managerial</td>
-                                    <td>PSA-Albay</td>
-                                </tr>
-                                <tr>
-                                    <td>José Protasio Rizal Mercado y Alonso Realonda</td>
-                                    <td>01/27/2021</td>
-                                    <td>01/27/2021</td>
-                                    <td>4</td>
-                                    <td>Managerial</td>
-                                    <td>PSA-Albay</td>
-                                </tr>
-                                <tr>
-                                    <td>José Protasio Rizal Mercado y Alonso Realonda</td>
-                                    <td>01/27/2021</td>
-                                    <td>01/29/2021</td>
-                                    <td>24</td>
-                                    <td>Managerial</td>
-                                    <td>PSA-Albay</td>
-                                </tr>
-                                <?php
-                            } else {
+                            if (!empty($result)) {
                                 foreach ($result as $key => $row) {
                                     // transfers value of retrieved variables to local variables
                                     $employee_id = $row['employee_id'];
