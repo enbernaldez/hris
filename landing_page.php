@@ -24,7 +24,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             ?>
             <!-- Logo and content -->
             <div class="col-10 px-5 pt-3 pb-5">
-                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px">
+                <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">
                 <div class="row mt-5">
                     <!-- Column 1: Vision and Mission -->
                     <div class="col-3 my-auto">
