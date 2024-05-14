@@ -23,8 +23,8 @@
             <p>POSITION/NATURE OF WORK</p>
         </div>
     </div>
-    <div class="row-container text-center">
-        <div class="row row-row mt-3">
+    <div class="row-container vw-row text-center">
+        <div class="row row-row-vw mt-3">
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
@@ -63,7 +63,7 @@
     <div class="row">
         <div class="col-3">
             <br><button type="button" class="btn btn-primary add-row-button" name="vw_addrow" id="vw_addrow"
-                onclick="addRow()">ADD ROW</button>
+                onclick="addRow_vw()">ADD ROW</button>
         </div>
     </div>
 
@@ -103,9 +103,9 @@
     }
 
     // =================================== Add Row ===================================
-    function addRow() {
+    function addRow_vw() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
+        var newRow = document.querySelector(".row-row-vw").cloneNode(true);
 
         // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
@@ -129,12 +129,12 @@
         }
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".vw-row").appendChild(newRow);
     }
 
 
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray(checkboxId, inputIds) {
+    function setupNullInputArray_vw(checkboxId, inputIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
 
@@ -148,9 +148,9 @@
                     input.disabled = true;
                 });
                 // Remove cloned rows if they exist
-                const clonedRows = document.querySelectorAll(".row-container .row-row");
+                const clonedRows = document.querySelectorAll(".vw-row .row-row-vw");
                 clonedRows.forEach((clonedRow) => {
-                    if (clonedRow !== checkbox.closest('.row-row')) {
+                    if (clonedRow !== checkbox.closest('.row-row-vw')) {
                         clonedRow.remove();
                     }
                 });
@@ -170,7 +170,7 @@
     }
 
     // VOLUNTARY WORK
-    setupNullInputArray("null_vw", [
+    setupNullInputArray_vw("null_vw", [
         "vw_nameaddress",
         "vw_date_from",
         "vw_date_to",

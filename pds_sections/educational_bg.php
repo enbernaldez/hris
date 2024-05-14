@@ -38,7 +38,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromE">N/A</label>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toE">N/A</label>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <option value="">--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearE">N/A</label>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <input type="text" class="form-control uppercase next_button sample" id="e_scholarship" name="elem_scholarship[]"
                     required>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipE">N/A</label>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromS">N/A</label>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toS">N/A</label>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                     <option value="">--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearS">N/A</label>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                 <input type="text" class="form-control uppercase next_button" id="s_scholarship" name="sec_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipS">N/A</label>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromV">N/A</label>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toV">N/A</label>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                     <option value="">--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearV">N/A</label>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                 <input type="text" class="form-control uppercase next_button" id="v_scholarship" name="voc_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipV">N/A</label>
                 </div>
             </div>
@@ -226,7 +226,7 @@
             row</button>
     </div>
     <!-- COLLEGE -->
-    <div class="row mt-3 ms-1  parent-row">
+    <div class="row mt-3 ms-1 parent-row">
         <div class="row align-items-start">
             <div class="col-1 text-center d-flex mb-4 ms-0">
                 <p class="level">COLLEGE</p>
@@ -252,7 +252,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromC">N/A</label>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toC">N/A</label>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                     <option value="">--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearC">N/A</label>
                 </div>
             </div>
@@ -288,7 +288,7 @@
                 <input type="text" class="form-control uppercase next_button" id="c_scholarship" name="coll_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipC">N/A</label>
                 </div>
             </div>
@@ -333,7 +333,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromG">N/A</label>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
                             <option value="">--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA(this)">
+                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toG">N/A</label>
                         </div>
                     </div>
@@ -360,7 +360,7 @@
                     <option value="">--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA(this)">
+                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA_eb(this)">
                     <label for="null_yearG" class="form-check-label">N/A</label>
                 </div>
             </div>
@@ -369,7 +369,7 @@
                 <input type="text" class="form-control uppercase next_button" id="g_scholarship" name="grad_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA(this)">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipG">N/A</label>
                 </div>
             </div>
@@ -379,22 +379,14 @@
             <i class="bi bi-plus-lg me-2" id="g_addrow" name="g_addrow"></i>Add new Graduate Studies row
         </button>
     </div>
-
     <!-- BACK BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
-        data-bs-slide="prev">
-        <strong>PREV</strong>
+    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
+        <strong>BACK</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
         <strong>NEXT</strong>
-    </button>
-
-    <!-- SUBMIT BUTTON -->
-    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
-        <strong>SUBMIT</strong>
     </button>
 </div>
 <script>
@@ -436,8 +428,8 @@
         populateYearDropdowns(selectElement);
     })
 
-    function checkNA(checkbox) {
-        var chk_col = checkbox.closest('.na');
+    function checkNA_eb(checkbox) {
+        var chk_col = checkbox.closest('.checkbox-container');
         var chk_input = chk_col.querySelector("input[type='text']");
         var chk_select = chk_col.querySelector("select");
 
@@ -482,7 +474,7 @@
         }
     }
     // Define an object to store the original options of each select element
-    const originalOptions = {};
+    const newOptions = {};
 
     function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds) {
         const checkbox = document.getElementById(checkboxId);
@@ -492,7 +484,7 @@
 
         // Store the original options of each select element
         selects.forEach((select) => {
-            originalOptions[select.id] = Array.from(select.options).map((option) => {
+            newOptions[select.id] = Array.from(select.options).map((option) => {
                 return { value: option.value, text: option.text };
             });
         });
@@ -531,7 +523,7 @@
                 selects.forEach((select) => {
                     // Restore original options
                     select.innerHTML = "";
-                    originalOptions[select.id].forEach((optionData) => {
+                    newOptions[select.id].forEach((optionData) => {
                         const option = document.createElement("option");
                         option.text = optionData.text;
                         option.value = optionData.value;

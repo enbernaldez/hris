@@ -29,38 +29,38 @@
         </div>
     </div>
 
-    <div class="row-container">
-        <div class="row row-row mt-3">
+    <div class="row-container cs-row">
+        <div class="row row-row-cs mt-3">
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA(this)">
+                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)">
                         <label class="form-check-label" for="null_cse">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="careerservice[]" id="careerservice" class="form-control uppercase group-na" required>
+                    <input type="text" name="careerservice[]" id="careerservice" class="form-control uppercase group-na-cs" required>
                 </div>
             </div>
             <div class="col-1">
-                <input type="text" name="rating[]" id="rating" class="form-control uppercase group-na" required>
+                <input type="text" name="rating[]" id="rating" class="form-control uppercase group-na-cs" required>
             </div>
             <div class="col-2">
-                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na" required>
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na-cs" required>
             </div>
             <div class="col-2">
-                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na" required>
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs" required>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="text" name="license_number[]" id="license_number" class="form-control uppercase group-na"
+                        <input type="text" name="license_number[]" id="license_number" class="form-control uppercase group-na-cs"
                             required>
                     </div>
                     <div class="col-6">
                         <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
-                            class="form-control uppercase group-na" required>
+                            class="form-control uppercase group-na-cs" required>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-3">
             <br><button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
-                onclick="addRow()">ADD ROW</button>
+                onclick="addRow_cs()">ADD ROW</button>
         </div>
     </div>
 
@@ -89,10 +89,21 @@
 </div>
 
 <script>
+    // Function to disable input fields if "N/A" checkbox is checked
+    function disableInputs() {
+        var inputs = document.querySelectorAll(".group-na-cs");
+        var cse_addrow = document.getElementById("cse_addrow");
+        inputs.forEach(function (input) {
+            input.type = "text";
+            input.value = "N/A";
+            input.disabled = true;
+            cse_addrow.disabled = true;
+        });
+    }
     // ======================== Next button ====================================
     function submitForm() {
         // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group-na');
+        var inputs = document.querySelectorAll('.group-na-cs');
 
         // Check if all input fields are filled out
         var allFilled = true;
@@ -110,9 +121,9 @@
         }
     }
 
-    function addRow() {
+    function addRow_cs() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
+        var newRow = document.querySelector(".row-row-cs").cloneNode(true);
 
         // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
@@ -136,20 +147,20 @@
         }
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".cs-row").appendChild(newRow);
     }
 
-    function checkNA(checkbox) {
-        var inputs = document.querySelectorAll(".group-na");
+    function checkNA_cs(checkbox) {
+        var inputs = document.querySelectorAll(".group-na-cs");
         var cse_addrow = document.getElementById("cse_addrow");
         if (checkbox.checked) {
             naChecked = true;
             disableInputs();
 
             // Remove cloned rows if they exist
-            const clonedRows = document.querySelectorAll(".row-container .row-row");
+            const clonedRows = document.querySelectorAll(".cs-row .row-row-cs");
             clonedRows.forEach((clonedRow) => {
-                if (clonedRow !== checkbox.closest('.row-row')) {
+                if (clonedRow !== checkbox.closest('.row-row-cs')) {
                     clonedRow.remove();
                 }
             });

@@ -33,8 +33,8 @@
 
     </div>
 
-    <div class="row-container">
-        <div class="row row-row mt-3">
+    <div class="row-container lnd_row">
+        <div class="row row-row-lnd mt-3">
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-3 mt-4">
             <button type="button" class="btn btn-primary add-row-button" id="lnd_addrow" name="lnd_addrow"
-                onclick="addRow()">ADD ROW</button>
+                onclick="addRow_lnd()">ADD ROW</button>
         </div>
     </div>
 
@@ -112,9 +112,9 @@
         }
     }
 
-    function addRow() {
+    function addRow_lnd() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
+        var newRow = document.querySelector(".row-row-lnd").cloneNode(true);
 
         // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
@@ -138,7 +138,7 @@
         }
 
         // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+        document.querySelector(".lnd_row").appendChild(newRow);
     }
 
     // ============================ N/A Array Disable ============================
@@ -157,9 +157,9 @@
                     input.disabled = true;
                 });
                 // Remove cloned rows if they exist
-                const clonedRows = document.querySelectorAll(".row-container .row-row");
+                const clonedRows = document.querySelectorAll(".lnd_row .row-row-lnd");
                 clonedRows.forEach((clonedRow) => {
-                    if (clonedRow !== checkbox.closest('.row-row')) {
+                    if (clonedRow !== checkbox.closest('.row-row-lnd')) {
                         clonedRow.remove();
                     }
                 });
