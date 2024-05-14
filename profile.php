@@ -7,7 +7,7 @@
     <h4><strong>POSITION</strong></h4>
   </div>
   <div class="col-2">
-    <a href="pds_form_carousel.php?office=<?php echo $_GET['office'];?>">
+    <a href="pds_form_carousel.php?office=<?php echo $_GET['office']; ?>">
       <img src="images/PSA Vector.png" alt="profile" style="height: 150px; width: auto" class="float-start" /></a>
   </div>
 </div>

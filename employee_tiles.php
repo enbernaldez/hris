@@ -379,13 +379,17 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 $first_name = $row['employee_firstname'];
                 $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
                 $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
-                
-                echo '
-                    swal("New employee added!", 
-                        "Employee, ' . $first_name . $middle_name . " " . $last_name . $name_ext . ', has been added to database.", 
-                        "success");
-                ';
 
+                // Use json_encode to safely escape strings for JavaScript
+                $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
+                $full_name_js = json_encode($full_name);
+
+                echo "
+                    swal('New employee added!', 
+                        'Employee, {$full_name_js} , has been added to database.', 
+                        'success');
+                ";
+                
                 break;
 
             case 'failed':
