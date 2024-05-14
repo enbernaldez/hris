@@ -2,7 +2,8 @@
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <div class="row ms-5">
-                <p class="mb-0">INCLUSIVE DATES</p>
+                <p class="mb-0">INCLUSIVE DAT
+                    ES</p>
                 <p>(mm/dd/yy)</p>
             </div>
             <div class="row ms-5">
@@ -210,30 +211,42 @@
         ]);
 
     // =================================== Add Row ===================================
+   
     function addRow() {
-        // Clone the input-row element
-        var newRow = document.querySelector(".row-row").cloneNode(true);
+    // Clone the input-row element
+    var newRow = document.querySelector(".row-row").cloneNode(true);
+    // Inside the addRow() function, after appending the cloned row
+console.log("Peso Sign: ", document.getElementById('we_salary').value);
 
-        // Clear input values in the cloned row
-        newRow.querySelectorAll("input").forEach((input) => {
-            input.value = "";
-        });
 
-        // Append the cloned row to the container
-        document.querySelector(".row-container").appendChild(newRow);
+    // Clear input values in the cloned row
+    newRow.querySelectorAll("input").forEach((input) => {
+        input.value = "";
+    });
+    var salary = newRow.querySelector("#we_salary");
+    salary.value = "₱";
 
-        //Remove the n/a checkbox and its associated text from the cloned row
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
-        }
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
-            });
-        }
+    // Get the reference node (the original row)
+    var referenceNode = document.querySelector(".row-container .row-row");
+
+    // Insert the cloned row before the reference node
+    referenceNode.parentNode.insertBefore(newRow, referenceNode);
+
+    //Remove the N/A checkbox and its associated text from the cloned row
+    const clonedNaCheckbox = newRow.querySelector(".remove_na");
+    if (clonedNaCheckbox) {
+        clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
     }
+
+    // Show and configure the delete button for the cloned row
+    const deleteButton = newRow.querySelector(".delete-row-button");
+    if (deleteButton) {
+        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+        deleteButton.style.display = "inline-block";
+        deleteButton.addEventListener("click", function () {
+            newRow.parentNode.removeChild(newRow);
+        });
+    }
+
+}
 </script>
