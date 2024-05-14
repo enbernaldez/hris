@@ -72,7 +72,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             <!-- CONTENT -->
             <div class="col-10 px-5 pt-3 pb-5">
                 <!-- logo -->
-                <img src="images/PSA banner.jpg" alt="PSA Banner" width="auto" height="128px" class="img-fluid">
+                <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">
 
                 <!-- title bar -->
                 <div class="row mt-3"
@@ -108,7 +108,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             ORDER BY `date_added`";
                 $filter = array();
                 $result = query($conn, $sql, $filter);
-                if (!empty($result)) {
+                if (empty($result)) {
                     ?>
                     <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
                         <p>No trainings yet.</p>
@@ -278,12 +278,9 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         </div>
     </div>
     <script>
-        function redirect() {
-            window.location = "training_employee.php";
+        function redirect(ld_title_id) {
+            window.location = "training_employee.php?title_id=" + ld_title_id;
         }
-        // function redirect($ld_title_id) {
-        //     window.location = "training_employee.php?title_id=" . $ld_title_id;
-        // }
 
         // =================================== Add Row ===================================
         function addInput() {
