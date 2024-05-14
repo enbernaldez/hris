@@ -56,36 +56,36 @@
                     <div class="row">
                         <div class="col-6">
                             <input type="date" required name="we_date_from[]" id="we_date_from"
-                                class="form-control group_na" value="">
+                                class="form-control uppercase group_na" value="">
                         </div>
                         <div class="col-6">
                             <input type="date" required name="we_date_to[]" id="we_date_to"
-                                class="form-control group_na" value="">
+                                class="form-control uppercase group_na" value="">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-2">
-                <input type="text" name="we_position[]" id="we_position" class="form-control group_na" required
+                <input type="text" name="we_position[]" id="we_position" class="form-control uppercase group_na" required
                     value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na" required value="">
+                <input type="text" name="we_agency[]" id="we_agency" class="form-control uppercase group_na" required value="">
             </div>
             <div class="col-1">
-                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required value="₱">
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na" required value="₱">
             </div>
             <div class="col-1">
-                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na" required value="">
+                <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na" required value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_status[]" id="we_status" class="form-control group_na" required value="">
+                <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na" required value="">
             </div>
             <div class="col-1">
                 <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na">
-                    <option value="" disabled selected value>--select--</option>
-                    <option value='Y'>Yes</option>
-                    <option value='N'>No</option>
+                    <option value="" disabled selected value>--SELECT--</option>
+                    <option value='Y'>YES</option>
+                    <option value='N'>NO</option>
                 </select>
             </div>
         </div>

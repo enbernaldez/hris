@@ -15,7 +15,7 @@
                         <label class="form-check-label" for="skills_na">N/A</label>
                     </div>
 
-                    <input type="text" name="skills[]" class="form-control group-na" required>
+                    <input type="text" name="skills[]" class="form-control uppercase group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_skills_addrow"
@@ -38,7 +38,7 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="distinctions[]" class="form-control group-na" required>
+                    <input type="text" name="distinctions[]" class="form-control uppercase group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_distinctions_addrow"
@@ -58,7 +58,7 @@
                             onclick="checkNA('membership')">
                         <label class="form-check-label" for="membership_na">N/A</label>
                     </div>
-                    <input type="text" name="membership[]" class="form-control group-na" required>
+                    <input type="text" name="membership[]" class="form-control uppercase group-na" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_membership_addrow"
@@ -80,13 +80,13 @@
                 <p>a. within the third degree?</p>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_3rd_yes" name="radio_degree_3rd" value="Y" required>
-                    <label for="radio_degree_3rd_yes">Yes</label>
+                    <input type="radio" id="radio_degree_3rd_yes" name="radio_degree_3rd" value="Y">
+                    <label for="radio_degree_3rd_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
-                    <input type="radio" id="radio_degree_3rd_no" name="radio_degree_3rd" value="N" required>
-                    <label for="radio_degree_3rd_no">No</label>
+                    <input type="radio" id="radio_degree_3rd_no" name="radio_degree_3rd" value="N">
+                    <label for="radio_degree_3rd_no">NO</label>
                 </div>
             </div>
             <div class="input">
@@ -94,19 +94,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_degree_4th_yes" name="radio_degree_4th" value="Y">
-                    <label for="radio_degree_4th_yes">Yes</label>
+                    <label for="radio_degree_4th_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_degree_4th_no" name="radio_degree_4th" value="N">
-                    <label for="radio_degree_4th_no">No</label>
+                    <label for="radio_degree_4th_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_degree_4th" name="input_degree_4th" class="form-control"
+                        <input type="text" id="input_degree_4th" name="input_degree_4th" class="form-control uppercase"
                             value="N/A" required disabled>
                     </div>
                 </div>
@@ -119,19 +119,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_guilty_yes" name="radio_guilty" value="Y">
-                    <label for="radio_guilty_yes">Yes</label>
+                    <label for="radio_guilty_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_guilty_no" name="radio_guilty" value="N">
-                    <label for="radio_guilty_no">No</label>
+                    <label for="radio_guilty_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_guilty" name="input_guilty" class="form-control" value="N/A"
+                        <input type="text" id="input_guilty" name="input_guilty" class="form-control uppercase" value="N/A"
                             required disabled>
                     </div>
                 </div>
@@ -141,12 +141,12 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_charged_yes" name="radio_charged" value="Y">
-                    <label for="radio_charged_yes">Yes</label>
+                    <label for="radio_charged_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_charged_no" name="radio_charged" value="N">
-                    <label for="radio_charged_no">No</label>
+                    <label for="radio_charged_no">NO</label>
                 </div>
                 <div class="my-3">
                     <p>If YES, please give details:</p>
@@ -155,7 +155,7 @@
                             <p>Date Filed:</p>
                         </div>
                         <div class="col-2">
-                            <input type="text" id="input_filed" name="input_filed" class="form-control" value="N/A"
+                            <input type="text" id="input_filed" name="input_filed" class="form-control uppercase" value="N/A"
                                 required disabled>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                             <p>Status of Case/s:</p>
                         </div>
                         <div class="col">
-                            <input type="text" id="input_status" name="input_status" class="form-control" value="N/A"
+                            <input type="text" id="input_status" name="input_status" class="form-control uppercase" value="N/A"
                                 required disabled>
                         </div>
                     </div>
@@ -181,19 +181,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_convicted_yes" name="radio_convicted" value="Y">
-                    <label for="radio_convicted_yes">Yes</label>
+                    <label for="radio_convicted_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_convicted_no" name="radio_convicted" value="N">
-                    <label for="radio_convicted_no">No</label>
+                    <label for="radio_convicted_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_convicted" name="input_convicted" class="form-control" value="N/A"
+                        <input type="text" id="input_convicted" name="input_convicted" class="form-control uppercase" value="N/A"
                             required disabled>
                     </div>
                 </div>
@@ -209,19 +209,19 @@
             <div>
                 &emsp;
                 <input type="radio" id="radio_seperated_yes" name="radio_seperated" value="Y">
-                <label for="radio_seperated_yes">Yes</label>
+                <label for="radio_seperated_yes">YES</label>
             </div>
             <div>
                 &emsp;
                 <input type="radio" id="radio_seperated_no" name="radio_seperated" value="N">
-                <label for="radio_seperated_no">No</label>
+                <label for="radio_seperated_no">NO</label>
             </div>
             <div class="row my-3">
                 <div class="col-3">
                     <p>If YES, please give details:</p>
                 </div>
                 <div class="col">
-                    <input type="text" id="input_seperated" name="input_seperated" class="form-control" value="N/A"
+                    <input type="text" id="input_seperated" name="input_seperated" class="form-control uppercase" value="N/A"
                         required disabled>
                 </div>
             </div>
@@ -236,12 +236,12 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_candidate_yes" name="radio_candidate" value="Y">
-                    <label for="radio_candidate_yes">Yes</label>
+                    <label for="radio_candidate_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_candidate_no" name="radio_candidate" value="N">
-                    <label for="radio_candidate_no">No</label>
+                    <label for="radio_candidate_no">NO</label>
                 </div>
             </div>
             <div class="input">
@@ -253,19 +253,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_resigned_yes" name="radio_resigned" value="Y">
-                    <label for="radio_resigned_yes">Yes</label>
+                    <label for="radio_resigned_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_resigned_no" name="radio_resigned" value="N">
-                    <label for="radio_resigned_no">No</label>
+                    <label for="radio_resigned_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_resigned" name="input_resigned" class="form-control" value="N/A"
+                        <input type="text" id="input_resigned" name="input_resigned" class="form-control uppercase" value="N/A"
                             required disabled>
                     </div>
                 </div>
@@ -277,19 +277,19 @@
             <div>
                 &emsp;
                 <input type="radio" id="radio_immigrant_yes" name="radio_immigrant" value="Y">
-                <label for="radio_immigrant_yes">Yes</label>
+                <label for="radio_immigrant_yes">YES</label>
             </div>
             <div>
                 &emsp;
                 <input type="radio" id="radio_immigrant_no" name="radio_immigrant" value="N">
-                <label for="radio_immigrant_no">No</label>
+                <label for="radio_immigrant_no">NO</label>
             </div>
             <div class="row my-3">
                 <div class="col-3">
                     <p>If YES, please give details (country):</p>
                 </div>
                 <div class="col">
-                    <input type="text" id="input_immigrant" name="input_immigrant" class="form-control" value="N/A"
+                    <input type="text" id="input_immigrant" name="input_immigrant" class="form-control uppercase" value="N/A"
                         required disabled>
                 </div>
             </div>
@@ -307,19 +307,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_indigenous_yes" name="radio_indigenous" value="Y">
-                    <label for="radio_indigenous_yes">Yes</label>
+                    <label for="radio_indigenous_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_indigenous_no" name="radio_indigenous" value="N">
-                    <label for="radio_indigenous_no">No</label>
+                    <label for="radio_indigenous_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_indigenous" name="input_indigenous" class="form-control"
+                        <input type="text" id="input_indigenous" name="input_indigenous" class="form-control uppercase"
                             value="N/A" required disabled>
                     </div>
                 </div>
@@ -329,19 +329,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_disability_yes" name="radio_disability" value="Y">
-                    <label for="radio_disability_yes">Yes</label>
+                    <label for="radio_disability_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_disability_no" name="radio_disability" value="N">
-                    <label for="radio_disability_no">No</label>
+                    <label for="radio_disability_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify ID No:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_disability" name="input_disability" class="form-control"
+                        <input type="text" id="input_disability" name="input_disability" class="form-control uppercase"
                             value="N/A" required disabled>
                     </div>
                 </div>
@@ -351,19 +351,19 @@
                 <div>
                     &emsp;
                     <input type="radio" id="radio_soloparent_yes" name="radio_soloparent" value="Y">
-                    <label for="radio_soloparent_yes">Yes</label>
+                    <label for="radio_soloparent_yes">YES</label>
                 </div>
                 <div>
                     &emsp;
                     <input type="radio" id="radio_soloparent_no" name="radio_soloparent" value="N">
-                    <label for="radio_soloparent_no">No</label>
+                    <label for="radio_soloparent_no">NO</label>
                 </div>
                 <div class="row my-3">
                     <div class="col-3">
                         <p>If YES, please specify ID:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_soloparent" name="input_soloparent" class="form-control"
+                        <input type="text" id="input_soloparent" name="input_soloparent" class="form-control uppercase"
                             value="N/A" required disabled>
                     </div>
                 </div>

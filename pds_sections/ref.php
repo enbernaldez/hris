@@ -19,13 +19,13 @@
         echo '
             <div class="row mt-3">
                 <div class="col-4">
-                    <input type="text" name="ref_name[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_name[]" class="form-control uppercase"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_address[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_address[]" class="form-control uppercase"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_telno[]" class="form-control"' . $required . ' maxlength="11">
+                    <input type="text" name="ref_telno[]" class="form-control uppercase"' . $required . ' maxlength="11">
                 </div>
             </div>
         ';
@@ -42,7 +42,7 @@
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">Government Issued ID:</span>
                 </div>
-                <input type="text" class="form-control" name="govtid_type" required>
+                <input type="text" class="form-control uppercase" name="govtid_type" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
@@ -54,7 +54,7 @@
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">Date/Place of Issuance:</span>
                 </div>
-                <input type="text" class="form-control" name="govtid_issuance" required>
+                <input type="text" class="form-control uppercase" name="govtid_issuance" required>
             </div>
         </div>
         <!-- Image -->

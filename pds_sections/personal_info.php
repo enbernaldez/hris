@@ -11,16 +11,16 @@
 
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
-            <input type="text" required name="name_last" id="name_last" class="form-control input test">
+            <input type="text" required name="name_last" id="name_last" class="form-control uppercase input test">
         </div>
         <div class="col mx-2">
             <label for="name_first">FIRST NAME</label><br>
-            <input type="text" required name="name_first" id="name_first" class="form-control input">
+            <input type="text" required name="name_first" id="name_first" class="form-control uppercase input">
         </div>
         <div class="col mx-2">
             <label for="name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_middle" id="name_middle" class="form-control input">
+                <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
@@ -30,7 +30,7 @@
         <div class="col-2 mx-2">
             <label for="name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_ext" id="name_ext" class="form-control input">
+                <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
@@ -42,30 +42,30 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="birth_date">DATE OF BIRTH</label><br>
-            <input type="date" required name="birth_date" id="birth_date" class="form-control input">
+            <input type="date" required name="birth_date" id="birth_date" class="form-control uppercase input">
 
         </div>
         <div class="col mx-2">
             <label for="birth_place">PLACE OF BIRTH</label><br>
-            <input type="text" required name="birth_place" id="birth_place" class="form-control input">
+            <input type="text" required name="birth_place" id="birth_place" class="form-control uppercase input">
         </div>
         <div class="col mx-2">
             <label for="sex">SEX</label><br>
             <select id="sex" required name="sex" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
-                <option value='M'>Male</option>";
-                <option value='F'>Female</option>";
+                <option value='M'>MALE</option>";
+                <option value='F'>FEMALE</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="civilstatus">CIVIL STATUS</label><br>
             <select id="civilstatus" required name="civilstatus" class="form-select input">
-                <option value="" disabled selected value>--select--</option>
-                <option value='S'>Single</option>";
-                <option value='M'>Married</option>";
-                <option value='C'>Common law</option>";
-                <option value='W'>Widowed</option>";
-                <option value='H'>Separated</option>";
+                <option value="" disabled selected value>--SELECT--</option>
+                <option value='S'>SINGLE</option>";
+                <option value='M'>MARRIED</option>";
+                <option value='C'>COMMON LAW</option>";
+                <option value='W'>WIDOWED</option>";
+                <option value='H'>SEPARATED</option>";
             </select>
         </div>
     </div>
@@ -73,12 +73,12 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="height">HEIGHT (m)</label><br>
-            <input type="number" required name="height" id="height" class="form-control input" min="1" step="0.01"
-                max="2">
+            <input type="number" required name="height" id="height" class="form-control uppercase input" min="1"
+                step="0.01" max="2">
         </div>
         <div class="col mx-2">
             <label for="weight">WEIGHT (kg)</label><br>
-            <input type="text" required name="weight" id="weight" class="form-control input">
+            <input type="text" required name="weight" id="weight" class="form-control uppercase input">
         </div>
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
@@ -100,30 +100,32 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="gsis">GSIS ID NO.</label><br>
-            <input type="text" required name="id_gsis" id="gsis" class="form-control input uppercase">
+            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase input uppercase">
         </div>
         <div class="col mx-2">
             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-            <input type="text" required name="id_pagibig" id="pagibig" class="form-control input uppercase">
+            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase input uppercase">
         </div>
         <div class="col mx-2">
             <label for="philhealth">PHILHEALTH NO.</label><br>
-            <input type="text" required name="id_philhealth" id="philhealth" class="form-control input uppercase">
+            <input type="text" required name="id_philhealth" id="philhealth"
+                class="form-control uppercase input uppercase">
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="sss">SSS NO.</label><br>
-            <input type="text" required name="id_sss" id="sss" class="form-control input uppercase">
+            <input type="text" required name="id_sss" id="sss" class="form-control uppercase input uppercase">
         </div>
         <div class="col mx-2">
             <label for="tin">TIN NO.</label><br>
-            <input type="text" required name="id_tin" id="tin" class="form-control input uppercase">
+            <input type="text" required name="id_tin" id="tin" class="form-control uppercase input uppercase">
         </div>
         <div class="col mx-2">
             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-            <input type="text" required name="id_agency" id="employee_no" class="form-control input uppercase">
+            <input type="text" required name="id_agency" id="employee_no"
+                class="form-control uppercase input uppercase">
         </div>
     </div>
 
@@ -133,24 +135,24 @@
             <label for="citizenship">CITIZENSHIP</label><br>
             <select id="citizenship" required name="citizenship" class="form-select input">
                 <option value="" disabled selected value>--select--</option>
-                <option value='F'>Filipino</option>";
-                <option value='D'>Dual Citizenship</option>";
+                <option value='F'>FILIPINO</option>";
+                <option value='D'>DUAL CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="citizenship_by">CITIZENSHIP BY</label><br>
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
-                <option value="" disabled>--select--</option>
+                <option value="" disabled>--SELECT--</option>
                 <option value="F" selected value hidden>N/A</option>
-                <option value='B'>Birth</option>";
-                <option value='N'>Naturalization</option>";
+                <option value='B'>BIRTH</option>";
+                <option value='N'>NATURALIZATION</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="citizenship_country">If Holder of Dual Citizenship, please indicate
                 country</label><br>
             <input type="text" required name="citizenship_country" id="citizenship_country"
-                class="form-control input" value="N/A" disabled>
+                class="form-control uppercase input" value="N/A" disabled>
         </div>
     </div>
 
@@ -161,13 +163,13 @@
         <div class="col mx-2">
             <label for="radd_province">PROVINCE</label>
             <select id="radd_province" required name="radd_province" class="form-select input">
+                <option value="" disabled selected value>--SELECT--</option>
                 <?php
                 $list_province = query($conn, "SELECT * FROM `provinces`");
-                echo '<option value="" disabled selected value>--select--</option>';
                 foreach ($list_province as $key => $row) {
                     $prov_id = $row['province_id'];
                     $prov_name = $row['province_name'];
-                    echo "<option value='" . $prov_name . "'>" . $prov_name . "</option>";
+                    echo "<option class='uppercase' value='" . $prov_name . "'>" . $prov_name . "</option>";
                 } ?>
             </select>
         </div>
@@ -180,13 +182,13 @@
                 foreach ($list_citymunicipality as $key => $row) {
                     $cm_id = $row['citymunicipality_id'];
                     $cm_name = $row['citymunicipality_name'];
-                    echo "<option value='" . $cm_name . "'>" . $cm_name . "</option>";
+                    echo "<option class='uppercase' value='" . $cm_name . "'>" . $cm_name . "</option>";
                 } ?>
             </select>
         </div>
         <div class="col mx-2">
             <label for="radd_barangay">BARANGAY</label>
-            <input type="text" required name="radd_barangay" id="radd_barangay" class="form-control input">
+            <input type="text" required name="radd_barangay" id="radd_barangay" class="form-control uppercase input">
         </div>
     </div>
 
@@ -195,7 +197,7 @@
             <label for="radd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="radd_subdivisionvillage" id="radd_subdivisionvillage"
-                    class="form-control input">
+                    class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rsv">
                     <label class="form-check-label" for="null_rsv">N/A</label>
@@ -205,7 +207,7 @@
         <div class="col mx-2">
             <label for="radd_street">STREET</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="radd_street" id="radd_street" class="form-control input">
+                <input type="text" required name="radd_street" id="radd_street" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rst">
                     <label class="form-check-label" for="null_rst">N/A</label>
@@ -216,7 +218,7 @@
             <label for="radd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="radd_houseblocklot" id="radd_houseblocklot"
-                    class="form-control input">
+                    class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_rhbl">
                     <label class="form-check-label" for="null_rhbl">N/A</label>
@@ -228,7 +230,7 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="radd_zipcode">ZIPCODE</label>
-            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control input" min="400"
+            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control uppercase input" min="400"
                 max="9900">
         </div>
     </div>
@@ -245,7 +247,7 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="padd_province">PROVINCE</label>
-            <select id="padd_province" required name="padd_province" class="form-select input">
+            <select id="padd_province" required name="padd_province" class="form-select uppercase input">
                 <?php
                 $list_province = query($conn, "SELECT * FROM `provinces`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -258,7 +260,7 @@
         </div>
         <div class="col mx-2">
             <label for="padd_citymunicipality">CITY/MUNICIPALITY</label>
-            <select id="padd_citymunicipality" required name="padd_citymunicipality" class="form-select input">
+            <select id="padd_citymunicipality" required name="padd_citymunicipality" class="form-select uppercase input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -271,7 +273,7 @@
         </div>
         <div class="col mx-2">
             <label for="padd_barangay">BARANGAY</label>
-            <input type="text" required name="padd_barangay" id="padd_barangay" class="form-control input">
+            <input type="text" required name="padd_barangay" id="padd_barangay" class="form-control uppercase input">
         </div>
     </div>
 
@@ -280,7 +282,7 @@
             <label for="padd_subdivisionvillage">SUBDIVISION/VILLAGE</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="padd_subdivisionvillage" id="padd_subdivisionvillage"
-                    class="form-control input">
+                    class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_psv">
                     <label class="form-check-label" for="null_psv">N/A</label>
@@ -290,7 +292,7 @@
         <div class="col mx-2">
             <label for="padd_street">STREET</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="padd_street" id="padd_street" class="form-control input">
+                <input type="text" required name="padd_street" id="padd_street" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_pst">
                     <label class="form-check-label" for="null_pst">N/A</label>
@@ -301,7 +303,7 @@
             <label for="padd_houseblocklot">HOUSE/BLOCK/LOT NO.</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="padd_houseblocklot" id="padd_houseblocklot"
-                    class="form-control input">
+                    class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_phbl">
                     <label class="form-check-label" for="null_phbl">N/A</label>
@@ -313,7 +315,7 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="padd_zipcode">ZIPCODE</label>
-            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control input" min="400"
+            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control uppercase input" min="400"
                 max="9900">
         </div>
     </div>
@@ -323,7 +325,7 @@
         <div class="col mx-2">
             <label for="no_tel">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="tel" required name="no_tel" id="no_tel" class="form-control input">
+                <input type="tel" required name="no_tel" id="no_tel" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_telno">
                     <label class="form-check-label" for="null_telno">N/A</label>
@@ -332,12 +334,12 @@
         </div>
         <div class="col mx-2">
             <label for="no_mobile">MOBILE NO.</label><br>
-            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control input" maxlength="11">
+            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control uppercase input" maxlength="11">
         </div>
         <div class="col mx-2">
             <label for="emailadd">EMAIL ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="email" required name="emailadd" id="emailadd" class="form-control input">
+                <input type="email" required name="emailadd" id="emailadd" class="form-control uppercase input">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_emailadd">
                     <label class="form-check-label" for="null_emailadd">N/A</label>

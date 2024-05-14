@@ -44,28 +44,28 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="lnd_title[]" id="lnd_title" class="form-control group-na">
+                    <input type="text" required name="lnd_title[]" id="lnd_title" class="form-control uppercase group-na">
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
                         <input type="date" required name="lnd_date_from[]" id="lnd_date_from"
-                            class="form-control group-na">
+                            class="form-control uppercase group-na">
                     </div>
                     <div class="col-6">
-                        <input type="date" required name="lnd_date_to[]" id="lnd_date_to" class="form-control group-na">
+                        <input type="date" required uppercase name="lnd_date_to[]" id="lnd_date_to" class="form-control uppercase group-na">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="lnd_hrs[]" id="lnd_hrs" class="form-control group-na">
+                <input type="number" required name="lnd_hrs[]" id="lnd_hrs" class="form-control uppercase group-na">
             </div>
             <div class="col-3">
-                <input type="text" name="lnd_type[]" id="lnd_type" class="form-control group-na">
+                <input type="text" required name="lnd_type[]" id="lnd_type" class="form-control uppercase group-na">
             </div>
             <div class="col-2">
-                <input type="text" name="lnd_sponsor[]" id="lnd_sponsor" class="form-control group-na">
+                <input type="text" required name="lnd_sponsor[]" id="lnd_sponsor" class="form-control uppercase group-na">
             </div>
         </div>
     </div>

@@ -35,7 +35,7 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na"
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control uppercase group_na"
                         required>
                 </div>
             </div>
@@ -43,18 +43,18 @@
                 <div class="row">
                     <div class="col-6 px-1 mx-0">
                         <input type="date" required name="vw_date_from[]" id="vw_date_from"
-                            class="form-control group_na">
+                            class="form-control uppercase group_na">
                     </div>
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control group_na">
+                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control uppercase group_na">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na" required>
+                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control uppercase group_na" required>
             </div>
             <div class="col-4">
-                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na" required>
+                <input type="text" name="vw_position[]" id="vw_position" class="form-control uppercase group_na" required>
             </div>
 
         </div>

@@ -5,11 +5,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables
-    $n_pi_name_last = trim($_POST['name_last']);
-    $n_pi_name_first = trim($_POST['name_first']);
-    $n_pi_name_middle = trim($_POST['name_middle'] ?? "N/A");
-    $n_pi_name_ext = trim($_POST['name_ext'] ?? "N/A");
-    $n_pi_office = trim($_POST['office']);
+    $n_pi_name_last = strtoupper(trim($_POST['name_last']));
+    $n_pi_name_first = strtoupper(trim($_POST['name_first']));
+    $n_pi_name_middle = strtoupper(trim($_POST['name_middle'] ?? "N/A"));
+    $n_pi_name_ext = strtoupper(trim($_POST['name_ext'] ?? "N/A"));
+    $n_pi_office = strtoupper(trim($_POST['office']));
 
     // echo "
     //     Employee: $n_pi_name_first $n_pi_name_middle $n_pi_name_last $n_pi_name_ext
@@ -91,16 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //transfers value of posted variables to local variables
-    $n_pi_birth_date = trim($_POST['birth_date']);
-    $n_pi_birth_place = trim($_POST['birth_place']);
-    $n_pi_sex = trim($_POST['sex']) ?? "N/A";
-    $n_pi_civilstatus = trim($_POST['civilstatus'] ?? "N/A");
-    $n_pi_height = trim($_POST['height']);
-    $n_pi_weight = trim($_POST['weight']);
-    $n_pi_bloodtype = trim($_POST['bloodtype'] ?? "N/A");
-    // $n_pi_citizenship = trim($_POST['citizenship']);
-    $n_pi_citizenship_by = trim($_POST['citizenship_by'] ?? "F");
-    $n_pi_citizenship_country = trim($_POST['citizenship_country'] ?? "N/A");
+    $n_pi_birth_date = strtoupper(trim($_POST['birth_date']));
+    $n_pi_birth_place = strtoupper(trim($_POST['birth_place']));
+    $n_pi_sex = strtoupper(trim($_POST['sex']) ?? "N/A");
+    $n_pi_civilstatus = strtoupper(trim($_POST['civilstatus'] ?? "N/A"));
+    $n_pi_height = strtoupper(trim($_POST['height']));
+    $n_pi_weight = strtoupper(trim($_POST['weight']));
+    $n_pi_bloodtype = strtoupper(trim($_POST['bloodtype'] ?? "N/A"));
+    // $n_pi_citizenship = strtoupper(trim($_POST['citizenship']));
+    $n_pi_citizenship_by = strtoupper(trim($_POST['citizenship_by'] ?? "F"));
+    $n_pi_citizenship_country = strtoupper(trim($_POST['citizenship_country'] ?? "N/A"));
 
     // look up ID of $n_pi_citizenship_country
     $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
@@ -163,22 +163,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_pi_radd_province = trim($_POST['radd_province']);
-    $n_pi_radd_citymunicipality = trim($_POST['radd_citymunicipality']);
-    $n_pi_radd_barangay = trim($_POST['radd_barangay']);
-    $n_pi_radd_subdivisionvillage = trim($_POST['radd_subdivisionvillage'] ?? "N/A");
-    $n_pi_radd_street = trim($_POST['radd_street'] ?? "N/A");
-    $n_pi_radd_houseblocklot = trim($_POST['radd_houseblocklot'] ?? "N/A");
-    $n_pi_radd_zipcode = trim($_POST['radd_zipcode']);
+    $n_pi_radd_province = strtoupper(trim($_POST['radd_province']));
+    $n_pi_radd_citymunicipality = strtoupper(trim($_POST['radd_citymunicipality']));
+    $n_pi_radd_barangay = strtoupper(trim($_POST['radd_barangay']));
+    $n_pi_radd_subdivisionvillage = strtoupper(trim($_POST['radd_subdivisionvillage'] ?? "N/A"));
+    $n_pi_radd_street = strtoupper(trim($_POST['radd_street'] ?? "N/A"));
+    $n_pi_radd_houseblocklot = strtoupper(trim($_POST['radd_houseblocklot'] ?? "N/A"));
+    $n_pi_radd_zipcode = strtoupper(trim($_POST['radd_zipcode']));
 
     //transfers value of posted variables to local variables
-    $n_pi_padd_province = trim($_POST['padd_province'] ?? '');
-    $n_pi_padd_citymunicipality = trim($_POST['padd_citymunicipality'] ?? '');
-    $n_pi_padd_barangay = trim($_POST['padd_barangay'] ?? '');
-    $n_pi_padd_subdivisionvillage = trim($_POST['padd_subdivisionvillage'] ?? "N/A");
-    $n_pi_padd_street = trim($_POST['padd_street'] ?? "N/A");
-    $n_pi_padd_houseblocklot = trim($_POST['padd_houseblocklot'] ?? "N/A");
-    $n_pi_padd_zipcode = trim($_POST['padd_zipcode'] ?? '');
+    $n_pi_padd_province = strtoupper(trim($_POST['padd_province'] ?? ''));
+    $n_pi_padd_citymunicipality = strtoupper(trim($_POST['padd_citymunicipality'] ?? ''));
+    $n_pi_padd_barangay = strtoupper(trim($_POST['padd_barangay'] ?? ''));
+    $n_pi_padd_subdivisionvillage = strtoupper(trim($_POST['padd_subdivisionvillage'] ?? "N/A"));
+    $n_pi_padd_street = strtoupper(trim($_POST['padd_street'] ?? "N/A"));
+    $n_pi_padd_houseblocklot = strtoupper(trim($_POST['padd_houseblocklot'] ?? "N/A"));
+    $n_pi_padd_zipcode = strtoupper(trim($_POST['padd_zipcode'] ?? ''));
 
     $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
     $add_types = array('B' => 'both_', 'R' => 'residential_', 'P' => 'permanent_');
@@ -288,9 +288,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //transfers value of posted variables to local variables
-    $n_pi_no_tel = trim($_POST['no_tel'] ?? "N/A");
-    $n_pi_no_mobile = trim($_POST['no_mobile']);
-    $n_pi_emailadd = trim($_POST['emailadd'] ?? "N/A");
+    $n_pi_no_tel = strtoupper(trim($_POST['no_tel'] ?? "N/A"));
+    $n_pi_no_mobile = strtoupper(trim($_POST['no_mobile']));
+    $n_pi_emailadd = strtoupper(trim($_POST['emailadd'] ?? "N/A"));
 
     // echo "<br>
     //     Telephone No.: $n_pi_no_tel<br>
@@ -312,14 +312,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>FAMILY BACKGROUND<br>";
     //transfers value of posted variables to local variables
-    $n_fb_spouse_name_last = trim($_POST['spouse_name_last']);
-    $n_fb_spouse_name_first = trim($_POST['spouse_name_first']);
-    $n_fb_spouse_name_middle = trim($_POST['spouse_name_middle']);
-    $n_fb_spouse_name_ext = trim($_POST['spouse_name_ext'] ?? "N/A");
-    $n_fb_spouse_occupation = trim($_POST['spouse_occupation'] ?? "N/A");
-    $n_fb_spouse_bus_name = trim($_POST['spouse_bus_name'] ?? "N/A");
-    $n_fb_spouse_bus_add = trim($_POST['spouse_bus_add'] ?? "N/A");
-    $n_fb_spouse_telno = trim($_POST['spouse_telno'] ?? "N/A");
+    $n_fb_spouse_name_last = strtoupper(trim($_POST['spouse_name_last']));
+    $n_fb_spouse_name_first = strtoupper(trim($_POST['spouse_name_first']));
+    $n_fb_spouse_name_middle = strtoupper(trim($_POST['spouse_name_middle']));
+    $n_fb_spouse_name_ext = strtoupper(trim($_POST['spouse_name_ext'] ?? "N/A"));
+    $n_fb_spouse_occupation = strtoupper(trim($_POST['spouse_occupation'] ?? "N/A"));
+    $n_fb_spouse_bus_name = strtoupper(trim($_POST['spouse_bus_name'] ?? "N/A"));
+    $n_fb_spouse_bus_add = strtoupper(trim($_POST['spouse_bus_add'] ?? "N/A"));
+    $n_fb_spouse_telno = strtoupper(trim($_POST['spouse_telno'] ?? "N/A"));
 
     // look up ID of $n_fb_spouse_occupation
     $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
@@ -355,10 +355,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_father_name_last = trim($_POST['father_name_last']);
-    $n_fb_father_name_first = trim($_POST['father_name_first']);
-    $n_fb_father_name_middle = trim($_POST['father_name_middle'] ?? "N/A");
-    $n_fb_father_name_ext = trim($_POST['father_name_ext'] ?? "N/A");
+    $n_fb_father_name_last = strtoupper(trim($_POST['father_name_last']));
+    $n_fb_father_name_first = strtoupper(trim($_POST['father_name_first']));
+    $n_fb_father_name_middle = strtoupper(trim($_POST['father_name_middle'] ?? "N/A"));
+    $n_fb_father_name_ext = strtoupper(trim($_POST['father_name_ext'] ?? "N/A"));
 
     // echo "<br>
     //     FATHER<br>
@@ -381,9 +381,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_mother_name_last = trim($_POST['mother_name_last']);
-    $n_fb_mother_name_first = trim($_POST['mother_name_first']);
-    $n_fb_mother_name_middle = trim($_POST['mother_name_middle'] ?? "N/A");
+    $n_fb_mother_name_last = strtoupper(trim($_POST['mother_name_last']));
+    $n_fb_mother_name_first = strtoupper(trim($_POST['mother_name_first']));
+    $n_fb_mother_name_middle = strtoupper(trim($_POST['mother_name_middle'] ?? "N/A"));
 
     // echo "<br>
     //     MOTHER<br>
@@ -405,8 +405,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_child_fullname = array_map('trim', $_POST['child_fullname'] ?? array(NULL));
-    $n_fb_child_birthdate = array_map('trim', $_POST['child_birthdate'] ?? array(NULL));
+    $n_fb_child_fullname = array_map('strtoupper', array_map('trim', $_POST['child_fullname'] ?? array(NULL)));
+    $n_fb_child_birthdate = array_map('strtoupper', array_map('trim', $_POST['child_birthdate'] ?? array(NULL)));
 
     if ($n_fb_child_fullname != array(NULL)) {
         $children = array(
@@ -458,7 +458,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($educ_details as $detail) {
             $$detail = array();
 
-            ${"n_eb_" . $lvl . "_" . $detail} = array_map('trim', $_POST[$lvl . "_" . $detail] ?? array("N/A"));
+            ${"n_eb_" . $lvl . "_" . $detail} = array_map('strtoupper', array_map('trim', $_POST[$lvl . "_" . $detail] ?? array("N/A")));
 
             foreach (${"n_eb_" . $lvl . "_" . $detail} as ${$lvl . "_" . $detail}) {
                 if ($detail == 'school' || $detail == 'degree') {
@@ -506,12 +506,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>CIVIL SERVICE ELIGIBILITY<br>";
     //transfers value of posted variables to local variables
-    $n_cse_careerservice = array_map('trim', $_POST['careerservice'] ?? array('N/A'));
-    $n_cse_rating = array_map('trim', $_POST['rating'] ?? array('N/A'));
-    $n_cse_exam_date = array_map('trim', $_POST['exam_date'] ?? array('N/A'));
-    $n_cse_exam_place = array_map('trim', $_POST['exam_place'] ?? array('N/A'));
-    $n_cse_license_number = array_map('trim', $_POST['license_number'] ?? array('N/A'));
-    $n_cse_license_dateofvalidity = array_map('trim', $_POST['license_dateofvalidity'] ?? array('N/A'));
+    $n_cse_careerservice = array_map('strtoupper', array_map('trim', $_POST['careerservice'] ?? array('N/A')));
+    $n_cse_rating = array_map('strtoupper', array_map('trim', $_POST['rating'] ?? array('N/A')));
+    $n_cse_exam_date = array_map('strtoupper', array_map('trim', $_POST['exam_date'] ?? array('N/A')));
+    $n_cse_exam_place = array_map('strtoupper', array_map('trim', $_POST['exam_place'] ?? array('N/A')));
+    $n_cse_license_number = array_map('strtoupper', array_map('trim', $_POST['license_number'] ?? array('N/A')));
+    $n_cse_license_dateofvalidity = array_map('strtoupper', array_map('trim', $_POST['license_dateofvalidity'] ?? array('N/A')));
 
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
@@ -545,14 +545,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>WORK EXPERIENCE<br>";
     //transfers value of posted variables to local variables
-    $n_we_date_from = array_map('trim', $_POST['we_date_from'] ?? array('N/A'));
-    $n_we_date_to = array_map('trim', $_POST['we_date_to'] ?? array('N/A'));
-    $n_we_position = array_map('trim', $_POST['we_position'] ?? array('N/A'));
-    $n_we_agency = array_map('trim', $_POST['we_agency'] ?? array('N/A'));
-    $n_we_salary = array_map('trim', $_POST['we_salary'] ?? array('N/A'));
-    $n_we_sg = array_map('trim', $_POST['we_sg'] ?? array('N/A'));
-    $n_we_status = array_map('trim', $_POST['we_status'] ?? array('N/A'));
-    $n_we_govtsvcs = array_map('trim', $_POST['we_govtsvcs'] ?? array('N/A'));
+    $n_we_date_from = array_map('strtoupper', array_map('trim', $_POST['we_date_from'] ?? array('N/A')));
+    $n_we_date_to = array_map('strtoupper', array_map('trim', $_POST['we_date_to'] ?? array('N/A')));
+    $n_we_position = array_map('strtoupper', array_map('trim', $_POST['we_position'] ?? array('N/A')));
+    $n_we_agency = array_map('strtoupper', array_map('trim', $_POST['we_agency'] ?? array('N/A')));
+    $n_we_salary = array_map('strtoupper', array_map('trim', $_POST['we_salary'] ?? array('N/A')));
+    $n_we_sg = array_map('strtoupper', array_map('trim', $_POST['we_sg'] ?? array('N/A')));
+    $n_we_status = array_map('strtoupper', array_map('trim', $_POST['we_status'] ?? array('N/A')));
+    $n_we_govtsvcs = array_map('strtoupper', array_map('trim', $_POST['we_govtsvcs'] ?? array('N/A')));
 
     for ($i = 0; $i < count($n_we_date_from); $i++) {
 
@@ -602,11 +602,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>VOLUNTARY WORK<br>";
     //transfers value of posted variables to local variables
-    $n_vw_nameaddress = array_map('trim', $_POST['vw_nameaddress'] ?? array('N/A'));
-    $n_vw_date_from = array_map('trim', $_POST['vw_date_from'] ?? array('N/A'));
-    $n_vw_date_to = array_map('trim', $_POST['vw_date_to'] ?? array('N/A'));
-    $n_vw_hrs = array_map('trim', $_POST['vw_hrs'] ?? array('N/A'));
-    $n_vw_position = array_map('trim', $_POST['vw_position'] ?? array('N/A'));
+    $n_vw_nameaddress = array_map('strtoupper', array_map('trim', $_POST['vw_nameaddress'] ?? array('N/A')));
+    $n_vw_date_from = array_map('strtoupper', array_map('trim', $_POST['vw_date_from'] ?? array('N/A')));
+    $n_vw_date_to = array_map('strtoupper', array_map('trim', $_POST['vw_date_to'] ?? array('N/A')));
+    $n_vw_hrs = array_map('strtoupper', array_map('trim', $_POST['vw_hrs'] ?? array('N/A')));
+    $n_vw_position = array_map('strtoupper', array_map('trim', $_POST['vw_position'] ?? array('N/A')));
 
     for ($i = 0; $i < count($n_vw_nameaddress); $i++) {
 
@@ -636,12 +636,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>LEARNING AND DEVELOPMENT<br>";
     //transfers value of posted variables to local variables
-    $n_lnd_title = array_map('trim', $_POST['lnd_title'] ?? array('N/A'));
-    $n_lnd_date_from = array_map('trim', $_POST['lnd_date_from'] ?? array('N/A'));
-    $n_lnd_date_to = array_map('trim', $_POST['lnd_date_to'] ?? array('N/A'));
-    $n_lnd_hrs = array_map('trim', $_POST['lnd_hrs'] ?? array('N/A'));
-    $n_lnd_type = array_map('trim', $_POST['lnd_type'] ?? array('N/A'));
-    $n_lnd_sponsor = array_map('trim', $_POST['lnd_sponsor'] ?? array('N/A'));
+    $n_lnd_title = array_map('strtoupper', array_map('trim', $_POST['lnd_title'] ?? array('N/A')));
+    $n_lnd_date_from = array_map('strtoupper', array_map('trim', $_POST['lnd_date_from'] ?? array('N/A')));
+    $n_lnd_date_to = array_map('strtoupper', array_map('trim', $_POST['lnd_date_to'] ?? array('N/A')));
+    $n_lnd_hrs = array_map('strtoupper', array_map('trim', $_POST['lnd_hrs'] ?? array('N/A')));
+    $n_lnd_type = array_map('strtoupper', array_map('trim', $_POST['lnd_type'] ?? array('N/A')));
+    $n_lnd_sponsor = array_map('strtoupper', array_map('trim', $_POST['lnd_sponsor'] ?? array('N/A')));
 
     for ($i = 0; $i < count($n_lnd_title); $i++) {
 
@@ -676,9 +676,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>OTHER INFORMATION<br>";
     //transfers value of posted variables to local variables
-    $n_skills = array_map('trim', $_POST['skills'] ?? array('N/A'));
-    $n_distinctions = array_map('trim', $_POST['distinctions'] ?? array('N/A'));
-    $n_membership = array_map('trim', $_POST['membership'] ?? array('N/A'));
+    $n_skills = array_map('strtoupper', array_map('trim', $_POST['skills'] ?? array('N/A')));
+    $n_distinctions = array_map('strtoupper', array_map('trim', $_POST['distinctions'] ?? array('N/A')));
+    $n_membership = array_map('strtoupper', array_map('trim', $_POST['membership'] ?? array('N/A')));
 
     function insert_otherInfo($conn, $items_array, $table, $fieldName, $employee_id)
     {
@@ -729,61 +729,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         insert($conn, $table, $fields);
     }
 
-    $n_radio_degree_3rd = trim($_POST['radio_degree_3rd']);
+    $n_radio_degree_3rd = strtoupper(trim($_POST['radio_degree_3rd']));
 
-    $n_radio_degree_4th = trim($_POST['radio_degree_4th']);
-    $n_input_degree_4th = trim($_POST['input_degree_4th'] ?? 'N/A');
+    $n_radio_degree_4th = strtoupper(trim($_POST['radio_degree_4th']));
+    $n_input_degree_4th = strtoupper(trim($_POST['input_degree_4th'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A');
 
-    $n_radio_guilty = trim($_POST['radio_guilty']);
-    $n_input_guilty = trim($_POST['input_guilty'] ?? 'N/A');
+    $n_radio_guilty = strtoupper(trim($_POST['radio_guilty']));
+    $n_input_guilty = strtoupper(trim($_POST['input_guilty'] ?? 'N/A'));
 
-    $n_radio_charged = trim($_POST['radio_charged']);
-    $n_input_filed = trim($_POST['input_filed'] ?? 'N/A');
-    $n_input_status = trim($_POST['input_status'] ?? 'N/A');
+    $n_radio_charged = strtoupper(trim($_POST['radio_charged']));
+    $n_input_filed = strtoupper(trim($_POST['input_filed'] ?? 'N/A'));
+    $n_input_status = strtoupper(trim($_POST['input_status'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A');
 
-    $n_radio_convicted = trim($_POST['radio_convicted']);
-    $n_input_convicted = trim($_POST['input_convicted'] ?? 'N/A');
+    $n_radio_convicted = strtoupper(trim($_POST['radio_convicted']));
+    $n_input_convicted = strtoupper(trim($_POST['input_convicted'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_seperated = trim($_POST['radio_seperated']);
-    $n_input_seperated = trim($_POST['input_seperated'] ?? 'N/A');
+    $n_radio_seperated = strtoupper(trim($_POST['radio_seperated']));
+    $n_input_seperated = strtoupper(trim($_POST['input_seperated'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_candidate = trim($_POST['radio_candidate']);
+    $n_radio_candidate = strtoupper(trim($_POST['radio_candidate']));
 
-    $n_radio_resigned = trim($_POST['radio_resigned']);
-    $n_input_resigned = trim($_POST['input_resigned'] ?? 'N/A');
+    $n_radio_resigned = strtoupper(trim($_POST['radio_resigned']));
+    $n_input_resigned = strtoupper(trim($_POST['input_resigned'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A');
 
-    $n_radio_immigrant = trim($_POST['radio_immigrant']);
-    $n_input_immigrant = trim($_POST['input_immigrant'] ?? 'N/A');
+    $n_radio_immigrant = strtoupper(trim($_POST['radio_immigrant']));
+    $n_input_immigrant = strtoupper(trim($_POST['input_immigrant'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
 
-    $n_radio_indigenous = trim($_POST['radio_indigenous']);
-    $n_input_indigenous = trim($_POST['input_indigenous'] ?? 'N/A');
+    $n_radio_indigenous = strtoupper(trim($_POST['radio_indigenous']));
+    $n_input_indigenous = strtoupper(trim($_POST['input_indigenous'] ?? 'N/A'));
 
-    $n_radio_disability = trim($_POST['radio_disability']);
-    $n_input_disability = trim($_POST['input_disability'] ?? 'N/A');
+    $n_radio_disability = strtoupper(trim($_POST['radio_disability']));
+    $n_input_disability = strtoupper(trim($_POST['input_disability'] ?? 'N/A'));
 
-    $n_radio_soloparent = trim($_POST['radio_soloparent']);
-    $n_input_soloparent = trim($_POST['input_soloparent'] ?? 'N/A');
+    $n_radio_soloparent = strtoupper(trim($_POST['radio_soloparent']));
+    $n_input_soloparent = strtoupper(trim($_POST['input_soloparent'] ?? 'N/A'));
 
     insert_qna($conn, $employee_id, '40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent);
 
 
 
     // echo "<br><br><br>REFERENCES<br>";
-    $n_ref_name = array_map('trim', $_POST['ref_name']);
-    $n_ref_address = array_map('trim', $_POST['ref_address']);
-    $n_ref_telno = array_map('trim', $_POST['ref_telno']);
+    $n_ref_name = array_map('strtoupper', array_map('trim', $_POST['ref_name']));
+    $n_ref_address = array_map('strtoupper', array_map('trim', $_POST['ref_address']));
+    $n_ref_telno = array_map('strtoupper', array_map('trim', $_POST['ref_telno']));
 
     $filtered_ref_name = array_filter($n_ref_name, function ($value) {
         return $value !== '';
@@ -807,9 +807,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         insert($conn, $table, $fields);
     }
 
-    $n_govtid_type = trim($_POST['govtid_type']);
-    $n_govtid_no = trim($_POST['govtid_no']);
-    $n_govtid_issuance = trim($_POST['govtid_issuance']);
+    $n_govtid_type = strtoupper(trim($_POST['govtid_type']));
+    $n_govtid_no = strtoupper(trim($_POST['govtid_no']));
+    $n_govtid_issuance = strtoupper(trim($_POST['govtid_issuance']));
 
     // echo "<br>
     //     Government Issued ID: $n_govtid_type<br>

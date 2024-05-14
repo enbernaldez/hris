@@ -40,27 +40,27 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="careerservice[]" id="careerservice" class="form-control group-na" required>
+                    <input type="text" name="careerservice[]" id="careerservice" class="form-control uppercase group-na" required>
                 </div>
             </div>
             <div class="col-1">
-                <input type="text" name="rating[]" id="rating" class="form-control group-na" required>
+                <input type="text" name="rating[]" id="rating" class="form-control uppercase group-na" required>
             </div>
             <div class="col-2">
-                <input type="date" name="exam_date[]" id="exam_date" class="form-control group-na" required>
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na" required>
             </div>
             <div class="col-2">
-                <input type="text" name="exam_place[]" id="exam_place" class="form-control group-na" required>
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na" required>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="text" name="license_number[]" id="license_number" class="form-control group-na"
+                        <input type="text" name="license_number[]" id="license_number" class="form-control uppercase group-na"
                             required>
                     </div>
                     <div class="col-6">
                         <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
-                            class="form-control group-na" required>
+                            class="form-control uppercase group-na" required>
                     </div>
                 </div>
             </div>
