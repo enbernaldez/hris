@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 09:28 AM
+-- Generation Time: May 15, 2024 at 07:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,16 @@ CREATE TABLE `barangays` (
   `barangay_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `barangays`
+--
+
+INSERT INTO `barangays` (`barangay_id`, `citymunicipality_id`, `barangay_name`) VALUES
+(1, 3, 'Sagpon'),
+(2, 3, 'Binitayan'),
+(3, 3, 'ILAWOD'),
+(4, 6, 'TINAGO');
+
 -- --------------------------------------------------------
 
 --
@@ -49,7 +59,15 @@ CREATE TABLE `basiced_degree_course` (
 --
 
 INSERT INTO `basiced_degree_course` (`bdc_id`, `bdc_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'Elementary'),
+(3, 'High School'),
+(4, 'BS Industrial Engineering'),
+(5, 'BS Computer Science'),
+(6, 'SECONDARY'),
+(7, 'BS INDUSTRIAL TECHNOLOGY'),
+(8, 'PRIMARY'),
+(9, 'BS ACCOUNTANCY');
 
 -- --------------------------------------------------------
 
@@ -63,6 +81,13 @@ CREATE TABLE `children` (
   `child_fullname` varchar(128) NOT NULL,
   `child_bday` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `children`
+--
+
+INSERT INTO `children` (`child_id`, `employee_id`, `child_fullname`, `child_bday`) VALUES
+(1, 17, 'ANJANETTE JUAREZ', '2004-10-10');
 
 -- --------------------------------------------------------
 
@@ -212,7 +237,10 @@ CREATE TABLE `civil_services` (
 --
 
 INSERT INTO `civil_services` (`cs_id`, `cs_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'CSE Professional'),
+(3, 'CARRER SERVICE PROFESSIONAL'),
+(4, 'CARREER SERVICE PROFESSIONAL');
 
 -- --------------------------------------------------------
 
@@ -249,6 +277,13 @@ CREATE TABLE `cs_eligibility` (
   `cseligibility_datevalidity` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cs_eligibility`
+--
+
+INSERT INTO `cs_eligibility` (`cseligibility_id`, `employee_id`, `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`) VALUES
+(1, 17, 4, 87, '2005-02-21', 'LEGAZPI CITY', '245', '2020-10-10');
+
 -- --------------------------------------------------------
 
 --
@@ -265,7 +300,10 @@ CREATE TABLE `dept_agency_office_co` (
 --
 
 INSERT INTO `dept_agency_office_co` (`daoc_id`, `daoc_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'Philippine Statistics Authority'),
+(3, 'DENR'),
+(4, 'PSA');
 
 -- --------------------------------------------------------
 
@@ -286,6 +324,117 @@ CREATE TABLE `education` (
   `educ_scholarship_acad_honors` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `education`
+--
+
+INSERT INTO `education` (`educ_id`, `employee_id`, `educ_acadlvl`, `school_id`, `bdc_id`, `educ_period_from`, `educ_period_to`, `educ_highest`, `educ_graduated`, `educ_scholarship_acad_honors`) VALUES
+(1, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(2, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(3, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(4, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(5, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(6, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(7, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(8, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(9, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(10, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(11, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(12, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(13, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(14, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(15, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(16, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(17, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(18, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(19, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(20, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(21, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(22, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(23, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(24, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(25, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(26, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(27, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(28, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(29, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(30, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(31, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(32, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(33, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(34, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(35, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(36, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(37, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(38, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(39, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(40, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(41, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(42, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(43, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(44, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(45, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(46, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(47, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(48, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(49, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(50, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(51, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(52, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(53, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(54, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(55, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(56, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(57, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(58, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(59, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(60, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(61, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(62, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(63, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(64, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(65, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(66, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(67, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(68, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(69, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(70, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(71, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(72, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(73, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(74, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(75, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(76, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(77, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(78, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(79, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(80, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(81, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(82, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(83, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(84, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(85, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(86, 11, 'E', 2, 2, '1973', '1976', 'Graduated', '1976', 'Third Honor'),
+(87, 11, 'S', 3, 3, '1976', '1980', 'Graduated', '1980', 'N/A'),
+(88, 11, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(89, 11, 'C', 4, 4, '1980', '1985', 'Graduated', '1985', 'President\'s Lister'),
+(90, 11, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(91, 15, 'E', 5, 2, '1997', '2003', 'Graduated', '2003', 'N/A'),
+(92, 15, 'S', 3, 3, '2003', '2007', 'Graduated', '2007', 'N/A'),
+(93, 15, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(94, 15, 'C', 6, 5, '2007', '2011', 'Graduated', '2011', 'N/A'),
+(95, 15, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(96, 16, 'E', 7, 2, '1996', '2002', 'GRADUATED', '2002', 'N/A'),
+(97, 16, 'S', 8, 6, '2002', '2007', 'GRADUATED', '2007', 'N/A'),
+(98, 16, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(99, 16, 'C', 6, 7, '2006', '2010', 'GRADUATED', '2010', 'N/A'),
+(100, 16, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(101, 17, 'E', 9, 8, '1980', '1986', 'GRADUATED', '1986', 'WITH HONORS'),
+(102, 17, 'S', 10, 6, '1986', '1990', 'GRADUATED', '1990', 'WITH HONORS'),
+(103, 17, 'V', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(104, 17, 'C', 11, 9, '1990', '1994', 'GRADUATED', '1994', 'N/A'),
+(105, 17, 'G', 1, 1, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+
 -- --------------------------------------------------------
 
 --
@@ -302,6 +451,16 @@ CREATE TABLE `employees` (
   `employee_imgdir` varchar(256) DEFAULT NULL,
   `employee_office` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `position_id`, `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`, `employee_imgdir`, `employee_office`) VALUES
+(11, 22, 'Vargas', 'Ana', 'Sotto', 'N/A', 'id_pictures/Vargas, Ana Sotto.jpg', 'SOCD'),
+(15, 23, 'Doe', 'Allen', 'Diaz', 'N/A', 'id_pictures/Doe, Allen Diaz.jpg', 'SOCD'),
+(16, 24, 'VIDAL', 'MARTA', 'sOLER', 'N/A', 'id_pictures/VIDAL, MARTA sOLER.jpg', 'SOCD'),
+(17, 25, 'JUAREZ', 'JAVIER', 'CRESPO', 'N/A', 'id_pictures/JUAREZ, JAVIER CRESPO.jpg', 'ALBAY');
 
 -- --------------------------------------------------------
 
@@ -322,6 +481,37 @@ CREATE TABLE `employee_addresses` (
   `emp_add_type` char(1) NOT NULL COMMENT 'R = Residential /\r\nP = Permanent /\r\nB = Both'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `employee_addresses`
+--
+
+INSERT INTO `employee_addresses` (`emp_add_id`, `employee_id`, `zipcode_id`, `province_id`, `citymunicipality_id`, `barangay_id`, `subdivisionvillage_id`, `street_id`, `houseblocklot_id`, `emp_add_type`) VALUES
+(1, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(2, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(3, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(4, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(5, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(6, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(7, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(8, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(9, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(10, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(11, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(12, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(13, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(14, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(15, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(16, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(17, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(18, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(19, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(20, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(21, 11, 1, 1, 3, 1, 1, 1, 2, 'B'),
+(22, 15, 1, 1, 3, 2, 1, 1, 3, 'R'),
+(23, 15, 1, 1, 3, 2, 1, 1, 3, 'P'),
+(24, 16, 1, 1, 3, 3, 1, 1, 4, 'B'),
+(25, 17, 2, 1, 6, 4, 1, 1, 1, 'B');
+
 -- --------------------------------------------------------
 
 --
@@ -335,6 +525,36 @@ CREATE TABLE `employee_contacts` (
   `emp_cont_mobile` varchar(11) NOT NULL,
   `emp_cont_emailadd` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_contacts`
+--
+
+INSERT INTO `employee_contacts` (`emp_cont_id`, `employee_id`, `emp_cont_tel`, `emp_cont_mobile`, `emp_cont_emailadd`) VALUES
+(1, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(2, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(3, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(4, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(5, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(6, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(7, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(8, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(9, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(10, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(11, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(12, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(13, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(14, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(15, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(16, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(17, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(18, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(19, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(20, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(21, 11, 'N/A', '09746238718', 'anavargas@gmail.com'),
+(22, 15, 'N/A', '09765283471', 'doeallan@gmail.com'),
+(23, 16, 'N/A', '09073123680', 'martavidal@gmail.com'),
+(24, 17, 'N/A', '09765823934', 'JAVIERJUAREZ@GMAIL.COM');
 
 -- --------------------------------------------------------
 
@@ -356,6 +576,46 @@ CREATE TABLE `employee_details` (
   `citizenship_country` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `employee_details`
+--
+
+INSERT INTO `employee_details` (`emp_dets_id`, `employee_id`, `emp_dets_bday`, `emp_dets_birthplace`, `emp_dets_sex`, `emp_dets_civilstatus`, `emp_dets_height`, `emp_dets_weight`, `emp_dets_bloodtype`, `emp_dets_citizenship`, `citizenship_country`) VALUES
+(1, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(2, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(3, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(4, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(5, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(6, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(7, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(8, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(9, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(10, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(11, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(12, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(13, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(14, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(15, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(16, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(17, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(18, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(19, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(20, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(21, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(22, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(23, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(24, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(25, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(26, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(27, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(28, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(29, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(30, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(31, 11, '1966-01-10', 'Daraga', 'F', 'M', 1.53, 52, 'O+', 'F', 1),
+(32, 15, '1991-07-15', 'Daraga', 'M', 'S', 1.59, 60, 'A+', 'F', 1),
+(33, 16, '1989-05-15', 'DARAGA', 'F', 'M', 1.49, 59, 'O+', 'F', 1),
+(34, 17, '1973-10-21', 'LEGAZPI CITY', 'M', 'M', 1.6, 59, 'A+', 'F', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -373,6 +633,46 @@ CREATE TABLE `employee_numbers` (
   `emp_no_agency` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `employee_numbers`
+--
+
+INSERT INTO `employee_numbers` (`emp_no_id`, `employee_id`, `emp_no_gsis`, `emp_no_pagibig`, `emp_no_philhealth`, `emp_no_sss`, `emp_no_tin`, `emp_no_agency`) VALUES
+(1, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(2, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(3, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(4, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(5, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(6, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(7, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(8, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(9, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(10, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(11, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(12, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(13, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(14, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(15, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(16, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(17, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(18, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(19, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(20, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(21, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(22, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(23, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(24, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(25, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(26, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(27, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(28, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(29, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(30, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(31, 11, 'GESUCYT438', 'CUWYVT8I24', 'TXQ2HUJWCY29', 'C2JUWY8C23', 'C2I8749IQ', 'CN2IJ8I834179'),
+(32, 15, 'CKIYT28O3', 'WJRGHHC9O348', 'CKIURGYWV394', 'FCHMGVWIY57V4938', 'EKCI34YV849O', 'MC3KYI7JA89'),
+(33, 16, 'JSGDSNFHJS74', 'T374BCHJD5', 'NDG4395', 'ND4593P', '4736092JAD', 'WHE34890'),
+(34, 17, 'FVGBJTUY4R738291', 'GYT5Y7423829', '29387457TFJ', 'HBFGT5Y89', '23924583TREIHF', 'JUGYT843');
+
 -- --------------------------------------------------------
 
 --
@@ -389,7 +689,8 @@ CREATE TABLE `employer_business` (
 --
 
 INSERT INTO `employer_business` (`employer_business_id`, `employer_business_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'DEPED');
 
 -- --------------------------------------------------------
 
@@ -421,7 +722,10 @@ CREATE TABLE `house_block_lot` (
 --
 
 INSERT INTO `house_block_lot` (`houseblocklot_id`, `houseblocklot_no`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, '423'),
+(3, 'Purok 1'),
+(4, 'PUROK 6');
 
 -- --------------------------------------------------------
 
@@ -433,6 +737,18 @@ CREATE TABLE `ld_titles` (
   `ld_title_id` int(11) NOT NULL,
   `ld_title_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ld_titles`
+--
+
+INSERT INTO `ld_titles` (`ld_title_id`, `ld_title_name`) VALUES
+(1, 'N/A'),
+(2, 'Workshop on the Conduct of Inflation Rate Conference'),
+(3, 'Seminar on Sustainable Development Goals (SDG)-2'),
+(4, 'Training o 4c\'s Management'),
+(5, 'qwertyuiop'),
+(6, '2022 CENSUS OF AGRICULTURE AND FISHERIES');
 
 -- --------------------------------------------------------
 
@@ -448,8 +764,21 @@ CREATE TABLE `learning_development` (
   `ld_to` date NOT NULL,
   `ld_hrs` int(11) NOT NULL,
   `ld_type` varchar(32) NOT NULL,
-  `sponsor_id` int(11) NOT NULL
+  `sponsor_id` int(11) NOT NULL,
+  `date_added` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `learning_development`
+--
+
+INSERT INTO `learning_development` (`ld_id`, `employee_id`, `ld_title_id`, `ld_from`, `ld_to`, `ld_hrs`, `ld_type`, `sponsor_id`, `date_added`) VALUES
+(1, 11, 2, '2024-09-19', '2024-09-21', 24, 'Supervisory/Technical', 2, '2024-05-13'),
+(2, 15, 3, '2023-05-05', '2023-05-05', 1, 'Supervisory', 3, '2024-05-13'),
+(3, 16, 4, '2023-11-02', '2023-11-02', 4, 'Managerial', 4, '2024-05-13'),
+(4, 11, 5, '2024-05-10', '2024-05-10', 4, 'Technical', 5, '2024-05-14'),
+(5, 17, 3, '2023-05-05', '2023-05-05', 1, 'SUPERVISORY', 4, '2024-05-14'),
+(6, 17, 6, '2022-07-20', '2022-07-25', 27, 'TECHNICAL', 4, '2024-05-14');
 
 -- --------------------------------------------------------
 
@@ -463,6 +792,16 @@ CREATE TABLE `membership` (
   `membership_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `membership`
+--
+
+INSERT INTO `membership` (`membership_id`, `employee_id`, `membership_name`) VALUES
+(1, 11, 'Marites Association - Albay Chap'),
+(2, 15, 'N/A'),
+(3, 16, 'Marites Association Albay Chapte'),
+(4, 17, 'N/A');
+
 -- --------------------------------------------------------
 
 --
@@ -474,6 +813,16 @@ CREATE TABLE `nonacademic_recognition` (
   `employee_id` int(11) NOT NULL,
   `nar_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nonacademic_recognition`
+--
+
+INSERT INTO `nonacademic_recognition` (`nar_id`, `employee_id`, `nar_name`) VALUES
+(1, 11, 'N/A'),
+(2, 15, 'N/A'),
+(3, 16, 'Best in Data Gathering 2023'),
+(4, 17, 'BEST IN TREE PLANTING 2023');
 
 -- --------------------------------------------------------
 
@@ -491,7 +840,8 @@ CREATE TABLE `occupations` (
 --
 
 INSERT INTO `occupations` (`occupation_id`, `occupation_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'ELEM. TEACHER');
 
 -- --------------------------------------------------------
 
@@ -504,10 +854,62 @@ CREATE TABLE `parents` (
   `employee_id` int(11) NOT NULL,
   `parent_lastname` varchar(64) NOT NULL,
   `parent_firstname` varchar(64) NOT NULL,
-  `parent_middleame` varchar(64) NOT NULL,
+  `parent_middlename` varchar(64) NOT NULL,
   `parent_nameext` varchar(4) NOT NULL,
   `parent_type` char(1) NOT NULL COMMENT 'F = Father /\r\nM = Mother'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parents`
+--
+
+INSERT INTO `parents` (`parent_id`, `employee_id`, `parent_lastname`, `parent_firstname`, `parent_middlename`, `parent_nameext`, `parent_type`) VALUES
+(1, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(2, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(3, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(4, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(5, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(6, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(7, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(8, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(9, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(10, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(11, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(12, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(13, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(14, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(15, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(16, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(17, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(18, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(19, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(20, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(21, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(22, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(23, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(24, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(25, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(26, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(27, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(28, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(29, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(30, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(31, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(32, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(33, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(34, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(35, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(36, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(37, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(38, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(39, 11, 'Sotto', 'Allan', 'Monte', 'N/A', 'F'),
+(40, 11, 'Salting', 'Alma', 'Dolce', 'N/A', 'M'),
+(41, 15, 'Doe', 'Carlos', 'Martinez', 'N/A', 'F'),
+(42, 15, 'Prieto', 'Manuela', 'Sanz', 'N/A', 'M'),
+(43, 16, 'SOLER', 'EMILIO', 'SANTANA', 'N/A', 'F'),
+(44, 16, 'RUBIO', 'CLAUDIA', 'ALONSO', 'N/A', 'M'),
+(45, 17, 'JUAREZ', 'JAIME', 'DIEZ', 'N/A', 'F'),
+(46, 17, 'CRESPO', 'IMELDA', 'SANTAYANA', 'N/A', 'M');
 
 -- --------------------------------------------------------
 
@@ -522,6 +924,16 @@ CREATE TABLE `pds_references` (
   `ref_add` varchar(128) NOT NULL,
   `ref_telno` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pds_references`
+--
+
+INSERT INTO `pds_references` (`ref_id`, `employee_id`, `ref_name`, `ref_add`, `ref_telno`) VALUES
+(1, 11, 'Juan Dela Cruz', 'Legazpi City', '09738791874'),
+(2, 15, 'April Cassandra s. Regalario', 'Polangui, Albay', '09478381287'),
+(3, 16, 'Jezzel Reola', 'Ligao City', '09099999999'),
+(4, 17, 'CASSANDRA SASA', 'POLANGUI, ALBAY', '09578926472');
 
 -- --------------------------------------------------------
 
@@ -614,7 +1026,11 @@ INSERT INTO `positions` (`position_id`, `position_title`, `position_salarygrade`
 (18, 'Administrative Assistant II', 8),
 (19, 'Administrative Assistant I', 7),
 (20, 'Administrative Aide VI', 6),
-(21, 'Administrative Aide III', 3);
+(21, 'Administrative Aide III', 3),
+(22, 'Supervising Statistical Analyst', 22),
+(23, 'Administrative Clerk', 0),
+(24, 'Planning Officer II', 0),
+(25, 'ACCOUNTANT III', 10);
 
 -- --------------------------------------------------------
 
@@ -648,6 +1064,7 @@ INSERT INTO `provinces` (`province_id`, `province_name`) VALUES
 CREATE TABLE `qna` (
   `qna_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
+  `qna_itemno` int(2) NOT NULL,
   `qna_a` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
   `qna_a_ifyes` varchar(256) NOT NULL,
   `qna_b` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
@@ -656,6 +1073,40 @@ CREATE TABLE `qna` (
   `qna_c` char(1) NOT NULL COMMENT 'Y = Yes / N = No',
   `qna_c_ifyes` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `qna`
+--
+
+INSERT INTO `qna` (`qna_id`, `employee_id`, `qna_itemno`, `qna_a`, `qna_a_ifyes`, `qna_b`, `qna_b_ifyes`, `qna_b_ifyes_plus`, `qna_c`, `qna_c_ifyes`) VALUES
+(1, 11, 34, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(2, 11, 35, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(3, 11, 36, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(4, 11, 37, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(5, 11, 38, 'N', 'N/A', '', 'N/A', 'N/A', 'N', 'N/A'),
+(6, 11, 39, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(7, 11, 40, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(8, 15, 34, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(9, 15, 35, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(10, 15, 36, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(11, 15, 37, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(12, 15, 38, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(13, 15, 39, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(14, 15, 40, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(15, 16, 34, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(16, 16, 35, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(17, 16, 36, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(18, 16, 37, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(19, 16, 38, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(20, 16, 39, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(21, 16, 40, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(22, 17, 34, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(23, 17, 35, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(24, 17, 36, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(25, 17, 37, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(26, 17, 38, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(27, 17, 39, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A'),
+(28, 17, 40, 'N', 'N/A', 'N', 'N/A', 'N/A', 'N', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -795,7 +1246,17 @@ CREATE TABLE `schools` (
 --
 
 INSERT INTO `schools` (`school_id`, `school_name`) VALUES
-(1, 'N/A');
+(1, 'N/A'),
+(2, 'Alcala Elementary School'),
+(3, 'Daraga National High School'),
+(4, 'University of San Antonio'),
+(5, 'Binitayan Elementary School'),
+(6, 'Bicol University'),
+(7, 'ILAWOD ELEMENTARY SCHOOL'),
+(8, 'DARAGA HIGH SCHOOL'),
+(9, 'TINAGO ELEMENTARY SCHOOL'),
+(10, 'TINAGO HIGH SCHOOL'),
+(11, 'CAT COLLEGE');
 
 -- --------------------------------------------------------
 
@@ -809,6 +1270,19 @@ CREATE TABLE `special_skills_hobbies` (
   `ssh_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `special_skills_hobbies`
+--
+
+INSERT INTO `special_skills_hobbies` (`ssh_id`, `employee_id`, `ssh_name`) VALUES
+(1, 11, 'Singing'),
+(2, 15, 'Writing Articles'),
+(3, 15, 'Dancing'),
+(4, 15, 'Singing'),
+(5, 16, 'Data Gathering'),
+(6, 17, 'GUITARIST'),
+(7, 17, 'PIANIST');
+
 -- --------------------------------------------------------
 
 --
@@ -819,6 +1293,17 @@ CREATE TABLE `sponsors` (
   `sponsor_id` int(11) NOT NULL,
   `sponsor_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sponsors`
+--
+
+INSERT INTO `sponsors` (`sponsor_id`, `sponsor_name`) VALUES
+(1, 'N/A'),
+(2, 'PSD PSA-Manila'),
+(3, 'Philippine Statistics Authority'),
+(4, 'Psa'),
+(5, 'PSA - RSSO V');
 
 -- --------------------------------------------------------
 
@@ -838,6 +1323,36 @@ CREATE TABLE `spouses` (
   `spouse_busadd` varchar(128) NOT NULL,
   `spouse_telno` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `spouses`
+--
+
+INSERT INTO `spouses` (`spouse_id`, `employee_id`, `spouse_lastname`, `spouse_firstname`, `spouse_middlename`, `spouse_nameext`, `occupation_id`, `employer_business_id`, `spouse_busadd`, `spouse_telno`) VALUES
+(1, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(2, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(3, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(4, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(5, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(6, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(7, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(8, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(9, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(10, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(11, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(12, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(13, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(14, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(15, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(16, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(17, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(18, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(19, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(20, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(21, 11, 'Vargas', 'Antonio', 'Duran', 'N/A', 1, 1, 'N/A', '09865347873'),
+(22, 15, '', '', '', 'N/A', 1, 1, 'N/A', 'N/A'),
+(23, 16, 'VIDAL', 'FELIX', 'MORALES', 'N/A', 2, 2, 'N/A', '9696749217'),
+(24, 17, 'JUAREZ', 'SAYA', 'MOYA', 'N/A', 1, 1, 'N/A', '09634287643');
 
 -- --------------------------------------------------------
 
@@ -912,6 +1427,17 @@ CREATE TABLE `voluntary_work` (
   `volwork_position` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `voluntary_work`
+--
+
+INSERT INTO `voluntary_work` (`volwork_id`, `employee_id`, `volwork_name_add`, `volwork_from`, `volwork_to`, `volwork_hrs`, `volwork_position`) VALUES
+(1, 11, 'something', '2024-05-07', '2024-05-08', 16, 'somethingsomething'),
+(2, 15, 'something', '2023-05-05', '2023-05-05', 8, 'somethingsomething'),
+(3, 16, 'Marites Association Albay Chapter', '2022-09-09', '2024-05-13', 1000, 'Data Gatherer'),
+(4, 17, 'DIOCESE OF LEGAZPI', '2023-05-05', '2023-05-05', 2, 'CHOIR'),
+(5, 17, 'DENR', '2023-01-01', '2023-01-02', 5, 'TREE PLANTER');
+
 -- --------------------------------------------------------
 
 --
@@ -931,6 +1457,16 @@ CREATE TABLE `work_experience` (
   `workexp_govtsvcs` char(1) NOT NULL COMMENT 'Y = Yes / N = No'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `work_experience`
+--
+
+INSERT INTO `work_experience` (`workexp_id`, `employee_id`, `workexp_from`, `workexp_to`, `position_id`, `daoc_id`, `workexp_salary_mo`, `workexp_paygrade_step`, `workexp_status`, `workexp_govtsvcs`) VALUES
+(1, 11, '2022-01-07', '2024-05-13', 22, 2, '₱73,000', '22', 'Permanent', 'Y'),
+(2, 15, '2021-10-04', '2024-05-13', 23, 2, '₱14,000', 'N/A', 'Temporary', 'Y'),
+(3, 16, '2023-10-11', '2023-10-11', 24, 3, '₱40,00', 'n/a', 'Permanent', 'Y'),
+(4, 17, '2023-01-11', '2024-05-14', 25, 4, '₱55,000', '10-1', 'PERMANENT', 'Y');
+
 -- --------------------------------------------------------
 
 --
@@ -948,7 +1484,8 @@ CREATE TABLE `zipcodes` (
 --
 
 INSERT INTO `zipcodes` (`zipcode_id`, `citymunicipality_id`, `zipcode_no`) VALUES
-(1, 3, 4501);
+(1, 3, 4501),
+(2, 6, 4500);
 
 --
 -- Indexes for dumped tables
@@ -1308,31 +1845,31 @@ ALTER TABLE `zipcodes`
 -- AUTO_INCREMENT for table `barangays`
 --
 ALTER TABLE `barangays`
-  MODIFY `barangay_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `barangay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `basiced_degree_course`
 --
 ALTER TABLE `basiced_degree_course`
-  MODIFY `bdc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bdc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `children`
 --
 ALTER TABLE `children`
-  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `city_municipality`
 --
 ALTER TABLE `city_municipality`
-  MODIFY `citymunicipality_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `citymunicipality_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `civil_services`
 --
 ALTER TABLE `civil_services`
-  MODIFY `cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -1344,55 +1881,55 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `cs_eligibility`
 --
 ALTER TABLE `cs_eligibility`
-  MODIFY `cseligibility_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cseligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `dept_agency_office_co`
 --
 ALTER TABLE `dept_agency_office_co`
-  MODIFY `daoc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `daoc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `educ_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `educ_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `employee_addresses`
 --
 ALTER TABLE `employee_addresses`
-  MODIFY `emp_add_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_add_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `employee_contacts`
 --
 ALTER TABLE `employee_contacts`
-  MODIFY `emp_cont_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_cont_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `employee_details`
 --
 ALTER TABLE `employee_details`
-  MODIFY `emp_dets_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_dets_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `employee_numbers`
 --
 ALTER TABLE `employee_numbers`
-  MODIFY `emp_no_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_no_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `employer_business`
 --
 ALTER TABLE `employer_business`
-  MODIFY `employer_business_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employer_business_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `government_id`
@@ -1404,49 +1941,49 @@ ALTER TABLE `government_id`
 -- AUTO_INCREMENT for table `house_block_lot`
 --
 ALTER TABLE `house_block_lot`
-  MODIFY `houseblocklot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `houseblocklot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ld_titles`
 --
 ALTER TABLE `ld_titles`
-  MODIFY `ld_title_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ld_title_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `learning_development`
 --
 ALTER TABLE `learning_development`
-  MODIFY `ld_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ld_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `membership`
 --
 ALTER TABLE `membership`
-  MODIFY `membership_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `membership_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nonacademic_recognition`
 --
 ALTER TABLE `nonacademic_recognition`
-  MODIFY `nar_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `occupations`
 --
 ALTER TABLE `occupations`
-  MODIFY `occupation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `occupation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `pds_references`
 --
 ALTER TABLE `pds_references`
-  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personal_information`
@@ -1464,7 +2001,7 @@ ALTER TABLE `places`
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -1476,7 +2013,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `qna`
 --
 ALTER TABLE `qna`
-  MODIFY `qna_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `qna_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `qna_34`
@@ -1530,25 +2067,25 @@ ALTER TABLE `rsso_v`
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `special_skills_hobbies`
 --
 ALTER TABLE `special_skills_hobbies`
-  MODIFY `ssh_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ssh_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sponsors`
 --
 ALTER TABLE `sponsors`
-  MODIFY `sponsor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sponsor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `spouses`
 --
 ALTER TABLE `spouses`
-  MODIFY `spouse_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `spouse_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `streets`
@@ -1572,19 +2109,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `voluntary_work`
 --
 ALTER TABLE `voluntary_work`
-  MODIFY `volwork_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `volwork_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `work_experience`
 --
 ALTER TABLE `work_experience`
-  MODIFY `workexp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `workexp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `zipcodes`
 --
 ALTER TABLE `zipcodes`
-  MODIFY `zipcode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `zipcode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
