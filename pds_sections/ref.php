@@ -25,7 +25,7 @@
                     <input type="text" name="ref_address[]" class="form-control uppercase"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_telno[]" class="form-control uppercase"' . $required . ' maxlength="11">
+                    <input type="tel" name="ref_telno[]" class="form-control uppercase"' . $required . ' maxlength="11">
                 </div>
             </div>
         ';

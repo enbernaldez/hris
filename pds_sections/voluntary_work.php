@@ -112,6 +112,12 @@
             input.value = "";
         });
 
+          // Get the reference node (the original row)
+         var referenceNode = document.querySelector(".vw-row .row-row-vw");
+
+        // Insert the cloned row before the reference node
+        referenceNode.parentNode.insertBefore(newRow, referenceNode);
+
         //Remove the n/a checkbox and its associated text from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
@@ -127,9 +133,6 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
-
-        // Append the cloned row to the container
-        document.querySelector(".vw-row").appendChild(newRow);
     }
 
 
