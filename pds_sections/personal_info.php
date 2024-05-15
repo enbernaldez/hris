@@ -1,6 +1,66 @@
 <div class="container-fluid section-pi">
 
     <?php
+    if (isset($_GET['employee_id'])) {
+
+        // `employees` table
+        $sql = "SELECT *
+                FROM `employees`
+                WHERE `employee_id` = ?";
+        $filter = array($_GET['employee_id']);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+
+        $emps = array("lastname", "firstname", "middlename", "nameext", "imgdir");
+        foreach ($emps as $emp) {
+            $$emp = $row['employee_' . $emp];
+        }
+
+        // `employee_details` table
+        $sql = "SELECT *
+                FROM `employee_details`
+                WHERE `employee_id` = ?";
+        $filter = array($_GET['employee_id']);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+
+        $emp_dets = array("bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship");
+        foreach ($emp_dets as $dets) {
+            $$dets = $row['emp_dets_' . $dets];
+        }
+        $country_id = $row['citizenship_country'];
+
+        // `countries` table
+        $sql = "SELECT *
+                FROM `countries`
+                WHERE `country_id` = ?";
+        $filter = array($country_id);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+
+        $country = $row['country_name'];
+
+        // `employee_numbers` table
+        $sql = "SELECT *
+                FROM `employee_numbers`
+                WHERE `employee_id` = ?";
+        $filter = array($_GET['employee_id']);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+
+        $emp_nos = array("gsis", "pagibig", "philhealth", "sss", "tin", "agency");
+        foreach ($emp_nos as $nos) {
+            $$nos = $row['emp_no_' . $nos];
+        }
+
+
+    } else {
+        $pi_dets = array("imgdir", "lastname", "firstname", "middlename", "nameext", "bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship", "citizenship_country");
+        foreach ($pi_dets as $var) {
+            $$var = "";
+        }
+    }
+
     if (isset($_GET['office'])) {
         $office = $_GET['office'];
         echo '<input required hidden type="text" name="office" value="' . $office . '">';
@@ -11,16 +71,19 @@
 
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
-            <input type="text" required name="name_last" id="name_last" class="form-control uppercase input test">
+            <input type="text" required name="name_last" id="name_last" class="form-control uppercase input test"
+                value="<?php echo $lastname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_first">FIRST NAME</label><br>
-            <input type="text" required name="name_first" id="name_first" class="form-control uppercase input">
+            <input type="text" required name="name_first" id="name_first" class="form-control uppercase input"
+                value="<?php echo $firstname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input">
+                <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input"
+                    value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
@@ -30,7 +93,8 @@
         <div class="col-2 mx-2">
             <label for="name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input">
+                <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input"
+                    value="<?php echo $nameext; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
@@ -42,30 +106,38 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="birth_date">DATE OF BIRTH</label><br>
-            <input type="date" required name="birth_date" id="birth_date" class="form-control uppercase input">
+            <input type="date" required name="birth_date" id="birth_date" class="form-control uppercase input"
+                value="<?php echo $bday; ?>">
 
         </div>
         <div class="col mx-2">
             <label for="birth_place">PLACE OF BIRTH</label><br>
-            <input type="text" required name="birth_place" id="birth_place" class="form-control uppercase input">
+            <input type="text" required name="birth_place" id="birth_place" class="form-control uppercase input"
+                value="<?php echo $birthplace; ?>">
         </div>
         <div class="col mx-2">
             <label for="sex">SEX</label><br>
             <select id="sex" required name="sex" class="form-select input">
-                <option value="" disabled selected value>--select--</option>
-                <option value='M'>MALE</option>";
-                <option value='F'>FEMALE</option>";
+                <option value="" disabled<?php echo isset($sex) ? "" : " selected"; ?>>--select--</option>
+                <option value='M' <?php echo (isset($sex) && $sex == "M") ? " selected" : ""; ?>>MALE</option>";
+                <option value='F' <?php echo (isset($sex) && $sex == "F") ? " selected" : ""; ?>>FEMALE</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="civilstatus">CIVIL STATUS</label><br>
             <select id="civilstatus" required name="civilstatus" class="form-select input">
-                <option value="" disabled selected value>--SELECT--</option>
-                <option value='S'>SINGLE</option>";
-                <option value='M'>MARRIED</option>";
-                <option value='C'>COMMON LAW</option>";
-                <option value='W'>WIDOWED</option>";
-                <option value='H'>SEPARATED</option>";
+                <option value="" disabled selected value<?php echo isset($civilstatus) ? "" : " selected"; ?>>--SELECT--
+                </option>
+                <option value='S'<?php echo (isset($civilstatus) && $civilstatus == "S") ? " selected" : ""; ?>>SINGLE
+                </option>";
+                <option value='M'<?php echo (isset($civilstatus) && $civilstatus == "M") ? " selected" : ""; ?>>MARRIED
+                </option>";
+                <option value='C'<?php echo (isset($civilstatus) && $civilstatus == "C") ? " selected" : ""; ?>>COMMON
+                    LAW</option>";
+                <option value='W'<?php echo (isset($civilstatus) && $civilstatus == "W") ? " selected" : ""; ?>>WIDOWED
+                </option>";
+                <option value='H'<?php echo (isset($civilstatus) && $civilstatus == "H") ? " selected" : ""; ?>>SEPARATED
+                </option>";
             </select>
         </div>
     </div>
@@ -74,24 +146,33 @@
         <div class="col mx-2">
             <label for="height">HEIGHT (m)</label><br>
             <input type="number" required name="height" id="height" class="form-control uppercase input" min="1"
-                step="0.01" max="2">
+                step="0.01" max="2" value="<?php echo $height; ?>">
         </div>
         <div class="col mx-2">
             <label for="weight">WEIGHT (kg)</label><br>
-            <input type="text" required name="weight" id="weight" class="form-control uppercase input">
+            <input type="text" required name="weight" id="weight" class="form-control uppercase input"
+                value="<?php echo $weight; ?>">
         </div>
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
             <select id="bloodtype" required name="bloodtype" class="form-select input">
-                <option value="" disabled selected value>--select--</option>
-                <option value='O+'>O+</option>";
-                <option value='O-'>O-</option>";
-                <option value='A+'>A+</option>";
-                <option value='A-'>A-</option>";
-                <option value='B+'>B+</option>";
-                <option value='B-'>B-</option>";
-                <option value='AB+'>AB+</option>";
-                <option value='AB-'>AB-</option>";
+                <option value="" disabled<?php echo isset($bloodtype) ? "" : " selected"; ?>>--select--</option>
+                <option value='O+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>O+</option>
+                ";
+                <option value='O-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>O-</option>
+                ";
+                <option value='A+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>A+</option>
+                ";
+                <option value='A-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>A-</option>
+                ";
+                <option value='B+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>B+</option>
+                ";
+                <option value='B-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>B-</option>
+                ";
+                <option value='AB+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>AB+
+                </option>";
+                <option value='AB-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>AB-
+                </option>";
             </select>
         </div>
     </div>
@@ -100,32 +181,32 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="gsis">GSIS ID NO.</label><br>
-            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase input uppercase">
+            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase input uppercase" value="<?php echo $gsis; ?>">
         </div>
         <div class="col mx-2">
             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase input uppercase">
+            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase input uppercase" value="<?php echo $pagibig; ?>">
         </div>
         <div class="col mx-2">
             <label for="philhealth">PHILHEALTH NO.</label><br>
             <input type="text" required name="id_philhealth" id="philhealth"
-                class="form-control uppercase input uppercase">
+                class="form-control uppercase input uppercase" value="<?php echo $philhealth; ?>">
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="sss">SSS NO.</label><br>
-            <input type="text" required name="id_sss" id="sss" class="form-control uppercase input uppercase">
+            <input type="text" required name="id_sss" id="sss" class="form-control uppercase input uppercase" value="<?php echo $sss; ?>">
         </div>
         <div class="col mx-2">
             <label for="tin">TIN NO.</label><br>
-            <input type="text" required name="id_tin" id="tin" class="form-control uppercase input uppercase">
+            <input type="text" required name="id_tin" id="tin" class="form-control uppercase input uppercase" value="<?php echo $tin; ?>">
         </div>
         <div class="col mx-2">
             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
             <input type="text" required name="id_agency" id="employee_no"
-                class="form-control uppercase input uppercase">
+                class="form-control uppercase input uppercase" value="<?php echo $agency; ?>">
         </div>
     </div>
 
@@ -134,25 +215,25 @@
         <div class="col mx-2">
             <label for="citizenship">CITIZENSHIP</label><br>
             <select id="citizenship" required name="citizenship" class="form-select input">
-                <option value="" disabled selected value>--select--</option>
-                <option value='F'>FILIPINO</option>";
-                <option value='D'>DUAL CITIZENSHIP</option>";
+                <option value="" disabled<?php echo isset($citizenship) ? "" : " selected"; ?>>--select--</option>
+                <option value='F'<?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO</option>";
+                <option value='D'<?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="citizenship_by">CITIZENSHIP BY</label><br>
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--SELECT--</option>
-                <option value="F" selected value hidden>N/A</option>
-                <option value='B'>BIRTH</option>";
-                <option value='N'>NATURALIZATION</option>";
+                <option value="F" hidden<?php echo isset($citizenship) ? "" : " selected"; ?>>N/A</option>
+                <option value='B'<?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH</option>";
+                <option value='N'<?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>NATURALIZATION</option>";
             </select>
         </div>
         <div class="col mx-2">
             <label for="citizenship_country">If Holder of Dual Citizenship, please indicate
                 country</label><br>
             <input type="text" required name="citizenship_country" id="citizenship_country"
-                class="form-control uppercase input" value="N/A" disabled>
+                class="form-control uppercase input" value="<?php echo $country; ?>" disabled>
         </div>
     </div>
 
@@ -230,8 +311,8 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="radd_zipcode">ZIPCODE</label>
-            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control uppercase input" min="400"
-                max="9900">
+            <input type="number" required name="radd_zipcode" id="radd_zipcode" class="form-control uppercase input"
+                min="400" max="9900">
         </div>
     </div>
 
@@ -260,7 +341,8 @@
         </div>
         <div class="col mx-2">
             <label for="padd_citymunicipality">CITY/MUNICIPALITY</label>
-            <select id="padd_citymunicipality" required name="padd_citymunicipality" class="form-select uppercase input">
+            <select id="padd_citymunicipality" required name="padd_citymunicipality"
+                class="form-select uppercase input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
                 echo '<option value="" disabled selected value>--select--</option>';
@@ -315,8 +397,8 @@
     <div class="row mt-3">
         <div class="col-3 mx-2">
             <label for="padd_zipcode">ZIPCODE</label>
-            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control uppercase input" min="400"
-                max="9900">
+            <input type="number" required name="padd_zipcode" id="padd_zipcode" class="form-control uppercase input"
+                min="400" max="9900">
         </div>
     </div>
 
@@ -334,7 +416,8 @@
         </div>
         <div class="col mx-2">
             <label for="no_mobile">MOBILE NO.</label><br>
-            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control uppercase input" maxlength="11">
+            <input type="tel" required name="no_mobile" id="no_mobile" class="form-control uppercase input"
+                maxlength="11">
         </div>
         <div class="col mx-2">
             <label for="emailadd">EMAIL ADDRESS</label><br>
