@@ -55,10 +55,15 @@
 
 
     } else {
-        $pi_dets = array("imgdir", "lastname", "firstname", "middlename", "nameext", "bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship", "citizenship_country");
+        $pi_dets = array(
+            "imgdir", "lastname", "firstname", "middlename", "nameext", 
+            "bday", "birthplace", "height", "weight",
+            "gsis", "pagibig", "philhealth", "sss", "tin", "agency"
+        );
         foreach ($pi_dets as $var) {
             $$var = "";
         }
+        $country = "N/A";
     }
 
     if (isset($_GET['office'])) {
@@ -118,7 +123,7 @@
         <div class="col mx-2">
             <label for="sex">SEX</label><br>
             <select id="sex" required name="sex" class="form-select input">
-                <option value="" disabled<?php echo isset($sex) ? "" : " selected"; ?>>--select--</option>
+                <option value="" disabled<?php echo isset($sex) ? "" : " selected"; ?>>--SELECT--</option>
                 <option value='M' <?php echo (isset($sex) && $sex == "M") ? " selected" : ""; ?>>MALE</option>";
                 <option value='F' <?php echo (isset($sex) && $sex == "F") ? " selected" : ""; ?>>FEMALE</option>";
             </select>
@@ -156,22 +161,22 @@
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
             <select id="bloodtype" required name="bloodtype" class="form-select input">
-                <option value="" disabled<?php echo isset($bloodtype) ? "" : " selected"; ?>>--select--</option>
-                <option value='O+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>O+</option>
+                <option value="" disabled<?php echo isset($bloodtype) ? "" : " selected"; ?>>--SELECT--</option>
+                <option value='O+'<?php echo (isset($bloodtype) && $bloodtype == "O+") ? " selected" : ""; ?>>O+</option>
                 ";
-                <option value='O-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>O-</option>
+                <option value='O-'<?php echo (isset($bloodtype) && $bloodtype == "O-") ? " selected" : ""; ?>>O-</option>
                 ";
-                <option value='A+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>A+</option>
+                <option value='A+'<?php echo (isset($bloodtype) && $bloodtype == "A+") ? " selected" : ""; ?>>A+</option>
                 ";
-                <option value='A-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>A-</option>
+                <option value='A-'<?php echo (isset($bloodtype) && $bloodtype == "A-") ? " selected" : ""; ?>>A-</option>
                 ";
-                <option value='B+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>B+</option>
+                <option value='B+'<?php echo (isset($bloodtype) && $bloodtype == "B+") ? " selected" : ""; ?>>B+</option>
                 ";
-                <option value='B-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>B-</option>
+                <option value='B-'<?php echo (isset($bloodtype) && $bloodtype == "B-") ? " selected" : ""; ?>>B-</option>
                 ";
-                <option value='AB+'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>AB+
+                <option value='AB+'<?php echo (isset($bloodtype) && $bloodtype == "AB+") ? " selected" : ""; ?>>AB+
                 </option>";
-                <option value='AB-'<?php echo (isset($bloodtype) && $bloodtype == "S") ? " selected" : ""; ?>>AB-
+                <option value='AB-'<?php echo (isset($bloodtype) && $bloodtype == "AB-") ? " selected" : ""; ?>>AB-
                 </option>";
             </select>
         </div>
@@ -215,7 +220,7 @@
         <div class="col mx-2">
             <label for="citizenship">CITIZENSHIP</label><br>
             <select id="citizenship" required name="citizenship" class="form-select input">
-                <option value="" disabled<?php echo isset($citizenship) ? "" : " selected"; ?>>--select--</option>
+                <option value="" disabled<?php echo isset($citizenship) ? "" : " selected"; ?>>--SELECT--</option>
                 <option value='F'<?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO</option>";
                 <option value='D'<?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL CITIZENSHIP</option>";
             </select>
@@ -259,7 +264,7 @@
             <select id="radd_citymunicipality" required name="radd_citymunicipality" class="form-select input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
-                echo '<option value="" disabled selected value>--select--</option>';
+                echo '<option value="" disabled selected value>--SELECT--</option>';
                 foreach ($list_citymunicipality as $key => $row) {
                     $cm_id = $row['citymunicipality_id'];
                     $cm_name = $row['citymunicipality_name'];
@@ -331,7 +336,7 @@
             <select id="padd_province" required name="padd_province" class="form-select uppercase input">
                 <?php
                 $list_province = query($conn, "SELECT * FROM `provinces`");
-                echo '<option value="" disabled selected value>--select--</option>';
+                echo '<option value="" disabled selected value>--SELECT--</option>';
                 foreach ($list_province as $key => $row) {
                     $prov_id = $row['province_id'];
                     $prov_name = $row['province_name'];
@@ -345,7 +350,7 @@
                 class="form-select uppercase input">
                 <?php
                 $list_citymunicipality = query($conn, "SELECT * FROM `city_municipality`");
-                echo '<option value="" disabled selected value>--select--</option>';
+                echo '<option value="" disabled selected value>--SELECT--</option>';
                 foreach ($list_citymunicipality as $key => $row) {
                     $cm_id = $row['citymunicipality_id'];
                     $cm_name = $row['citymunicipality_name'];
