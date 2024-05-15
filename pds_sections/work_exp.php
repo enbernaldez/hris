@@ -223,7 +223,7 @@
     salary.value = "₱";
 
     // Get the reference node (the original row)
-    var referenceNode = document.querySelector(".row-container .row-row");
+    var referenceNode = document.querySelector(".row-container_we .row-row_we");
 
     // Insert the cloned row before the reference node
     referenceNode.parentNode.insertBefore(newRow, referenceNode);
