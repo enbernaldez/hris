@@ -81,15 +81,43 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_cs" data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 
 </div>
 
 <script>
-    // Function to disable input fields if "N/A" checkbox is checked
+//========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
+
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_cs').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group-na-cs');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
+            }
+        });
+    });
+
+    // ============ Function to disable input fields if "N/A" checkbox is checked =========
     function disableInputs() {
         var inputs = document.querySelectorAll(".group-na-cs");
         var cse_addrow = document.getElementById("cse_addrow");
@@ -101,25 +129,25 @@
         });
     }
     // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group-na-cs');
+    // function submitForm() {
+    //     // Get all input fields with class "group_na"
+    //     var inputs = document.querySelectorAll('.group-na-cs');
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
-            }
-        });
+    //     // Check if all input fields are filled out
+    //     var allFilled = true;
+    //     inputs.forEach(function (input) {
+    //         if (!input.value.trim()) {
+    //             allFilled = false;
+    //         }
+    //     });
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=work_exp";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
+    //     // If all input fields are filled out, submit the form
+    //     if (allFilled) {
+    //         window.location.href = "pds_form.php?form_section=work_exp";
+    //     } else {
+    //         alert("Please fill out all input fields before proceeding.");
+    //     }
+    // }
 
     function addRow_cs() {
         // Clone the input-row element

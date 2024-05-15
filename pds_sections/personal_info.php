@@ -438,8 +438,7 @@
     </div>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_pi">
         <strong>NEXT</strong>
     </button>
 
@@ -451,26 +450,54 @@
 </div>
 
 <script>
-    // ======================== Next Button ================================================
-    function submitForm() {
-        // Get all input fields with class "input"
-        var inputs = document.querySelectorAll('.input');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_pi').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.input');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
+    });
+    // ======================== Next Button ================================================
+    // function submitForm() {
+    //     // Get all input fields with class "input"
+    //     var inputs = document.querySelectorAll('.input');
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=fam_bg";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
+    //     // Check if all input fields are filled out
+    //     var allFilled = true;
+    //     inputs.forEach(function (input) {
+    //         if (!input.value.trim()) {
+    //             allFilled = false;
+    //         }
+    //     });
+
+    //     // If all input fields are filled out, submit the form
+    //     if (allFilled) {
+    //         window.location.href = "pds_form.php?form_section=fam_bg";
+    //     } else {
+    //         alert("Please fill out all input fields before proceeding.");
+    //     }
+    // }
 
 
     telTypeArray = ["no_tel"];

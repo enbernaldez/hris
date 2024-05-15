@@ -380,37 +380,46 @@
         </button>
     </div>
     <!-- BACK BUTTON -->
-    <button type="button" onclick="history.back()" class="btn btn-secondary mt-5 mx-1 button-left">
-        <strong>BACK</strong>
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+        data-bs-slide="prev">
+        <strong>PREV</strong>
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_eg" data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
 <script>
-    // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.next_button');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_eg').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.next_button');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
+    });
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=cs_eligibility";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
     // Year Picker 
     function populateYearDropdowns(select) {
         const currentYear = new Date().getFullYear();
