@@ -8,17 +8,17 @@
                 <input class="form-check-input" type="checkbox" id="null_spouse">
                 <label class="form-check-label" for="null_spouse">N/A</label>
             </div>
-            <input type="text" name="spouse_name_last" id="spouse_name_last" class="form-control group-na">
+            <input type="text" name="spouse_name_last" id="spouse_name_last" class="form-control group-na-fb">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_first">FIRST NAME</label><br>
-            <input type="text" name="spouse_name_first" id="spouse_name_first" class="form-control group-na">
+            <input type="text" name="spouse_name_first" id="spouse_name_first" class="form-control group-na-fb">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_name_middle" id="spouse_name_middle"
-                    class="form-control group-na">
+                    class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_mi">
                     <label class="form-check-label" for="null_spouse_mi">N/A</label>
@@ -28,7 +28,7 @@
         <div class="col-2 mx-1">
             <label for="spouse_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_name_ext" id="spouse_name_ext" class="form-control group-na">
+                <input type="text" required name="spouse_name_ext" id="spouse_name_ext" class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_nameext">
                     <label class="form-check-label" for="null_spouse_nameext">N/A</label>
@@ -43,7 +43,7 @@
             <label for="spouse_occupation">OCCUPATION</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_occupation" id="spouse_occupation"
-                    class="form-control group-na">
+                    class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_occupation">
                     <label class="form-check-label" for="null_occupation">N/A</label>
@@ -53,7 +53,7 @@
         <div class="col mx-1">
             <label for="spouse_bus_name">EMPLOYEER/BUSINESS NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_bus_name" id="spouse_bus_name" class="form-control group-na">
+                <input type="text" required name="spouse_bus_name" id="spouse_bus_name" class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_bus">
                     <label class="form-check-label" for="null_bus">N/A</label>
@@ -63,7 +63,7 @@
         <div class="col mx-1">
             <label for="spouse_bus_add">BUSINESS ADDRESS</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_bus_add" id="spouse_bus_add" class="form-control group-na">
+                <input type="text" required name="spouse_bus_add" id="spouse_bus_add" class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_busadd">
                     <label class="form-check-label" for="null_busadd">N/A</label>
@@ -73,7 +73,7 @@
         <div class="col mx-1">
             <label for="spouse_telno">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control group-na">
+                <input type="text" required name="spouse_telno" id="spouse_telno" class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_telno">
                     <label class="form-check-label" for="null_spouse_telno">N/A</label>
@@ -90,18 +90,18 @@
                 <input class="form-check-input" type="checkbox" id="null_father">
                 <label class="form-check-label" for="null_father">N/A</label>
             </div>
-            <input type="text" name="father_name_last" id="father_name_last" class="form-control group-na">
+            <input type="text" name="father_name_last" id="father_name_last" class="form-control group-na-fb">
 
         </div>
         <div class="col mx-1">
             <label for="father_name_first">FIRST NAME</label><br>
-            <input type="text" name="father_name_first" id="father_name_first" class="form-control group-na">
+            <input type="text" name="father_name_first" id="father_name_first" class="form-control group-na-fb">
         </div>
         <div class="col mx-1">
             <label for="father_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="father_name_middle" id="father_name_middle"
-                    class="form-control group-na">
+                    class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_mi">
                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -111,7 +111,7 @@
         <div class="col-2 mx-1">
             <label for="father_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="father_name_ext" id="father_name_ext" class="form-control group-na">
+                <input type="text" required name="father_name_ext" id="father_name_ext" class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_nameext">
                     <label class="form-check-label" for="null_father_nameext">N/A</label>
@@ -128,18 +128,18 @@
                 <input class="form-check-input" type="checkbox" id="null_mother">
                 <label class="form-check-label" for="null_mother">N/A</label>
             </div>
-            <input type="text" name="mother_name_last" id="mother_name_last" class="form-control group-na">
+            <input type="text" name="mother_name_last" id="mother_name_last" class="form-control group-na-fb">
 
         </div>
         <div class="col mx-1">
             <label for="mother_name_first">FIRST NAME</label><br>
-            <input type="text" name="mother_name_first" id="mother_name_first" class="form-control group-na">
+            <input type="text" name="mother_name_first" id="mother_name_first" class="form-control group-na-fb">
         </div>
         <div class="col mx-1">
             <label for="mother_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="mother_name_middle" id="mother_name_middle"
-                    class="form-control group-na">
+                    class="form-control group-na-fb">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_mother_mi">
                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -163,11 +163,11 @@
         </div>
         <div class="row row-row mb-3">
             <div class="col-8 mx-1">
-                <input type="text" name="child_fullname[]" id="child_name" class="form-control group-na">
+                <input type="text" name="child_fullname[]" id="child_name" class="form-control group-na-fb">
             </div>
             <div class="col mx-1">
                 <div class="checkbox-container">
-                    <input type="date" name="child_birthdate[]" id="child_dob" class="form-control group-na">
+                    <input type="date" name="child_birthdate[]" id="child_dob" class="form-control group-na-fb">
                     <button type="button" class="delete-row-button mx-2"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
@@ -192,33 +192,60 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_fb">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
- // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group-na');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_fb').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group-na-fb');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
+    });
+    // ======================== Next button ====================================
+    // function submitForm() {
+    //     // Get all input fields with class "group_na"
+    //     var inputs = document.querySelectorAll('.group-na');
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=educ_bg";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
+    //     // Check if all input fields are filled out
+    //     var allFilled = true;
+    //     inputs.forEach(function (input) {
+    //         if (!input.value.trim()) {
+    //             allFilled = false;
+    //         }
+    //     });
+
+    //     // If all input fields are filled out, submit the form
+    //     if (allFilled) {
+    //         window.location.href = "pds_form.php?form_section=educ_bg";
+    //     } else {
+    //         alert("Please fill out all input fields before proceeding.");
+    //     }
+    // }
 
 
     // ======================= N/A disable =======================
