@@ -105,7 +105,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
                 $sql = "SELECT DISTINCT `ld_title_id`, `date_added`
                             FROM `learning_development`
-                            ORDER BY `date_added`";
+                            ORDER BY `date_added` DESC";
                 $filter = array();
                 $result = query($conn, $sql, $filter);
                 if (empty($result)) {
@@ -165,7 +165,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     }
 
                                     echo "
-                                        <tr onclick='redirect(" . $title_id . ")'>
+                                        <tr onclick='redirect(" . $title_id . ")' style='cursor: pointer;'>
                                             <td>" . $title . "</td>
                                             <td>" . $ld_type . "</td>
                                             <td>" . $last_updated . "</td>
@@ -310,42 +310,42 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
         }
 
-        <?php
-        switch ($_GET['add_training']) {
-            case 'success':
-                $id = $_GET['training_added'];
+        // <?php
+        // switch ($_GET['add_training']) {
+        //     case 'success':
+        //         $id = $_GET['training_added'];
 
-                $sql = "SELECT `ld_title_name`
-                        FROM `ld_titles`
-                        WHERE `ld_title_id` = ?";
-                $filter = array($id);
-                $result = query($conn, $sql, $filter);
+        //         $sql = "SELECT `ld_title_name`
+        //                 FROM `ld_titles`
+        //                 WHERE `ld_title_id` = ?";
+        //         $filter = array($id);
+        //         $result = query($conn, $sql, $filter);
 
-                $row = $result[0];
-                $title = $row['ld_title_name'];
+        //         $row = $result[0];
+        //         $title = $row['ld_title_name'];
 
-                // Use json_encode to safely escape strings for JavaScript
-                $title_js = json_encode($title);
+        //         // Use json_encode to safely escape strings for JavaScript
+        //         $title_js = json_encode($title);
 
-                echo "
-                    swal('New training added!', 
-                        'Training, {$title_js} , has been added to database.', 
-                        'success');
-                ";
+        //         echo "
+        //             swal('New training added!', 
+        //                 'Training, {$title_js} , has been added to database.', 
+        //                 'success');
+        //         ";
 
-                break;
+        //         break;
 
-            case 'failed':
-                echo '
-                    swal("", "Failed to add new training.", "error");
-                ';
+        //     case 'failed':
+        //         echo '
+        //             swal("", "Failed to add new training.", "error");
+        //         ';
 
-                break;
+        //         break;
 
-            default:
-                break;
-        }
-        ?>
+        //     default:
+        //         break;
+        // }
+        // ?>
     </script>
 </body>
 
