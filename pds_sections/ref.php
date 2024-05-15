@@ -19,13 +19,13 @@
         echo '
             <div class="row mt-3">
                 <div class="col-4">
-                    <input type="text" name="ref_name[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_name['.$i.']" class="form-control"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_address[]" class="form-control"' . $required . '>
+                    <input type="text" name="ref_address['.$i.']" class="form-control"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_telno[]" class="form-control"' . $required . ' maxlength="11">
+                    <input type="tel" name="ref_telno['.$i.']" class="form-control"' . $required . ' maxlength="11">
                 </div>
             </div>
         ';
