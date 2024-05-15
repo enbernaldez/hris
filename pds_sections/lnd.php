@@ -120,6 +120,11 @@
         newRow.querySelectorAll("input").forEach((input) => {
             input.value = "";
         });
+        // Get the reference node (the original row)
+    var referenceNode = document.querySelector(".lnd_row .row-row-lnd");
+
+// Insert the cloned row before the reference node
+referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
@@ -137,8 +142,7 @@
             });
         }
 
-        // Append the cloned row to the container
-        document.querySelector(".lnd_row").appendChild(newRow);
+      
     }
 
     // ============================ N/A Array Disable ============================

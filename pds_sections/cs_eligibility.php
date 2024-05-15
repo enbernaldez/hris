@@ -130,6 +130,12 @@
             input.value = "";
         });
 
+          // Get the reference node (the original row)
+    var referenceNode = document.querySelector(".cs-row .row-row-cs");
+
+// Insert the cloned row before the reference node
+referenceNode.parentNode.insertBefore(newRow, referenceNode);
+
         // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
@@ -145,9 +151,6 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
-
-        // Append the cloned row to the container
-        document.querySelector(".cs-row").appendChild(newRow);
     }
 
     function checkNA_cs(checkbox) {
