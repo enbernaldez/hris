@@ -117,7 +117,8 @@ if ($_SESSION['user_type'] != 'A') {
                                 </div>
                                 <div class="col mx-4">
                                     <p data-bs-target="#carousel" data-bs-slide-to="3"
-                                        aria-label="Civil Service Eligibility" style="text-align:center; cursor: pointer;">
+                                        aria-label="Civil Service Eligibility"
+                                        style="text-align:center; cursor: pointer;">
                                         Civil Service Eligibility
                                     </p>
                                 </div>
@@ -153,44 +154,48 @@ if ($_SESSION['user_type'] != 'A') {
                                 </div>
                             </div>
                         </nav>
-                        <div class="carousel-inner">
-                            <!-- PERSONAL INFORMATION -->
-                            <div class="carousel-item active">
-                                <?php include_once "pds_sections/personal_info.php"; ?>
-                            </div>
-                            <!-- FAMILY BACKGROUND -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/fam_bg.php"; ?>
-                            </div>
-                            <!-- EDUCATIONAL BACKGROUND -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/educational_bg.php"; ?>
-                            </div>
-                            <!-- CIVIL SERVICE ELIGIBILITY -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/cs_eligibility.php"; ?>
-                            </div>
-                            <!-- WORK EXPERIENCE -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/work_exp.php"; ?>
-                            </div>
-                            <!-- VOLUNTARY WORK -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/voluntary_work.php"; ?>
-                            </div>
-                            <!-- LEARNING & DEVELOPMENT -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/lnd.php"; ?>
-                            </div>
-                            <!-- OTHER INFORMATION -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/other_info.php"; ?>
-                            </div>
-                            <!-- REFERENCES -->
-                            <div class="carousel-item">
-                                <?php include_once "pds_sections/ref.php"; ?>
+                        <div class="carousel slide" id="carouselExample">
+                            <div class="carousel-inner">
+                                <!-- PERSONAL INFORMATION -->
+                                <div class="carousel-item active">
+                                    <?php include_once "pds_sections/personal_info.php"; ?>
+                                </div>
+                                <!-- FAMILY BACKGROUND -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/fam_bg.php"; ?>
+                                </div>
+                                <!-- EDUCATIONAL BACKGROUND -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/educational_bg.php"; ?>
+                                </div>
+                                <!-- CIVIL SERVICE ELIGIBILITY -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/cs_eligibility.php"; ?>
+                                </div>
+                                <!-- WORK EXPERIENCE -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/work_exp.php"; ?>
+                                </div>
+                                <!-- VOLUNTARY WORK -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/voluntary_work.php"; ?>
+                                </div>
+                                <!-- LEARNING & DEVELOPMENT -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/lnd.php"; ?>
+                                </div>
+                                <!-- OTHER INFORMATION -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/other_info.php"; ?>
+                                </div>
+                                <!-- REFERENCES -->
+                                <div class="carousel-item">
+                                    <?php include_once "pds_sections/ref.php"; ?>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
                 </form>
 

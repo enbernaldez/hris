@@ -57,33 +57,33 @@
                     <div class="row">
                         <div class="col-6">
                             <input type="date" required name="we_date_from[]" id="we_date_from"
-                                class="form-control group_na" value="">
+                                class="form-control group_na_we" value="">
                         </div>
                         <div class="col-6">
                             <input type="date" required name="we_date_to[]" id="we_date_to"
-                                class="form-control group_na" value="">
+                                class="form-control group_na_we" value="">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-2">
-                <input type="text" name="we_position[]" id="we_position" class="form-control group_na" required
+                <input type="text" name="we_position[]" id="we_position" class="form-control group_na_we" required
                     value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na" required value="">
+                <input type="text" name="we_agency[]" id="we_agency" class="form-control group_na_we" required value="">
             </div>
             <div class="col-1">
-                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na" required value="₱">
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control group_na_we" required value="₱">
             </div>
             <div class="col-1">
-                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na" required value="">
+                <input type="text" name="we_sg[]" id="we_sg" class="form-control group_na_we" required value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_status[]" id="we_status" class="form-control group_na" required value="">
+                <input type="text" name="we_status[]" id="we_status" class="form-control group_na_we" required value="">
             </div>
             <div class="col-1">
-                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na">
+                <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na_we">
                     <option value="" disabled selected value>--select--</option>
                     <option value='Y'>Yes</option>
                     <option value='N'>No</option>
@@ -107,33 +107,61 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right"
+        data-bs-slide="next" id="nextButton_we">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
-    // ======================== Next Button ================================================
-    function submitForm_we() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group_na');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_we').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group_na_we');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
+    });
+    // ======================== Next Button ================================================
+    // function submitForm_we() {
+    //     // Get all input fields with class "group_na"
+    //     var inputs = document.querySelectorAll('.group_na');
 
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=voluntary_work";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
+    //     // Check if all input fields are filled out
+    //     var allFilled = true;
+    //     inputs.forEach(function (input) {
+    //         if (!input.value.trim()) {
+    //             allFilled = false;
+    //         }
+    //     });
+
+    //     // If all input fields are filled out, submit the form
+    //     if (allFilled) {
+    //         window.location.href = "pds_form.php?form_section=voluntary_work";
+    //     } else {
+    //         alert("Please fill out all input fields before proceeding.");
+    //     }
+    // }
 
     // ============================ N/A Array Disable ============================
     const originalOptions = {};

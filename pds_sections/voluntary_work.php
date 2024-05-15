@@ -35,7 +35,7 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na"
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control group_na_vw"
                         required>
                 </div>
             </div>
@@ -43,18 +43,18 @@
                 <div class="row">
                     <div class="col-6 px-1 mx-0">
                         <input type="date" required name="vw_date_from[]" id="vw_date_from"
-                            class="form-control group_na">
+                            class="form-control group_na_vw">
                     </div>
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control group_na">
+                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control group_na_vw">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na" required>
+                <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control group_na_vw" required>
             </div>
             <div class="col-4">
-                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na" required>
+                <input type="text" name="vw_position[]" id="vw_position" class="form-control group_na_vw" required>
             </div>
 
         </div>
@@ -74,34 +74,40 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_vw">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
-    // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group_na');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_vw').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group_na_vw');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
-
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=lnd";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
-
+    });
     // =================================== Add Row ===================================
     function addRow_vw() {
         // Clone the input-row element

@@ -44,28 +44,28 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="lnd_title[]" id="lnd_title" class="form-control group-na">
+                    <input type="text" name="lnd_title[]" id="lnd_title" class="form-control group-na-lnd">
                 </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
                         <input type="date" required name="lnd_date_from[]" id="lnd_date_from"
-                            class="form-control group-na">
+                            class="form-control group-na-lnd">
                     </div>
                     <div class="col-6">
-                        <input type="date" required name="lnd_date_to[]" id="lnd_date_to" class="form-control group-na">
+                        <input type="date" required name="lnd_date_to[]" id="lnd_date_to" class="form-control group-na-lnd">
                     </div>
                 </div>
             </div>
             <div class="col-1">
-                <input type="number" name="lnd_hrs[]" id="lnd_hrs" class="form-control group-na">
+                <input type="number" name="lnd_hrs[]" id="lnd_hrs" class="form-control group-na-lnd">
             </div>
             <div class="col-3">
-                <input type="text" name="lnd_type[]" id="lnd_type" class="form-control group-na">
+                <input type="text" name="lnd_type[]" id="lnd_type" class="form-control group-na-lnd">
             </div>
             <div class="col-2">
-                <input type="text" name="lnd_sponsor[]" id="lnd_sponsor" class="form-control group-na">
+                <input type="text" name="lnd_sponsor[]" id="lnd_sponsor" class="form-control group-na-lnd">
             </div>
         </div>
     </div>
@@ -84,34 +84,40 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_lnd">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
-    // ======================== Next button ====================================
-    function submitForm() {
-        // Get all input fields with class "group_na"
-        var inputs = document.querySelectorAll('.group-na');
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
 
-        // Check if all input fields are filled out
-        var allFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allFilled = false;
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_lnd').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group-na-lnd');
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // If all input fields are filled out, move to the next carousel item
+            if (allFilled) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
             }
         });
-
-        // If all input fields are filled out, submit the form
-        if (allFilled) {
-            window.location.href = "pds_form.php?form_section=other_info";
-        } else {
-            alert("Please fill out all input fields before proceeding.");
-        }
-    }
-
+    });
     function addRow_lnd() {
         // Clone the input-row element
         var newRow = document.querySelector(".row-row-lnd").cloneNode(true);
