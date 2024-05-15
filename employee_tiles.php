@@ -141,7 +141,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             <p>No employees yet.</p>
                         <?php
                         echo ($user_type == 'A') ?
-                            '<a href="pds_form.php?form_section=personal_info&action=add&office=' . $_GET['office'] . '">
+                            '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
                                 <button type="button" class="btn btn-primary"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
@@ -152,7 +152,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <div class="mt-5">
                             <?php
                             echo ($user_type == 'A') ?
-                                '<a href="pds_form.php?form_section=personal_info&action=add&office=' . $_GET['office'] . '">
+                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
                                     <button type="button" class="btn btn-primary"
                                         style="margin-left: 10px; background-color: #283872; border: none;">
                                         Add Employee
@@ -191,7 +191,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <div class="col-4 tile mt-3">
                                     <?php
                                     echo ($user_type == 'A') ?
-                                        '<a href="pds_form.php?form_section=personal_info&action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
+                                        '<a href="pds_form_carousel.php?action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
                                             style="text-decoration: none; color: inherit;">' : '';
                                     echo '<div class="row">
                                             <div class="col-3">
@@ -220,7 +220,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <!-- Context Menu -->
                                 <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                     <ul>
-                                        <a href="pds_form.php?form_section=personal_info&action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
+                                        <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
                                             style="color: black;">
                                             <li>Edit</li>
                                         </a>
@@ -262,7 +262,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <div class="my-3">
                             <?php
                             echo ($user_type == 'A') ?
-                                '<a href="pds_form.php?form_section=personal_info&action=add&office=' . $_GET['office'] . '">
+                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
                                     <button type="button" class="btn btn-primary"
                                         style="margin-left: 10px; background-color: #283872; border: none;">
                                         Add Employee
@@ -290,7 +290,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         <?php
         switch ($_GET['add_employee']) {
             case 'success':
-                $id = $_GET['id'];
+                $id = $_GET['employee_added'];
 
                 $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
                         FROM `employees`
@@ -310,7 +310,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
                 echo "
                     swal('New employee added!', 
-                        'Employee, {$full_name_js} , has been added to database.', 
+                        '{$full_name_js} has been added to database.', 
                         'success');
                 ";
                 

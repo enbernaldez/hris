@@ -193,21 +193,23 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </div>
 
                     <div class="modal-body px-4">
-                        <form action="trainings_new.php" method="POST">
+                        <form id="add_training" action="trainings_new.php" method="POST">
                             <div class="my-3">
                                 <label for="titleInput" class="form-label">TITLE:</label>
-                                <input type="text" class="form-control" id="titleInput" required>
+                                <input type="text" class="form-control uppercase" id="titleInput" name="titleInput"
+                                    required>
                             </div>
 
                             <div class="my-3">
                                 <label for="typeOfLdInput" class="form-label">TYPE OF LD:</label>
-                                <input type="text" class="form-control" id="typeOfLdInput" required>
+                                <input type="text" class="form-control uppercase" id="typeOfLdInput"
+                                    name="typeOfLdInput" required>
                             </div>
 
                             <div class="row-container my-3">
                                 <label for="employees" class="form-label">Employees</label>
                                 <div class="training_employee checkbox-container my-2">
-                                    <select name="training_employee" id="training_employee" required
+                                    <select name="training_employee[]" id="training_employee" required
                                         class="form-select">
                                         <option value="" disabled selected value>--select--</option>
                                         <?php
@@ -221,7 +223,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                             $nameext = $value['employee_nameext'];
                                             $nameext = ($nameext === 'N/A') ? '' : " $nameext";
 
-                                            echo "<option value='" . $employee_id . "'>" . $firstname . $middlename . $lastname . $nameext . "</option>";
+                                            echo "<option value='" . $employee_id . "'>" . $firstname . $middlename . " " . $lastname . $nameext . "</option>";
                                         }
                                         ?>
                                     </select>
@@ -245,24 +247,27 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="from" class="form-label">FROM:</label>
-                                        <input type="date" required name="date_from[]" id="date_from"
-                                            class="form-control">
+                                        <input type="date" required name="date_from" id="date_from"
+                                            class="form-control uppercase">
                                     </div>
                                     <div class="col-6">
                                         <label for="to" class="form-label">TO:</label>
-                                        <input type="date" required name="date_to[]" id="date_to" class="form-control">
+                                        <input type="date" required name="date_to" id="date_to"
+                                            class="form-control uppercase">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="my-3">
                                 <label for="numberOfHours" class="form-label">Number of Hours:</label>
-                                <input type="number" class="form-control" id="numberOfHours" required>
+                                <input type="number" class="form-control uppercase" id="numberOfHours"
+                                    name="numberOfHours" required>
                             </div>
 
                             <div class="my-3">
                                 <label for="conducted_Sponsoredby" class="form-label">Conducted/Sponsored By:</label>
-                                <input type="text" class="form-control" id="conducted_Sponsoredby" required>
+                                <input type="text" class="form-control uppercase" id="conducted_Sponsoredby"
+                                    name="conducted_Sponsoredby" required>
                             </div>
                         </form>
                     </div>
@@ -270,13 +275,15 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <span style="margin-right: 40px;"></span>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button form="add_training" type="submit" class="btn btn-primary">Save</button>
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         function redirect(ld_title_id) {
             window.location = "training_employee.php?title_id=" + ld_title_id;
@@ -302,6 +309,43 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             });
             deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
         }
+
+        <?php
+        switch ($_GET['add_training']) {
+            case 'success':
+                $id = $_GET['training_added'];
+
+                $sql = "SELECT `ld_title_name`
+                        FROM `ld_titles`
+                        WHERE `ld_title_id` = ?";
+                $filter = array($id);
+                $result = query($conn, $sql, $filter);
+
+                $row = $result[0];
+                $title = $row['ld_title_name'];
+
+                // Use json_encode to safely escape strings for JavaScript
+                $title_js = json_encode($title);
+
+                echo "
+                    swal('New training added!', 
+                        'Training, {$title_js} , has been added to database.', 
+                        'success');
+                ";
+
+                break;
+
+            case 'failed':
+                echo '
+                    swal("", "Failed to add new training.", "error");
+                ';
+
+                break;
+
+            default:
+                break;
+        }
+        ?>
     </script>
 </body>
 

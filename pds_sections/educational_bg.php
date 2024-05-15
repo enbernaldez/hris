@@ -385,7 +385,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" onclick="submitForm()">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
