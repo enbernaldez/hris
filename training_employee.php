@@ -75,9 +75,9 @@
                         WHERE `ld_title_id` = ?";
                 $filter = array($_GET['title_id']);
                 $result = query($conn, $sql, $filter);
-                
+
                 $row = $result[0];
-                
+
                 // transfers value of retrieved variables to local variables
                 $title = $row['ld_title_name'];
                 ?>
@@ -95,8 +95,10 @@
                 <!-- Table -->
                 <div class="row mt-3">
                     <div class="col-1">
-                        <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px; cursor: pointer;"
-                            onclick="history.back()"></i>
+                        <a href="trainings.php">
+                            <i class="bi bi-arrow-left-circle" id="backArrow"
+                                style="font-size: 30px; color: #283872"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="row mt-3">

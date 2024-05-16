@@ -139,15 +139,15 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         ?>
                         <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
                             <p>No employees yet.</p>
-                        <?php
-                        echo ($user_type == 'A') ?
-                            '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
+                            <?php
+                            echo ($user_type == 'A') ?
+                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
                                 <button type="button" class="btn btn-primary"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
                                 </button>
                             </a>' : '';
-                        ?>
+                            ?>
                         </div>
                         <div class="mt-5">
                             <?php
@@ -286,8 +286,9 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     </div>
 
     <!--Script-->
-    <script>
-        <?php
+    <?php
+    if (isset($_GET['add_employee'])) {
+
         switch ($_GET['add_employee']) {
             case 'success':
                 $id = $_GET['employee_added'];
@@ -309,16 +310,20 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 $full_name_js = json_encode($full_name);
 
                 echo "
-                    swal('New employee added!', 
-                        '{$full_name_js} has been added to database.', 
-                        'success');
+                    <script>
+                        swal('New employee added!', 
+                            '{$full_name_js} has been added to database.', 
+                            'success');
+                    </script>
                 ";
-                
+
                 break;
 
             case 'failed':
                 echo '
-                    swal("", "Failed to add new employee.", "error");
+                    <script>
+                        swal("", "Failed to add new employee.", "error");
+                    </script>    
                 ';
 
                 break;
@@ -326,7 +331,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             default:
                 break;
         }
-        ?>
+    }
+    ?>
+
+    <script>
 
         // Function to display custom context menu
         function showContextMenu(x, y, target) {
