@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <?php
 include_once ("db_conn.php");
@@ -67,7 +66,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
         .modal-content-style {
             background-color: #C2CDFF;
-            height: 300px;
+            height: auto;
             width: 500px;
         }
     </style>
@@ -82,7 +81,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             if (isset($_GET['office'])) {
                 $scope = $_GET['scope'];
                 $office = $_GET['office'];
-
+            }
                 if ($scope == 'region') {
                     $sql = "SELECT * FROM `rsso_v` WHERE `rsso_acronym` = ?";
                     $list_office = query($conn, $sql, array($office));
@@ -139,30 +138,12 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         ?>
                         <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
                             <p>No employees yet.</p>
-                        <?php
-                        echo ($user_type == 'A') ?
-                            '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                <button type="button" class="btn btn-primary"
-                                    style="margin-left: 10px; background-color: #283872; border: none;">
-                                    Add Employee
-                                </button>
-                            </a>' : '';
-                        ?>
-                        </div>
-                        <div class="mt-5">
                             <?php
                             echo ($user_type == 'A') ?
-                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                    <button type="button" class="btn btn-primary"
-                                        style="margin-left: 10px; background-color: #283872; border: none;">
-                                        Add Employee
-                                    </button>
-                                </a>' : '';
-                            echo '
-                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
-                                    View organizational chart
-                                </a>
-                            ';
+                                '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                                    style="margin-left: 10px; background-color: #283872; border: none;">
+                                    Add Employee
+                                </button>' : '';
                             ?>
                         </div>
                         <?php
@@ -237,20 +218,21 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                                     style="margin-top: 5px; margin-right: 10px;"></button>
                                             </div>
-                                            <div class="modal-header d-flex justify-content-center align-items-center">
-                                                <h3 class="modal-title" id="modal_deleteRecordLabel"><strong>Are you sure?</strong>
-                                                </h3>
-                                            </div>
-                                            <div class="modal-body d-flex justify-content-center align-items-center">
-                                                <h5 style="text-align: center; font-weight: normal;">Do you really want to delete
-                                                    these records?</h5>
-                                            </div>
-                                            <div class="modal-footer d-flex justify-content-center align-items-center">
-                                                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
-                                                    style="height: 38px; width: 88px; border-radius: 8px;">Cancel</button>
-                                                <span style="margin-right: 40px;"></span>
-                                                <button type="button" class="btn btn-secondary btn-sm"
-                                                    style="height: 38px; width: 88px; background-color: #F90000; border-radius: 8px;">Delete</button>
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <p>Are you sure you want to delete <strong>
+                                                            <?php echo $firstname . $middlename . ' ' . $lastname . $nameext; ?>?
+                                                        </strong></p>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center">
+                                                    <form action="delete_employee.php" method="POST">
+                                                        <input type="hidden" name="employee_id" value="<?php echo $id; ?>">
+                                                        <input type="hidden" name="employee_office" value="<?php echo $_GET['office']; ?>">
+                                                        <button type="submit" class="btn btn-primary"
+                                                            style="margin-right: 10px; background-color: #283872; border: none;">Yes</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -258,16 +240,14 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <?php
                             }
                             ?>
-                        </div>
+                         </div>
                         <div class="my-3">
                             <?php
                             echo ($user_type == 'A') ?
-                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                    <button type="button" class="btn btn-primary"
-                                        style="margin-left: 10px; background-color: #283872; border: none;">
-                                        Add Employee
-                                    </button>
-                                </a>' : '';
+                                '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                                    style="margin-left: 10px; background-color: #283872; border: none;">
+                                    Add Employee
+                                </button>' : '';
                             echo '
                                 <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
                                     View organizational chart
@@ -276,106 +256,135 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             ?>
                         </div>
                         <?php
-                    }
-                    ?>
-                </div>
-                <?php
-            }
-            ?>
+                }
+                ?>
         </div>
     </div>
 
-    <!--Script-->
+    <!--Add Employee Modal-->
+    <div class="modal fade" id="modal_addEmployee" tabindex="-1" aria-labelledby="modal_addEmployeeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-style">
+                <div class="modal-header">
+                                    <h6 class="modal-title" id="delete">Add Employee</h6>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+               
+                                <div class="modal-body px-4">
+                                    <form id="add_employee" action="employee_new.php" method="POST">
+
+                            <div class="row">
+                            <div class="my-3">
+                                    <label for="lastname" class="form-label">LAST NAME: </label>
+                                    <input type="text" class="form-control uppercase" id="lastname" name="lastname" required>
+                                </div>
+                                <div class="my-3">
+                                    <label for="firstname" class="form-label">FIRST NAME: </label>
+                                    <input type="text" class="form-control uppercase" id="firstname" name="firstname">
+                                </div>
+                                <div class="my-3">
+                                    <label for="middlename" class="form-label">MIDDLE NAME: </label>
+                                    <div class="form-check form-check-inline ms-2">
+                                    <input class="form-check-input" type="checkbox" id="na_middlename" name="na_middlename" onclick="checkNA(this, 'middlename')">
+                                    <label class="form-check-label" for="na_middlename">N/A</label>
+                                    </div>
+                                    <input type="text" class="form-control uppercase" id="middlename" name="middlename" required oninput="checkNAInput(this, 'na_middlename')">
+                                    </div>
+                               
+                                <div class="my-3">
+                                    <label for="nameext" class="form-label">NAME EXTENSION: </label>
+                                    <div class="form-check form-check-inline ms-2">
+                                    <input class="form-check-input" type="checkbox" id="na_nameext" name="na_nameext" onclick="checkNA(this, 'nameext')">
+                                        <label class="form-check-label" for="na_nameext">N/A</label>
+                                        </div>
+                                        <input type="text" class="form-control uppercase" id="nameext" name="nameext" oninput="checkNAInput(this, 'na_nameext')">
+                                </div>
+                               
+                               
+                                <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <span style="margin-right: 40px;"></span>
+                                            <button form="add_employee" type="submit" class="btn btn-primary">Add</button>
+                                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        <?php
-        switch ($_GET['add_employee']) {
-            case 'success':
-                $id = $_GET['employee_added'];
-
-                $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
-                        FROM `employees`
-                        WHERE `employee_id` = ?";
-                $filter = array($id);
-                $result = query($conn, $sql, $filter);
-
-                $row = $result[0];
-                $last_name = $row['employee_lastname'];
-                $first_name = $row['employee_firstname'];
-                $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
-                $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
-
-                // Use json_encode to safely escape strings for JavaScript
-                $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
-                $full_name_js = json_encode($full_name);
-
-                echo "
-                    swal('New employee added!', 
-                        '{$full_name_js} has been added to database.', 
-                        'success');
-                ";
-                
-                break;
-
-            case 'failed':
-                echo '
-                    swal("", "Failed to add new employee.", "error");
-                ';
-
-                break;
-
-            default:
-                break;
-        }
-        ?>
-
-        // Function to display custom context menu
-        function showContextMenu(x, y, target) {
-            console.log('Show context menu at:', x, y);
-            console.log('Target element:', target);
-            var menu = document.getElementById('customContextMenu');
-            menu.style.display = 'block';
-            menu.style.left = x + 'px';
-            menu.style.top = y + 'px';
+        function checkNA(checkbox, inputId) {
+            var inputField = document.getElementById(inputId);
+            if (checkbox.checked) {
+                inputField.value = "N/A";
+                inputField.disabled = true;
+            } else {
+                inputField.value = "";
+                inputField.disabled = false;
+            }
         }
 
-        var tiles = document.querySelectorAll('.tile');
-        tiles.forEach(tile => {
-            tile.addEventListener('contextmenu', function (e) {
-                const menu = document.getElementById('customContextMenu');
-                if (menu.classList.contains('admin')) {
-                    e.preventDefault();
-                    var x = e.clientX; // X-coordinate of mouse pointer
-                    var y = e.clientY; // Y-coordinate of mouse pointer
-                    showContextMenu(x, y, e.target); // Display custom context menu
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuButtons = document.querySelectorAll(".menu-button");
+            var customContextMenu = document.getElementById("customContextMenu");
+
+            menuButtons.forEach(function (button) {
+                button.addEventListener("click", function (event) {
+                    var rect = button.getBoundingClientRect();
+                    var top = rect.bottom + window.scrollY;
+                    var left = rect.left + window.scrollX;
+                    customContextMenu.style.top = top + "px";
+                    customContextMenu.style.left = left + "px";
+                    customContextMenu.style.display = "block";
+                });
+            });
+
+            window.addEventListener("click", function (event) {
+                if (!event.target.matches(".menu-button")) {
+                    customContextMenu.style.display = "none";
                 }
-            })
-        });
+            });
 
-        var kebab_menus = document.querySelectorAll('.menu-button');
-        kebab_menus.forEach(kebab => {
-            kebab.addEventListener('click', function (e) { // Listen for 'click' event instead of 'contextmenu'
-                var rect = kebab.getBoundingClientRect();
-                var x = rect.left + window.scrollX + 25;
-                var y = rect.top + window.scrollY + 18;
-                showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
+            customContextMenu.addEventListener("click", function (event) {
+                var target = event.target;
+                var selectedOption = target.innerText;
+                var tile = target.closest(".tile");
+                var empName = tile.querySelector("strong").innerText;
+                var empID = tile.querySelector("a").href.split('=')[2].replace(/'/g, "");
+                var empOffice = "<?php echo $_GET['office']; ?>";
+
+                if (selectedOption === "Delete") {
+                    event.preventDefault();
+                    var form = document.createElement("form");
+                    form.setAttribute("method", "post");
+                    form.setAttribute("action", "delete_employee.php");
+
+                    var idField = document.createElement("input");
+                    idField.setAttribute("type", "hidden");
+                   
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }
             });
         });
 
-        // Hide custom context menu when clicking outside of it
-        document.addEventListener('click', function (e) {
-            var menu = document.getElementById('customContextMenu');
-            // Check if the clicked element is not <i> or a descendant of <i>
-            var isClickInsideIcon = e.target.closest('.menu-button');
-
-            if (!isClickInsideIcon) {
-                // If the click is not inside <i> or its descendants, hide the menu
-                if (menu.style.display === 'block') {
-                    menu.style.display = 'none';
-                }
+        function checkNAInput(inputField, checkboxId) {
+        var checkbox = document.getElementById(checkboxId);
+        if (inputField.value.toUpperCase() === "N/A") {
+            checkbox.checked = true;
+            inputField.disabled = true;
+            } else {
+                checkbox.checked = false;
+                inputField.disabled = false;
             }
-        });
-
+        }
     </script>
+
+   
 </body>
 
 </html>
