@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
     $a_att = '';
 } else {
     $log = "LOG IN";
-    $li_att = ' data-bs-toggle="modal" data-bs-target="#exampleModal"';
+    $li_att = ' data-bs-toggle="modal" data-bs-target="#loginModal"';
     $a_att = '"';
 }
 ?>
@@ -154,7 +154,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <!-- Log In Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
