@@ -3,13 +3,14 @@
     <?php
     include_once 'functions.php';
 
-    if (isset($_GET['employee_id'])) {
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        $employee_id = $_GET['employee_id'];
 
         // `employees` table
         $sql = "SELECT *
                 FROM `employees`
                 WHERE `employee_id` = ?";
-        $filter = array($_GET['employee_id']);
+        $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
         $row = $result[0];
 
@@ -22,7 +23,7 @@
         $sql = "SELECT *
                 FROM `employee_details`
                 WHERE `employee_id` = ?";
-        $filter = array($_GET['employee_id']);
+        $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
         $row = $result[0];
 
@@ -30,23 +31,13 @@
         foreach ($emp_dets as $dets) {
             $$dets = $row['emp_dets_' . $dets];
         }
-        $country_id = $row['citizenship_country'];
-
-        // `countries` table
-        $sql = "SELECT *
-                FROM `countries`
-                WHERE `country_id` = ?";
-        $filter = array($country_id);
-        $result = query($conn, $sql, $filter);
-        $row = $result[0];
-
-        $country = $row['country_name'];
+        $country = lookup($conn, $row['citizenship_country'], 'countries', 'country_name', 'country_id');
 
         // `employee_numbers` table
         $sql = "SELECT *
                 FROM `employee_numbers`
                 WHERE `employee_id` = ?";
-        $filter = array($_GET['employee_id']);
+        $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
         $row = $result[0];
 
@@ -59,7 +50,7 @@
         $sql = "SELECT *
                 FROM `employee_addresses`
                 WHERE `employee_id` = ?";
-        $filter = array($_GET['employee_id']);
+        $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
 
         $same_add = ($result[0]['emp_add_type'] == "B") ? " checked" : "";
@@ -101,7 +92,7 @@
         $sql = "SELECT *
                 FROM `employee_contacts`
                 WHERE `employee_id` = ?";
-        $filter = array($_GET['employee_id']);
+        $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
         $row = $result[0];
 
@@ -111,24 +102,8 @@
         }
     } else {
         $pi_dets = array(
-            "imgdir",
-            "lastname",
-            "firstname",
-            "middlename",
-            "nameext",
-            "bday",
-            "birthplace",
-            "height",
-            "weight",
-            "gsis",
-            "pagibig",
-            "philhealth",
-            "sss",
-            "tin",
-            "agency",
-            "tel",
-            "mobile",
-            "emailadd"
+            "imgdir", "lastname", "firstname", "middlename", "nameext", "bday", "birthplace", "height", 
+            "weight", "gsis", "pagibig", "philhealth", "sss", "tin", "agency", "tel", "mobile", "emailadd"
         );
         $address_types = array("residential_", "permanent_");
         $address_parts = array("barangay", "subdivisionvillage", "street", "houseblocklot", "zipcode");

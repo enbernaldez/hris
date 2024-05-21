@@ -13,13 +13,7 @@ if (isset($_POST['selectedValue'])) {
     $name_column = ($table == "zipcodes") ? "{$column}_no" : "{$column}_name";
 
     if ($table == 'city_municipality' && $fk_column == 'citymunicipality_id') {
-        $sql = "SELECT *
-                FROM `zipcodes`
-                WHERE `zipcode_no` = ?";
-        $filter = array($selectedOption);
-        $result = query($conn, $sql, $filter);
-        $value = $result[0];
-        $selectedOption = $value['citymunicipality_id'];
+        $selectedOption = lookup($conn, $selectedOption, 'zipcodes', 'citymunicipality_id', 'zipcode_no');
     }
 
     $sql = "SELECT *
@@ -51,30 +45,3 @@ if (isset($_POST['selectedValue'])) {
     header('Content-Type: application/json');
     echo json_encode($suboptions);
 }
-
-// if (isset($_POST['selectedCityMunicipality'])) {
-//     $selectedOption = $_POST['selectedCityMunicipality'];
-
-//     $sql = "SELECT *
-//             FROM `barangays`
-//             WHERE `citymunicipality_id` = ?
-//             ORDER BY `barangay_name` ASC";
-//     $filter = array($selectedOption);
-//     $result = query($conn, $sql, $filter);
-
-//     $suboptions = [];
-
-//     foreach ($result as $value) {
-//         $id = $value['barangay_id'];
-//         $name = $value['barangay_name'];
-
-//         $suboptions[] = [
-//             'value' => $name,
-//         ];
-//     }
-
-//     // Return JSON response
-//     header('Content-Type: application/json');
-//     echo json_encode($suboptions);
-// }
-?>

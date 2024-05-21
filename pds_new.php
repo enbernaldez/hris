@@ -787,7 +787,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $temp = $_FILES['change_photo']['tmp_name']; //temporary location
     $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
-    move_uploaded_file($temp, $n_itemimgdir);
+    // move_uploaded_file($temp, $n_itemimgdir);
 
     echo "<br><br><br>Position: $position_id";
     echo "<br>Image Directory: $n_itemimgdir";
