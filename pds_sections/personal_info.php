@@ -477,7 +477,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll("#null_middle, #null_ext, #null_rsv, #null_rst, #null_rhbl, #same_add, #null_psv, #null_pst, #null_phbl, #null_telno, #null_emailadd");
         var originalSelectOptions = {};
 
         // Store the original options of each select element
@@ -501,10 +501,8 @@
                             option.text = 'N/A';
                             option.value = 'N/A';
                             inputElement.add(option);
-                            inputElement.disabled = true; 
                         } else {
                             inputElement.value = '';
-                            inputElement.disabled = true;
                         }
                     } else {
                         if (inputElement.tagName.toLowerCase() === 'select') {
@@ -533,7 +531,7 @@
 
             clearInputs.forEach(function (checkbox) {
                 checkbox.checked = false;
-                checkbox.disabled = false;
+                checkbox.disabled = false; //
             });
 
             // Restore original select options for all selects

@@ -410,7 +410,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll("#null_fromE, #null_toE, #null_yearE, #null_scholarshipE, #null_fromS, #null_toS, #null_yearS, #null_scholarshipS, #null_vocational, #null_fromV, #null_toV, #null_yearV, #null_scholarshipV, #null_fromC, #null_toC, #null_yearC, #null_scholarshipC, #null_graduate, #null_fromG, #null_toG, #null_yearG, #null_scholarshipG");
         var originalSelectOptions = {};
 
         // Store the original options of each select element
@@ -433,10 +433,8 @@
                             option.text = 'N/A';
                             option.value = 'N/A';
                             inputElement.add(option);
-                            inputElement.disabled = true;
                         } else {
                             inputElement.value = '';
-                            inputElement.disabled = true;
                         }
                     } else {
                         if (inputElement.tagName.toLowerCase() === 'select') {

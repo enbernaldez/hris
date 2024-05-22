@@ -101,7 +101,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll("#null_lnd");
 
         clearInputs.forEach(function (checkbox) {
             checkbox.addEventListener('change', function () {
@@ -110,7 +110,6 @@
                     var inputElement = document.getElementById(targetId.trim());
                     if (checkbox.checked) {
                         inputElement.value = '';
-                        inputElement.disabled = true;
                     } else {
                         inputElement.disabled = false;
                     }

@@ -221,7 +221,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll("#null_spouse, #null_spouse_mi, #null_spouse_nameext, #null_occupation, #null_bus, #null_busadd, #null_spouse_telno, #null_father, #null_father_mi, #null_father_nameext, #null_mother, #null_mother_mi, #null_children");
 
         clearInputs.forEach(function (checkbox) {
             checkbox.addEventListener('change', function () {
@@ -230,7 +230,6 @@
                     var inputElement = document.getElementById(targetId.trim());
                         if (checkbox.checked) {
                             inputElement.value = '';
-                            inputElement.disabled = true;
                         } else {
                             inputElement.disabled = false;
                         }
