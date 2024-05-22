@@ -254,14 +254,14 @@
                 <label for="child_dob">DATE OF BIRTH</label>
             </div>
         </div>
-        <div class="row row-row mb-3">
+        <div class="row row-row">
             <div class="col-8 mx-1">
-                <input type="text" required name="child_fullname[]"
+                <input type="text" required id="child_fullname" name="child_fullname[]"
                     class="form-control uppercase group-na-fb">
             </div>
             <div class="col mx-1">
                 <div class="checkbox-container">
-                    <input type="date" required name="child_birthdate[]"
+                    <input type="date" required id="child_birthdate" name="child_birthdate[]"
                         class="form-control uppercase group-na-fb">
                     <button type="button" class="delete-row-button mx-2"
                         style="display:none; background-color: transparent; border: none; color: red;">
@@ -394,7 +394,7 @@
                 inputs.forEach((input) => {
 
                     input.id == "spouse_telno" ? input.type = "tel" :
-                        input.id == "child_dob" ? input.type = "date" :
+                        input.id == "child_birthdate" ? input.type = "date" :
                             input.type = "text";
 
                     input.value = "";
@@ -446,7 +446,7 @@
         ["mother_name_last", "mother_name_first", "mother_name_middle"],
         ["null_mother_mi"]
     );
-    setupNullInputArray("null_children", ["child_name", "child_dob"], []);
+    setupNullInputArray("null_children", ["child_fullname", "child_birthdate"], []);
 
     // =================================== Add Row ===================================
     function addRow(fullname = '', bday = '') {
@@ -459,6 +459,7 @@
         // Clone the input-row element
         const newRow = document.querySelector(".row-row").cloneNode(true);
 
+        newRow.classList.add("mt-3");
         // Clear input values in the cloned row
         let i = 0;
         newRow.querySelectorAll("input").forEach((input) => {
@@ -517,33 +518,60 @@
 </script>
 
 <?php
-$count = count($child_fullname);
-if ($count !== 0) {
-    echo '
+if (isset($_GET['action']) && $_GET['action'] == "view") {
+    echo "
     <script>
-        const row = document.querySelector(".row-row");
-    ';
-    for ($i = 0; $i < $count; $i++) {
-            
-        $fullname = json_encode($child_fullname[$i]);
-        $bday = json_encode($child_bday[$i]);
+        const spouse_checkbox = document.getElementById('null_spouse');
+        spouse_checkbox.checked = (spouse_name_last.value == 'N/A');
+        
+        const father_checkbox = document.getElementById('null_father');
+        father_checkbox.checked = (father_name_last.value == 'N/A');
+        
+        const mother_checkbox = document.getElementById('null_mother');
+        mother_checkbox.checked = (mother_name_last.value == 'N/A');
+    ";
 
-        // set value of original row
-        if ($i == 0) {
+    $count = count($child_fullname);
+    if ($count === 0) {
         echo "
-            let j = 0;
-            row.querySelectorAll('input').forEach((input) => {
-                input.value = (j == 0) ? {$fullname} : {$bday};
-                j++;
-            });
-        ";
-        } else {
-            echo "
-                addRow({$fullname}, {$bday});
-            ";
+        const children_row = document.querySelector('.row-row');
+        const children_checkbox = document.getElementById('null_children');
+
+        children_checkbox.checked = true;
+
+        let n = 0;
+        children_row.querySelectorAll('input').forEach((input) => {
+            input.type = 'text';
+            input.value = 'N/A';
+            n++;
+        });
+    ";
+    } else {
+        echo '
+            const children_row = document.querySelector(".row-row");
+        ';
+        for ($i = 0; $i < $count; $i++) {
+
+            $fullname = json_encode($child_fullname[$i]);
+            $bday = json_encode($child_bday[$i]);
+
+            // set value of original row
+            if ($i == 0) {
+                echo "
+                    let n = 0;
+                    children_row.querySelectorAll('input').forEach((input) => {
+                        input.value = (n == 0) ? {$fullname} : {$bday};
+                        n++;
+                    });
+                ";
+            } else {
+                echo "
+                    addRow({$fullname}, {$bday});
+                ";
+            }
         }
     }
-    echo '
-    </script>';
+    echo "
+    </script>";
 }
 ?>
