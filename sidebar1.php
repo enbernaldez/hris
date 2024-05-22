@@ -62,7 +62,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="input-group custom-rounded mt-3">
                 <input type="search" class="form-control text-center mt-3 custom-rounded" placeholder="Search" />
             </div>
-            
+
             <div class="divider-top"></div>
             <li class="sidebar-item nav-item mt-3">
                 <a href="landing_page.php" class="nav-link px-sm-0 px-2">
@@ -134,16 +134,16 @@ if (isset($_SESSION['user_id'])) {
             if (isset($_GET['login'])) {
                 switch ($_GET['login']) {
                     case "success":
-                        echo "<div class='alert alert-success'>Logged in!</div>";
+                        echo "<div class='alert alert-success' id='alertMessage'>Logged in!</div>";
                         break;
                     case "failed":
-                        echo "<div class='alert alert-info'>User not registered.</div>";
+                        echo "<div class='alert alert-info' id='alertMessage'>User not registered.</div>";
                         break;
                     case "wrongpass":
-                        echo "<div class='alert alert-warning'>Wrong password.</div>";
+                        echo "<div class='alert alert-warning' id='alertMessage'>Wrong password.</div>";
                         break;
                     case "inactive":
-                        echo "<div class='alert alert-info'>User inactive.</div>";
+                        echo "<div class='alert alert-info' id='alertMessage'>User inactive.</div>";
                         break;
                 }
             }
@@ -215,6 +215,16 @@ if (isset($_SESSION['user_id'])) {
 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
+    // Function to hide alert after a delay
+    document.addEventListener('DOMContentLoaded', function () {
+        var alertElement = document.getElementById('alertMessage');
+        if (alertElement) {
+            setTimeout(function () {
+                alertElement.style.display = 'none';
+            }, 5000); // Hide after 5 seconds
+        }
+    });
+
     function myFunction() {
         var showPass = document.getElementById("login_password");
         if (showPass.type === "password") {

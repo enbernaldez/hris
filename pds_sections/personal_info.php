@@ -56,9 +56,21 @@
 
     } else {
         $pi_dets = array(
-            "imgdir", "lastname", "firstname", "middlename", "nameext", 
-            "bday", "birthplace", "height", "weight",
-            "gsis", "pagibig", "philhealth", "sss", "tin", "agency"
+            "imgdir",
+            "lastname",
+            "firstname",
+            "middlename",
+            "nameext",
+            "bday",
+            "birthplace",
+            "height",
+            "weight",
+            "gsis",
+            "pagibig",
+            "philhealth",
+            "sss",
+            "tin",
+            "agency"
         );
         foreach ($pi_dets as $var) {
             $$var = "";
@@ -90,7 +102,7 @@
                 <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input"
                     value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_middle">
+                    <input class="form-check-input" type="checkbox" id="null_middle" data-target="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
                 </div>
             </div>
@@ -101,7 +113,7 @@
                 <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input"
                     value="<?php echo $nameext; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_ext">
+                    <input class="form-check-input" type="checkbox" id="null_ext" data-target="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
                 </div>
             </div>
@@ -133,15 +145,15 @@
             <select id="civilstatus" required name="civilstatus" class="form-select input">
                 <option value="" disabled selected value<?php echo isset($civilstatus) ? "" : " selected"; ?>>--SELECT--
                 </option>
-                <option value='S'<?php echo (isset($civilstatus) && $civilstatus == "S") ? " selected" : ""; ?>>SINGLE
+                <option value='S' <?php echo (isset($civilstatus) && $civilstatus == "S") ? " selected" : ""; ?>>SINGLE
                 </option>";
-                <option value='M'<?php echo (isset($civilstatus) && $civilstatus == "M") ? " selected" : ""; ?>>MARRIED
+                <option value='M' <?php echo (isset($civilstatus) && $civilstatus == "M") ? " selected" : ""; ?>>MARRIED
                 </option>";
-                <option value='C'<?php echo (isset($civilstatus) && $civilstatus == "C") ? " selected" : ""; ?>>COMMON
+                <option value='C' <?php echo (isset($civilstatus) && $civilstatus == "C") ? " selected" : ""; ?>>COMMON
                     LAW</option>";
-                <option value='W'<?php echo (isset($civilstatus) && $civilstatus == "W") ? " selected" : ""; ?>>WIDOWED
+                <option value='W' <?php echo (isset($civilstatus) && $civilstatus == "W") ? " selected" : ""; ?>>WIDOWED
                 </option>";
-                <option value='H'<?php echo (isset($civilstatus) && $civilstatus == "H") ? " selected" : ""; ?>>SEPARATED
+                <option value='H' <?php echo (isset($civilstatus) && $civilstatus == "H") ? " selected" : ""; ?>>SEPARATED
                 </option>";
             </select>
         </div>
@@ -162,21 +174,21 @@
             <label for="bloodtype">BLOOD TYPE</label><br>
             <select id="bloodtype" required name="bloodtype" class="form-select input">
                 <option value="" disabled<?php echo isset($bloodtype) ? "" : " selected"; ?>>--SELECT--</option>
-                <option value='O+'<?php echo (isset($bloodtype) && $bloodtype == "O+") ? " selected" : ""; ?>>O+</option>
+                <option value='O+' <?php echo (isset($bloodtype) && $bloodtype == "O+") ? " selected" : ""; ?>>O+</option>
                 ";
-                <option value='O-'<?php echo (isset($bloodtype) && $bloodtype == "O-") ? " selected" : ""; ?>>O-</option>
+                <option value='O-' <?php echo (isset($bloodtype) && $bloodtype == "O-") ? " selected" : ""; ?>>O-</option>
                 ";
-                <option value='A+'<?php echo (isset($bloodtype) && $bloodtype == "A+") ? " selected" : ""; ?>>A+</option>
+                <option value='A+' <?php echo (isset($bloodtype) && $bloodtype == "A+") ? " selected" : ""; ?>>A+</option>
                 ";
-                <option value='A-'<?php echo (isset($bloodtype) && $bloodtype == "A-") ? " selected" : ""; ?>>A-</option>
+                <option value='A-' <?php echo (isset($bloodtype) && $bloodtype == "A-") ? " selected" : ""; ?>>A-</option>
                 ";
-                <option value='B+'<?php echo (isset($bloodtype) && $bloodtype == "B+") ? " selected" : ""; ?>>B+</option>
+                <option value='B+' <?php echo (isset($bloodtype) && $bloodtype == "B+") ? " selected" : ""; ?>>B+</option>
                 ";
-                <option value='B-'<?php echo (isset($bloodtype) && $bloodtype == "B-") ? " selected" : ""; ?>>B-</option>
+                <option value='B-' <?php echo (isset($bloodtype) && $bloodtype == "B-") ? " selected" : ""; ?>>B-</option>
                 ";
-                <option value='AB+'<?php echo (isset($bloodtype) && $bloodtype == "AB+") ? " selected" : ""; ?>>AB+
+                <option value='AB+' <?php echo (isset($bloodtype) && $bloodtype == "AB+") ? " selected" : ""; ?>>AB+
                 </option>";
-                <option value='AB-'<?php echo (isset($bloodtype) && $bloodtype == "AB-") ? " selected" : ""; ?>>AB-
+                <option value='AB-' <?php echo (isset($bloodtype) && $bloodtype == "AB-") ? " selected" : ""; ?>>AB-
                 </option>";
             </select>
         </div>
@@ -186,11 +198,13 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="gsis">GSIS ID NO.</label><br>
-            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase input uppercase" value="<?php echo $gsis; ?>">
+            <input type="text" required name="id_gsis" id="gsis" class="form-control uppercase input uppercase"
+                value="<?php echo $gsis; ?>">
         </div>
         <div class="col mx-2">
             <label for="pagibig">PAG-IBIG ID NO.</label><br>
-            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase input uppercase" value="<?php echo $pagibig; ?>">
+            <input type="text" required name="id_pagibig" id="pagibig" class="form-control uppercase input uppercase"
+                value="<?php echo $pagibig; ?>">
         </div>
         <div class="col mx-2">
             <label for="philhealth">PHILHEALTH NO.</label><br>
@@ -202,16 +216,18 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="sss">SSS NO.</label><br>
-            <input type="text" required name="id_sss" id="sss" class="form-control uppercase input uppercase" value="<?php echo $sss; ?>">
+            <input type="text" required name="id_sss" id="sss" class="form-control uppercase input uppercase"
+                value="<?php echo $sss; ?>">
         </div>
         <div class="col mx-2">
             <label for="tin">TIN NO.</label><br>
-            <input type="text" required name="id_tin" id="tin" class="form-control uppercase input uppercase" value="<?php echo $tin; ?>">
+            <input type="text" required name="id_tin" id="tin" class="form-control uppercase input uppercase"
+                value="<?php echo $tin; ?>">
         </div>
         <div class="col mx-2">
             <label for="employee_no">AGENCY EMPLOYEE NO.</label><br>
-            <input type="text" required name="id_agency" id="employee_no"
-                class="form-control uppercase input uppercase" value="<?php echo $agency; ?>">
+            <input type="text" required name="id_agency" id="employee_no" class="form-control uppercase input uppercase"
+                value="<?php echo $agency; ?>">
         </div>
     </div>
 
@@ -221,8 +237,10 @@
             <label for="citizenship">CITIZENSHIP</label><br>
             <select id="citizenship" required name="citizenship" class="form-select input">
                 <option value="" disabled<?php echo isset($citizenship) ? "" : " selected"; ?>>--SELECT--</option>
-                <option value='F'<?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO</option>";
-                <option value='D'<?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL CITIZENSHIP</option>";
+                <option value='F' <?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO
+                </option>";
+                <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
+                    CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
@@ -230,8 +248,10 @@
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--SELECT--</option>
                 <option value="F" hidden<?php echo isset($citizenship) ? "" : " selected"; ?>>N/A</option>
-                <option value='B'<?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH</option>";
-                <option value='N'<?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>NATURALIZATION</option>";
+                <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
+                </option>";
+                <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
+                    NATURALIZATION</option>";
             </select>
         </div>
         <div class="col mx-2">
@@ -285,7 +305,7 @@
                 <input type="text" required name="radd_subdivisionvillage" id="radd_subdivisionvillage"
                     class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rsv">
+                    <input class="form-check-input" type="checkbox" id="null_rsv" data-target="null_rsv">
                     <label class="form-check-label" for="null_rsv">N/A</label>
                 </div>
             </div>
@@ -295,7 +315,7 @@
             <div class="checkbox-container">
                 <input type="text" required name="radd_street" id="radd_street" class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rst">
+                    <input class="form-check-input" type="checkbox" id="null_rst" data-target="null_rst">
                     <label class="form-check-label" for="null_rst">N/A</label>
                 </div>
             </div>
@@ -306,7 +326,7 @@
                 <input type="text" required name="radd_houseblocklot" id="radd_houseblocklot"
                     class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rhbl">
+                    <input class="form-check-input" type="checkbox" id="null_rhbl" data-target="null_rhbl">
                     <label class="form-check-label" for="null_rhbl">N/A</label>
                 </div>
             </div>
@@ -325,7 +345,7 @@
     <div class="mt-5">
         <h5 style="display: inline">PERMANENT ADDRESS</h5>
         <div class="form-check form-check-inline ms-2">
-            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true">
+            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true" data-target="same_add">
             <label class="form-check-label" for="same_add">Same as the Residential Address</label>
         </div>
     </div>
@@ -371,7 +391,7 @@
                 <input type="text" required name="padd_subdivisionvillage" id="padd_subdivisionvillage"
                     class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_psv">
+                    <input class="form-check-input" type="checkbox" id="null_psv" data-target="null_psv">
                     <label class="form-check-label" for="null_psv">N/A</label>
                 </div>
             </div>
@@ -381,7 +401,7 @@
             <div class="checkbox-container">
                 <input type="text" required name="padd_street" id="padd_street" class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_pst">
+                    <input class="form-check-input" type="checkbox" id="null_pst" data-target="null_pst">
                     <label class="form-check-label" for="null_pst">N/A</label>
                 </div>
             </div>
@@ -392,7 +412,7 @@
                 <input type="text" required name="padd_houseblocklot" id="padd_houseblocklot"
                     class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_phbl">
+                    <input class="form-check-input" type="checkbox" id="null_phbl" data-target="null_phbl">
                     <label class="form-check-label" for="null_phbl">N/A</label>
                 </div>
             </div>
@@ -414,7 +434,7 @@
             <div class="checkbox-container">
                 <input type="tel" required name="no_tel" id="no_tel" class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_telno">
+                    <input class="form-check-input" type="checkbox" id="null_telno" data-target="null_telno">
                     <label class="form-check-label" for="null_telno">N/A</label>
                 </div>
             </div>
@@ -429,13 +449,18 @@
             <div class="checkbox-container">
                 <input type="email" required name="emailadd" id="emailadd" class="form-control uppercase input">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_emailadd">
+                    <input class="form-check-input" type="checkbox" id="null_emailadd" data-target="null_emailadd">
                     <label class="form-check-label" for="null_emailadd">N/A</label>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_pi">
+        <strong>CLEAR ALL</strong>
+    </button>
 
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_pi">
@@ -450,6 +475,81 @@
 </div>
 
 <script>
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var originalSelectOptions = {};
+
+        // Store the original options of each select element
+        var selects = document.querySelectorAll('select');
+        selects.forEach((select) => {
+            originalSelectOptions[select.id] = Array.from(select.options).map((option) => {
+                return { value: option.value, text: option.text };
+            });
+        });
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+
+                    if (checkbox.checked) {
+                        if (inputElement.tagName.toLowerCase() === 'select') {
+                            inputElement.innerHTML = '';
+                            var option = document.createElement('option');
+                            option.text = 'N/A';
+                            option.value = 'N/A';
+                            inputElement.add(option);
+                            inputElement.disabled = true; 
+                        } else {
+                            inputElement.value = '';
+                            inputElement.disabled = true;
+                        }
+                    } else {
+                        if (inputElement.tagName.toLowerCase() === 'select') {
+                            inputElement.disabled = false;
+                            inputElement.innerHTML = '';
+                            originalSelectOptions[targetId.trim()].forEach((optionData) => {
+                                var option = document.createElement('option');
+                                option.text = optionData.text;
+                                option.value = optionData.value;
+                                inputElement.add(option);
+                            });
+                        } else {
+                            inputElement.disabled = false;
+                        }
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_pi').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.input');
+            inputs.forEach(function (input) {
+                input.value = '';
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Restore original select options for all selects
+            selects.forEach(function (select) {
+                select.disabled = false;
+                select.innerHTML = '';
+                originalSelectOptions[select.id].forEach((optionData) => {
+                    var option = document.createElement('option');
+                    option.text = optionData.text;
+                    option.value = optionData.value;
+                    select.add(option);
+                });
+            });
+        });
+    });
+
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -478,27 +578,6 @@
             }
         });
     });
-    // ======================== Next Button ================================================
-    // function submitForm() {
-    //     // Get all input fields with class "input"
-    //     var inputs = document.querySelectorAll('.input');
-
-    //     // Check if all input fields are filled out
-    //     var allFilled = true;
-    //     inputs.forEach(function (input) {
-    //         if (!input.value.trim()) {
-    //             allFilled = false;
-    //         }
-    //     });
-
-    //     // If all input fields are filled out, submit the form
-    //     if (allFilled) {
-    //         window.location.href = "pds_form.php?form_section=fam_bg";
-    //     } else {
-    //         alert("Please fill out all input fields before proceeding.");
-    //     }
-    // }
-
 
     telTypeArray = ["no_tel"];
     emailTypeArray = ["emailadd"];

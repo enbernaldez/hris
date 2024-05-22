@@ -34,29 +34,32 @@
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)">
+                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)" data-target="null_cse">
                         <label class="form-check-label" for="null_cse">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="careerservice[]" id="careerservice" class="form-control uppercase group-na-cs" required>
+                    <input type="text" name="careerservice[]" id="careerservice"
+                        class="form-control uppercase group-na-cs" required>
                 </div>
             </div>
             <div class="col-1">
                 <input type="text" name="rating[]" id="rating" class="form-control uppercase group-na-cs" required>
             </div>
             <div class="col-2">
-                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na-cs" required>
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na-cs"
+                    required>
             </div>
             <div class="col-2">
-                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs" required>
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs"
+                    required>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="text" name="license_number[]" id="license_number" class="form-control uppercase group-na-cs"
-                            required>
+                        <input type="text" name="license_number[]" id="license_number"
+                            class="form-control uppercase group-na-cs" required>
                     </div>
                     <div class="col-6">
                         <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
@@ -80,6 +83,11 @@
         <strong>PREV</strong>
     </button>
 
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_cs">
+        <strong>CLEAR ALL</strong>
+    </button>
+
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_cs" data-bs-slide="next">
         <strong>NEXT</strong>
@@ -88,7 +96,57 @@
 </div>
 
 <script>
-//========================= Next Button =====================================
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+                        if (checkbox.checked) {
+                        inputElement.value = '';
+                        inputElement.disabled = true;
+                    } else {
+                        inputElement.disabled = false;
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_cs').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.group-na-cs');
+            inputs.forEach(function (input) {
+                input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
+                    input.id == "license_number" ? input.type = "number" :
+                        input.type = "text";
+
+                input.value = "";
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Remove all cloned rows for children
+            var childRows = document.querySelectorAll('.row-row-cs');
+            var lastIndex = childRows.length - 1;
+            childRows.forEach(function (row, index) {
+                if (index !== lastIndex) {
+                    row.parentNode.removeChild(row);
+                }
+            });
+            // Enable the "Add Row" button
+            var addButton = document.getElementById('cse_addrow');
+            if (addButton) {
+                addButton.disabled = false;
+            }
+        });
+    });
+    //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
         var carouselElement = document.querySelector('#carouselExample');
@@ -128,26 +186,6 @@
             cse_addrow.disabled = true;
         });
     }
-    // ======================== Next button ====================================
-    // function submitForm() {
-    //     // Get all input fields with class "group_na"
-    //     var inputs = document.querySelectorAll('.group-na-cs');
-
-    //     // Check if all input fields are filled out
-    //     var allFilled = true;
-    //     inputs.forEach(function (input) {
-    //         if (!input.value.trim()) {
-    //             allFilled = false;
-    //         }
-    //     });
-
-    //     // If all input fields are filled out, submit the form
-    //     if (allFilled) {
-    //         window.location.href = "pds_form.php?form_section=work_exp";
-    //     } else {
-    //         alert("Please fill out all input fields before proceeding.");
-    //     }
-    // }
 
     function addRow_cs() {
         // Clone the input-row element
@@ -158,11 +196,11 @@
             input.value = "";
         });
 
-          // Get the reference node (the original row)
-    var referenceNode = document.querySelector(".cs-row .row-row-cs");
+        // Get the reference node (the original row)
+        var referenceNode = document.querySelector(".cs-row .row-row-cs");
 
-// Insert the cloned row before the reference node
-referenceNode.parentNode.insertBefore(newRow, referenceNode);
+        // Insert the cloned row before the reference node
+        referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");

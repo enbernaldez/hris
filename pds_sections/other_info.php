@@ -11,11 +11,12 @@
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
                     <div class="form-check me-2">
-                        <input class="form-check-input" type="checkbox" id="skills_na" onclick="checkNA('skills')">
+                        <input class="form-check-input" type="checkbox" id="skills_na" data-target="skills_na"
+                            onclick="checkNA('skills')">
                         <label class="form-check-label" for="skills_na">N/A</label>
                     </div>
 
-                    <input type="text" name="skills[]" class="form-control uppercase group-na" required>
+                    <input type="text" name="skills[]" class="form-control uppercase group-na-oi" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_skills_addrow"
@@ -32,13 +33,13 @@
                 <div class="checkbox-container mb-2 remove_na">
                     <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="distinctions_na"
-                            onclick="checkNA('distinctions')">
+                            data-target="distinctions_na" onclick="checkNA('distinctions')">
                         <label class="form-check-label" for="distinctions_na">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="distinctions[]" class="form-control uppercase group-na" required>
+                    <input type="text" name="distinctions[]" class="form-control uppercase group-na-oi" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_distinctions_addrow"
@@ -54,11 +55,11 @@
             <div class="membership-container">
                 <div class="checkbox-container mb-2 remove_na">
                     <div class="form-check me-2">
-                        <input class="form-check-input" type="checkbox" id="membership_na"
+                        <input class="form-check-input" type="checkbox" id="membership_na" data-target="membership_na"
                             onclick="checkNA('membership')">
                         <label class="form-check-label" for="membership_na">N/A</label>
                     </div>
-                    <input type="text" name="membership[]" class="form-control uppercase group-na" required>
+                    <input type="text" name="membership[]" class="form-control uppercase group-na-oi" required>
                 </div>
             </div>
             <button type="button" class="btn btn-primary add-row-button mt-1 float-end" id="oi_membership_addrow"
@@ -131,8 +132,8 @@
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_guilty" name="input_guilty" class="form-control uppercase" value="N/A"
-                            required disabled>
+                        <input type="text" id="input_guilty" name="input_guilty" class="form-control uppercase"
+                            value="N/A" required disabled>
                     </div>
                 </div>
             </div>
@@ -155,8 +156,8 @@
                             <p>Date Filed:</p>
                         </div>
                         <div class="col-2">
-                            <input type="text" id="input_filed" name="input_filed" class="form-control uppercase" value="N/A"
-                                required disabled>
+                            <input type="text" id="input_filed" name="input_filed" class="form-control uppercase"
+                                value="N/A" required disabled>
                         </div>
                     </div>
                     <div class="row">
@@ -164,8 +165,8 @@
                             <p>Status of Case/s:</p>
                         </div>
                         <div class="col">
-                            <input type="text" id="input_status" name="input_status" class="form-control uppercase" value="N/A"
-                                required disabled>
+                            <input type="text" id="input_status" name="input_status" class="form-control uppercase"
+                                value="N/A" required disabled>
                         </div>
                     </div>
                 </div>
@@ -193,8 +194,8 @@
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_convicted" name="input_convicted" class="form-control uppercase" value="N/A"
-                            required disabled>
+                        <input type="text" id="input_convicted" name="input_convicted" class="form-control uppercase"
+                            value="N/A" required disabled>
                     </div>
                 </div>
             </div>
@@ -221,8 +222,8 @@
                     <p>If YES, please give details:</p>
                 </div>
                 <div class="col">
-                    <input type="text" id="input_seperated" name="input_seperated" class="form-control uppercase" value="N/A"
-                        required disabled>
+                    <input type="text" id="input_seperated" name="input_seperated" class="form-control uppercase"
+                        value="N/A" required disabled>
                 </div>
             </div>
         </div>
@@ -265,8 +266,8 @@
                         <p>If YES, please give details:</p>
                     </div>
                     <div class="col">
-                        <input type="text" id="input_resigned" name="input_resigned" class="form-control uppercase" value="N/A"
-                            required disabled>
+                        <input type="text" id="input_resigned" name="input_resigned" class="form-control uppercase"
+                            value="N/A" required disabled>
                     </div>
                 </div>
             </div>
@@ -289,8 +290,8 @@
                     <p>If YES, please give details (country):</p>
                 </div>
                 <div class="col">
-                    <input type="text" id="input_immigrant" name="input_immigrant" class="form-control uppercase" value="N/A"
-                        required disabled>
+                    <input type="text" id="input_immigrant" name="input_immigrant" class="form-control uppercase"
+                        value="N/A" required disabled>
                 </div>
             </div>
         </div>
@@ -372,9 +373,9 @@
     </div>
 
     <!-- SUBMIT BUTTON -->
-    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+    <!-- <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
         <strong>SUBMIT</strong>
-    </button>
+    </button> -->
 
     <!-- BACK BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
@@ -382,45 +383,112 @@
         <strong>PREV</strong>
     </button>
 
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_oi">
+        <strong>CLEAR ALL</strong>
+    </button>
+
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-target="#carousel"
-        data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_oi" data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
-
-    // ======================== Next button ====================================
+    // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        // Add event listener to the "Next" button
-        document.getElementById('nextButton').addEventListener('click', submitForm);
-    });
+        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
 
-
-    // Function to submit the form
-    function submitForm() {
-        // Get all input fields with class "group-na"
-        var inputs = document.querySelectorAll('.group-na');
-
-        // Check if all input fields are filled out
-        var allInputsFilled = true;
-        inputs.forEach(function (input) {
-            if (!input.value.trim()) {
-                allInputsFilled = false;
-            }
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+                    if (checkbox.checked) {
+                        inputElement.value = '';
+                        inputElement.disabled = true;
+                    } else {
+                        inputElement.disabled = false;
+                    }
+                });
+            });
         });
 
-        // Check if all required radio buttons are selected and corresponding input boxes filled
-        var allRadioSelected = checkAllRadioSelected();
+        document.getElementById('clearButton_oi').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.group-na-oi');
+            inputs.forEach(function (input) {
+                input.value = "";
+                input.disabled = false;
+            });
 
-        // If all input fields and radio buttons are filled out, submit the form
-        if (allInputsFilled && allRadioSelected) {
-            window.location.href = "pds_form.php?form_section=ref";
-        } else {
-            alert("Please fill out all input fields and select all required options before proceeding.");
-        }
-    }
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Remove all cloned rows
+            var clonedRows = document.querySelectorAll('.cloned-row');
+            clonedRows.forEach(function (row) {
+                row.parentNode.removeChild(row);
+            });
+            // Enable the "Add Row" button
+            var addButtons = document.querySelectorAll("#oi_skills_addrow, #oi_distinctions_addrow, #oi_membership_addrow");
+            addButtons.forEach(function (button) {
+                button.disabled = false;
+            });
+            // Clear radio buttons
+            var radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(function (radio) {
+                radio.checked = false;
+            });
+            // Clear the associated text inputs for "YES" answers
+            var yesInputs = document.querySelectorAll('#input_degree_4th, #input_guilty, #input_filed, #input_status, #input_convicted, #input_seperated, #input_resigned, #input_immigrant, #input_indigenous, #input_disability, #input_soloparent');
+            yesInputs.forEach(function (input) {
+                input.value = "N/A";
+                input.disabled = true;
+            });
+        });
+    });
+    //========================= Next Button =====================================
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function () {
+        var carouselElement = document.querySelector('#carouselExample');
+        var carousel = new bootstrap.Carousel(carouselElement);
+
+
+        // Move to the next slide only if the form is filled out
+        document.querySelector('#nextButton_oi').addEventListener('click', function () {
+            var activeSlide = document.querySelector('.carousel-item.active');
+            var inputs = activeSlide.querySelectorAll('.group-na-oi'); //input field
+            var radioGroups = activeSlide.querySelectorAll('.input'); // radio button 
+
+
+            // Check if all input fields in the active slide are filled out
+            var allFilled = true;
+            inputs.forEach(function (input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            // Check if all radio button groups are answered
+            var allRadioAnswered = true;
+            radioGroups.forEach(function (group) {
+                var radios = group.querySelectorAll('input[type="radio"]');
+                var radioChecked = Array.from(radios).some(radio => radio.checked);
+                if (!radioChecked) {
+                    allRadioAnswered = false;
+                }
+            });
+
+            // If all input fields and radio buttons are filled out, move to the next carousel item
+            if (allFilled && allRadioAnswered) {
+                carousel.next();
+            } else {
+                alert("Please fill out all input fields before proceeding.");
+            }
+        });
+    });
 
     // Function to check if all required radio buttons are selected and corresponding input boxes filled
     function checkAllRadioSelected() {
@@ -463,13 +531,18 @@
         var container = document.querySelector('.' + section + '-container');
         var inputGroup = document.createElement('div');
         inputGroup.classList.add('checkbox-container');
-        inputGroup.classList.add('mb-2');
+        inputGroup.classList.add('mb-2', 'cloned-row');
 
         var input = document.createElement('input');
         input.setAttribute('type', 'text');
         input.setAttribute('name', section + '[]');
         input.classList.add('form-control');
         input.required = true;
+
+        // Event listener to convert text to uppercase
+        input.addEventListener('input', function () {
+            this.value = this.value.toUpperCase();
+        });
 
         // Create delete button
         var deleteButton = document.createElement('button');

@@ -29,14 +29,14 @@
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="null_vw" name="null_vw" value="true"
-                            onclick="checkNA(this)">
+                            onclick="checkNA(this)" data-target="null_vw">
                         <label class="form-check-label" for="null_vw">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress" class="form-control uppercase group_na_vw"
-                        required>
+                    <input type="text" name="vw_nameaddress[]" id="vw_nameaddress"
+                        class="form-control uppercase group_na_vw" required>
                 </div>
             </div>
             <div class="col-3">
@@ -46,7 +46,8 @@
                             class="form-control uppercase group_na_vw">
                     </div>
                     <div class="col-6 px-1 mx-0">
-                        <input type="date" required name="vw_date_to[]" id="vw_date_to" class="form-control uppercase group_na_vw">
+                        <input type="date" required name="vw_date_to[]" id="vw_date_to"
+                            class="form-control uppercase group_na_vw">
                     </div>
                 </div>
             </div>
@@ -54,7 +55,8 @@
                 <input type="number" name="vw_hrs[]" id="vw_hrs" class="form-control uppercase group_na_vw" required>
             </div>
             <div class="col-4">
-                <input type="text" name="vw_position[]" id="vw_position" class="form-control uppercase group_na_vw" required>
+                <input type="text" name="vw_position[]" id="vw_position" class="form-control uppercase group_na_vw"
+                    required>
             </div>
 
         </div>
@@ -73,6 +75,11 @@
         <strong>PREV</strong>
     </button>
 
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_vw">
+        <strong>CLEAR ALL</strong>
+    </button>
+
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_vw">
         <strong>NEXT</strong>
@@ -80,6 +87,57 @@
 </div>
 
 <script>
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+                    if (checkbox.checked) {
+                        inputElement.value = '';
+                        inputElement.disabled = true;
+                    } else {
+                        inputElement.disabled = false;
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_vw').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.group_na_vw');
+            inputs.forEach((input) => {
+
+                input.id == "vw_date_from" || input.id == "vw_date_to" ? input.type = "date" :
+                    input.id == "vw_hrs" ? input.type = "number" :
+                        input.type = "text";
+
+                input.value = "";
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Remove all cloned rows for children
+            var childRows = document.querySelectorAll('.row-row-vw');
+            var lastIndex = childRows.length - 1;
+            childRows.forEach(function (row, index) {
+                if (index !== lastIndex) {
+                    row.parentNode.removeChild(row);
+                }
+            });
+            // Enable the "Add Row" button
+            var addButton = document.getElementById('vw_addrow');
+            if (addButton) {
+                addButton.disabled = false;
+            }
+        });
+    });
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -118,8 +176,8 @@
             input.value = "";
         });
 
-          // Get the reference node (the original row)
-         var referenceNode = document.querySelector(".vw-row .row-row-vw");
+        // Get the reference node (the original row)
+        var referenceNode = document.querySelector(".vw-row .row-row-vw");
 
         // Insert the cloned row before the reference node
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
