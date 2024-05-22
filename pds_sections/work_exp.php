@@ -48,7 +48,7 @@
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
                         <input class="form-check-input" type="checkbox" id="null_work_exp" name="null_work_exp"
-                            value="true">
+                            value="true" data-target="null_work_exp">
                         <label class="form-check-label" for="null_work_exp">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
@@ -67,20 +67,24 @@
                 </div>
             </div>
             <div class="col-2">
-                <input type="text" name="we_position[]" id="we_position" class="form-control uppercase group_na_we" required
+                <input type="text" name="we_position[]" id="we_position" class="form-control uppercase group_na_we"
+                    required value="">
+            </div>
+            <div class="col-2">
+                <input type="text" name="we_agency[]" id="we_agency" class="form-control uppercase group_na_we" required
+                    value="">
+            </div>
+            <div class="col-1">
+                <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required
+                    value="₱">
+            </div>
+            <div class="col-1">
+                <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required
                     value="">
             </div>
             <div class="col-2">
-                <input type="text" name="we_agency[]" id="we_agency" class="form-control uppercase group_na_we" required value="">
-            </div>
-            <div class="col-1">
-                <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required value="₱">
-            </div>
-            <div class="col-1">
-                <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required value="">
-            </div>
-            <div class="col-2">
-                <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na_we" required value="">
+                <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na_we" required
+                    value="">
             </div>
             <div class="col-1">
                 <select required name="we_govtsvcs[]" id="we_govtsvcs" class="form-select group_na_we">
@@ -106,14 +110,91 @@
         <strong>PREV</strong>
     </button>
 
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_we">
+        <strong>CLEAR ALL</strong>
+    </button>
+
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right"
-        data-bs-slide="next" id="nextButton_we">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_we">
         <strong>NEXT</strong>
     </button>
 </div>
 
 <script>
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+
+        var originalOptions = {};
+
+        // Store the original options of each select element
+        var selects = document.querySelectorAll('select');
+        selects.forEach(function (select) {
+            originalOptions[select.id] = Array.from(select.options).map(function (option) {
+                return { value: option.value, text: option.text };
+            });
+        });
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+                    if (checkbox.checked) {
+                        inputElement.value = '';
+                        inputElement.disabled = true;
+                    } else {
+                        inputElement.disabled = false;
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_we').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.group_na_we');
+            inputs.forEach((input) => {
+
+                input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" :
+                    input.type = "text";
+
+                input.value = "";
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Restore original options for each select element
+            selects.forEach(function (select) {
+                var selectId = select.id;
+                select.innerHTML = '';
+                originalOptions[selectId].forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.text = optionData.text;
+                    select.add(option);
+                });
+                select.disabled = false;
+            });
+
+            // Remove all cloned rows for children
+            var childRows = document.querySelectorAll('.row-row_we');
+            var lastIndex = childRows.length - 1;
+            childRows.forEach(function (row, index) {
+                if (index !== lastIndex) {
+                    row.parentNode.removeChild(row);
+                }
+            });
+            // Enable the "Add Row" button
+            var addButton = document.getElementById('we_addrow');
+            if (addButton) {
+                addButton.disabled = false;
+            }
+        });
+    });
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -142,27 +223,6 @@
             }
         });
     });
-    // ======================== Next Button ================================================
-    // function submitForm_we() {
-    //     // Get all input fields with class "group_na"
-    //     var inputs = document.querySelectorAll('.group_na');
-
-    //     // Check if all input fields are filled out
-    //     var allFilled = true;
-    //     inputs.forEach(function (input) {
-    //         if (!input.value.trim()) {
-    //             allFilled = false;
-    //         }
-    //     });
-
-    //     // If all input fields are filled out, submit the form
-    //     if (allFilled) {
-    //         window.location.href = "pds_form.php?form_section=voluntary_work";
-    //     } else {
-    //         alert("Please fill out all input fields before proceeding.");
-    //     }
-    // }
-
     // ============================ N/A Array Disable ============================
     const originalOptions = {};
 
@@ -243,34 +303,34 @@
         // Clone the input-row element
         var newRow = document.querySelector(".row-row_we").cloneNode(true);
 
-    // Clear input values in the cloned row
-    newRow.querySelectorAll("input").forEach((input) => {
-        input.value = "";
-    });
-    var salary = newRow.querySelector("#we_salary");
-    salary.value = "₱";
-
-    // Get the reference node (the original row)
-    var referenceNode = document.querySelector(".row-container_we .row-row_we");
-
-    // Insert the cloned row before the reference node
-    referenceNode.parentNode.insertBefore(newRow, referenceNode);
-
-    //Remove the N/A checkbox and its associated text from the cloned row
-    const clonedNaCheckbox = newRow.querySelector(".remove_na");
-    if (clonedNaCheckbox) {
-        clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
-    }
-
-    // Show and configure the delete button for the cloned row
-    const deleteButton = newRow.querySelector(".delete-row-button");
-    if (deleteButton) {
-        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-        deleteButton.style.display = "inline-block";
-        deleteButton.addEventListener("click", function () {
-            newRow.parentNode.removeChild(newRow);
+        // Clear input values in the cloned row
+        newRow.querySelectorAll("input").forEach((input) => {
+            input.value = "";
         });
-    }
+        var salary = newRow.querySelector("#we_salary");
+        salary.value = "₱";
 
-}
+        // Get the reference node (the original row)
+        var referenceNode = document.querySelector(".row-container_we .row-row_we");
+
+        // Insert the cloned row before the reference node
+        referenceNode.parentNode.insertBefore(newRow, referenceNode);
+
+        //Remove the N/A checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
+
+        // Show and configure the delete button for the cloned row
+        const deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                newRow.parentNode.removeChild(newRow);
+            });
+        }
+
+    }
 </script>
