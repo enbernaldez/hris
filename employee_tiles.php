@@ -184,9 +184,13 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
                                 $filter = array($position_id);
                                 $result = query($conn, $sql, $filter);
-                                $row = $result[0];
 
-                                $position = $row['position_title'];
+                                if (empty($result)) {
+                                    $position = '';
+                                } else {
+                                    $row = $result[0];
+                                    $position = $row['position_title'];
+                                }
                                 ?>
                                 <div class="col-4 tile mt-3">
                                     <?php
