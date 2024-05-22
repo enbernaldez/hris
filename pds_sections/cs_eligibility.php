@@ -34,7 +34,8 @@
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)" data-target="null_cse">
+                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)"
+                            data-target="null_cse">
                         <label class="form-check-label" for="null_cse">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
@@ -98,16 +99,16 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll("#null_cse");
 
         clearInputs.forEach(function (checkbox) {
             checkbox.addEventListener('change', function () {
                 var targets = checkbox.dataset.target.split(',');
                 targets.forEach(function (targetId) {
                     var inputElement = document.getElementById(targetId.trim());
-                        if (checkbox.checked) {
+                    if (checkbox.checked) {
                         inputElement.value = '';
-                        inputElement.disabled = true;
+                        // inputElement.disabled = true;
                     } else {
                         inputElement.disabled = false;
                     }
