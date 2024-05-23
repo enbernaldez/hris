@@ -2,8 +2,7 @@
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <div class="row ms-5">
-                <p class="mb-0">INCLUSIVE DAT
-                    ES</p>
+                <p class="mb-0">INCLUSIVE DATES</p>
                 <p>(mm/dd/yy)</p>
             </div>
             <div class="row ms-5">
@@ -76,11 +75,19 @@
             </div>
             <div class="col-1">
                 <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required
-                    value="₱">
+                    value="₱" onclick="checkNA(this, 'we_salary_na')">
+                <div class="mt-2">
+                    <input class="form-check-input na-checkbox" type="checkbox" id="we_salary_na" name="we_salary_na" oninput="checkNA(this, 'we_salary')">
+                    <label class="form-check-label" for="we_salary_na">N/A</label>
+                </div>
             </div>
             <div class="col-1">
                 <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required
-                    value="">
+                    value="" onclick="checkNA(this, 'we_sg_na')">
+                <div class="mt-2">
+                    <input class="form-check-input na-checkbox" type="checkbox" id="we_sg_na" name="we_sg_na"  oninput="checkNA(this, 'we_sg')">
+                    <label class="form-check-label" for="we_sg_na">N/A</label>
+        </div>
             </div>
             <div class="col-2">
                 <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na_we" required
@@ -124,7 +131,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('#null_work_exp');  
+        var clearInputs = document.querySelectorAll('#null_work_exp');
 
         var originalOptions = {};
 
@@ -166,6 +173,17 @@
                 checkbox.disabled = false;
             });
 
+            // Uncheck all "N/A" checkboxes
+            var naCheckboxes = document.querySelectorAll('.na-checkbox');
+            naCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                var input = checkbox.closest('div').querySelector('input[type="text"]');
+                if (input) {
+                    input.value = "";
+                    input.disabled = false;
+                }
+            });
+
             // Restore original options for each select element
             selects.forEach(function (select) {
                 var selectId = select.id;
@@ -194,12 +212,12 @@
             }
         });
     });
+
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
         var carouselElement = document.querySelector('#carouselExample');
         var carousel = new bootstrap.Carousel(carouselElement);
-
 
         // Move to the next slide only if the form is filled out
         document.querySelector('#nextButton_we').addEventListener('click', function () {
@@ -222,13 +240,31 @@
             }
         });
     });
-    // ============================ N/A Array Disable ============================
-    const originalOptions = {};
 
+    function toggleNACheckbox(checkbox, input) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                input.value = "N/A";
+                input.disabled = true;
+            } else {
+                input.value = "";
+                input.disabled = false;
+            }
+        });
+    }
+
+    document.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
+        var input = checkbox.closest('div').querySelector('input[type="text"]');
+        toggleNACheckbox(checkbox, input);
+    });
+
+    // ============================ N/A Array Disable ============================
     function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
+
+        const originalOptions = {};
 
         selects.forEach((select) => {
             originalOptions[select.id] = Array.from(select.options).map((option) => {
@@ -258,6 +294,13 @@
                         clonedRow.remove();
                     }
                 });
+
+                // Check the individual "N/A" checkboxes for salary and salary grade
+                document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+                    naCheckbox.checked = true;
+                    var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+                    toggleNACheckbox(naCheckbox, input);
+                });
             } else {
                 inputs.forEach((input) => {
 
@@ -278,6 +321,12 @@
                     select.disabled = false;
                 });
 
+                // Uncheck the individual "N/A" checkboxes for salary and salary grade
+                document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+                    naCheckbox.checked = false;
+                    var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+                    toggleNACheckbox(naCheckbox, input);
+                });
             }
         });
     }
@@ -315,7 +364,7 @@
         // Insert the cloned row before the reference node
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        //Remove the N/A checkbox and its associated text from the cloned row
+        // Remove the N/A checkbox and its associated text from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
             clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
@@ -330,6 +379,48 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
-
+        newRow.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
+            var input = checkbox.closest('div').querySelector('input[type="text"]');
+            toggleNACheckbox(checkbox, input);
+        });
     }
+
+    function setupNullInput(checkboxId, inputId) {
+        const checkbox = document.getElementById(checkboxId);
+        const input = document.getElementById(inputId);
+
+        // if retrieved value is N/A
+        if (input.value == "N/A") {
+            checkbox.checked = true;
+            input.disabled = true;
+        }
+
+        // if checkbox is toggled
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+
+                input.value = "N/A";
+                input.disabled = true;
+
+            } else {
+
+                input.value = "";
+                input.disabled = false;
+            }
+        });
+
+        // if N/A is inputted
+        input.addEventListener("input", function () {
+            if (this.value.trim().toLowerCase() === "n/a") {
+                checkbox.checked = true;
+                this.disabled = true;
+            }
+        })
+    }
+
+    setupNullInput("we_salary_na", "we_salary");
+    setupNullInput("we_sg_na", "we_sg");
+
 </script>
+
+
