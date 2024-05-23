@@ -1,7 +1,6 @@
 <div class="container-fluid">
 
     <?php
-    include_once 'functions.php';
 
     if (isset($_GET['action']) && $_GET['action'] == "view") {
         $employee_id = $_GET['employee_id'];

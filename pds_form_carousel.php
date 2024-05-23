@@ -1,5 +1,6 @@
 <?php
 include_once "db_conn.php";
+include_once "functions.php";
 if ($_SESSION['user_type'] != 'A') {
     header("location:" . $_SERVER['HTTP_REFERER']);
     header("location:landing_page.php");
