@@ -2,8 +2,7 @@
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <div class="row ms-5">
-                <p class="mb-0">INCLUSIVE DAT
-                    ES</p>
+                <p class="mb-0">INCLUSIVE DATES</p>
                 <p>(mm/dd/yy)</p>
             </div>
             <div class="row ms-5">
@@ -76,11 +75,19 @@
             </div>
             <div class="col-1">
                 <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required
-                    value="₱">
+                    value="₱" onclick="checkNA(this, 'we_salary_na')">
+                <div class="mt-2">
+                    <input class="form-check-input na-checkbox" type="checkbox" id="we_salary_na" name="we_salary_na" oninput="checkNA(this, 'we_salary')">
+                    <label class="form-check-label" for="we_salary_na">N/A</label>
+                </div>
             </div>
             <div class="col-1">
                 <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required
-                    value="">
+                    value="" onclick="checkNA(this, 'we_sg_na')">
+                <div class="mt-2">
+                    <input class="form-check-input na-checkbox" type="checkbox" id="we_sg_na" name="we_sg_na"  oninput="checkNA(this, 'we_sg')">
+                    <label class="form-check-label" for="we_sg_na">N/A</label>
+        </div>
             </div>
             <div class="col-2">
                 <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na_we" required
@@ -201,7 +208,6 @@
         var carouselElement = document.querySelector('#carouselExample');
         var carousel = new bootstrap.Carousel(carouselElement);
 
-
         // Move to the next slide only if the form is filled out
         document.querySelector('#nextButton_we').addEventListener('click', function () {
             var activeSlide = document.querySelector('.carousel-item.active');
@@ -223,13 +229,32 @@
             }
         });
     });
-    // ============================ N/A Array Disable ============================
-    const originalOptions = {};
 
+    function toggleNACheckbox(checkbox, input) {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    input.value = "N/A";
+                    input.disabled = true;
+                } else {
+                    input.value = "";
+                    input.disabled = false;
+                }
+            });
+        }
+
+        document.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
+            var input = checkbox.closest('div').querySelector('input[type="text"]');
+            toggleNACheckbox(checkbox, input);
+        });
+
+
+    // ============================ N/A Array Disable ============================
     function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
+
+        const originalOptions = {};
 
         selects.forEach((select) => {
             originalOptions[select.id] = Array.from(select.options).map((option) => {
@@ -331,6 +356,46 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
-
+        newRow.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
+            var input = checkbox.closest('div').querySelector('input[type="text"]');
+            toggleNACheckbox(checkbox, input);
+        });
     }
+
+    function setupNullInput(checkboxId, inputId) {
+        const checkbox = document.getElementById(checkboxId);
+        const input = document.getElementById(inputId);
+
+        // if retrieved value is N/A
+        if (input.value == "N/A") {
+            checkbox.checked = true;
+            input.disabled = true;
+        }
+
+        // if checkbox is toggled
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+
+                input.value = "N/A";
+                input.disabled = true;
+
+            } else {
+                
+                input.value = "";
+                input.disabled = false;
+            }
+        });
+
+        // if N/A is inputted
+        input.addEventListener("input", function () {
+            if (this.value.trim().toLowerCase() === "n/a") {
+                checkbox.checked = true;
+                this.disabled = true;
+            }
+        })
+    }
+
+    setupNullInput("we_salary_na", "we_salary");
+    setupNullInput("we_sg_na", "we_sg");
+
 </script>

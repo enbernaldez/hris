@@ -34,7 +34,8 @@
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)" data-target="null_cse">
+                        <input class="form-check-input" type="checkbox" id="null_cse" onclick="checkNA_cs(this)"
+                            data-target="null_cse">
                         <label class="form-check-label" for="null_cse">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
@@ -55,7 +56,7 @@
                 <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs"
                     required>
             </div>
-            <div class="col-3">
+            <div class="col-3 license">
                 <div class="row">
                     <div class="col-6">
                         <input type="text" name="license_number[]" id="license_number"
@@ -65,6 +66,11 @@
                         <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
                             class="form-control uppercase group-na-cs" required>
                     </div>
+                </div>
+                <div class="mt-2">
+                    <input class="form-check-input na-checkbox" type="checkbox" id="na_license" name="na_license"
+                        oninput="NA_license(this)">
+                    <label class="form-check-label" for="na_license">N/A</label>
                 </div>
             </div>
         </div>
@@ -105,7 +111,7 @@
                 var targets = checkbox.dataset.target.split(',');
                 targets.forEach(function (targetId) {
                     var inputElement = document.getElementById(targetId.trim());
-                        if (checkbox.checked) {
+                    if (checkbox.checked) {
                         inputElement.value = '';
                         inputElement.disabled = true;
                     } else {
@@ -217,6 +223,12 @@
                 newRow.parentNode.removeChild(newRow);
             });
         }
+        const naCheckbox = newRow.querySelector(".na-checkbox");
+        if (naCheckbox) {
+            naCheckbox.addEventListener("input", function () {
+                checkNA(this, 'license_number', 'license_dateofvalidity');
+            });
+        }
     }
 
     function checkNA_cs(checkbox) {
@@ -247,4 +259,22 @@
         }
     }
 
-</script>
+    function NA_license(checkbox) {
+        var row = checkbox.closest('.license');
+        var inputs = row.querySelectorAll('input');
+        if (checkbox.checked) {
+            inputs.forEach(input => {
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            });
+        } else {
+            inputs.forEach(input => {
+                input.type = (input.id == "license_dateofvalidity") ? "date" : "text";
+                input.value = "N/A";
+                input.disabled = true;
+            });
+        }
+    }
+   
+</script> 
