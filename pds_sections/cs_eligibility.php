@@ -67,7 +67,7 @@
                             class="form-control uppercase group-na-cs" required>
                     </div>
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 text-center">
                     <input class="form-check-input na-checkbox" type="checkbox" id="na_license" name="na_license"
                         oninput="NA_license(this)">
                     <label class="form-check-label" for="na_license">N/A</label>
@@ -113,7 +113,6 @@
                     var inputElement = document.getElementById(targetId.trim());
                     if (checkbox.checked) {
                         inputElement.value = '';
-                        // inputElement.disabled = true;
                     } else {
                         inputElement.disabled = false;
                     }
@@ -137,7 +136,6 @@
                 checkbox.disabled = false;
             });
 
-            // Remove all cloned rows for children
             var childRows = document.querySelectorAll('.row-row-cs');
             var lastIndex = childRows.length - 1;
             childRows.forEach(function (row, index) {
@@ -145,26 +143,30 @@
                     row.parentNode.removeChild(row);
                 }
             });
-            // Enable the "Add Row" button
+
             var addButton = document.getElementById('cse_addrow');
             if (addButton) {
                 addButton.disabled = false;
             }
+
+            // Uncheck all "N/A" checkboxes within the individual rows
+            var naLicenseCheckboxes = document.querySelectorAll('.na-checkbox');
+            naLicenseCheckboxes.forEach(function (naCheckbox) {
+                naCheckbox.checked = false;
+                NA_license(naCheckbox);
+            });
         });
     });
+
     //========================= Next Button =====================================
-    // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
         var carouselElement = document.querySelector('#carouselExample');
         var carousel = new bootstrap.Carousel(carouselElement);
 
-
-        // Move to the next slide only if the form is filled out
         document.querySelector('#nextButton_cs').addEventListener('click', function () {
             var activeSlide = document.querySelector('.carousel-item.active');
             var inputs = activeSlide.querySelectorAll('.group-na-cs');
 
-            // Check if all input fields in the active slide are filled out
             var allFilled = true;
             inputs.forEach(function (input) {
                 if (!input.value.trim()) {
@@ -172,7 +174,6 @@
                 }
             });
 
-            // If all input fields are filled out, move to the next carousel item
             if (allFilled) {
                 carousel.next();
             } else {
@@ -181,40 +182,88 @@
         });
     });
 
-    // ============ Function to disable input fields if "N/A" checkbox is checked =========
-    function disableInputs() {
-        var inputs = document.querySelectorAll(".group-na-cs");
-        var cse_addrow = document.getElementById("cse_addrow");
+    function disableInputs(inputs) {
         inputs.forEach(function (input) {
-            input.type = "text";
-            input.value = "N/A";
-            input.disabled = true;
-            cse_addrow.disabled = true;
+            if (!input.classList.contains('na-checkbox')) {
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            }
         });
     }
 
+    function enableInputs(inputs) {
+        inputs.forEach(function (input) {
+            if (!input.classList.contains('na-checkbox')) {
+                input.type = (input.id == "exam_date" || input.id == "license_dateofvalidity") ? "date" :
+                    (input.id == "license_number") ? "number" :
+                        "text";
+                input.value = "";
+                input.disabled = false;
+            }
+        });
+    }
+
+    function checkNA_cs(checkbox) {
+        var inputs = document.querySelectorAll(".group-na-cs");
+        var cse_addrow = document.getElementById("cse_addrow");
+
+        if (checkbox.checked) {
+            disableInputs(inputs);
+
+            const clonedRows = document.querySelectorAll(".cs-row .row-row-cs");
+            clonedRows.forEach((clonedRow) => {
+                if (clonedRow !== checkbox.closest('.row-row-cs')) {
+                    clonedRow.remove();
+                }
+            });
+
+            cse_addrow.disabled = true;
+            
+            var naLicenseCheckboxes = document.querySelectorAll('.na-checkbox');
+            naLicenseCheckboxes.forEach(function (naCheckbox) {
+                naCheckbox.checked = true;
+                NA_license(naCheckbox);
+            });
+        } else {
+            enableInputs(inputs);
+            cse_addrow.disabled = false;
+
+            var naLicenseCheckboxes = document.querySelectorAll('.na-checkbox');
+            naLicenseCheckboxes.forEach(function (naCheckbox) {
+                naCheckbox.checked = false;
+                NA_license(naCheckbox);
+            });
+        }
+    }
+
+    function NA_license(checkbox) {
+        var row = checkbox.closest('.license');
+        var inputs = row.querySelectorAll('input');
+        if (checkbox.checked) {
+            disableInputs(inputs);
+        } else {
+            enableInputs(inputs);
+        }
+    }
+
     function addRow_cs() {
-        // Clone the input-row element
         var newRow = document.querySelector(".row-row-cs").cloneNode(true);
 
-        // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
             input.value = "";
+            input.disabled = false;
         });
 
-        // Get the reference node (the original row)
         var referenceNode = document.querySelector(".cs-row .row-row-cs");
 
-        // Insert the cloned row before the reference node
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
             clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
         }
 
-        // Find the delete button in the cloned row and enable it 
         const deleteButton = newRow.querySelector(".delete-row-button");
         if (deleteButton) {
             deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
@@ -230,51 +279,4 @@
             });
         }
     }
-
-    function checkNA_cs(checkbox) {
-        var inputs = document.querySelectorAll(".group-na-cs");
-        var cse_addrow = document.getElementById("cse_addrow");
-        if (checkbox.checked) {
-            naChecked = true;
-            disableInputs();
-
-            // Remove cloned rows if they exist
-            const clonedRows = document.querySelectorAll(".cs-row .row-row-cs");
-            clonedRows.forEach((clonedRow) => {
-                if (clonedRow !== checkbox.closest('.row-row-cs')) {
-                    clonedRow.remove();
-                }
-            });
-        } else {
-            naChecked = false;
-            inputs.forEach(function (input) {
-                input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
-                    input.id == "license_number" ? input.type = "number" :
-                        input.type = "text";
-
-                input.value = "";
-                input.disabled = false;
-                cse_addrow.disabled = false;
-            });
-        }
-    }
-
-    function NA_license(checkbox) {
-        var row = checkbox.closest('.license');
-        var inputs = row.querySelectorAll('input');
-        if (checkbox.checked) {
-            inputs.forEach(input => {
-                input.type = "text";
-                input.value = "N/A";
-                input.disabled = true;
-            });
-        } else {
-            inputs.forEach(input => {
-                input.type = (input.id == "license_dateofvalidity") ? "date" : "text";
-                input.value = "N/A";
-                input.disabled = true;
-            });
-        }
-    }
-   
-</script> 
+</script>

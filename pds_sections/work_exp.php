@@ -131,7 +131,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('#null_work_exp');  
+        var clearInputs = document.querySelectorAll('#null_work_exp');
 
         var originalOptions = {};
 
@@ -173,6 +173,17 @@
                 checkbox.disabled = false;
             });
 
+            // Uncheck all "N/A" checkboxes
+            var naCheckboxes = document.querySelectorAll('.na-checkbox');
+            naCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                var input = checkbox.closest('div').querySelector('input[type="text"]');
+                if (input) {
+                    input.value = "";
+                    input.disabled = false;
+                }
+            });
+
             // Restore original options for each select element
             selects.forEach(function (select) {
                 var selectId = select.id;
@@ -201,6 +212,7 @@
             }
         });
     });
+
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -230,22 +242,21 @@
     });
 
     function toggleNACheckbox(checkbox, input) {
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    input.value = "N/A";
-                    input.disabled = true;
-                } else {
-                    input.value = "";
-                    input.disabled = false;
-                }
-            });
-        }
-
-        document.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
-            var input = checkbox.closest('div').querySelector('input[type="text"]');
-            toggleNACheckbox(checkbox, input);
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                input.value = "N/A";
+                input.disabled = true;
+            } else {
+                input.value = "";
+                input.disabled = false;
+            }
         });
+    }
 
+    document.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
+        var input = checkbox.closest('div').querySelector('input[type="text"]');
+        toggleNACheckbox(checkbox, input);
+    });
 
     // ============================ N/A Array Disable ============================
     function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
@@ -283,6 +294,13 @@
                         clonedRow.remove();
                     }
                 });
+
+                // Check the individual "N/A" checkboxes for salary and salary grade
+                document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+                    naCheckbox.checked = true;
+                    var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+                    toggleNACheckbox(naCheckbox, input);
+                });
             } else {
                 inputs.forEach((input) => {
 
@@ -303,6 +321,12 @@
                     select.disabled = false;
                 });
 
+                // Uncheck the individual "N/A" checkboxes for salary and salary grade
+                document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+                    naCheckbox.checked = false;
+                    var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+                    toggleNACheckbox(naCheckbox, input);
+                });
             }
         });
     }
@@ -340,7 +364,7 @@
         // Insert the cloned row before the reference node
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        //Remove the N/A checkbox and its associated text from the cloned row
+        // Remove the N/A checkbox and its associated text from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
             clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
@@ -379,7 +403,7 @@
                 input.disabled = true;
 
             } else {
-                
+
                 input.value = "";
                 input.disabled = false;
             }
@@ -398,3 +422,5 @@
     setupNullInput("we_sg_na", "we_sg");
 
 </script>
+
+
