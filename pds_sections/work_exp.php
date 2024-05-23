@@ -131,7 +131,7 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('.form-check-input[type="checkbox"]');
+        var clearInputs = document.querySelectorAll('#null_work_exp');  
 
         var originalOptions = {};
 
@@ -150,7 +150,6 @@
                     var inputElement = document.getElementById(targetId.trim());
                     if (checkbox.checked) {
                         inputElement.value = '';
-                        inputElement.disabled = true;
                     } else {
                         inputElement.disabled = false;
                     }
