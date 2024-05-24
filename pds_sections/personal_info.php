@@ -143,7 +143,7 @@
                 <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input"
                     value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_middle">
+                    <input class="form-check-input" type="checkbox" id="null_middle" data-target="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                 <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input"
                     value="<?php echo $nameext; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_ext">
+                    <input class="form-check-input" type="checkbox" id="null_ext" data-target="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
                 </div>
             </div>
@@ -190,8 +190,8 @@
                 </option>";
                 <option value='M' <?php echo (isset($civilstatus) && $civilstatus == "M") ? " selected" : ""; ?>>MARRIED
                 </option>";
-                <option value='C' <?php echo (isset($civilstatus) && $civilstatus == "C") ? " selected" : ""; ?>>COMMONLAW
-                </option>";
+                <option value='C' <?php echo (isset($civilstatus) && $civilstatus == "C") ? " selected" : ""; ?>>COMMON
+                    LAW</option>";
                 <option value='W' <?php echo (isset($civilstatus) && $civilstatus == "W") ? " selected" : ""; ?>>WIDOWED
                 </option>";
                 <option value='H' <?php echo (isset($civilstatus) && $civilstatus == "H") ? " selected" : ""; ?>>SEPARATED
@@ -282,6 +282,10 @@
                 </option>";
                 <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
                     CITIZENSHIP</option>";
+                <option value='F' <?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO
+                </option>";
+                <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
+                    CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
@@ -289,6 +293,10 @@
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--SELECT--</option>
                 <option value="F" hidden<?php echo isset($citizenship) ? "" : " selected"; ?>>N/A</option>
+                <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
+                </option>";
+                <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
+                    NATURALIZATION</option>";
                 <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
                 </option>";
                 <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
@@ -369,7 +377,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rsv">
+                    <input class="form-check-input" type="checkbox" id="null_rsv" data-target="null_rsv">
                     <label class="form-check-label" for="null_rsv">N/A</label>
                 </div>
             </div>
@@ -388,7 +396,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rst">
+                    <input class="form-check-input" type="checkbox" id="null_rst" data-target="null_rst">
                     <label class="form-check-label" for="null_rst">N/A</label>
                 </div>
             </div>
@@ -407,7 +415,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_rhbl">
+                    <input class="form-check-input" type="checkbox" id="null_rhbl" data-target="null_rhbl">
                     <label class="form-check-label" for="null_rhbl">N/A</label>
                 </div>
             </div>
@@ -434,7 +442,7 @@
     <div class="mt-5">
         <h5 style="display: inline">PERMANENT ADDRESS</h5>
         <div class="form-check form-check-inline ms-2">
-            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true" <?php echo (isset($same_add)) ? $same_add : ""; ?>>
+            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true" data-target="same_add" <?php echo (isset($same_add)) ? $same_add : ""; ?>>
             <label class="form-check-label" for="same_add">Same as the Residential Address</label>
         </div>
     </div>
@@ -502,7 +510,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_psv">
+                    <input class="form-check-input" type="checkbox" id="null_psv" data-target="null_psv">
                     <label class="form-check-label" for="null_psv">N/A</label>
                 </div>
             </div>
@@ -521,7 +529,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_pst">
+                    <input class="form-check-input" type="checkbox" id="null_pst" data-target="null_pst">
                     <label class="form-check-label" for="null_pst">N/A</label>
                 </div>
             </div>
@@ -540,7 +548,7 @@
                     ?>
                 </datalist>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_phbl">
+                    <input class="form-check-input" type="checkbox" id="null_phbl" data-target="null_phbl">
                     <label class="form-check-label" for="null_phbl">N/A</label>
                 </div>
             </div>
@@ -571,7 +579,7 @@
                 <input type="tel" required name="no_tel" id="no_tel" class="form-control uppercase input"
                     value="<?php echo $tel; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_telno">
+                    <input class="form-check-input" type="checkbox" id="null_telno" data-target="null_telno">
                     <label class="form-check-label" for="null_telno">N/A</label>
                 </div>
             </div>
@@ -587,13 +595,18 @@
                 <input type="email" required name="emailadd" id="emailadd" class="form-control uppercase input"
                     style="text-transform: lowercase;" value="<?php echo $emailadd; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_emailadd">
+                    <input class="form-check-input" type="checkbox" id="null_emailadd" data-target="null_emailadd">
                     <label class="form-check-label" for="null_emailadd">N/A</label>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_pi">
+        <strong>CLEAR ALL</strong>
+    </button>
 
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_pi">
@@ -608,6 +621,79 @@
 </div>
 
 <script>
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll("#null_middle, #null_ext, #null_rsv, #null_rst, #null_rhbl, #same_add, #null_psv, #null_pst, #null_phbl, #null_telno, #null_emailadd");
+        var originalSelectOptions = {};
+
+        // Store the original options of each select element
+        var selects = document.querySelectorAll('select');
+        selects.forEach((select) => {
+            originalSelectOptions[select.id] = Array.from(select.options).map((option) => {
+                return { value: option.value, text: option.text };
+            });
+        });
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+
+                    if (checkbox.checked) {
+                        if (inputElement.tagName.toLowerCase() === 'select') {
+                            inputElement.innerHTML = '';
+                            var option = document.createElement('option');
+                            option.text = 'N/A';
+                            option.value = 'N/A';
+                            inputElement.add(option);
+                        } else {
+                            inputElement.value = '';
+                        }
+                    } else {
+                        if (inputElement.tagName.toLowerCase() === 'select') {
+                            inputElement.disabled = false;
+                            inputElement.innerHTML = '';
+                            originalSelectOptions[targetId.trim()].forEach((optionData) => {
+                                var option = document.createElement('option');
+                                option.text = optionData.text;
+                                option.value = optionData.value;
+                                inputElement.add(option);
+                            });
+                        } else {
+                            inputElement.disabled = false;
+                        }
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_pi').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.input');
+            inputs.forEach(function (input) {
+                input.value = '';
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false; //
+            });
+
+            // Restore original select options for all selects
+            selects.forEach(function (select) {
+                select.disabled = false;
+                select.innerHTML = '';
+                originalSelectOptions[select.id].forEach((optionData) => {
+                    var option = document.createElement('option');
+                    option.text = optionData.text;
+                    option.value = optionData.value;
+                    select.add(option);
+                });
+            });
+        });
+    });
+
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {

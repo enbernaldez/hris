@@ -38,13 +38,15 @@
             <div class="col-3">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
-                        <input class="form-check-input" type="checkbox" id="null_lnd" name="null_lnd" value="true">
+                        <input class="form-check-input" type="checkbox" id="null_lnd" name="null_lnd" value="true"
+                            data-target="null_lnd">
                         <label class="form-check-label" for="null_lnd">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" required name="lnd_title[]" id="lnd_title" class="form-control uppercase group-na-lnd">
+                    <input type="text" required name="lnd_title[]" id="lnd_title"
+                        class="form-control uppercase group-na-lnd">
                 </div>
             </div>
             <div class="col-3">
@@ -54,7 +56,8 @@
                             class="form-control uppercase group-na-lnd">
                     </div>
                     <div class="col-6">
-                        <input type="date" required uppercase name="lnd_date_to[]" id="lnd_date_to" class="form-control uppercase group-na-lnd">
+                        <input type="date" required uppercase name="lnd_date_to[]" id="lnd_date_to"
+                            class="form-control uppercase group-na-lnd">
                     </div>
                 </div>
             </div>
@@ -65,7 +68,8 @@
                 <input type="text" required name="lnd_type[]" id="lnd_type" class="form-control uppercase group-na-lnd">
             </div>
             <div class="col-2">
-                <input type="text" required name="lnd_sponsor[]" id="lnd_sponsor" class="form-control uppercase group-na-lnd">
+                <input type="text" required name="lnd_sponsor[]" id="lnd_sponsor"
+                    class="form-control uppercase group-na-lnd">
             </div>
         </div>
     </div>
@@ -83,6 +87,11 @@
         <strong>PREV</strong>
     </button>
 
+    <!-- CLEAR BUTTON -->
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_lnd">
+        <strong>CLEAR ALL</strong>
+    </button>
+
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_lnd">
         <strong>NEXT</strong>
@@ -90,6 +99,56 @@
 </div>
 
 <script>
+    // ======================== Clear Button ==================================
+    document.addEventListener('DOMContentLoaded', function () {
+        var clearInputs = document.querySelectorAll("#null_lnd");
+
+        clearInputs.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                var targets = checkbox.dataset.target.split(',');
+                targets.forEach(function (targetId) {
+                    var inputElement = document.getElementById(targetId.trim());
+                    if (checkbox.checked) {
+                        inputElement.value = '';
+                    } else {
+                        inputElement.disabled = false;
+                    }
+                });
+            });
+        });
+
+        document.getElementById('clearButton_lnd').addEventListener('click', function () {
+            var inputs = document.querySelectorAll('.group-na-lnd');
+            inputs.forEach((input) => {
+
+                input.id == "lnd_date_from" || input.id == "lnd_date_to" ? input.type = "date" :
+                    input.id == "lnd_hrs" ? input.type = "number" :
+                        input.type = "text";
+
+                input.value = "";
+                input.disabled = false;
+            });
+
+            clearInputs.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false;
+            });
+
+            // Remove all cloned rows for children
+            var childRows = document.querySelectorAll('.row-row-lnd');
+            var lastIndex = childRows.length - 1;
+            childRows.forEach(function (row, index) {
+                if (index !== lastIndex) {
+                    row.parentNode.removeChild(row);
+                }
+            });
+            // Enable the "Add Row" button
+            var addButton = document.getElementById('lnd_addrow');
+            if (addButton) {
+                addButton.disabled = false;
+            }
+        });
+    });
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -127,10 +186,10 @@
             input.value = "";
         });
         // Get the reference node (the original row)
-    var referenceNode = document.querySelector(".lnd_row .row-row-lnd");
+        var referenceNode = document.querySelector(".lnd_row .row-row-lnd");
 
-// Insert the cloned row before the reference node
-referenceNode.parentNode.insertBefore(newRow, referenceNode);
+        // Insert the cloned row before the reference node
+        referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");
@@ -148,7 +207,7 @@ referenceNode.parentNode.insertBefore(newRow, referenceNode);
             });
         }
 
-      
+
     }
 
     // ============================ N/A Array Disable ============================
