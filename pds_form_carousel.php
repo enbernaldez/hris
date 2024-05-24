@@ -210,13 +210,15 @@ if ($_SESSION['user_type'] != 'A') {
         // echo script to disable all input and select elements
         echo '
             <script>
-                var form = document.getElementById("pds");
-                var elements = form.elements;
-                for (var i = 0, len = elements.length; i < len; ++i) {
-                    if (!elements[i].classList.contains("button-right") && !elements[i].classList.contains("button-left")) {
-                        elements[i].disabled = true;
+                document.addEventListener("DOMContentLoaded", function () {
+                    var form = document.getElementById("pds");
+                    var elements = form.elements;
+                    for (var i = 0, len = elements.length; i < len; ++i) {
+                        if (!elements[i].classList.contains("button-right") && !elements[i].classList.contains("button-left")) {
+                            elements[i].disabled = true;
+                        }
                     }
-                }
+                });
             </script>
         ';
     }

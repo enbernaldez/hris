@@ -13,58 +13,70 @@
         $result = query($conn, $sql, $filter);
 
         echo "
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
         ";
 
         foreach ($result as $key => $value) {
             $retrieved_lvl = $value['educ_acadlvl'];
             $acadlvl = (match ($retrieved_lvl) {
-                "E" => "elementary",
-                "S" => "secondary",
-                "V" => "vocational",
-                "C" => "college",
-                "G" => "graduate",
+                "E" => "elem",
+                "S" => "sec",
+                "V" => "voc",
+                "C" => "coll",
+                "G" => "grad",
             });
-            ${"{$acadlvl}_school"} = lookup($conn, $value['school_id'], 'schools', 'school_name', 'school_id');
-            ${"{$acadlvl}_bdc"} = lookup($conn, $value['bdc_id'], 'basiced_degree_course', 'bdc_name', 'bdc_id');
-            // echo "{$acadlvl}_school: {$value['school_id']} => " . ${"{$acadlvl}_school"} . "<br>";
-            // echo "{$acadlvl}_bdc: {$value['bdc_id']} => " . ${"{$acadlvl}_bdc"} . "<br>";
-    
-            echo "
-                var selectElement = document.getElementById('name_school{$retrieved_lvl}');
-                selectElement.value = '" . ${"{$acadlvl}_school"} . "';
-                var selectElement = document.getElementById('degree_{$retrieved_lvl}');
-                selectElement.value = '" . ${"{$acadlvl}_bdc"} . "';
-            ";
 
-            if (($retrieved_lvl == "V" || $retrieved_lvl == "G") && ${"{$acadlvl}_bdc"} == "N/A") {
-                continue;
-            }
             $educ_dets = array(
-                "p_attendance_from" => "period_from",
-                "p_attendance_to" => "period_to",
-                "h_level" => "highest",
-                "year_graduated" => "graduated",
+                "school" => "school",
+                "degree" => "bdc",
+                "attendance_from" => "period_from",
+                "attendance_to" => "period_to",
+                "level" => "highest",
+                "year" => "graduated",
                 "scholarship" => "scholarship_acad_honors"
             );
+
+            if(isset(${"{$acadlvl}_school"})) {
+                echo "
+                    var selectElement = document.getElementById('name_school{$retrieved_lvl}');
+                    var parentRow = selectElement.closest('.parent-row');
+                    var button = parentRow.querySelector('button.add-row-text');
+                    plusRow(button);
+                ";
+            }
+
             $i = 0;
             foreach ($educ_dets as $key => $dets) {
 
                 // echo "{$acadlvl}_{$dets}: {$value['educ_' . $dets]}<br>";
-                ${"{$acadlvl}_{$dets}"} = $value['educ_' . $dets];
-                $lvl = json_encode($key . $retrieved_lvl);
+                $lvl = json_encode($acadlvl . "_" . $key . "[]");
+
+
+                if ($dets == "school" || $dets == "bdc") {
+
+                    $det = ($dets == "bdc") ? "basiced_degree_course" : "schools";
+                    ${"{$acadlvl}_{$dets}"} = lookup($conn, $value["{$dets}_id"], "{$det}", "{$dets}_name", "{$dets}_id");
+    
+                } else {
+
+                    ${"{$acadlvl}_{$dets}"} = $value['educ_' . $dets];
+                }
+
                 echo "
-                    var selectElement = document.getElementById({$lvl});
+                    var elements = document.querySelectorAll('[name={$lvl}]');
+                    if (elements.length > 0) { 
+                        var selectElement = elements[elements.length - 1];
+                    }
                     selectElement.value = \"" . ${"{$acadlvl}_{$dets}"} . "\";
                 ";
 
-                if ($i != 2) {
+                if (!in_array($i, [0, 1, 4])) {
                     $chk = json_encode(match ($i) {
-                        0 => "null_from{$retrieved_lvl}",
-                        1 => "null_to{$retrieved_lvl}",
-                        3 => "null_year{$retrieved_lvl}",
-                        4 => "null_scholarship{$retrieved_lvl}",
+                        2 => "null_from{$retrieved_lvl}",
+                        3 => "null_to{$retrieved_lvl}",
+                        5 => "null_year{$retrieved_lvl}",
+                        6 => "null_scholarship{$retrieved_lvl}",
                     });
                     if (${"{$acadlvl}_{$dets}"} == "N/A") {
                         echo "
@@ -74,6 +86,10 @@
                         ";
                     }
                 }
+
+                if (($retrieved_lvl == "V" || $retrieved_lvl == "G") && ${"{$acadlvl}_school"} == "N/A") {
+                    continue;
+                }
                 $i++;
             }
             // echo "<br>";
@@ -81,12 +97,12 @@
 
         echo "
         });
-        </script>";
+    </script>";
     } else {
         $acad_levels = array("elementary", "secondary", "vocational", "college", "graduate");
-        foreach ($acad_levels as $key => $lvl) {
+        foreach ($acad_levels as $lvl) {
             $educ_dets = array("period_from", "period_to", "highest", "graduated", "scholarship_acad_honors", "school", "bdc");
-            foreach ($educ_dets as $key => $dets) {
+            foreach ($educ_dets as $dets) {
                 ${"{$lvl}_{$dets}"} = '';
             }
         }

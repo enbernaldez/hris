@@ -14,7 +14,7 @@
 
         echo "
         <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+            document.addEventListener('DOMContentLoaded', (event) => {
         ";
 
         foreach ($result as $key => $value) {
@@ -37,6 +37,10 @@
                 var selectElement = document.getElementById('degree_{$retrieved_lvl}');
                 selectElement.value = '" . ${"{$acadlvl}_bdc"} . "';
             ";
+
+            if (($retrieved_lvl == "V" || $retrieved_lvl == "G") && ${"{$acadlvl}_bdc"} == "N/A") {
+                continue;
+            }
             $educ_dets = array(
                 "p_attendance_from" => "period_from",
                 "p_attendance_to" => "period_to",
@@ -53,7 +57,7 @@
                 echo "
                     var selectElement = document.getElementById({$lvl});
                     selectElement.value = \"" . ${"{$acadlvl}_{$dets}"} . "\";
-                "; 
+                ";
 
                 if ($i != 2) {
                     $chk = json_encode(match ($i) {
@@ -65,6 +69,7 @@
                     if (${"{$acadlvl}_{$dets}"} == "N/A") {
                         echo "
                             var checkbox = document.getElementById({$chk});
+                            checkbox.checked = true;
                             checkNA_eb(checkbox);
                         ";
                     }
@@ -315,7 +320,7 @@
             </div>
         </div>
         <!-- button  -->
-        <button type="button" class="add-row-text"
+        <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; width: 300px; height: 40px; background: none; border: none;  text-align: left; padding: 0; margin-left: 150px;"><i
                 class="bi bi-plus-lg me-2" id="v_addrow" name="v_addrow"></i>Add new Vocational
             row</button>
@@ -391,7 +396,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="add-row-text"
+        <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; border: none; width: 300px; height: 40px; background: none; text-align: left; padding: 0; margin-left: 150px;">
             <i class="bi bi-plus-lg me-2" id="c_addrow" name="c_addrow"></i>Add new College row
         </button>
@@ -475,7 +480,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="add-row-text"
+        <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; border: none; width: 300px; height: 40px; background: none; text-align: left; padding: 0; margin-left: 150px;">
             <i class="bi bi-plus-lg me-2" id="g_addrow" name="g_addrow"></i>Add new Graduate Studies row
         </button>
@@ -600,6 +605,55 @@
             });
         });
 
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                inputs.forEach((input) => {
+                    input.value = "N/A";
+                    input.disabled = true;
+                });
+                selects.forEach((select) => {
+                    // Clear existing options
+                    select.innerHTML = "";
+                    // Create new option with "N/A" value
+                    const optionNA = document.createElement("option");
+                    optionNA.text = "N/A";
+                    optionNA.value = "N/A";
+                    // Append option to select
+                    select.appendChild(optionNA);
+                    select.disabled = true;
+                });
+                checkboxes.forEach((chkbx) => {
+                    chkbx.checked = true;
+                    chkbx.disabled = true;
+                });
+                // Remove cloned rows if they exist
+                const clonedRows = document.querySelectorAll("." + checkboxId + ".new-row");
+                clonedRows.forEach((clonedRow) => {
+                    clonedRow.remove();
+                });
+            } else {
+                inputs.forEach((input) => {
+                    input.value = "";
+                    input.disabled = false;
+                });
+                selects.forEach((select) => {
+                    // Restore original options
+                    select.innerHTML = "";
+                    newOptions[select.id].forEach((optionData) => {
+                        const option = document.createElement("option");
+                        option.text = optionData.text;
+                        option.value = optionData.value;
+                        select.appendChild(option);
+                    });
+                    select.disabled = false;
+                });
+                checkboxes.forEach((chkbx) => {
+                    chkbx.checked = false;
+                    chkbx.disabled = false;
+                });
+            }
+        });
+
         if (checkbox.checked) {
             inputs.forEach((input) => {
                 input.value = "N/A";
@@ -648,45 +702,42 @@
         }
     }
 
+    const null_checkboxes = ["null_vocational", "null_graduate"];
+    null_checkboxes.forEach(chkbx => {
+        var lvl = (chkbx == "null_vocational") ? "V" : "G";
+        handleNAArray(
+            chkbx,
+            [
+                "name_school" + lvl,
+                "degree_" + lvl,
+                "h_level" + lvl,
+                "p_attendance_from" + lvl,
+                "p_attendance_to" + lvl,
+                "year_graduated" + lvl,
+                "scholarship" + lvl
+            ],
+            [
+                "p_attendance_from" + lvl,
+                "p_attendance_to" + lvl,
+                "year_graduated" + lvl,
+            ],
+            [
+                "null_from" + lvl,
+                "null_to" + lvl,
+                "null_year" + lvl,
+                "null_scholarship" + lvl,
+            ],
+        );
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
-
-        const null_checkboxes = ["null_vocational", "null_graduate"];
-        null_checkboxes.forEach(chkbx => {
-            var checkbox = document.getElementById(chkbx);
-            var lvl = (chkbx == "null_vocational") ? "V" : "G";
-            checkbox.addEventListener("change", function () {
-                handleNAArray(
-                    chkbx,
-                    [
-                        "name_school" + lvl,
-                        "degree_" + lvl,
-                        "h_level" + lvl,
-                        "p_attendance_from" + lvl,
-                        "p_attendance_to" + lvl,
-                        "year_graduated" + lvl,
-                        "scholarship" + lvl
-                    ],
-                    [
-                        "p_attendance_from" + lvl,
-                        "p_attendance_to" + lvl,
-                        "year_graduated" + lvl,
-                    ],
-                    [
-                        "null_from" + lvl,
-                        "null_to" + lvl,
-                        "null_year" + lvl,
-                        "null_scholarship" + lvl,
-                    ],
-                );
-            });
-        });
-
         const input_ref = ["name_schoolV", "name_schoolG"];
         input_ref.forEach(inp => {
             var input = document.getElementById(inp);
             var chkbx = (inp == "name_schoolV") ? "null_vocational" : "null_graduate";
             var checkbox = document.getElementById(chkbx);
             if (input.value == "N/A") {
+                var lvl = (inp == "name_schoolV") ? "V" : "G";
                 checkbox.checked = true;
                 handleNAArray(
                     chkbx,
@@ -715,146 +766,107 @@
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Find the "button"
-        const plusButtons = document.querySelectorAll("button");
+    function plusRow(button) {
+        // Find the parent row of the clicked icon
+        const parentRow = button.closest(".parent-row");
+        const row = parentRow.querySelector(".row");
 
-        // Iterate over each "plus" icon
-        plusButtons.forEach(function (button) {
-            // Attach a click event listener to each "plus" icon
-            button.addEventListener("click", function () {
-                // Find the parent row of the clicked icon
-                const parentRow = button.closest(".parent-row");
-                const row = parentRow.querySelector(".row");
+        //Find the n/a checkbox within the parent row 
+        const naCheckbox = row.querySelector(".not_app");
 
-                //Find the n/a checkbox within the parent row 
-                const naCheckbox = row.querySelector(".not_app");
+        //Check if the n/a checkbox is checked
+        if (naCheckbox && naCheckbox.checked) {
+            return;
+        }
 
-                //Check if the n/a checkbox is checked
-                if (naCheckbox && naCheckbox.checked) {
-                    return;
-                }
+        // Clone the row
+        const clonedRow = row.cloneNode(true);
+        //Add the new-row class to the cloned row 
+        clonedRow.classList.add('new-row');
 
-                // Clone the row
-                const clonedRow = row.cloneNode(true);
-                //Add the new-row class to the cloned row 
-                clonedRow.classList.add('new-row');
+        const level = clonedRow.querySelector('.level');
+        level.hidden = true;
 
-                const level = clonedRow.querySelector('.level');
-                level.hidden = true;
-
-                // Clear select values and enable select boxes in the cloned row
-                const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(function (checkbox) {
-                    if (checkbox.checked) {
-                        checkbox.checked = false; // Uncheck the checkbox if it's checked
-                    }
-                });
-
-                // Find all select elements in the cloned row
-                const selects = clonedRow.querySelectorAll('select');
-
-                // Iterate over each select element and set its value to an empty string or to the default selected option
-                selects.forEach(function (select) {
-                    // Clear the value of the select box 
-
-                    select.disabled = false;
-                    select.innerHTML = "";
-
-                    var option = document.createElement("option");
-                    option.text = ""; // Empty option
-                    option.value = ""; // Modify as needed
-                    select.add(option);
-
-                    select.value = ''; // Set the value to an empty string
-
-                    populateYearDropdowns(select);
-                });
-
-
-
-                //Remove the n/a checkbox and its associated text from the cloned row
-                const clonedNaCheckbox = clonedRow.querySelector(".remove_na");
-                if (clonedNaCheckbox) {
-                    clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
-                }
-
-                //find the delete button in the cloned row and enable it 
-                const deleteButton = clonedRow.querySelector(".delete-row-button");
-                if (deleteButton) {
-                    deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-                    deleteButton.style.display = "inline-block";
-                    deleteButton.addEventListener("click", function () {
-                        clonedRow.parentNode.removeChild(clonedRow);
-                    });
-                }
-
-                // Update IDs of cloned elements to make them unique
-                const inputFields = clonedRow.querySelectorAll("input");
-                inputFields.forEach(function (input) {
-                    const oldId = input.getAttribute("id");
-                    const newId = generateUniqueId(oldId); // Generate a unique id 
-                    input.setAttribute("id", newId);
-
-                    //Update corresponding label ID
-                    const labelFor = input.getAttribute("id");
-                    const label = clonedRow.querySelector(`label[for="${oldId}"]`);
-                    if (label) {
-                        label.setAttribute("for", newId);
-                    }
-
-                    // Optionally, clear input values in cloned row
-                    input.value = "";
-                    input.disabled = false;
-                });
-
-                // Generate unique IDs for select elements
-                const selectFields = clonedRow.querySelectorAll("select");
-                selectFields.forEach(function (select) {
-                    const oldId = select.getAttribute("id");
-                    const newId = generateUniqueId(oldId); // Generate a unique id 
-                    select.setAttribute("id", newId);
-                });
-
-                // Append the cloned row before the "Add new row" text 
-                button.insertAdjacentElement("beforebegin", clonedRow);
-            });
+        // Clear select values and enable select boxes in the cloned row
+        const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
         });
-    });
+
+        // Find all select elements in the cloned row
+        const selects = clonedRow.querySelectorAll('select');
+
+        // Iterate over each select element and set its value to an empty string or to the default selected option
+        selects.forEach(function (select) {
+            // Clear the value of the select box 
+
+            select.disabled = false;
+            select.innerHTML = "";
+
+            var option = document.createElement("option");
+            option.text = "--SELECT--"; // Empty option
+            option.value = ""; // Modify as needed
+            option.selected = true;
+            option.disabled = true;
+            select.add(option);
+
+            select.value = ''; // Set the value to an empty string
+
+            populateYearDropdowns(select);
+        });
+
+
+
+        //Remove the n/a checkbox and its associated text from the cloned row
+        const clonedNaCheckbox = clonedRow.querySelector(".remove_na");
+        if (clonedNaCheckbox) {
+            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        }
+
+        //find the delete button in the cloned row and enable it 
+        const deleteButton = clonedRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.style.display = "inline-block";
+            deleteButton.addEventListener("click", function () {
+                clonedRow.parentNode.removeChild(clonedRow);
+            });
+        }
+
+        // Update IDs of cloned elements to make them unique
+        const inputFields = clonedRow.querySelectorAll("input");
+        inputFields.forEach(function (input) {
+            const oldId = input.getAttribute("id");
+            const newId = generateUniqueId(oldId); // Generate a unique id 
+            input.setAttribute("id", newId);
+
+            //Update corresponding label ID
+            const labelFor = input.getAttribute("id");
+            const label = clonedRow.querySelector(`label[for="${oldId}"]`);
+            if (label) {
+                label.setAttribute("for", newId);
+            }
+
+            // Optionally, clear input values in cloned row
+            input.value = "";
+            input.disabled = false;
+        });
+
+        // Generate unique IDs for select elements
+        const selectFields = clonedRow.querySelectorAll("select");
+        selectFields.forEach(function (select) {
+            const oldId = select.getAttribute("id");
+            const newId = generateUniqueId(oldId); // Generate a unique id 
+            select.setAttribute("id", newId);
+        });
+
+        // Append the cloned row before the "Add new row" text 
+        button.insertAdjacentElement("beforebegin", clonedRow);
+    }
     //Function to generate a unique ID based on the old ID
     function generateUniqueId(oldId) {
         return oldId + "_" + Date.now();
     }
 </script>
-
-<?php
-// if (isset($_GET['action'])) {
-//     echo "
-//     <script>
-//         handleNAArray(
-//             \"null_vocational\",
-//             [
-//                 \"name_schoolV\",
-//                 \"degree_V\",
-//                 \"h_levelV\",
-//                 \"p_attendance_fromV\",
-//                 \"p_attendance_toV\",
-//                 \"year_graduatedV\",
-//                 \"scholarshipV\"
-//             ],
-//             [
-//                 \"p_attendance_fromV\",
-//                 \"p_attendance_toV\",
-//                 \"year_graduatedV\",
-//             ],
-//             [
-//                 \"null_fromV\",
-//                 \"null_toV\",
-//                 \"null_yearV\",
-//                 \"null_scholarshipV\"
-//             ]
-//         );
-//     </script>
-//     ";
-// }
-?>
