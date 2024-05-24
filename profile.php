@@ -39,8 +39,8 @@ WHERE `employee_id` = ?";
 ?>
 <div class="row mt-2 mb-2">
     <div class="col-2">
-        <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>"
-            style="height: 150px; width: auto" class="float-end" />
+        <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>" style="height: 150px; width: auto"
+            class="float-end" />
     </div>
     <div class="col my-auto">
         <p class="display-6"><strong><?php echo $full_name; ?></strong></p>

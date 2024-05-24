@@ -311,7 +311,7 @@
             });
 
             cse_addrow.disabled = true;
-            
+
             var naLicenseCheckboxes = document.querySelectorAll('.na-checkbox');
             naLicenseCheckboxes.forEach(function (naCheckbox) {
                 naCheckbox.checked = true;

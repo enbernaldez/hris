@@ -37,7 +37,7 @@
                 "scholarship" => "scholarship_acad_honors"
             );
 
-            if(isset(${"{$acadlvl}_school"})) {
+            if (isset(${"{$acadlvl}_school"})) {
                 echo "
                     var selectElement = document.getElementById('name_school{$retrieved_lvl}');
                     var parentRow = selectElement.closest('.parent-row');
@@ -57,7 +57,7 @@
 
                     $det = ($dets == "bdc") ? "basiced_degree_course" : "schools";
                     ${"{$acadlvl}_{$dets}"} = lookup($conn, $value["{$dets}_id"], "{$det}", "{$dets}_name", "{$dets}_id");
-    
+
                 } else {
 
                     ${"{$acadlvl}_{$dets}"} = $value['educ_' . $dets];
@@ -141,7 +141,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA_eb(this)" data-target="null_fromE">
+                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA_eb(this)"
+                                data-target="null_fromE">
                             <label class="form-check-label" for="null_fromE">N/A</label>
                         </div>
                     </div>
@@ -152,7 +153,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA_eb(this)" data-target="null_toE">
+                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA_eb(this)"
+                                data-target="null_toE">
                             <label class="form-check-label" for="null_toE">N/A</label>
                         </div>
                     </div>
@@ -170,7 +172,8 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA_eb(this)" data-target="null_yearE">
+                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA_eb(this)"
+                        data-target="null_yearE">
                     <label class="form-check-label" for="null_yearE">N/A</label>
                 </div>
             </div>
@@ -179,7 +182,8 @@
                 <input type="text" class="form-control uppercase next_button sample" id="e_scholarship"
                     name="elem_scholarship[]" required>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA_eb(this)" data-target="null_scholarshipE">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA_eb(this)"
+                        data-target="null_scholarshipE">
                     <label class="form-check-label" for="null_scholarshipE">N/A</label>
                 </div>
             </div>
@@ -210,7 +214,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA_eb(this)" data-target="null_fromS">
+                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA_eb(this)"
+                                data-target="null_fromS">
                             <label class="form-check-label" for="null_fromS">N/A</label>
                         </div>
                     </div>
@@ -221,7 +226,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA_eb(this)" data-target="null_toS">
+                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA_eb(this)"
+                                data-target="null_toS">
                             <label class="form-check-label" for="null_toS">N/A</label>
                         </div>
                     </div>
@@ -237,7 +243,8 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA_eb(this)" data-target="null_yearS">
+                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA_eb(this)"
+                        data-target="null_yearS">
                     <label class="form-check-label" for="null_yearS">N/A</label>
                 </div>
             </div>
@@ -246,7 +253,8 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipS" name="sec_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA_eb(this)" data-target="null_scholarshipS">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA_eb(this)"
+                        data-target="null_scholarshipS">
                     <label class="form-check-label" for="null_scholarshipS">N/A</label>
                 </div>
             </div>
@@ -259,7 +267,8 @@
             <div class="col-1 text-center d-flex align-items-center justify-content-center">
                 <p class="level" style="font-size: 13px;">VOCATIONAL / TRADE COURSE</p>
                 <div class="form-check remove_na small-font">
-                    <input class="form-check-input not_app" type="checkbox" id="null_vocational" data-target="null_vocational">
+                    <input class="form-check-input not_app" type="checkbox" id="null_vocational"
+                        data-target="null_vocational">
                     <label class="form-check-label na-text" for="null_vocational">N/A</label>
                 </div>
                 <button type="button" class="delete-row-button mb-4 mt-2"
@@ -286,7 +295,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)" data-target="null_fromV">
+                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)"
+                                data-target="null_fromV">
                             <label class="form-check-label" for="null_fromV">N/A</label>
                         </div>
                     </div>
@@ -297,7 +307,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)" data-target="null_toV">
+                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)"
+                                data-target="null_toV">
                             <label class="form-check-label" for="null_toV">N/A</label>
                         </div>
                     </div>
@@ -313,7 +324,8 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA_eb(this)" data-target="null_yearV">
+                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA_eb(this)"
+                        data-target="null_yearV">
                     <label class="form-check-label" for="null_yearV">N/A</label>
                 </div>
             </div>
@@ -322,7 +334,8 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipV" name="voc_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA_eb(this)" data-target="null_scholarshipV">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA_eb(this)"
+                        data-target="null_scholarshipV">
                     <label class="form-check-label" for="null_scholarshipV">N/A</label>
                 </div>
             </div>
@@ -362,7 +375,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA_eb(this)" data-target="null_fromC">
+                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA_eb(this)"
+                                data-target="null_fromC">
                             <label class="form-check-label" for="null_fromC">N/A</label>
                         </div>
                     </div>
@@ -373,7 +387,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)" data-target="null_toC">
+                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)"
+                                data-target="null_toC">
                             <label class="form-check-label" for="null_toC">N/A</label>
                         </div>
                     </div>
@@ -390,7 +405,8 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)" data-target="null_yearC">
+                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)"
+                        data-target="null_yearC">
                     <label class="form-check-label" for="null_yearC">N/A</label>
                 </div>
             </div>
@@ -399,7 +415,8 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipC"
                     name="coll_scholarship[]" required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)" data-target="null_scholarshipC">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)"
+                        data-target="null_scholarshipC">
                     <label class="form-check-label" for="null_scholarshipC">N/A</label>
                 </div>
             </div>
@@ -419,7 +436,8 @@
                 </div>
                 <div class="col-4">
                     <div class="form-check remove_na ms-2 small-font mt-2">
-                        <input class="form-check-input not_app" type="checkbox" id="null_graduate" data-target="null_graduate">
+                        <input class="form-check-input not_app" type="checkbox" id="null_graduate"
+                            data-target="null_graduate">
                         <label class="form-check-label na-text" for="null_graduate">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mb-4 mt-2"
@@ -446,7 +464,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)" data-target="null_fromG">
+                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)"
+                                data-target="null_fromG">
                             <label class="form-check-label" for="null_fromG">N/A</label>
                         </div>
                     </div>
@@ -457,7 +476,8 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)" data-target="null_toG">
+                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)"
+                                data-target="null_toG">
                             <label class="form-check-label" for="null_toG">N/A</label>
                         </div>
                     </div>
@@ -474,7 +494,8 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA_eb(this)" data-target="null_yearG">
+                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA_eb(this)"
+                        data-target="null_yearG">
                     <label for="null_yearG" class="form-check-label">N/A</label>
                 </div>
             </div>
@@ -483,7 +504,8 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipG"
                     name="grad_scholarship[]" required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA_eb(this)" data-target="null_scholarshipG">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA_eb(this)"
+                        data-target="null_scholarshipG">
                     <label class="form-check-label" for="null_scholarshipG">N/A</label>
                 </div>
             </div>
@@ -636,7 +658,7 @@
     selectElements.forEach(selectElement => {
         populateYearDropdowns(selectElement);
     })
-//=============== checkNA Function ==================================
+    //=============== checkNA Function ==================================
     function checkNA_eb(checkbox) {
         var chk_col = checkbox.closest('.checkbox-container');
         var chk_input = chk_col.querySelector("input[type='text']");
@@ -897,17 +919,17 @@
         clonedRow.classList.add('new-row');
 
         const level = clonedRow.querySelector('.level');
-                if (level) {
+        if (level) {
             level.hidden = true;
-                }
+        }
 
-                // Clear checkbox values and enable checkboxes in the cloned row
-                const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(function (checkbox) {
-                    if (checkbox.checked) {
-                        checkbox.checked = false; // Uncheck the checkbox if it's checked
-                    }
-                });
+        // Clear checkbox values and enable checkboxes in the cloned row
+        const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
+        });
 
         // Find all select elements in the cloned row
         const selects = clonedRow.querySelectorAll('select');
@@ -928,9 +950,9 @@
 
             select.value = ''; // Set the value to an empty string
 
-                    // Populate year dropdowns or other options as necessary
-                    populateYearDropdowns(select);
-                });
+            // Populate year dropdowns or other options as necessary
+            populateYearDropdowns(select);
+        });
 
         //Remove the n/a checkbox and its associated text from the cloned row
         const clonedNaCheckbox = clonedRow.querySelector(".remove_na");

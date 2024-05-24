@@ -11,19 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hrs = $_POST['numberOfHours'];
     $sponsor = $_POST['conducted_Sponsoredby'];
 
-    $title_id = lookupId($conn, $title, 'ld_titles', 'ld_title_id', 'ld_title_name', '', '');
-    $sponsor_id = lookupId($conn, $sponsor, 'sponsors', 'sponsor_id', 'sponsor_name', '', '');
+    $title_id = lookup($conn, $title, 'ld_titles', 'ld_title_id', 'ld_title_name');
+    $sponsor_id = lookup($conn, $sponsor, 'sponsors', 'sponsor_id', 'sponsor_name');
 
     echo "
         Title: " . $title_id . "<br>
         Type of LD: " . $type . "<br>
         Employees:<br>
     ";
-        
+
     foreach ($employees as $employee) {
         echo "&emsp;{$employee}<br>";
     }
-        
+
     echo "
         Date From: " . $from . "<br>
         Date To: " . $to . "<br>

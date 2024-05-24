@@ -130,8 +130,7 @@
                 <input type="text" required name="spouse_occupation" id="spouse_occupation"
                     class="form-control uppercase group-na-fb" value="<?php echo $occupation; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_occupation"
-                        data-target="null_occupation">
+                    <input class="form-check-input" type="checkbox" id="null_occupation" data-target="null_occupation">
                     <label class="form-check-label" for="null_occupation">N/A</label>
                 </div>
             </div>
@@ -311,11 +310,11 @@
                 var targets = checkbox.dataset.target.split(',');
                 targets.forEach(function (targetId) {
                     var inputElement = document.getElementById(targetId.trim());
-                        if (checkbox.checked) {
-                            inputElement.value = '';
-                        } else {
-                            inputElement.disabled = false;
-                        }
+                    if (checkbox.checked) {
+                        inputElement.value = '';
+                    } else {
+                        inputElement.disabled = false;
+                    }
                 });
             });
         });

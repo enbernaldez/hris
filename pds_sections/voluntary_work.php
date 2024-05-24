@@ -108,7 +108,7 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_vw" , "#present_vw");
+        var clearInputs = document.querySelectorAll("#null_vw", "#present_vw");
 
         clearInputs.forEach(function (checkbox) {
             checkbox.addEventListener('change', function () {
@@ -150,8 +150,8 @@
                 }
             });
 
-             // Uncheck all "PRESENT" checkboxes and reset TO date inputs
-             var presentCheckboxes = document.querySelectorAll('#present_vw');
+            // Uncheck all "PRESENT" checkboxes and reset TO date inputs
+            var presentCheckboxes = document.querySelectorAll('#present_vw');
             presentCheckboxes.forEach(function (checkbox) {
                 checkbox.checked = false;
                 checkbox.disabled = false; // Ensure the PRESENT checkbox is enabled
@@ -242,7 +242,7 @@
             });
         }
         // Enable the TO date field in the cloned row
-       const toDateInput = newRow.querySelector('[name="vw_date_to[]"]');
+        const toDateInput = newRow.querySelector('[name="vw_date_to[]"]');
         if (toDateInput) {
             toDateInput.type = 'date';
             toDateInput.value = "";
@@ -271,7 +271,7 @@
                         toDateInput.value = "";
                         toDateInput.disabled = false;
                     }
-                }inputs.forEach((input) => {
+                } inputs.forEach((input) => {
 
                     input.type = "text";
                     input.value = "N/A";

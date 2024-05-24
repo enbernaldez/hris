@@ -1,4 +1,3 @@
-
 <?php
 
 // Check if the request method is POST

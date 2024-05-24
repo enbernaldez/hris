@@ -101,8 +101,24 @@
         }
     } else {
         $pi_dets = array(
-            "imgdir", "lastname", "firstname", "middlename", "nameext", "bday", "birthplace", "height", 
-            "weight", "gsis", "pagibig", "philhealth", "sss", "tin", "agency", "tel", "mobile", "emailadd"
+            "imgdir",
+            "lastname",
+            "firstname",
+            "middlename",
+            "nameext",
+            "bday",
+            "birthplace",
+            "height",
+            "weight",
+            "gsis",
+            "pagibig",
+            "philhealth",
+            "sss",
+            "tin",
+            "agency",
+            "tel",
+            "mobile",
+            "emailadd"
         );
         $address_types = array("residential_", "permanent_");
         $address_parts = array("barangay", "subdivisionvillage", "street", "houseblocklot", "zipcode");
@@ -203,8 +219,8 @@
     <div class="row mt-3">
         <div class="col mx-2">
             <label for="height">HEIGHT (m)</label><br>
-            <input type="number" required name="height" id="height" class="form-control input" min="1"
-                step="0.01" max="2" value="<?php echo $height; ?>">
+            <input type="number" required name="height" id="height" class="form-control input" min="1" step="0.01"
+                max="2" value="<?php echo $height; ?>">
         </div>
         <div class="col mx-2">
             <label for="weight">WEIGHT (kg)</label><br>
@@ -442,7 +458,8 @@
     <div class="mt-5">
         <h5 style="display: inline">PERMANENT ADDRESS</h5>
         <div class="form-check form-check-inline ms-2">
-            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true" data-target="same_add" <?php echo (isset($same_add)) ? $same_add : ""; ?>>
+            <input class="form-check-input" type="checkbox" id="same_add" name="same_add" value="true"
+                data-target="same_add" <?php echo (isset($same_add)) ? $same_add : ""; ?>>
             <label class="form-check-label" for="same_add">Same as the Residential Address</label>
         </div>
     </div>

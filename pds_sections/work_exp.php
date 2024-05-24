@@ -150,7 +150,7 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('#null_work_exp' , '#present_we');
+        var clearInputs = document.querySelectorAll('#null_work_exp', '#present_we');
 
         var originalOptions = {};
 
@@ -180,7 +180,7 @@
             var inputs = document.querySelectorAll('.group_na_we');
             inputs.forEach((input) => {
 
-                input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" : 
+                input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" :
                     input.type = "text";
 
                 input.value = "";
@@ -205,17 +205,17 @@
 
             // Uncheck all "PRESENT" checkboxes and reset TO date inputs
             var presentCheckboxes = document.querySelectorAll('#present_we');
-                presentCheckboxes.forEach(function (checkbox) {
-                    checkbox.checked = false;
-                    checkbox.disabled = false; // Ensure the PRESENT checkbox is enabled
-                    var row = checkbox.closest('.row-row_we');
-                    var toDateInput = row.querySelector('[name="we_date_to[]"]');
-                    if (toDateInput) {
-                        toDateInput.type = 'date';
-                        toDateInput.value = "";
-                        toDateInput.disabled = false;
-                    }
-                });
+            presentCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false; // Ensure the PRESENT checkbox is enabled
+                var row = checkbox.closest('.row-row_we');
+                var toDateInput = row.querySelector('[name="we_date_to[]"]');
+                if (toDateInput) {
+                    toDateInput.type = 'date';
+                    toDateInput.value = "";
+                    toDateInput.disabled = false;
+                }
+            });
 
             // Restore original options for each select element
             selects.forEach(function (select) {
@@ -351,7 +351,7 @@
                 //     var input = naCheckbox.closest('div').querySelector('input[type="text"]');
                 //     toggleNACheckbox(naCheckbox, input);
                 // });
-            // } else {
+                // } else {
                 inputs.forEach((input) => {
                     if (input.id == "we_date_from" || input.id == "we_date_to") {
                         input.type = "date";
@@ -492,5 +492,3 @@
     // setupNullInput("we_sg_na", "we_sg");
 
 </script>
-
-

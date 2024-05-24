@@ -1,10 +1,10 @@
 <?php
 include_once "db_conn.php";
 
-if (isset ($_POST['login_username']) || null !== ($_SESSION["username"] && $_SESSION["pwdhash"])) {
+if (isset($_POST['login_username']) || null !== ($_SESSION["username"] && $_SESSION["pwdhash"])) {
 
     //checks if value of name="login_username" is set
-    if (isset ($_POST['login_username'])) {
+    if (isset($_POST['login_username'])) {
 
         //transfers value of name="" from form to variable
         $l_username = $_POST['login_username'];
@@ -21,7 +21,7 @@ if (isset ($_POST['login_username']) || null !== ($_SESSION["username"] && $_SES
     $result = query($conn, $sql, array($l_username));
 
     //if $result is empty, the param $l_username does not exist in db
-    if (empty ($result)) {
+    if (empty($result)) {
         header("location: landing_page.php?login=failed");
         exit();
     } else {
