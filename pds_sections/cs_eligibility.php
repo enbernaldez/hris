@@ -1,4 +1,96 @@
 <div class="container-fluid">
+
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        $employee_id = $_GET['employee_id'];
+
+        // `cs_eligibility` table
+        $sql = "SELECT *
+                FROM `cs_eligibility`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            ";
+
+        if ($result[0]['cs_id'] == "1") {
+            echo "
+                var checkbox = document.getElementById('null_cse');
+                checkbox.checked = true;
+                checkNA_cs(checkbox);
+            ";
+        } else {
+
+            foreach ($result as $key => $value) {
+
+                $educ_dets = array(
+                    "careerservice[]" => "cs",
+                    "rating[]" => "rating",
+                    "exam_date[]" => "examdate",
+                    "exam_place[]" => "examplace",
+                    "license_number[]" => "license",
+                    "license_dateofvalidity[]" => "datevalidity",
+                );
+
+                if (isset($cs)) {
+                    echo "
+                        addRow_cs();
+                    ";
+                }
+
+                $i = 0;
+                foreach ($educ_dets as $key => $dets) {
+
+                    $name_att = json_encode($key);
+
+
+                    if ($dets == "cs") {
+
+                        $$dets = lookup($conn, $value["{$dets}_id"], "civil_services", "{$dets}_name", "{$dets}_id");
+
+                    } else {
+
+                        $$dets = $value['cseligibility_' . $dets];
+                    }
+
+                    echo "
+                        var elements = document.querySelectorAll('[name={$name_att}]');
+                        if (elements.length > 0) { 
+                            var selectElement = elements[0];
+                        }
+                        selectElement.value = \"" . $$dets . "\";
+                    ";
+
+                    // if (!in_array($i, [0, 1, 4])) {
+                    //     $chk = json_encode(match ($i) {
+                    //         2 => "null_from{$retrieved_lvl}",
+                    //         3 => "null_to{$retrieved_lvl}",
+                    //         5 => "null_year{$retrieved_lvl}",
+                    //         6 => "null_scholarship{$retrieved_lvl}",
+                    //     });
+                    //     if ($$dets == "N/A") {
+                    //         echo "
+                    //             var checkbox = document.getElementById({$chk});
+                    //             checkbox.checked = true;
+                    //             checkNA_eb(checkbox);
+                    //         ";
+                    //     }
+                    // }
+    
+                    // $i++;
+                }
+                // echo "<br>";
+            }
+        }
+
+        echo "
+            });
+        </script>";
+    }
+    ?>
     <div class="row mt-4 text-center align-items-end">
         <div class="col-4">
             <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE
@@ -40,23 +132,26 @@
                     <button type="button" class="delete-row-button mx-3"
                         style="display:none; background-color: transparent; border: none; color: red;">
                     </button>
-                    <input type="text" name="careerservice[]" id="careerservice" class="form-control uppercase group-na-cs" required>
+                    <input type="text" name="careerservice[]" id="careerservice"
+                        class="form-control uppercase group-na-cs" required>
                 </div>
             </div>
             <div class="col-1">
                 <input type="text" name="rating[]" id="rating" class="form-control uppercase group-na-cs" required>
             </div>
             <div class="col-2">
-                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na-cs" required>
+                <input type="date" name="exam_date[]" id="exam_date" class="form-control uppercase group-na-cs"
+                    required>
             </div>
             <div class="col-2">
-                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs" required>
+                <input type="text" name="exam_place[]" id="exam_place" class="form-control uppercase group-na-cs"
+                    required>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-6">
-                        <input type="text" name="license_number[]" id="license_number" class="form-control uppercase group-na-cs"
-                            required>
+                        <input type="text" name="license_number[]" id="license_number"
+                            class="form-control uppercase group-na-cs" required>
                     </div>
                     <div class="col-6">
                         <input type="date" name="license_dateofvalidity[]" id="license_dateofvalidity"
@@ -88,7 +183,7 @@
 </div>
 
 <script>
-//========================= Next Button =====================================
+    //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
         var carouselElement = document.querySelector('#carouselExample');
@@ -128,26 +223,6 @@
             cse_addrow.disabled = true;
         });
     }
-    // ======================== Next button ====================================
-    // function submitForm() {
-    //     // Get all input fields with class "group_na"
-    //     var inputs = document.querySelectorAll('.group-na-cs');
-
-    //     // Check if all input fields are filled out
-    //     var allFilled = true;
-    //     inputs.forEach(function (input) {
-    //         if (!input.value.trim()) {
-    //             allFilled = false;
-    //         }
-    //     });
-
-    //     // If all input fields are filled out, submit the form
-    //     if (allFilled) {
-    //         window.location.href = "pds_form.php?form_section=work_exp";
-    //     } else {
-    //         alert("Please fill out all input fields before proceeding.");
-    //     }
-    // }
 
     function addRow_cs() {
         // Clone the input-row element
@@ -158,11 +233,11 @@
             input.value = "";
         });
 
-          // Get the reference node (the original row)
-    var referenceNode = document.querySelector(".cs-row .row-row-cs");
+        // Get the reference node (the original row)
+        var referenceNode = document.querySelector(".cs-row .row-row-cs");
 
-// Insert the cloned row before the reference node
-referenceNode.parentNode.insertBefore(newRow, referenceNode);
+        // Insert the cloned row before the reference node
+        referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the "N/A" checkbox and its associated label from the cloned row
         const clonedNaCheckbox = newRow.querySelector(".remove_na");

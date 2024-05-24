@@ -98,14 +98,6 @@
         echo "
         });
     </script>";
-    } else {
-        $acad_levels = array("elementary", "secondary", "vocational", "college", "graduate");
-        foreach ($acad_levels as $lvl) {
-            $educ_dets = array("period_from", "period_to", "highest", "graduated", "scholarship_acad_honors", "school", "bdc");
-            foreach ($educ_dets as $dets) {
-                ${"{$lvl}_{$dets}"} = '';
-            }
-        }
     }
     ?>
 
