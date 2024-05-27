@@ -418,7 +418,9 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 var x = rect.left + window.scrollX + 25;
                 var y = rect.top + window.scrollY + 18;
                 showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
-    <script>
+            });
+        });
+        
         function checkNA(checkbox, inputId) {
             var inputField = document.getElementById(inputId);
             if (checkbox.checked) {

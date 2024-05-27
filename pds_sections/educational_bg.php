@@ -864,56 +864,6 @@
         }
     }
 
-<<<<<<< HEAD
-    //ARRAYS
-    handleNAArray(
-        "null_vocational",
-        [
-            "name_schoolV",
-            "degree_v",
-            "h_levelV",
-            "p_attendance_fromV",
-            "p_attendance_toV",
-            "year_graduatedV",
-            "v_scholarship"
-        ],
-        [
-            "p_attendance_fromV",
-            "p_attendance_toV",
-            "year_graduatedV",
-        ],
-        [
-            "null_fromV",
-            "null_toV",
-            "null_yearV",
-            "null_scholarshipV"
-        ]
-    );
-    handleNAArray(
-        "null_graduate",
-        [
-            "name_schoolG",
-            "degree_g",
-            "p_attendance_fromG",
-            "p_attendance_toG",
-            "h_levelG",
-            "year_graduatedG",
-            "g_scholarship"
-        ],
-        [
-            "p_attendance_fromG",
-            "p_attendance_toG",
-            "year_graduatedG",
-        ],
-        [
-            "null_fromG",
-            "null_toG",
-            "null_yearG",
-            "null_scholarshipG"
-        ],
-        "present_toG", "topresentG"
-    );
-=======
     const null_checkboxes = ["null_vocational", "null_graduate"];
     null_checkboxes.forEach(chkbx => {
         var lvl = (chkbx == "null_vocational") ? "V" : "G";
@@ -941,7 +891,6 @@
             ],
         );
     });
->>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
     document.addEventListener("DOMContentLoaded", function () {
         const input_ref = ["name_schoolV", "name_schoolG"];
@@ -997,17 +946,10 @@
         //Add the new-row class to the cloned row 
         clonedRow.classList.add('new-row');
 
-<<<<<<< HEAD
                 const levelandPresent = clonedRow.querySelectorAll(".level, .present");
                 levelandPresent.forEach(element => {
                     element.hidden = true;
                 });
-=======
-        const level = clonedRow.querySelector('.level');
-                if (level) {
-            level.hidden = true;
-                }
->>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
                 // Clear checkbox values and enable checkboxes in the cloned row
                 const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
