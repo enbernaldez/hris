@@ -77,7 +77,7 @@
 
     <!-- CLEAR BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_vw">
-        <strong>CLEAR ALL</strong>
+        <strong>CLEAR SECTION</strong>
     </button>
 
     <!-- NEXT BUTTON -->
