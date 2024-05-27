@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
     }
 </style>
 
-<div class="col-2 bg d-flex col-xl-2 px-sm-2 px-0">
+<div class="vh-100 col-2 bg d-flex col-xl-2 px-sm-2 px-0">
     <div
         class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white top-0 start-0">
         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
@@ -59,9 +59,20 @@ if (isset($_SESSION['user_id'])) {
             <span class="uppercase center-text mt-3">
                 <h1>HRIS</h1>
             </span>
-            <div class="input-group custom-rounded mt-3">
-                <input type="search" class="form-control text-center mt-3 custom-rounded" placeholder="Search" />
-            </div>
+            <form action="search_bar.php">
+                <div class="input-group mt-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control text-center mt-3 custom-rounded" name="search"
+                            placeholder="Search Employee" />
+                        <div class="input-group-append mt-3">
+                            <button class="btn btn-primary" type="submit"
+                                style="border-top-right-radius: 17px; border-bottom-right-radius: 17px;">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
             <div class="divider-top"></div>
             <li class="sidebar-item nav-item mt-3">
