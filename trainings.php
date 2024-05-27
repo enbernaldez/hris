@@ -284,6 +284,50 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     </div>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <?php
+    if (isset($_GET['add_training'])) {
+
+        switch ($_GET['add_training']) {
+            case 'success':
+                $id = $_GET['training_added'];
+
+                $sql = "SELECT `ld_title_name`
+                        FROM `ld_titles`
+                        WHERE `ld_title_id` = ?";
+                $filter = array($id);
+                $result = query($conn, $sql, $filter);
+
+                $row = $result[0];
+                $title = $row['ld_title_name'];
+
+                // Use json_encode to safely escape strings for JavaScript
+                $title_js = json_encode($title);
+
+                echo "
+                    <script>
+                        swal('New training added!', 
+                            'Training, {$title_js} , has been added to database.', 
+                            'success');
+                    </script>
+                ";
+
+                break;
+
+            case 'failed':
+                echo '
+                    <script>
+                        swal("", "Failed to add new training.", "error");
+                    </script>
+                ';
+
+                break;
+
+            default:
+                break;
+        }
+    }
+    ?>
     <script>
         function redirect(ld_title_id) {
             window.location = "training_employee.php?title_id=" + ld_title_id;
@@ -310,42 +354,6 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
         }
 
-        // <?php
-        // switch ($_GET['add_training']) {
-        //     case 'success':
-        //         $id = $_GET['training_added'];
-
-        //         $sql = "SELECT `ld_title_name`
-        //                 FROM `ld_titles`
-        //                 WHERE `ld_title_id` = ?";
-        //         $filter = array($id);
-        //         $result = query($conn, $sql, $filter);
-
-        //         $row = $result[0];
-        //         $title = $row['ld_title_name'];
-
-        //         // Use json_encode to safely escape strings for JavaScript
-        //         $title_js = json_encode($title);
-
-        //         echo "
-        //             swal('New training added!', 
-        //                 'Training, {$title_js} , has been added to database.', 
-        //                 'success');
-        //         ";
-
-        //         break;
-
-        //     case 'failed':
-        //         echo '
-        //             swal("", "Failed to add new training.", "error");
-        //         ';
-
-        //         break;
-
-        //     default:
-        //         break;
-        // }
-        // ?>
     </script>
 </body>
 

@@ -1,5 +1,6 @@
 <?php
 include_once "db_conn.php";
+include_once "functions.php";
 if ($_SESSION['user_type'] != 'A') {
     header("location:" . $_SERVER['HTTP_REFERER']);
     header("location:landing_page.php");
@@ -93,7 +94,7 @@ if ($_SESSION['user_type'] != 'A') {
 
                 <!-- FORM -->
 
-                <form action="pds_new.php" method="post" enctype="multipart/form-data">
+                <form id="pds" action="pds_new.php" method="post" enctype="multipart/form-data">
                     <div id="carousel" class="carousel slide" data-bs-ride="false" data-pause="hover">
                         <nav class="navbar sticky-top" id="navbar">
                             <div class="container">
@@ -279,6 +280,25 @@ if ($_SESSION['user_type'] != 'A') {
         });
     </script>
 
+
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        // echo script to disable all input and select elements
+        echo '
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var form = document.getElementById("pds");
+                    var elements = form.elements;
+                    for (var i = 0, len = elements.length; i < len; ++i) {
+                        if (!elements[i].classList.contains("button-right") && !elements[i].classList.contains("button-left")) {
+                            elements[i].disabled = true;
+                        }
+                    }
+                });
+            </script>
+        ';
+    }
+    ?>
 </body>
 
 </html>
