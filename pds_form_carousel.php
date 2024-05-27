@@ -9,6 +9,7 @@ if ($_SESSION['user_type'] != 'A') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,61 +95,59 @@ if ($_SESSION['user_type'] != 'A') {
 
                 <form action="pds_new.php" method="post" enctype="multipart/form-data">
                     <div id="carousel" class="carousel slide" data-bs-ride="false" data-pause="hover">
-                        <nav class="navbar sticky-top">
+                        <nav class="navbar sticky-top" id="navbar">
                             <div class="container">
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="0" class="active"
-                                        aria-current="true" aria-label="Personal Information"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav active" aria-current="true" aria-label="Personal Information"
+                                        style="text-align:center; cursor: pointer;" data-index="0">
                                         Personal Information
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Family Background"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Family Background"
+                                        style="text-align:center; cursor: pointer;" data-index="1">
                                         Family Background
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="2"
-                                        aria-label="Educational Background" style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Educational Background"
+                                        style="text-align:center; cursor: pointer;" data-index="2">
                                         Educational Background
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="3"
-                                        aria-label="Civil Service Eligibility"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Civil Service Eligibility"
+                                        style="text-align:center; cursor: pointer;" data-index="3">
                                         Civil Service Eligibility
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Work Experience"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Work Experience"
+                                        style="text-align:center; cursor: pointer;" data-index="4">
                                         Work Experience
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="5" aria-label="Voluntary Work"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Voluntary Work"
+                                        style="text-align:center; cursor: pointer;" data-index="5">
                                         Voluntary Work
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="6"
-                                        aria-label="Learning & Development" style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Learning & Development"
+                                        style="text-align:center; cursor: pointer;" data-index="6">
                                         Learning & Development
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="7" aria-label="Other Information"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="Other Information"
+                                        style="text-align:center; cursor: pointer;" data-index="7">
                                         Other Information
                                     </p>
                                 </div>
                                 <div class="col mx-4">
-                                    <p data-bs-target="#carousel" data-bs-slide-to="8" aria-label="References"
-                                        style="text-align:center; cursor: pointer;">
+                                    <p class="carousel-nav" aria-label="References"
+                                        style="text-align:center; cursor: pointer;" data-index="8">
                                         References
                                     </p>
                                 </div>
@@ -157,39 +156,39 @@ if ($_SESSION['user_type'] != 'A') {
                         <div class="carousel slide" id="carouselExample">
                             <div class="carousel-inner">
                                 <!-- PERSONAL INFORMATION -->
-                                <div class="carousel-item active">
+                                <div class="carousel-item active" id="personal_information">
                                     <?php include_once "pds_sections/personal_info.php"; ?>
                                 </div>
                                 <!-- FAMILY BACKGROUND -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="family_background">
                                     <?php include_once "pds_sections/fam_bg.php"; ?>
                                 </div>
                                 <!-- EDUCATIONAL BACKGROUND -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="educational_background">
                                     <?php include_once "pds_sections/educational_bg.php"; ?>
                                 </div>
                                 <!-- CIVIL SERVICE ELIGIBILITY -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="civil_service_eligibility">
                                     <?php include_once "pds_sections/cs_eligibility.php"; ?>
                                 </div>
                                 <!-- WORK EXPERIENCE -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="work_experience">
                                     <?php include_once "pds_sections/work_exp.php"; ?>
                                 </div>
                                 <!-- VOLUNTARY WORK -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="voluntary_work">
                                     <?php include_once "pds_sections/voluntary_work.php"; ?>
                                 </div>
                                 <!-- LEARNING & DEVELOPMENT -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="learning_and_development">
                                     <?php include_once "pds_sections/lnd.php"; ?>
                                 </div>
                                 <!-- OTHER INFORMATION -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="other_information">
                                     <?php include_once "pds_sections/other_info.php"; ?>
                                 </div>
                                 <!-- REFERENCES -->
-                                <div class="carousel-item">
+                                <div class="carousel-item" id="references">
                                     <?php include_once "pds_sections/ref.php"; ?>
                                 </div>
                             </div>
@@ -202,6 +201,84 @@ if ($_SESSION['user_type'] != 'A') {
             </div>
         </div>
     </div>
+    <script>
+        //====================== Active Slide Color ==================== 
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbar = document.getElementById('navbar');
+            const carousel = document.getElementById('carousel');
+            const navItems = navbar.querySelectorAll('.carousel-nav');
+
+            function updateNavbarColor(activeIndex) {
+                navItems.forEach((item, index) => {
+                    if (index === activeIndex) {
+                        item.style.color = '#FFD644';
+                    } else {
+                        item.style.color = '';
+                    }
+                });
+            }
+
+            // Initially set the background for the first item
+            updateNavbarColor(0);
+
+            // Add event listener for the carousel sliding event
+            carousel.addEventListener('slide.bs.carousel', function (event) {
+                const activeIndex = event.to;
+                updateNavbarColor(activeIndex);
+            });
+        });
+
+        //============= Carousel Navigation ===========================
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = [
+                'personal_information',
+                'family_background',
+                'educational_background',
+                'civil_service_eligibility',
+                'work_experience',
+                'voluntary_work',
+                'learning_and_development',
+                'other_information',
+                'references'
+                // Add other section ids here
+            ];
+
+            // Function to check if required inputs are filled
+            function validateSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                const inputs = section.querySelectorAll('input[required], select[required]'); // Adjust according to your input types
+                for (const input of inputs) {
+                    if (!input.value.trim()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+
+            // Event listener for carousel navigation
+            document.querySelectorAll('.carousel-nav').forEach((navItem, index) => {
+                navItem.addEventListener('click', function (event) {
+                    for (let i = 0; i <= index; i++) {
+                        if (!validateSection(sections[i])) {
+                            event.preventDefault();
+                            alert('Please fill out all required fields in the ' + sections[i].replace(/_/g, ' ') + ' section before proceeding.');
+                            return false;
+                        }
+                    }
+
+                    // Only proceed if all sections up to the current index are valid
+                    const carousel = document.getElementById('carousel');
+                    const carouselInstance = bootstrap.Carousel.getInstance(carousel);
+                    if (!carouselInstance) {
+                        new bootstrap.Carousel(carousel);
+                    }
+                    carouselInstance.to(index);
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
