@@ -46,17 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //transfers value of posted variables to local variables
     $n_pi_birth_date = strtoupper(trim($_POST['birth_date']));
     $n_pi_birth_place = strtoupper(trim($_POST['birth_place']));
-    $n_pi_sex = strtoupper(trim($_POST['sex']) ?? "N/A");
-    $n_pi_civilstatus = strtoupper(trim($_POST['civilstatus'] ?? "N/A"));
-    $n_pi_height = strtoupper(trim($_POST['height']));
-    $n_pi_weight = strtoupper(trim($_POST['weight']));
-    $n_pi_bloodtype = strtoupper(trim($_POST['bloodtype'] ?? "N/A"));
+    $n_pi_sex = $_POST['sex'] ?? "N/A";
+    $n_pi_civilstatus = $_POST['civilstatus'] ?? "N/A";
+    $n_pi_height = trim($_POST['height']);
+    $n_pi_weight = trim($_POST['weight']);
+    $n_pi_bloodtype = $_POST['bloodtype'] ?? "N/A";
     // $n_pi_citizenship = strtoupper(trim($_POST['citizenship']));
-    $n_pi_citizenship_by = strtoupper(trim($_POST['citizenship_by'] ?? "F"));
+    $n_pi_citizenship_by = $_POST['citizenship_by'] ?? "F";
     $n_pi_citizenship_country = strtoupper(trim($_POST['citizenship_country'] ?? "N/A"));
 
     // look up ID of $n_pi_citizenship_country
-    $citizenship_country = lookupId($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name', '', '');
+    $citizenship_country = lookup($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name');
 
     // echo "<br>
     //     Date of Birth: $n_pi_birth_date<br>
@@ -116,22 +116,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_pi_radd_province = strtoupper(trim($_POST['radd_province']));
-    $n_pi_radd_citymunicipality = strtoupper(trim($_POST['radd_citymunicipality']));
+    $n_pi_radd_province = $_POST['radd_province'];
+    $n_pi_radd_citymunicipality = $_POST['radd_citymunicipality'];
     $n_pi_radd_barangay = strtoupper(trim($_POST['radd_barangay']));
     $n_pi_radd_subdivisionvillage = strtoupper(trim($_POST['radd_subdivisionvillage'] ?? "N/A"));
     $n_pi_radd_street = strtoupper(trim($_POST['radd_street'] ?? "N/A"));
     $n_pi_radd_houseblocklot = strtoupper(trim($_POST['radd_houseblocklot'] ?? "N/A"));
-    $n_pi_radd_zipcode = strtoupper(trim($_POST['radd_zipcode']));
+    $n_pi_radd_zipcode = trim($_POST['radd_zipcode']);
 
     //transfers value of posted variables to local variables
-    $n_pi_padd_province = strtoupper(trim($_POST['padd_province'] ?? ''));
-    $n_pi_padd_citymunicipality = strtoupper(trim($_POST['padd_citymunicipality'] ?? ''));
+    $n_pi_padd_province = $_POST['padd_province'] ?? '';
+    $n_pi_padd_citymunicipality = $_POST['padd_citymunicipality'] ?? '';
     $n_pi_padd_barangay = strtoupper(trim($_POST['padd_barangay'] ?? ''));
     $n_pi_padd_subdivisionvillage = strtoupper(trim($_POST['padd_subdivisionvillage'] ?? "N/A"));
     $n_pi_padd_street = strtoupper(trim($_POST['padd_street'] ?? "N/A"));
     $n_pi_padd_houseblocklot = strtoupper(trim($_POST['padd_houseblocklot'] ?? "N/A"));
-    $n_pi_padd_zipcode = strtoupper(trim($_POST['padd_zipcode'] ?? ''));
+    $n_pi_padd_zipcode = trim($_POST['padd_zipcode'] ?? '');
 
     $areas = array('province', 'citymunicipality', 'barangay', 'subdivisionvillage', 'street', 'houseblocklot', 'zipcode');
     $add_types = array('B' => 'both_', 'R' => 'residential_', 'P' => 'permanent_');
@@ -200,8 +200,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // $$var_name means that the value of $var_name will be used as the variable name
-            // look up ID of each variable name
-            $$var_name = lookupId($conn, $posted_areas[$index], $table_name, "{$area}_id", $column_name, $column_fk, $data_fk);
+            if (in_array($table_name, ['provinces', 'city_municipality'])) {
+                $$var_name = $posted_areas[$index];
+            } else {
+                // look up ID of each variable name
+                $$var_name = lookup($conn, $posted_areas[$index], $table_name, "{$area}_id", $column_name, $column_fk, $data_fk);
+            }
         }
 
         // echo "<br>" .
@@ -234,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         insert($conn, $table, $fields);
 
-        if ($same_add == "true") {
+        if ($same_add == "true" && $add_type == "B  ") {
             // exit the loop
             break;
         }
@@ -243,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //transfers value of posted variables to local variables
     $n_pi_no_tel = strtoupper(trim($_POST['no_tel'] ?? "N/A"));
     $n_pi_no_mobile = strtoupper(trim($_POST['no_mobile']));
-    $n_pi_emailadd = strtoupper(trim($_POST['emailadd'] ?? "N/A"));
+    $n_pi_emailadd = strtolower(trim($_POST['emailadd'] ?? "N/A"));
 
     // echo "<br>
     //     Telephone No.: $n_pi_no_tel<br>
@@ -265,9 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo "<br><br><br>FAMILY BACKGROUND<br>";
     //transfers value of posted variables to local variables
-    $n_fb_spouse_name_last = strtoupper(trim($_POST['spouse_name_last']));
-    $n_fb_spouse_name_first = strtoupper(trim($_POST['spouse_name_first']));
-    $n_fb_spouse_name_middle = strtoupper(trim($_POST['spouse_name_middle']));
+    $n_fb_spouse_name_last = strtoupper(trim($_POST['spouse_name_last'] ?? "N/A"));
+    $n_fb_spouse_name_first = strtoupper(trim($_POST['spouse_name_first'] ?? "N/A"));
+    $n_fb_spouse_name_middle = strtoupper(trim($_POST['spouse_name_middle'] ?? "N/A"));
     $n_fb_spouse_name_ext = strtoupper(trim($_POST['spouse_name_ext'] ?? "N/A"));
     $n_fb_spouse_occupation = strtoupper(trim($_POST['spouse_occupation'] ?? "N/A"));
     $n_fb_spouse_bus_name = strtoupper(trim($_POST['spouse_bus_name'] ?? "N/A"));
@@ -275,10 +279,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_fb_spouse_telno = strtoupper(trim($_POST['spouse_telno'] ?? "N/A"));
 
     // look up ID of $n_fb_spouse_occupation
-    $occupation = lookupId($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name', '', '');
+    $occupation = lookup($conn, $n_fb_spouse_occupation, 'occupations', 'occupation_id', 'occupation_name');
 
     // look up ID of $n_fb_spouse_bus_name
-    $employer_business = lookupId($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name', '', '');
+    $employer_business = lookup($conn, $n_fb_spouse_bus_name, 'employer_business', 'employer_business_id', 'employer_business_name');
 
     // echo "<br>
     //     SPOUSE<br>
@@ -308,8 +312,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_father_name_last = strtoupper(trim($_POST['father_name_last']));
-    $n_fb_father_name_first = strtoupper(trim($_POST['father_name_first']));
+    $n_fb_father_name_last = strtoupper(trim($_POST['father_name_last'] ?? "N/A"));
+    $n_fb_father_name_first = strtoupper(trim($_POST['father_name_first'] ?? "N/A"));
     $n_fb_father_name_middle = strtoupper(trim($_POST['father_name_middle'] ?? "N/A"));
     $n_fb_father_name_ext = strtoupper(trim($_POST['father_name_ext'] ?? "N/A"));
 
@@ -334,8 +338,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert($conn, $table, $fields);
 
     //transfers value of posted variables to local variables
-    $n_fb_mother_name_last = strtoupper(trim($_POST['mother_name_last']));
-    $n_fb_mother_name_first = strtoupper(trim($_POST['mother_name_first']));
+    $n_fb_mother_name_last = strtoupper(trim($_POST['mother_name_last'] ?? "N/A"));
+    $n_fb_mother_name_first = strtoupper(trim($_POST['mother_name_first'] ?? "N/A"));
     $n_fb_mother_name_middle = strtoupper(trim($_POST['mother_name_middle'] ?? "N/A"));
 
     // echo "<br>
@@ -417,7 +421,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($detail == 'school' || $detail == 'degree') {
                     $table_name = ($detail == "degree") ? "basiced_degree_course" : "schools";
                     $column_name = ($detail == "degree") ? "bdc" : "school";
-                    $value = lookupId($conn, ${$lvl . "_" . $detail}, $table_name, $column_name . '_id', $column_name . '_name', '', '');
+                    $value = lookup($conn, ${$lvl . "_" . $detail}, $table_name, $column_name . '_id', $column_name . '_name');
                 } else {
                     $value = ${$lvl . "_" . $detail};
                 }
@@ -469,7 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
         // look up ID of $n_cse_careerservice[$i]
-        $career_service = lookupId($conn, $n_cse_careerservice[$i], 'civil_services', 'cs_id', 'cs_name', '', '');
+        $career_service = lookup($conn, $n_cse_careerservice[$i], 'civil_services', 'cs_id', 'cs_name');
 
         // echo "<br>
         //     Career Service: $career_service<br>
@@ -516,8 +520,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $salary_grade = 0;
         }
 
-        $position = lookupId($conn, $n_we_position[$i], 'positions', 'position_id', 'position_title', 'position_salarygrade', $salary_grade);
-        $daoc = lookupId($conn, $n_we_agency[$i], 'dept_agency_office_co', 'daoc_id', 'daoc_name', '', '');
+        $position = lookup($conn, $n_we_position[$i], 'positions', 'position_id', 'position_title', 'position_salarygrade', $salary_grade);
+        $daoc = lookup($conn, $n_we_agency[$i], 'dept_agency_office_co', 'daoc_id', 'daoc_name');
 
         if ($i == 0) {
             $position_id = $position;
@@ -598,8 +602,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     for ($i = 0; $i < count($n_lnd_title); $i++) {
 
-        $lnd_title = lookupId($conn, $n_lnd_title[$i], 'ld_titles', 'ld_title_id', 'ld_title_name', '', '');
-        $lnd_sponsor = lookupId($conn, $n_lnd_sponsor[$i], 'sponsors', 'sponsor_id', 'sponsor_name', '', '');
+        $lnd_title = lookup($conn, $n_lnd_title[$i], 'ld_titles', 'ld_title_id', 'ld_title_name');
+        $lnd_sponsor = lookup($conn, $n_lnd_sponsor[$i], 'sponsors', 'sponsor_id', 'sponsor_name');
 
         // echo "<br>
         //     Title of Learning and Development: $lnd_title<br>
@@ -770,6 +774,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     Date/Place of Issuance: $n_govtid_issuance<br>
     // ";
 
+    // prepare arguments for insert function
+    $table = 'government_id';
+    $fields = array(
+        'employee_id' => $employee_id,
+        'govt_id_name' => $n_govtid_type,
+        'govt_id_no' => $n_govtid_no,
+        'govt_id_date_place' => $n_govtid_issuance,
+    );
+    insert($conn, $table, $fields);
+
     // for $filename
     // if an employee doesn't have a middle name
     $middlename = ($n_pi_name_middle === "N/A") ? "" : " " . $n_pi_name_middle;
@@ -794,7 +808,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'employee_imgdir' => $n_itemimgdir,
     );
     $filter = array('employee_id' => $employee_id);
-    // update($conn, $table, $fields, $filter);
 
     $office = $_POST['office'];
     if (in_array($office, ['ORD', 'CRASD', 'SOCD'])) {

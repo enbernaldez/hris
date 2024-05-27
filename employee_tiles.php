@@ -138,12 +138,30 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         ?>
                         <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
                             <p>No employees yet.</p>
-                            <?php
-                            echo ($user_type == 'A') ?
-                                '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                                <?php
+                                echo ($user_type == 'A') ?
+                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
+                                <button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
-                                </button>' : '';
+                                </button>
+                            </a>' : '';
+                            ?>
+                        </div>
+                        <div class="mt-5">
+                            <?php
+                            echo ($user_type == 'A') ?
+                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
+                                    <button type="button" class="btn btn-primary"
+                                        style="margin-left: 10px; background-color: #283872; border: none;">
+                                        Add Employee
+                                    </button>
+                                </a>' : '';
+                            echo '
+                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
+                                    View organizational chart
+                                </a>
+                            ';
                             ?>
                         </div>
                         <?php
@@ -165,9 +183,13 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
                                 $filter = array($position_id);
                                 $result = query($conn, $sql, $filter);
-                                $row = $result[0];
 
-                                $position = $row['position_title'];
+                                if (empty($result)) {
+                                    $position = '';
+                                } else {
+                                    $row = $result[0];
+                                    $position = $row['position_title'];
+                                }
                                 ?>
                                 <div class="col-4 tile mt-3">
                                     <?php
@@ -315,6 +337,87 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         </div>
     </div>
 
+    <!--Script-->
+    <?php
+    if (isset($_GET['add_employee'])) {
+
+        switch ($_GET['add_employee']) {
+            case 'success':
+                $id = $_GET['employee_added'];
+
+                $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
+                        FROM `employees`
+                        WHERE `employee_id` = ?";
+                $filter = array($id);
+                $result = query($conn, $sql, $filter);
+
+                $row = $result[0];
+                $last_name = $row['employee_lastname'];
+                $first_name = $row['employee_firstname'];
+                $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
+                $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
+
+                // Use json_encode to safely escape strings for JavaScript
+                $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
+                $full_name_js = json_encode($full_name);
+
+                echo "
+                    <script>
+                        swal('New employee added!', 
+                            '{$full_name_js} has been added to database.', 
+                            'success');
+                    </script>
+                ";
+
+                break;
+
+            case 'failed':
+                echo '
+                    <script>
+                        swal("", "Failed to add new employee.", "error");
+                    </script>    
+                ';
+
+                break;
+
+            default:
+                break;
+        }
+    }
+    ?>
+
+    <script>
+
+        // Function to display custom context menu
+        function showContextMenu(x, y, target) {
+            console.log('Show context menu at:', x, y);
+            console.log('Target element:', target);
+            var menu = document.getElementById('customContextMenu');
+            menu.style.display = 'block';
+            menu.style.left = x + 'px';
+            menu.style.top = y + 'px';
+        }
+
+        var tiles = document.querySelectorAll('.tile');
+        tiles.forEach(tile => {
+            tile.addEventListener('contextmenu', function (e) {
+                const menu = document.getElementById('customContextMenu');
+                if (menu.classList.contains('admin')) {
+                    e.preventDefault();
+                    var x = e.clientX; // X-coordinate of mouse pointer
+                    var y = e.clientY; // Y-coordinate of mouse pointer
+                    showContextMenu(x, y, e.target); // Display custom context menu
+                }
+            })
+        });
+
+        var kebab_menus = document.querySelectorAll('.menu-button');
+        kebab_menus.forEach(kebab => {
+            kebab.addEventListener('click', function (e) { // Listen for 'click' event instead of 'contextmenu'
+                var rect = kebab.getBoundingClientRect();
+                var x = rect.left + window.scrollX + 25;
+                var y = rect.top + window.scrollY + 18;
+                showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
     <script>
         function checkNA(checkbox, inputId) {
             var inputField = document.getElementById(inputId);

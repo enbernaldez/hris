@@ -1,4 +1,96 @@
 <div class="container-fluid">
+
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        $employee_id = $_GET['employee_id'];
+
+        // `cs_eligibility` table
+        $sql = "SELECT *
+                FROM `cs_eligibility`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            ";
+
+        if ($result[0]['cs_id'] == "1") {
+            echo "
+                var checkbox = document.getElementById('null_cse');
+                checkbox.checked = true;
+                checkNA_cs(checkbox);
+            ";
+        } else {
+
+            foreach ($result as $key => $value) {
+
+                $educ_dets = array(
+                    "careerservice[]" => "cs",
+                    "rating[]" => "rating",
+                    "exam_date[]" => "examdate",
+                    "exam_place[]" => "examplace",
+                    "license_number[]" => "license",
+                    "license_dateofvalidity[]" => "datevalidity",
+                );
+
+                if (isset($cs)) {
+                    echo "
+                        addRow_cs();
+                    ";
+                }
+
+                $i = 0;
+                foreach ($educ_dets as $key => $dets) {
+
+                    $name_att = json_encode($key);
+
+
+                    if ($dets == "cs") {
+
+                        $$dets = lookup($conn, $value["{$dets}_id"], "civil_services", "{$dets}_name", "{$dets}_id");
+
+                    } else {
+
+                        $$dets = $value['cseligibility_' . $dets];
+                    }
+
+                    echo "
+                        var elements = document.querySelectorAll('[name={$name_att}]');
+                        if (elements.length > 0) { 
+                            var selectElement = elements[0];
+                        }
+                        selectElement.value = \"" . $$dets . "\";
+                    ";
+
+                    // if (!in_array($i, [0, 1, 4])) {
+                    //     $chk = json_encode(match ($i) {
+                    //         2 => "null_from{$retrieved_lvl}",
+                    //         3 => "null_to{$retrieved_lvl}",
+                    //         5 => "null_year{$retrieved_lvl}",
+                    //         6 => "null_scholarship{$retrieved_lvl}",
+                    //     });
+                    //     if ($$dets == "N/A") {
+                    //         echo "
+                    //             var checkbox = document.getElementById({$chk});
+                    //             checkbox.checked = true;
+                    //             checkNA_eb(checkbox);
+                    //         ";
+                    //     }
+                    // }
+    
+                    // $i++;
+                }
+                // echo "<br>";
+            }
+        }
+
+        echo "
+            });
+        </script>";
+    }
+    ?>
     <div class="row mt-4 text-center align-items-end">
         <div class="col-4">
             <p>CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES CSEE

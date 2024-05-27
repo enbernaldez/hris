@@ -48,6 +48,11 @@
                     <div class="col-6 px-1 mx-0">
                         <input type="date" required name="vw_date_to[]" id="vw_date_to"
                             class="form-control uppercase group_na_vw">
+                        <div class="form-check d-flex mt-2">
+                            <input type="checkbox" id="present_vw" onclick="presentVw(this)"
+                                class="form-check-input uppercase me-2 remove_present_vw">
+                            <label for="present_vw" class="form-check-label">PRESENT</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,9 +92,23 @@
 </div>
 
 <script>
+    //========================= Present =====================================
+    function presentVw(checkbox) {
+        const row = checkbox.closest('.row-row-vw');  // Find the closest row
+        const toDateInput = row.querySelector('[name="vw_date_to[]"]');  // Select the TO date input within that row
+        if (checkbox.checked) {
+            toDateInput.type = 'text';
+            toDateInput.value = "PRESENT";
+            toDateInput.disabled = true;
+        } else {
+            toDateInput.type = 'date';
+            toDateInput.value = "";
+            toDateInput.disabled = false;
+        }
+    }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_vw");
+        var clearInputs = document.querySelectorAll("#null_vw" , "#present_vw");
 
         clearInputs.forEach(function (checkbox) {
             checkbox.addEventListener('change', function () {
@@ -130,6 +149,21 @@
                     row.parentNode.removeChild(row);
                 }
             });
+
+             // Uncheck all "PRESENT" checkboxes and reset TO date inputs
+             var presentCheckboxes = document.querySelectorAll('#present_vw');
+            presentCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+                checkbox.disabled = false; // Ensure the PRESENT checkbox is enabled
+                var row = checkbox.closest('.row-row-vw');
+                var toDateInput = row.querySelector('[name="vw_date_to[]"]');
+                if (toDateInput) {
+                    toDateInput.type = 'date';
+                    toDateInput.value = "";
+                    toDateInput.disabled = false;
+                }
+            });
+
             // Enable the "Add Row" button
             var addButton = document.getElementById('vw_addrow');
             if (addButton) {
@@ -187,6 +221,17 @@
             clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
         }
 
+        // Remove the present checkbox and its label from the cloned row, and uncheck the present checkbox
+        const clonedPresentCheckbox = newRow.querySelector(".form-check .form-check-input");
+        if (clonedPresentCheckbox) {
+            clonedPresentCheckbox.closest('.form-check').remove();
+        } else {
+            const presentCheckbox = newRow.querySelector('.remove_present_vw input[type="checkbox"]');
+            if (presentCheckbox) {
+                presentCheckbox.checked = false;
+            }
+        }
+
         // Find the delete button in the cloned row and enable it 
         const deleteButton = newRow.querySelector(".delete-row-button");
         if (deleteButton) {
@@ -195,6 +240,13 @@
             deleteButton.addEventListener("click", function () {
                 newRow.parentNode.removeChild(newRow);
             });
+        }
+        // Enable the TO date field in the cloned row
+       const toDateInput = newRow.querySelector('[name="vw_date_to[]"]');
+        if (toDateInput) {
+            toDateInput.type = 'date';
+            toDateInput.value = "";
+            toDateInput.disabled = false;
         }
     }
 
@@ -205,9 +257,21 @@
         const inputs = inputIds.map((id) => document.getElementById(id));
 
         checkbox.addEventListener("change", function () {
+            const row = this.closest('.row-row-vw'); // Find the closest row
+            const presentCheckbox = row.querySelector('[id="present_vw"]'); // Find the 'PRESENT' checkbox in the same row
+
             if (this.checked) {
-                naChecked = true;
-                inputs.forEach((input) => {
+                // Uncheck and disable the 'PRESENT' checkbox if 'N/A' is checked
+                if (presentCheckbox) {
+                    presentCheckbox.checked = false;
+                    presentCheckbox.disabled = true;
+                    const toDateInput = row.querySelector('[name="vw_date_to[]"]');
+                    if (toDateInput) {
+                        toDateInput.type = 'date';
+                        toDateInput.value = "";
+                        toDateInput.disabled = false;
+                    }
+                }inputs.forEach((input) => {
 
                     input.type = "text";
                     input.value = "N/A";
@@ -221,13 +285,18 @@
                     }
                 });
             } else {
-                naChecked = false;
+                if (presentCheckbox) {
+                    presentCheckbox.disabled = false;
+                }
+
                 inputs.forEach((input) => {
-
-                    input.id == "vw_date_from" || input.id == "vw_date_to" ? input.type = "date" :
-                        input.id == "vw_hrs" ? input.type = "number" :
-                            input.type = "text";
-
+                    if (input.id === "vw_date_from" || input.id === "vw_date_to") {
+                        input.type = "date";
+                    } else if (input.id === "vw_hrs") {
+                        input.type = "number";
+                    } else {
+                        input.type = "text";
+                    }
                     input.value = "";
                     input.disabled = false;
                 });

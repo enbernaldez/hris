@@ -13,91 +13,110 @@
         $result = query($conn, $sql, $filter);
 
         echo "
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
         ";
 
+        // initialize arrays
+        $levels = array("elementary", "secondary", "vocational", "college", "graduate");
+        $details = array("school", "bdc", "period_from", "period_to", "highest", "graduated", "scholarship_acad_honors");
+        foreach ($levels as $level) {
+            foreach ($details as $detail) {
+                ${"{$detail}_{$level}"} = array();
+            }
+        }
+
         foreach ($result as $key => $value) {
+
             $retrieved_lvl = $value['educ_acadlvl'];
-            $acadlvl = (match ($retrieved_lvl) {
-                "E" => "elem",
-                "S" => "sec",
-                "V" => "voc",
-                "C" => "coll",
-                "G" => "grad",
-            });
+
+            $acadlvl = match ($retrieved_lvl) {
+                "E" => "elementary",
+                "S" => "secondary",
+                "V" => "vocational",
+                "C" => "college",
+                "G" => "graduate",
+            };
 
             $educ_dets = array(
-                "school" => "school",
-                "degree" => "bdc",
-                "attendance_from" => "period_from",
-                "attendance_to" => "period_to",
-                "level" => "highest",
-                "year" => "graduated",
+                "name_school" => "school",
+                "degree_" => "bdc",
+                "p_attendance_from" => "period_from",
+                "p_attendance_to" => "period_to",
+                "h_level" => "highest",
+                "year_graduated" => "graduated",
                 "scholarship" => "scholarship_acad_honors"
             );
 
-            if(isset(${"{$acadlvl}_school"})) {
-                echo "
-                    var selectElement = document.getElementById('name_school{$retrieved_lvl}');
-                    var parentRow = selectElement.closest('.parent-row');
-                    var button = parentRow.querySelector('button.add-row-text');
-                    plusRow(button);
-                ";
-            }
-
-            $i = 0;
             foreach ($educ_dets as $key => $dets) {
-
-                // echo "{$acadlvl}_{$dets}: {$value['educ_' . $dets]}<br>";
-                $lvl = json_encode($acadlvl . "_" . $key . "[]");
-
-
                 if ($dets == "school" || $dets == "bdc") {
 
                     $det = ($dets == "bdc") ? "basiced_degree_course" : "schools";
                     ${"{$acadlvl}_{$dets}"} = lookup($conn, $value["{$dets}_id"], "{$det}", "{$dets}_name", "{$dets}_id");
-    
+                    array_push(${"{$dets}_{$acadlvl}"}, ${"{$acadlvl}_{$dets}"});
+
                 } else {
 
+                    // echo "{$acadlvl}_{$dets}: {$value['educ_' . $dets]}<br>";
                     ${"{$acadlvl}_{$dets}"} = $value['educ_' . $dets];
+                    array_push(${"{$dets}_{$acadlvl}"}, ${"{$acadlvl}_{$dets}"});
                 }
-
-                echo "
-                    var elements = document.querySelectorAll('[name={$lvl}]');
-                    if (elements.length > 0) { 
-                        var selectElement = elements[elements.length - 1];
-                    }
-                    selectElement.value = \"" . ${"{$acadlvl}_{$dets}"} . "\";
-                ";
-
-                if (!in_array($i, [0, 1, 4])) {
-                    $chk = json_encode(match ($i) {
-                        2 => "null_from{$retrieved_lvl}",
-                        3 => "null_to{$retrieved_lvl}",
-                        5 => "null_year{$retrieved_lvl}",
-                        6 => "null_scholarship{$retrieved_lvl}",
-                    });
-                    if (${"{$acadlvl}_{$dets}"} == "N/A") {
-                        echo "
-                            var checkbox = document.getElementById({$chk});
-                            checkbox.checked = true;
-                            checkNA_eb(checkbox);
-                        ";
-                    }
-                }
-
-                if (($retrieved_lvl == "V" || $retrieved_lvl == "G") && ${"{$acadlvl}_school"} == "N/A") {
-                    continue;
-                }
-                $i++;
             }
+
+            // skip null vocation or graduate studies
+            if (($retrieved_lvl == "V" || $retrieved_lvl == "G") && ${"{$acadlvl}_bdc"} == "N/A") {
+                continue;
+            }
+
             // echo "<br>";
+            // var_dump($acadlvl);
+            $count = count(${"school_{$acadlvl}"});
+            if ($count > 1) {
+                
+                for ($i = 0; $i < $count; $i++) {
+
+                    foreach ($educ_dets as $key => $dets) {
+
+                        $lvl = json_encode($key . $retrieved_lvl);
+
+                        // set value based on retrieved data
+                        echo "
+                            var selectElement = document.getElementById({$lvl});
+                            selectElement.value = \"" . ${"{$acadlvl}_{$dets}"} . "\";
+                        ";
+
+                        // check N/A checkbox if N/A and call checkNA_eb function
+                        if ($i != 2) {
+                            $chk = json_encode(match ($i) {
+                                0 => "null_from{$retrieved_lvl}",
+                                1 => "null_to{$retrieved_lvl}",
+                                3 => "null_year{$retrieved_lvl}",
+                                4 => "null_scholarship{$retrieved_lvl}",
+                            });
+                            if (${"{$acadlvl}_{$dets}"} == "N/A") {
+                                echo "
+                                    var checkbox = document.getElementById({$chk});
+                                    checkbox.checked = true;
+                                    checkNA_eb(checkbox);
+                                ";
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         echo "
         });
-    </script>";
+        </script>";
+    } else {
+        $acad_levels = array("elementary", "secondary", "vocational", "college", "graduate");
+        foreach ($acad_levels as $key => $lvl) {
+            $educ_dets = array("period_from", "period_to", "highest", "graduated", "scholarship_acad_honors", "school", "bdc");
+            foreach ($educ_dets as $key => $dets) {
+                ${"{$lvl}_{$dets}"} = '';
+            }
+        }
     }
     ?>
 
@@ -124,12 +143,12 @@
             <!-- Name of school -->
             <div class="col">
                 <input type="text" class="form-control uppercase next_button sample" id="name_schoolE"
-                    name="elem_school[]" required>
+                    name="elem_school[]" required value="">
             </div>
             <!-- basic education/degree/course -->
             <div class="col">
                 <input type="text" class="form-control uppercase next_button sample" id="degree_E" name="elem_degree[]"
-                    required>
+                    required value="">
             </div>
             <!-- period of attendance -->
             <div class="col-2">
@@ -141,7 +160,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA_eb(this)" data-target="null_fromE">
+                            <input class="form-check-input" type="checkbox" id="null_fromE" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromE">N/A</label>
                         </div>
                     </div>
@@ -152,7 +171,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA_eb(this)" data-target="null_toE">
+                            <input class="form-check-input" type="checkbox" id="null_toE" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toE">N/A</label>
                         </div>
                     </div>
@@ -161,7 +180,7 @@
             <!-- Highest level / units earned -->
             <div class="col">
                 <input type="text" class="form-control uppercase next_button sample" id="h_levelE" name="elem_level[]"
-                    required>
+                    required value="">
             </div>
             <!-- YEAR GRADUATED -->
             <div class="col na checkbox-container small-font">
@@ -170,16 +189,16 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA_eb(this)" data-target="null_yearE">
+                    <input class="form-check-input" type="checkbox" id="null_yearE" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearE">N/A</label>
                 </div>
             </div>
             <!-- SCHOLARSHIP/ACADEMIC HONORS RECEIVED -->
             <div class="col na checkbox-container small-font">
-                <input type="text" class="form-control uppercase next_button sample" id="e_scholarship"
+                <input type="text" class="form-control uppercase next_button sample" id="scholarshipE"
                     name="elem_scholarship[]" required>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA_eb(this)" data-target="null_scholarshipE">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipE" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipE">N/A</label>
                 </div>
             </div>
@@ -210,7 +229,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA_eb(this)" data-target="null_fromS">
+                            <input class="form-check-input" type="checkbox" id="null_fromS" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromS">N/A</label>
                         </div>
                     </div>
@@ -221,7 +240,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA_eb(this)" data-target="null_toS">
+                            <input class="form-check-input" type="checkbox" id="null_toS" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toS">N/A</label>
                         </div>
                     </div>
@@ -237,7 +256,7 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA_eb(this)" data-target="null_yearS">
+                    <input class="form-check-input" type="checkbox" id="null_yearS" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearS">N/A</label>
                 </div>
             </div>
@@ -246,7 +265,7 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipS" name="sec_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA_eb(this)" data-target="null_scholarshipS">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipS" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipS">N/A</label>
                 </div>
             </div>
@@ -259,7 +278,7 @@
             <div class="col-1 text-center d-flex align-items-center justify-content-center">
                 <p class="level" style="font-size: 13px;">VOCATIONAL / TRADE COURSE</p>
                 <div class="form-check remove_na small-font">
-                    <input class="form-check-input not_app" type="checkbox" id="null_vocational" data-target="null_vocational">
+                    <input class="form-check-input not_app" type="checkbox" id="null_vocational">
                     <label class="form-check-label na-text" for="null_vocational">N/A</label>
                 </div>
                 <button type="button" class="delete-row-button mb-4 mt-2"
@@ -286,7 +305,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)" data-target="null_fromV">
+                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromV">N/A</label>
                         </div>
                     </div>
@@ -297,7 +316,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)" data-target="null_toV">
+                            <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toV">N/A</label>
                         </div>
                     </div>
@@ -313,7 +332,7 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA_eb(this)" data-target="null_yearV">
+                    <input class="form-check-input" type="checkbox" id="null_yearV" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearV">N/A</label>
                 </div>
             </div>
@@ -322,7 +341,7 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipV" name="voc_scholarship[]"
                     required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA_eb(this)" data-target="null_scholarshipV">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipV" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipV">N/A</label>
                 </div>
             </div>
@@ -362,7 +381,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA_eb(this)" data-target="null_fromC">
+                            <input class="form-check-input" type="checkbox" id="null_fromC" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromC">N/A</label>
                         </div>
                     </div>
@@ -373,7 +392,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)" data-target="null_toC">
+                            <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toC">N/A</label>
                         </div>
                     </div>
@@ -390,7 +409,7 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)" data-target="null_yearC">
+                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_yearC">N/A</label>
                 </div>
             </div>
@@ -399,7 +418,7 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipC"
                     name="coll_scholarship[]" required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)" data-target="null_scholarshipC">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipC">N/A</label>
                 </div>
             </div>
@@ -419,7 +438,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-check remove_na ms-2 small-font mt-2">
-                        <input class="form-check-input not_app" type="checkbox" id="null_graduate" data-target="null_graduate">
+                        <input class="form-check-input not_app" type="checkbox" id="null_graduate">
                         <label class="form-check-label na-text" for="null_graduate">N/A</label>
                     </div>
                     <button type="button" class="delete-row-button mb-4 mt-2"
@@ -446,7 +465,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)" data-target="null_fromG">
+                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_fromG">N/A</label>
                         </div>
                     </div>
@@ -457,7 +476,7 @@
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
                         <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)" data-target="null_toG">
+                            <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)">
                             <label class="form-check-label" for="null_toG">N/A</label>
                         </div>
                     </div>
@@ -474,7 +493,7 @@
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
                 <div class="form-check ms-2">
-                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA_eb(this)" data-target="null_yearG">
+                    <input type="checkbox" class="form-check-input" id="null_yearG" onchange="checkNA_eb(this)">
                     <label for="null_yearG" class="form-check-label">N/A</label>
                 </div>
             </div>
@@ -483,7 +502,7 @@
                 <input type="text" class="form-control uppercase next_button" id="scholarshipG"
                     name="grad_scholarship[]" required />
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA_eb(this)" data-target="null_scholarshipG">
+                    <input class="form-check-input" type="checkbox" id="null_scholarshipG" onchange="checkNA_eb(this)">
                     <label class="form-check-label" for="null_scholarshipG">N/A</label>
                 </div>
             </div>
@@ -499,97 +518,12 @@
         <strong>PREV</strong>
     </button>
 
-    <!-- CLEAR BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_eb">
-        <strong>CLEAR ALL</strong>
-    </button>
-
     <!-- NEXT BUTTON -->
     <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_eg" data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
 <script>
-    // ======================== Clear Button ==================================
-    document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_fromE, #null_toE, #null_yearE, #null_scholarshipE, #null_fromS, #null_toS, #null_yearS, #null_scholarshipS, #null_vocational, #null_fromV, #null_toV, #null_yearV, #null_scholarshipV, #null_fromC, #null_toC, #null_yearC, #null_scholarshipC, #null_graduate, #null_fromG, #null_toG, #null_yearG, #null_scholarshipG");
-        var originalSelectOptions = {};
-
-        // Store the original options of each select element
-        var selects = document.querySelectorAll('select');
-        selects.forEach((select) => {
-            originalSelectOptions[select.id] = Array.from(select.options).map((option) => {
-                return { value: option.value, text: option.text };
-            });
-        });
-
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-                    if (checkbox.checked) {
-                        if (inputElement.tagName.toLowerCase() === 'select') {
-                            inputElement.innerHTML = '';
-                            var option = document.createElement('option');
-                            option.text = 'N/A';
-                            option.value = 'N/A';
-                            inputElement.add(option);
-                        } else {
-                            inputElement.value = '';
-                        }
-                    } else {
-                        if (inputElement.tagName.toLowerCase() === 'select') {
-                            inputElement.disabled = false;
-                            inputElement.innerHTML = '';
-                            originalSelectOptions[targetId.trim()].forEach((optionData) => {
-                                var option = document.createElement('option');
-                                option.text = optionData.text;
-                                option.value = optionData.value;
-                                inputElement.add(option);
-                            });
-                        } else {
-                            inputElement.disabled = false;
-                        }
-                    }
-                });
-            });
-        });
-
-        document.getElementById('clearButton_eb').addEventListener('click', function () {
-            var inputs = document.querySelectorAll('.next_button');
-            inputs.forEach(function (input) {
-                input.value = '';
-                input.disabled = false;
-            });
-
-            clearInputs.forEach(function (checkbox) {
-                checkbox.checked = false;
-                checkbox.disabled = false;
-            });
-
-            // Remove all cloned rows for children
-            var childRows = document.querySelectorAll('.new-row');
-            childRows.forEach(function (row) {
-                if (row.parentNode) {
-                    row.parentNode.removeChild(row);
-                }
-            });
-
-            // Restore original select options for all selects
-            selects.forEach(function (select) {
-                select.disabled = false;
-                select.innerHTML = '';
-                originalSelectOptions[select.id].forEach((optionData) => {
-                    var option = document.createElement('option');
-                    option.text = optionData.text;
-                    option.value = optionData.value;
-                    select.add(option);
-                });
-            });
-        });
-    });
-
     //========================= Next Button =====================================
     // Document ready function
     document.addEventListener('DOMContentLoaded', function () {
@@ -636,7 +570,7 @@
     selectElements.forEach(selectElement => {
         populateYearDropdowns(selectElement);
     })
-//=============== checkNA Function ==================================
+
     function checkNA_eb(checkbox) {
         var chk_col = checkbox.closest('.checkbox-container');
         var chk_input = chk_col.querySelector("input[type='text']");
@@ -644,15 +578,6 @@
 
         if (checkbox.checked) {
             if (chk_select) {
-                // Store original options if not already stored
-                if (!chk_select.dataset.originalOptions) {
-                    var options = Array.from(chk_select.options).map(option => {
-                        return { value: option.value, text: option.text };
-                    });
-                    chk_select.dataset.originalOptions = JSON.stringify(options);
-                }
-
-                // Clear and disable the select
                 chk_select.innerHTML = "";
                 var option = document.createElement("option");
                 option.text = "N/A";
@@ -667,19 +592,11 @@
         } else {
             if (chk_select) {
                 chk_select.disabled = false;
-                chk_select.innerHTML = ""; // Clear current options
-
-                // Restore original options
-                if (chk_select.dataset.originalOptions) {
-                    var originalOptions = JSON.parse(chk_select.dataset.originalOptions);
-                    originalOptions.forEach(opt => {
-                        var option = document.createElement("option");
-                        option.text = opt.text;
-                        option.value = opt.value;
-                        chk_select.add(option);
-                    });
-                }
-
+                chk_select.innerHTML = ""; // Clear previous options
+                var option = document.createElement("option");
+                option.text = ""; // Empty option
+                option.value = ""; // Modify as needed
+                chk_select.add(option);
                 // If it's the "Year Graduated" or "Period of Attendance" field
                 if (checkbox.id.includes("_year") || checkbox.id.includes("_from") || checkbox.id.includes("_to")) {
                     populateYearDropdowns(chk_select); // Populate year options
@@ -699,8 +616,6 @@
             }
         }
     }
-
-
     // Define an object to store the original options of each select element
     const newOptions = {};
 
@@ -897,17 +812,15 @@
         clonedRow.classList.add('new-row');
 
         const level = clonedRow.querySelector('.level');
-                if (level) {
-            level.hidden = true;
-                }
+        level.hidden = true;
 
-                // Clear checkbox values and enable checkboxes in the cloned row
-                const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(function (checkbox) {
-                    if (checkbox.checked) {
-                        checkbox.checked = false; // Uncheck the checkbox if it's checked
-                    }
-                });
+        // Clear select values and enable select boxes in the cloned row
+        const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
+        });
 
         // Find all select elements in the cloned row
         const selects = clonedRow.querySelectorAll('select');
@@ -920,17 +833,18 @@
             select.innerHTML = "";
 
             var option = document.createElement("option");
-            option.text = "--SELECT----SELECT--"; // Add --SELECT-- option
-            option.value = ""; // Empty value for --SELECT--
+            option.text = "--SELECT--"; // Empty option
+            option.value = ""; // Modify as needed
             option.selected = true;
             option.disabled = true;
             select.add(option);
 
             select.value = ''; // Set the value to an empty string
 
-                    // Populate year dropdowns or other options as necessary
-                    populateYearDropdowns(select);
-                });
+            populateYearDropdowns(select);
+        });
+
+
 
         //Remove the n/a checkbox and its associated text from the cloned row
         const clonedNaCheckbox = clonedRow.querySelector(".remove_na");

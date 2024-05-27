@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
     $a_att = '';
 } else {
     $log = "LOG IN";
-    $li_att = ' data-bs-toggle="modal" data-bs-target="#exampleModal"';
+    $li_att = ' data-bs-toggle="modal" data-bs-target="#loginModal"';
     $a_att = '"';
 }
 ?>
@@ -145,16 +145,16 @@ if (isset($_SESSION['user_id'])) {
             if (isset($_GET['login'])) {
                 switch ($_GET['login']) {
                     case "success":
-                        echo "<div class='alert alert-success' id='alertMessage'>Logged in!</div>";
+                        echo "<div class='alert alert-success alertMessage'>Logged in!</div>";
                         break;
                     case "failed":
-                        echo "<div class='alert alert-info' id='alertMessage'>User not registered.</div>";
+                        echo "<div class='alert alert-info alertMessage'>User not registered.</div>";
                         break;
                     case "wrongpass":
-                        echo "<div class='alert alert-warning' id='alertMessage'>Wrong password.</div>";
+                        echo "<div class='alert alert-warning alertMessage'>Wrong password.</div>";
                         break;
                     case "inactive":
-                        echo "<div class='alert alert-info' id='alertMessage'>User inactive.</div>";
+                        echo "<div class='alert alert-info alertMessage'>User inactive.</div>";
                         break;
                 }
             }
@@ -165,7 +165,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <!-- Log In Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -228,11 +228,13 @@ if (isset($_SESSION['user_id'])) {
 <script>
     // Function to hide alert after a delay
     document.addEventListener('DOMContentLoaded', function () {
-        var alertElement = document.getElementById('alertMessage');
+        var alertElement = document.querySelectorAll('.alertMessage');
         if (alertElement) {
-            setTimeout(function () {
-                alertElement.style.display = 'none';
-            }, 5000); // Hide after 5 seconds
+            alertElement.forEach(element => {
+                setTimeout(function () {
+                    element.style.display = 'none';
+                }, 5000); // Hide after 5 seconds
+            });
         }
     });
 

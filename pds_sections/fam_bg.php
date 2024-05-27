@@ -1,5 +1,86 @@
 <div class="container-fluid">
 
+    <?php
+
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        $employee_id = $_GET['employee_id'];
+
+        // `spouses` table
+        $sql = "SELECT *
+                FROM `spouses`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+
+        $spouse = array("lastname", "firstname", "middlename", "nameext", "busadd", "telno");
+        foreach ($spouse as $dets) {
+            ${"spouse_$dets"} = $row['spouse_' . $dets];
+        }
+        $occupation = lookup($conn, $row['occupation_id'], 'occupations', 'occupation_name', 'occupation_id');
+        $employer_business = lookup($conn, $row['employer_business_id'], 'employer_business', 'employer_business_name', 'employer_business_id');
+
+        // `parents` table
+        $sql = "SELECT *
+                FROM `parents`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        foreach ($result as $value) {
+            $parents = array("lastname", "firstname", "middlename", "nameext");
+            foreach ($parents as $dets) {
+                $type = ($value['parent_type'] == 'F') ? "father" : "mother";
+                ${"{$type}_{$dets}"} = $value['parent_' . $dets];
+            }
+        }
+
+        // `children` table
+        $sql = "SELECT *
+                FROM `children`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        $child_fullname = array();
+        $child_bday = array();
+        for ($i = 0; $i < count($result); $i++) {
+            $child_fullname[] = $result[$i]['child_fullname'];
+            $child_bday[] = $result[$i]['child_bday'];
+        }
+
+    } else {
+        $fb_dets = array(
+            "spouse_lastname",
+            "spouse_firstname",
+            "spouse_middlename",
+            "spouse_nameext",
+            "occupation",
+            "employer_business",
+            "spouse_busadd",
+            "spouse_telno",
+            "father_lastname",
+            "father_firstname",
+            "father_middlename",
+            "father_nameext",
+            "mother_lastname",
+            "mother_firstname",
+            "mother_middlename",
+        );
+        $fb_dets_arrays = array(
+            "child_fullname",
+            "child_bday",
+        );
+
+        foreach ($fb_dets as $var) {
+            $$var = "";
+        }
+        foreach ($fb_dets_arrays as $var) {
+            $$var = array();
+        }
+    }
+    ?>
+
     <!-- SPOUSE'S FULL NAME -->
     <div class="row mt-5">
         <div class="col mx-1">
@@ -9,18 +90,18 @@
                 <label class="form-check-label" for="null_spouse">N/A</label>
             </div>
             <input type="text" required name="spouse_name_last" id="spouse_name_last"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $spouse_lastname; ?>">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_first">FIRST NAME</label><br>
             <input type="text" required name="spouse_name_first" id="spouse_name_first"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $spouse_firstname; ?>">
         </div>
         <div class="col mx-1">
             <label for="spouse_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_name_middle" id="spouse_name_middle"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $spouse_middlename; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_mi" data-target="null_spouse_mi">
                     <label class="form-check-label" for="null_spouse_mi">N/A</label>
@@ -31,7 +112,7 @@
             <label for="spouse_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_name_ext" id="spouse_name_ext"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $spouse_nameext; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_nameext"
                         data-target="null_spouse_nameext">
@@ -47,7 +128,7 @@
             <label for="spouse_occupation">OCCUPATION</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_occupation" id="spouse_occupation"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $occupation; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_occupation"
                         data-target="null_occupation">
@@ -59,7 +140,7 @@
             <label for="spouse_bus_name">EMPLOYEER/BUSINESS NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_bus_name" id="spouse_bus_name"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $employer_business; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_bus" data-target="null_bus">
                     <label class="form-check-label" for="null_bus">N/A</label>
@@ -70,7 +151,7 @@
             <label for="spouse_bus_add">BUSINESS ADDRESS</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_bus_add" id="spouse_bus_add"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $spouse_busadd; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_busadd" data-target="null_busadd">
                     <label class="form-check-label" for="null_busadd">N/A</label>
@@ -81,7 +162,7 @@
             <label for="spouse_telno">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="spouse_telno" id="spouse_telno"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $spouse_telno; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_telno"
                         data-target="null_spouse_telno">
@@ -100,19 +181,19 @@
                 <label class="form-check-label" for="null_father">N/A</label>
             </div>
             <input type="text" required name="father_name_last" id="father_name_last"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $father_lastname; ?>">
 
         </div>
         <div class="col mx-1">
             <label for="father_name_first">FIRST NAME</label><br>
             <input type="text" required name="father_name_first" id="father_name_first"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $father_firstname; ?>">
         </div>
         <div class="col mx-1">
             <label for="father_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="father_name_middle" id="father_name_middle"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $father_middlename; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_mi" data-target="null_father_mi">
                     <label class="form-check-label" for="null_father_mi">N/A</label>
@@ -123,7 +204,7 @@
             <label for="father_name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="father_name_ext" id="father_name_ext"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $father_nameext; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_father_nameext"
                         data-target="null_father_nameext">
@@ -136,25 +217,25 @@
     <!-- MOTHER'S FULL NAME -->
     <div class="row mt-3">
         <div class="col mx-1">
-            <label for="mother_name_last">MOTHER'S SURNAME</label>
+            <label for="mother_name_last">MOTHER'S SURNAME (MAIDEN)</label>
             <div class="form-check form-check-inline ms-2">
                 <input class="form-check-input" type="checkbox" id="null_mother" data-target="null_mother">
                 <label class="form-check-label" for="null_mother">N/A</label>
             </div>
             <input type="text" required name="mother_name_last" id="mother_name_last"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $mother_lastname; ?>">
 
         </div>
         <div class="col mx-1">
             <label for="mother_name_first">FIRST NAME</label><br>
             <input type="text" required name="mother_name_first" id="mother_name_first"
-                class="form-control uppercase group-na-fb">
+                class="form-control uppercase group-na-fb" value="<?php echo $mother_firstname; ?>">
         </div>
         <div class="col mx-1">
             <label for="mother_name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
                 <input type="text" required name="mother_name_middle" id="mother_name_middle"
-                    class="form-control uppercase group-na-fb">
+                    class="form-control uppercase group-na-fb" value="<?php echo $mother_middlename; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_mother_mi" data-target="null_mother_mi">
                     <label class="form-check-label" for="null_mother_mi">N/A</label>
@@ -176,14 +257,14 @@
                 <label for="child_dob">DATE OF BIRTH</label>
             </div>
         </div>
-        <div class="row row-row mb-3">
+        <div class="row row-row">
             <div class="col-8 mx-1">
-                <input type="text" required name="child_fullname[]" id="child_name"
+                <input type="text" required id="child_fullname" name="child_fullname[]"
                     class="form-control uppercase group-na-fb">
             </div>
             <div class="col mx-1">
                 <div class="checkbox-container">
-                    <input type="date" required name="child_birthdate[]" id="child_dob"
+                    <input type="date" required id="child_birthdate" name="child_birthdate[]"
                         class="form-control uppercase group-na-fb">
                     <button type="button" class="delete-row-button mx-2"
                         style="display:none; background-color: transparent; border: none; color: red;">
@@ -217,6 +298,8 @@
         <strong>NEXT</strong>
     </button>
 </div>
+
+
 
 <script>
     // ======================== Clear Button ==================================
@@ -297,6 +380,14 @@
         const checkbox = document.getElementById(checkboxId);
         const input = document.getElementById(inputId);
 
+        // if retrieved value is N/A
+        if (input.value == "N/A") {
+            input.removeAttribute("style");
+            checkbox.checked = true;
+            input.disabled = true;
+        }
+
+        // if checkbox is toggled
         checkbox.addEventListener("change", function () {
             if (this.checked) {
 
@@ -312,6 +403,7 @@
             }
         });
 
+        // if N/A is inputted
         input.addEventListener("input", function () {
             if (this.value.trim().toLowerCase() === "n/a") {
                 checkbox.checked = true;
@@ -353,7 +445,7 @@
                 inputs.forEach((input) => {
 
                     input.id == "spouse_telno" ? input.type = "tel" :
-                        input.id == "child_dob" ? input.type = "date" :
+                        input.id == "child_birthdate" ? input.type = "date" :
                             input.type = "text";
 
                     input.value = "";
@@ -405,14 +497,10 @@
         ["mother_name_last", "mother_name_first", "mother_name_middle"],
         ["null_mother_mi"]
     );
-    setupNullInputArray("null_children", ["child_name", "child_dob"], []);
-
-    function generateUniqueID(oldID) {
-        return oldID + "_" + Math.random().toString(36).substr(2, 9);
-    }
+    setupNullInputArray("null_children", ["child_fullname", "child_birthdate"], []);
 
     // =================================== Add Row ===================================
-    function addRow() {
+    function addRow(fullname = '', bday = '') {
         // Check if the original row is set to "N/A"
         const nullChildrenCheckbox = document.getElementById("null_children");
         if (nullChildrenCheckbox.checked) {
@@ -422,9 +510,15 @@
         // Clone the input-row element
         const newRow = document.querySelector(".row-row").cloneNode(true);
 
+        newRow.classList.add("mt-3");
         // Clear input values in the cloned row
+        let i = 0;
         newRow.querySelectorAll("input").forEach((input) => {
             input.value = "";
+            if (fullname != '' && bday != '') {
+                input.value = (i == 0) ? fullname : bday;
+            }
+            i++;
         });
 
         // Find the delete button in the cloned row and enable it 
@@ -473,3 +567,62 @@
         }
     }
 </script>
+
+<?php
+if (isset($_GET['action']) && $_GET['action'] == "view") {
+    echo "
+    <script>
+        const spouse_checkbox = document.getElementById('null_spouse');
+        spouse_checkbox.checked = (spouse_name_last.value == 'N/A');
+        
+        const father_checkbox = document.getElementById('null_father');
+        father_checkbox.checked = (father_name_last.value == 'N/A');
+        
+        const mother_checkbox = document.getElementById('null_mother');
+        mother_checkbox.checked = (mother_name_last.value == 'N/A');
+    ";
+
+    $count = count($child_fullname);
+    if ($count === 0) {
+        echo "
+        const children_row = document.querySelector('.row-row');
+        const children_checkbox = document.getElementById('null_children');
+
+        children_checkbox.checked = true;
+
+        let n = 0;
+        children_row.querySelectorAll('input').forEach((input) => {
+            input.type = 'text';
+            input.value = 'N/A';
+            n++;
+        });
+    ";
+    } else {
+        echo '
+            const children_row = document.querySelector(".row-row");
+        ';
+        for ($i = 0; $i < $count; $i++) {
+
+            $fullname = json_encode($child_fullname[$i]);
+            $bday = json_encode($child_bday[$i]);
+
+            // set value of original row
+            if ($i == 0) {
+                echo "
+                    let n = 0;
+                    children_row.querySelectorAll('input').forEach((input) => {
+                        input.value = (n == 0) ? {$fullname} : {$bday};
+                        n++;
+                    });
+                ";
+            } else {
+                echo "
+                    addRow({$fullname}, {$bday});
+                ";
+            }
+        }
+    }
+    echo "
+    </script>";
+}
+?>
