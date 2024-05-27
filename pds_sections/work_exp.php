@@ -1,4 +1,96 @@
 <div class="container-fluid">
+
+    <?php
+    if (isset($_GET['action']) && $_GET['action'] == "view") {
+        $employee_id = $_GET['employee_id'];
+
+        // `work_experience` table
+        $sql = "SELECT *
+            FROM `work_experience`
+            WHERE `employee_id` = ?
+            ORDER BY `workexp_to` ASC";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    ";
+
+        if ($result[0]['position_id'] == "1") {
+            echo "
+            var checkbox = document.getElementById('null_work_exp');
+            checkbox.checked = true;
+            setupNullInputArray_we('null_work_exp',
+                [
+                    'we_date_from',
+                    'we_date_to',
+                    'we_position',
+                    'we_agency',
+                    'we_salary',
+                    'we_sg',
+                    'we_status',
+                    'we_addrow',
+                ],
+                [
+                    'we_govtsvcs'
+                ]
+            );
+        ";
+        } else {
+
+            foreach ($result as $key => $value) {
+
+                // name attribute => db column
+                $we_dets = array(
+                    "we_date_from[]" => "from",
+                    "we_date_to[]" => "to",
+                    "we_position[]" => "position",
+                    "we_agency[]" => "daoc",
+                    "we_salary[]" => "salary_mo",
+                    "we_sg[]" => "paygrade_step",
+                    "we_status[]" => "status",
+                    "we_govtsvcs[]" => "govtsvcs",
+                );
+
+                if (isset($from)) {
+                    echo "
+                    addRow_we();
+                ";
+                }
+
+                $i = 0;
+                foreach ($we_dets as $key => $dets) {
+
+                    $name_att = json_encode($key);
+
+
+                    if ($dets == "position" || $dets == "daoc") {
+                        list($det, $name) = ($dets == "position") ? ["positions", "title"] : ["dept_agency_office_co", "name"];
+                        $$dets = lookup($conn, $value["{$dets}_id"], $det, "{$dets}_{$name}", "{$dets}_id");
+
+                    } else {
+
+                        $$dets = $value['workexp_' . $dets];
+                    }
+
+                    echo "
+                    var elements = document.querySelectorAll('[name={$name_att}]');
+                    if (elements.length > 0) { 
+                        var selectElement = elements[0];
+                    }
+                    selectElement.value = \"" . $$dets . "\";
+                ";
+                }
+                // echo "<br>";
+            }
+        }
+
+        echo "
+        });
+    </script>";
+    }
+    ?>
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <div class="row ms-5">
@@ -80,7 +172,7 @@
             </div>
             <div class="col-1">
                 <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required
-                    value="₱" onclick="checkNA(this, 'we_salary_na')">
+                    value="₱">
                 <!-- <div class="mt-2">
                     <input class="form-check-input na-checkbox" type="checkbox" id="we_salary_na" name="we_salary_na" oninput="checkNA(this, 'we_salary')">
                     <label class="form-check-label" for="we_salary_na">N/A</label>
@@ -88,7 +180,7 @@
             </div>
             <div class="col-1">
                 <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required
-                    value="" onclick="checkNA(this, 'we_sg_na')">
+                    value="">
                 <!-- <div class="mt-2">
                     <input class="form-check-input na-checkbox" type="checkbox" id="we_sg_na" name="we_sg_na"  oninput="checkNA(this, 'we_sg')">
                     <label class="form-check-label" for="we_sg_na">N/A</label>
@@ -111,7 +203,7 @@
     <!-- BUTTON -->
     <div class="row">
         <div class="col-3">
-            <br><button type="button" class="btn btn-primary add-row-button" name="we_addrow" id="we_addrow"
+            <button type="button" class="btn btn-primary add-row-button" name="we_addrow" id="we_addrow"
                 onclick="addRow_we()">ADD ROW</button>
         </div>
     </div>
@@ -380,22 +472,98 @@
                 });
             }
         });
+
+        const row = checkbox.closest('.row-row_we'); // Find the closest row
+        const presentCheckbox = row.querySelector('[id="present_we"]'); // Find the 'PRESENT' checkbox in the same row
+
+        if (checkbox.checked) {
+            // Uncheck and disable the 'PRESENT' checkbox if 'N/A' is checked
+            if (presentCheckbox) {
+                presentCheckbox.checked = false;
+                presentCheckbox.disabled = true;
+                const toDateInput = row.querySelector('[name="we_date_to[]"]');
+                if (toDateInput) {
+                    toDateInput.type = 'date';
+                    toDateInput.value = "";
+                    toDateInput.disabled = false;
+                }
+            } inputs.forEach((input) => {
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            });
+            selects.forEach((select) => {
+                select.innerHTML = "";
+                const optionNA = document.createElement("option");
+                optionNA.text = "N/A";
+                optionNA.value = "N/A";
+                select.appendChild(optionNA);
+                select.disabled = true;
+            });
+            // Remove cloned rows if they exist
+            const clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
+            clonedRows.forEach((clonedRow) => {
+                if (clonedRow !== checkbox.closest('.row-row_we')) {
+                    clonedRow.remove();
+                }
+            });
+        } else {
+            if (presentCheckbox) {
+                presentCheckbox.disabled = false;
+            }
+
+            // Check the individual "N/A" checkboxes for salary and salary grade
+            // document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+            //     naCheckbox.checked = true;
+            //     var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+            //     toggleNACheckbox(naCheckbox, input);
+            // });
+            // } else {
+            inputs.forEach((input) => {
+                if (input.id == "we_date_from" || input.id == "we_date_to") {
+                    input.type = "date";
+                } else {
+                    input.type = "text";
+                }
+                input.value = "";
+                input.disabled = false;
+            });
+            selects.forEach((select) => {
+                select.innerHTML = "";
+                originalOptions[select.id].forEach((optionData) => {
+                    const option = document.createElement("option");
+                    option.text = optionData.text;
+                    option.value = optionData.value;
+                    select.appendChild(option);
+                });
+                select.disabled = false;
+            });
+
+            // Uncheck the individual "N/A" checkboxes for salary and salary grade
+            document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
+                naCheckbox.checked = false;
+                var input = naCheckbox.closest('div').querySelector('input[type="text"]');
+                toggleNACheckbox(naCheckbox, input);
+            });
+        }
     }
 
     // WORK EXPERIENCE
-    setupNullInputArray_we("null_work_exp", [
-        "we_date_from",
-        "we_date_to",
-        "we_position",
-        "we_agency",
-        "we_salary",
-        "we_sg",
-        "we_status",
-        "we_addrow",
-    ],
+    setupNullInputArray_we("null_work_exp",
+        [
+            "we_date_from",
+            "we_date_to",
+            "we_position",
+            "we_agency",
+            "we_salary",
+            "we_sg",
+            "we_status",
+            "we_addrow",
+        ],
         [
             "we_govtsvcs"
-        ]);
+        ]
+    );
 
     // =================================== Add Row ===================================
     function addRow_we() {

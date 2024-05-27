@@ -7,7 +7,8 @@
         // `cs_eligibility` table
         $sql = "SELECT *
                 FROM `cs_eligibility`
-                WHERE `employee_id` = ?";
+                WHERE `employee_id` = ?
+            ORDER BY `cseligibility_examdate` ASC";
         $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
 
@@ -26,7 +27,7 @@
 
             foreach ($result as $key => $value) {
 
-                $educ_dets = array(
+                $cs_dets = array(
                     "careerservice[]" => "cs",
                     "rating[]" => "rating",
                     "exam_date[]" => "examdate",
@@ -42,7 +43,7 @@
                 }
 
                 $i = 0;
-                foreach ($educ_dets as $key => $dets) {
+                foreach ($cs_dets as $key => $dets) {
 
                     $name_att = json_encode($key);
 
@@ -63,24 +64,6 @@
                         }
                         selectElement.value = \"" . $$dets . "\";
                     ";
-
-                    // if (!in_array($i, [0, 1, 4])) {
-                    //     $chk = json_encode(match ($i) {
-                    //         2 => "null_from{$retrieved_lvl}",
-                    //         3 => "null_to{$retrieved_lvl}",
-                    //         5 => "null_year{$retrieved_lvl}",
-                    //         6 => "null_scholarship{$retrieved_lvl}",
-                    //     });
-                    //     if ($$dets == "N/A") {
-                    //         echo "
-                    //             var checkbox = document.getElementById({$chk});
-                    //             checkbox.checked = true;
-                    //             checkNA_eb(checkbox);
-                    //         ";
-                    //     }
-                    // }
-    
-                    // $i++;
                 }
                 // echo "<br>";
             }
@@ -122,7 +105,7 @@
     </div>
 
     <div class="row-container cs-row">
-        <div class="row row-row-cs mt-3">
+        <div class="row row-row-cs mt-2">
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
@@ -159,7 +142,7 @@
                             class="form-control uppercase group-na-cs" required>
                     </div>
                 </div>
-                <div class="mt-2 text-center">
+                <div class="mt-1 text-center">
                     <input class="form-check-input na-checkbox" type="checkbox" id="na_license" name="na_license"
                         oninput="NA_license(this)">
                     <label class="form-check-label" for="na_license">N/A</label>
@@ -170,7 +153,7 @@
 
     <div class="row">
         <div class="col-3">
-            <br><button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
+            <button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
                 onclick="addRow_cs()">ADD ROW</button>
         </div>
     </div>
