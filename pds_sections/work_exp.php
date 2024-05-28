@@ -124,7 +124,7 @@
 
     <!-- CLEAR BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_we">
-        <strong>CLEAR ALL</strong>
+        <strong>CLEAR SECTION</strong>
     </button>
 
     <!-- NEXT BUTTON -->
@@ -150,7 +150,11 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
+<<<<<<< HEAD
+        var clearInputs = document.querySelectorAll('#null_work_exp');
+=======
         var clearInputs = document.querySelectorAll('#null_work_exp' , '#present_we');
+>>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
         var originalOptions = {};
 
@@ -179,8 +183,12 @@
         document.getElementById('clearButton_we').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.group_na_we');
             inputs.forEach((input) => {
+<<<<<<< HEAD
+                input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" :
+=======
 
                 input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" : 
+>>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
                     input.type = "text";
 
                 input.value = "";
@@ -192,6 +200,10 @@
                 checkbox.disabled = false;
             });
 
+<<<<<<< HEAD
+            // Clear and restore specific select elements
+            clearAndRestoreSelect_we('we_govtsvcs');
+=======
             // Uncheck all "N/A" checkboxes
             var naCheckboxes = document.querySelectorAll('.na-checkbox');
             naCheckboxes.forEach(function (checkbox) {
@@ -229,6 +241,7 @@
                 });
                 select.disabled = false;
             });
+>>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
             // Remove all cloned rows for children
             var childRows = document.querySelectorAll('.row-row_we');
@@ -244,6 +257,19 @@
                 addButton.disabled = false;
             }
         });
+        function clearAndRestoreSelect_we(selectId) {
+            var select = document.getElementById(selectId);
+            if (select && originalOptions[selectId]) {
+                select.innerHTML = ''; // Clear the select options
+                originalOptions[selectId].forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.text = optionData.text;
+                    select.add(option);
+                });
+                select.disabled = false; // Enable the select element
+            }
+        }
     });
 
     //========================= Next Button =====================================

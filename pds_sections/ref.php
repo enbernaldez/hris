@@ -19,13 +19,13 @@
         echo '
             <div class="row mt-3">
                 <div class="col-4">
-                    <input type="text" name="ref_name[]" class="form-control uppercase"' . $required . '>
+                    <input type="text" name="ref_name[]" class="form-control uppercase input_ref"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="ref_address[]" class="form-control uppercase"' . $required . '>
+                    <input type="text" name="ref_address[]" class="form-control uppercase input_ref"' . $required . '>
                 </div>
                 <div class="col-4">
-                    <input type="tel" name="ref_telno[]" id="ref_telno" class="form-control uppercase"' . $required . ' maxlength="11">
+                    <input type="tel" name="ref_telno[]" id="ref_telno" class="form-control uppercase input_ref"' . $required . ' maxlength="11">
                 </div>
             </div>
         ';
@@ -42,19 +42,19 @@
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">Government Issued ID:</span>
                 </div>
-                <input type="text" class="form-control uppercase" name="govtid_type" required>
+                <input type="text" class="form-control uppercase input_ref" name="govtid_type" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">ID/License/Passport No.:</span>
                 </div>
-                <input type="text" class="form-control uppercase" name="govtid_no" required>
+                <input type="text" class="form-control uppercase input_ref" name="govtid_no" required>
             </div>
             <div class="input-group mt-3">
                 <div class="input-group-prepend ref-prepend">
                     <span class="input-group-text">Date/Place of Issuance:</span>
                 </div>
-                <input type="text" class="form-control uppercase" name="govtid_issuance" required>
+                <input type="text" class="form-control uppercase input_ref" name="govtid_issuance" required>
             </div>
         </div>
         <!-- Image -->
@@ -63,7 +63,7 @@
                 <img id="profile_img" name="profile_img" src="images/person.png" alt="profile"
                     style="height:150px; width:auto;">
                 <div class="mt-3">
-                    <input type="file" class="form-control" id="change_photo" name="change_photo" style="width: 150px;"
+                    <input type="file" class="form-control input_ref" id="change_photo" name="change_photo" style="width: 150px;"
                         required>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 
     <!-- CLEAR BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_ref">
-        <strong>CLEAR ALL</strong>
+        <strong>CLEAR SECTION</strong>
     </button>
 
     <!-- SUBMIT BUTTON -->
@@ -90,7 +90,7 @@
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('clearButton_ref').addEventListener('click', function () {
-            var inputs = document.querySelectorAll('.form-control');
+            var inputs = document.querySelectorAll('.input_ref');
             inputs.forEach(function (input) {
                 if (input.id === "ref_telno") {
                     input.type = "tel";
