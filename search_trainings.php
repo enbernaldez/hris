@@ -14,9 +14,3 @@ $filter = array("%$query%");
 $result = query($conn, $sql, $filter);
 
 echo json_encode($result);
-?>
-
-
-
-
-
