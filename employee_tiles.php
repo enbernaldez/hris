@@ -140,28 +140,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             <p>No employees yet.</p>
                                 <?php
                                 echo ($user_type == 'A') ?
-                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                <button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                                '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
-                                </button>
-                            </a>' : '';
-                            ?>
-                        </div>
-                        <div class="mt-5">
-                            <?php
-                            echo ($user_type == 'A') ?
-                                '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                    <button type="button" class="btn btn-primary"
-                                        style="margin-left: 10px; background-color: #283872; border: none;">
-                                        Add Employee
-                                    </button>
-                                </a>' : '';
-                            echo '
-                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
-                                    View organizational chart
-                                </a>
-                            ';
+                                </button>' : '';
                             ?>
                         </div>
                         <?php
