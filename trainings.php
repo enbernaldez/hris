@@ -100,8 +100,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </div>
                 </div>
 
-                <!-- table -->
-                <?php
+ <!-- table -->
+ <?php
                 // $sql = "SELECT DISTINCT `ld_title_id` FROM `learning_development` WHERE `ld_id` = '3'";
                 $sql = "SELECT DISTINCT `ld_title_id`, `date_added`
                             FROM `learning_development`
@@ -116,17 +116,21 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     <?php
                 } else {
                     ?>
-                    <div class="row mt-4">
-                        <table id="trainings">
-                            <thead>
-                                <tr>
-                                    <th class="col-8">Title</th>
-                                    <th class="col-2">Type of LD</th>
-                                    <th class="col-2">Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+
+                <!-- table -->
+                <div class="row mt-4">
+                    <table id="trainings">
+                        <thead>
+                            <tr>
+                                <th class="col-8">Title</th>
+                                <th class="col-2">Type of LD</th>
+                                <th class="col-2">Last Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Trainings will be dynamically added here -->
+
+                            <?php
                                 foreach ($result as $key => $row) {
                                     $title_id = $row['ld_title_id'];
                                     $last_updated = $row['date_added'];
@@ -172,10 +176,11 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                         </tr>";
                                 }
                                 ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <?php
+                        </tbody>
+                    </table>
+                </div>
+
+                <?php
                 }
                 ?>
             </div>
@@ -329,7 +334,59 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     }
     ?>
     <script>
-        function redirect(ld_title_id) {
+document.addEventListener('DOMContentLoaded', function () {
+    const searchBar = document.querySelector('input[name="search_input"]');
+    const trainingsTableBody = document.querySelector('#trainings tbody');
+
+    // Initial rendering of trainings
+    renderTrainings('');
+
+    // Add event listener for search bar input
+    searchBar.addEventListener('input', function () {
+        const searchQuery = searchBar.value.trim();
+        renderTrainings(searchQuery);
+    });
+
+    // Function to render trainings based on search input
+    function renderTrainings(query) {
+        // Fetch trainings data from server
+        fetch('search_trainings.php?query=' + encodeURIComponent(query))
+            .then(response => response.json())
+            .then(data => {
+                // Render trainings
+                render(data);
+            })
+            .catch(error => {
+                console.error('Error fetching trainings:', error);
+            });
+    }
+
+    // Function to render trainings in the table
+    function render(trainings) {
+        trainingsTableBody.innerHTML = ''; // Clear previous content
+
+        if (trainings.length === 0) {
+            trainingsTableBody.innerHTML = '<tr><td colspan="3">No trainings found.</td></tr>';
+            return;
+        }
+
+        trainings.forEach(training => {
+            const row = document.createElement('tr');
+            row.onclick = () => redirect(training.ld_title_id);
+            row.style.cursor = 'pointer';
+
+            row.innerHTML = `
+                <td>${training.ld_title_name}</td>
+                <td>${training.ld_type}</td>
+                <td>${training.date_added}</td>
+            `;
+
+            trainingsTableBody.appendChild(row);
+        });
+    }
+});
+
+function redirect(ld_title_id) {
             window.location = "training_employee.php?title_id=" + ld_title_id;
         }
 
@@ -354,7 +411,45 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
         }
 
-    </script>
+        // <?php
+        // switch ($_GET['add_training']) {
+        //     case 'success':
+        //         $id = $_GET['training_added'];
+
+        //         $sql = "SELECT `ld_title_name`
+        //                 FROM `ld_titles`
+        //                 WHERE `ld_title_id` = ?";
+        //         $filter = array($id);
+        //         $result = query($conn, $sql, $filter);
+
+        //         $row = $result[0];
+        //         $title = $row['ld_title_name'];
+
+        //         // Use json_encode to safely escape strings for JavaScript
+        //         $title_js = json_encode($title);
+
+        //         echo "
+        //             swal('New training added!', 
+        //                 'Training, {$title_js} , has been added to database.', 
+        //                 'success');
+        //         ";
+
+        //         break;
+
+        //     case 'failed':
+        //         echo '
+        //             swal("", "Failed to add new training.", "error");
+        //         ';
+
+        //         break;
+
+        //     default:
+        //         break;
+        // }
+        // ?>
+
+</script>
+
 </body>
 
 </html>

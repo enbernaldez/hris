@@ -294,7 +294,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 </div>
                
                                 <div class="modal-body px-4">
-                                    <form id="add_employee" action="employee_new.php" method="POST">
+                                    <form id="add_employee" action="pds_form_carousel.php" method="POST">
 
                             <div class="row">
                             <div class="my-3">
