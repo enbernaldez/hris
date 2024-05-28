@@ -53,7 +53,7 @@
                     "we_govtsvcs[]" => "govtsvcs",
                 );
 
-                if (isset($from)) {
+                if (isset($daoc)) {
                     echo "
                     addRow_we();
                 ";
@@ -153,7 +153,7 @@
                         <div class="col-6">
                             <input type="date" required name="we_date_to[]" id="we_date_to"
                                 class="form-control uppercase group_na_we" value="">
-                            <div class="form-check d-flex mt-2">
+                            <div class="form-check d-flex mt-1 mb-0">
                                 <input type="checkbox" id="present_we" onclick="presentWe(this)"
                                     class="form-check-input uppercase me-2 remove_present_vw">
                                 <label for="present_we" class="form-check-label">PRESENT</label>
@@ -201,7 +201,7 @@
     </div>
 
     <!-- BUTTON -->
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-3">
             <button type="button" class="btn btn-primary add-row-button" name="we_addrow" id="we_addrow"
                 onclick="addRow_we()">ADD ROW</button>
@@ -366,30 +366,13 @@
         });
     });
 
-    function toggleNACheckbox(checkbox, input) {
-        checkbox.addEventListener('change', function () {
-            if (this.checked) {
-                input.value = "N/A";
-                input.disabled = true;
-            } else {
-                input.value = "";
-                input.disabled = false;
-            }
-        });
-    }
-
-    document.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
-        var input = checkbox.closest('div').querySelector('input[type="text"]');
-        toggleNACheckbox(checkbox, input);
-    });
-
     // ============================ N/A Array Disable ============================
     function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
-        const checkbox = document.getElementById(checkboxId);
-        const inputs = inputIds.map((id) => document.getElementById(id));
-        const selects = selectIds.map((id) => document.getElementById(id));
+        var checkbox = document.querySelector("#" + checkboxId);
+        var inputs = inputIds.map((id) => document.querySelector('[id="' + id + '"]'));
+        var selects = selectIds.map((id) => document.querySelector('[id="' + id + '"]'));
 
-        const originalOptions = {};
+        var originalOptions = {};
 
         selects.forEach((select) => {
             originalOptions[select.id] = Array.from(select.options).map((option) => {
@@ -398,25 +381,30 @@
         });
 
         checkbox.addEventListener("change", function () {
-            const row = this.closest('.row-row_we'); // Find the closest row
-            const presentCheckbox = row.querySelector('[id="present_we"]'); // Find the 'PRESENT' checkbox in the same row
+
+            var row = this.closest('.row-row_we'); // Find the closest row
+            var presentCheckbox = row.querySelector('[id="present_we"]'); // Find the 'PRESENT' checkbox in the same row
 
             if (this.checked) {
                 // Uncheck and disable the 'PRESENT' checkbox if 'N/A' is checked
                 if (presentCheckbox) {
                     presentCheckbox.checked = false;
                     presentCheckbox.disabled = true;
-                    const toDateInput = row.querySelector('[name="we_date_to[]"]');
+                    var toDateInput = row.querySelector('[name="we_date_to[]"]');
                     if (toDateInput) {
                         toDateInput.type = 'date';
                         toDateInput.value = "";
                         toDateInput.disabled = false;
                     }
-                } inputs.forEach((input) => {
+                }
+
+                // clear inputs
+                inputs.forEach((input) => {
                     input.type = "text";
                     input.value = "N/A";
                     input.disabled = true;
                 });
+
                 selects.forEach((select) => {
                     select.innerHTML = "";
                     const optionNA = document.createElement("option");
@@ -425,10 +413,12 @@
                     select.appendChild(optionNA);
                     select.disabled = true;
                 });
+
                 // Remove cloned rows if they exist
-                const clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
+                var clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
+                console.log("here");
                 clonedRows.forEach((clonedRow) => {
-                    if (clonedRow !== checkbox.closest('.row-row_we')) {
+                    if (clonedRow !== this.closest('.row-row_we')) {
                         clonedRow.remove();
                     }
                 });
@@ -437,13 +427,6 @@
                     presentCheckbox.disabled = false;
                 }
 
-                // Check the individual "N/A" checkboxes for salary and salary grade
-                // document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
-                //     naCheckbox.checked = true;
-                //     var input = naCheckbox.closest('div').querySelector('input[type="text"]');
-                //     toggleNACheckbox(naCheckbox, input);
-                // });
-                // } else {
                 inputs.forEach((input) => {
                     if (input.id == "we_date_from" || input.id == "we_date_to") {
                         input.type = "date";
@@ -453,6 +436,7 @@
                     input.value = "";
                     input.disabled = false;
                 });
+
                 selects.forEach((select) => {
                     select.innerHTML = "";
                     originalOptions[select.id].forEach((optionData) => {
@@ -463,31 +447,27 @@
                     });
                     select.disabled = false;
                 });
-
-                // Uncheck the individual "N/A" checkboxes for salary and salary grade
-                document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
-                    naCheckbox.checked = false;
-                    var input = naCheckbox.closest('div').querySelector('input[type="text"]');
-                    toggleNACheckbox(naCheckbox, input);
-                });
             }
         });
 
-        const row = checkbox.closest('.row-row_we'); // Find the closest row
-        const presentCheckbox = row.querySelector('[id="present_we"]'); // Find the 'PRESENT' checkbox in the same row
+        var row = checkbox.closest('.row-row_we'); // Find the closest row
+        var presentCheckbox = row.querySelector('[id="present_we"]'); // Find the 'PRESENT' checkbox in the same row
 
         if (checkbox.checked) {
             // Uncheck and disable the 'PRESENT' checkbox if 'N/A' is checked
             if (presentCheckbox) {
                 presentCheckbox.checked = false;
                 presentCheckbox.disabled = true;
-                const toDateInput = row.querySelector('[name="we_date_to[]"]');
+                var toDateInput = row.querySelector('[name="we_date_to[]"]');
                 if (toDateInput) {
                     toDateInput.type = 'date';
                     toDateInput.value = "";
                     toDateInput.disabled = false;
                 }
-            } inputs.forEach((input) => {
+            }
+
+            // clear inputs
+            inputs.forEach((input) => {
                 input.type = "text";
                 input.value = "N/A";
                 input.disabled = true;
@@ -512,13 +492,6 @@
                 presentCheckbox.disabled = false;
             }
 
-            // Check the individual "N/A" checkboxes for salary and salary grade
-            // document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
-            //     naCheckbox.checked = true;
-            //     var input = naCheckbox.closest('div').querySelector('input[type="text"]');
-            //     toggleNACheckbox(naCheckbox, input);
-            // });
-            // } else {
             inputs.forEach((input) => {
                 if (input.id == "we_date_from" || input.id == "we_date_to") {
                     input.type = "date";
@@ -538,13 +511,6 @@
                 });
                 select.disabled = false;
             });
-
-            // Uncheck the individual "N/A" checkboxes for salary and salary grade
-            document.querySelectorAll('.na-checkbox').forEach(function (naCheckbox) {
-                naCheckbox.checked = false;
-                var input = naCheckbox.closest('div').querySelector('input[type="text"]');
-                toggleNACheckbox(naCheckbox, input);
-            });
         }
     }
 
@@ -558,7 +524,7 @@
             "we_salary",
             "we_sg",
             "we_status",
-            "we_addrow",
+            "we_addrow"
         ],
         [
             "we_govtsvcs"
@@ -568,7 +534,8 @@
     // =================================== Add Row ===================================
     function addRow_we() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row_we").cloneNode(true);
+        var parentRow = document.querySelector(".row-row_we");
+        var newRow = parentRow.cloneNode(true);
 
         // Clear input values in the cloned row
         newRow.querySelectorAll("input").forEach((input) => {
@@ -584,43 +551,68 @@
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the N/A checkbox and its associated text from the cloned row
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
+        var clonedNaCheckbox = parentRow.querySelector(".remove_na");
         if (clonedNaCheckbox) {
             clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
         }
 
         // Remove the present checkbox and its label from the cloned row, and uncheck the present checkbox
-        const clonedPresentCheckbox = newRow.querySelector(".form-check .form-check-input");
-        if (clonedPresentCheckbox) {
-            clonedPresentCheckbox.closest('.form-check').remove();
-        } else {
-            const presentCheckbox = newRow.querySelector('.remove_present_we input[type="checkbox"]');
-            if (presentCheckbox) {
-                presentCheckbox.checked = false;
-            }
+        var origPresentCheckbox = parentRow.querySelector(".form-check .form-check-input");
+        if (origPresentCheckbox) {
+            origPresentCheckbox.closest('.form-check').remove();
+        }
+
+        var presentCheckbox = parentRow.querySelector('.remove_present_we input[type="checkbox"]');
+        if (presentCheckbox) {
+            presentCheckbox.checked = false;
         }
 
         // Show and configure the delete button for the cloned row
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
+        var origDeleteButton = parentRow.querySelector(".delete-row-button");
+        if (origDeleteButton) {
+            origDeleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            origDeleteButton.style.display = "inline-block";
+            origDeleteButton.addEventListener("click", function () {
+                if (parentRow.parentNode) {
+                    parentRow.parentNode.removeChild(parentRow);
+                }
             });
         }
-        newRow.querySelectorAll('.na-checkbox').forEach(function (checkbox) {
-            var input = checkbox.closest('div').querySelector('input[type="text"]');
-            toggleNACheckbox(checkbox, input);
-        });
+
+        // Show and configure the delete button for the cloned row
+        var deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.style.display = "none";
+            deleteButton.addEventListener("click", function () {
+                if (newRow.parentNode) {
+                    newRow.parentNode.removeChild(newRow);
+                }
+            });
+        }
 
         // Enable the TO date field in the cloned row and reset its type to 'date' if 'PRESENT' is not checked
-        const toDateInput = newRow.querySelector('[name="we_date_to[]"]');
+        var toDateInput = newRow.querySelector('[name="we_date_to[]"]');
         if (toDateInput) {
             toDateInput.type = 'date'; // Ensure TO date input field type is set to 'date'
             toDateInput.value = "";
             toDateInput.disabled = false;
         }
+
+        setupNullInputArray_we("null_work_exp",
+            [
+                "we_date_from",
+                "we_date_to",
+                "we_position",
+                "we_agency",
+                "we_salary",
+                "we_sg",
+                "we_status",
+                "we_addrow"
+            ],
+            [
+                "we_govtsvcs"
+            ]
+        );
     }
 
     function setupNullInput(checkboxId, inputId) {

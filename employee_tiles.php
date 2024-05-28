@@ -43,7 +43,6 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             background-color: #E4E9FF;
             border: 1px solid #ccc;
             border-radius: 8px;
-            ;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             padding: 5px 0;
             z-index: 1000;
@@ -421,6 +420,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         var kebab_menus = document.querySelectorAll('.menu-button');
         kebab_menus.forEach(kebab => {
             kebab.addEventListener('click', function (e) { // Listen for 'click' event instead of 'contextmenu'
+                e.preventDefault();
                 var rect = kebab.getBoundingClientRect();
                 var x = rect.left + window.scrollX + 25;
                 var y = rect.top + window.scrollY + 18;
