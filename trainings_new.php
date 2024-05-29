@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hrs = $_POST['numberOfHours'];
     $sponsor = $_POST['conducted_Sponsoredby'];
 
-    $title_id = lookupId($conn, $title, 'ld_titles', 'ld_title_id', 'ld_title_name', '', '');
-    $sponsor_id = lookupId($conn, $sponsor, 'sponsors', 'sponsor_id', 'sponsor_name', '', '');
+    $title_id = lookup($conn, $title, 'ld_titles', 'ld_title_id', 'ld_title_name', '', '');
+    $sponsor_id = lookup($conn, $sponsor, 'sponsors', 'sponsor_id', 'sponsor_name', '', '');
 
     echo "
         Title: " . $title_id . "<br>
@@ -47,3 +47,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header("location: trainings.php?add_training=success&training_added=" . $title_id);
 }
+
