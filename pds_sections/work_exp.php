@@ -6,10 +6,21 @@
 
         // `work_experience` table
         $sql = "SELECT *
-            FROM `work_experience`
-            WHERE `employee_id` = ?
-            ORDER BY `workexp_to` ASC";
-        $filter = array($employee_id);
+                FROM `work_experience`
+                WHERE `employee_id` = ?
+                ORDER BY
+                    CASE 
+                        -- Check if there is more than one workexp_to with '0000-00-00'
+                        WHEN (SELECT COUNT(*) 
+                            FROM `work_experience` 
+                            WHERE `employee_id` = ?
+                            AND `workexp_to` = '0000-00-00') > 1 
+                            AND `workexp_to` = '0000-00-00'
+                        THEN `workexp_from`
+                        ELSE `workexp_to`
+                    END
+                DESC";
+        $filter = array($employee_id, $employee_id);
         $result = query($conn, $sql, $filter);
 
         echo "
@@ -59,7 +70,6 @@
                 ";
                 }
 
-                $i = 0;
                 foreach ($we_dets as $key => $dets) {
 
                     $name_att = json_encode($key);
@@ -242,33 +252,21 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll('#null_work_exp', '#present_we');
 
+        var topRow = document.querySelector(".row-row_we");
         var originalOptions = {};
 
         // Store the original options of each select element
-        var selects = document.querySelectorAll('select');
+        var selects = topRow.querySelectorAll('select');
         selects.forEach(function (select) {
             originalOptions[select.id] = Array.from(select.options).map(function (option) {
                 return { value: option.value, text: option.text };
             });
         });
 
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-                    if (checkbox.checked) {
-                        inputElement.value = '';
-                    } else {
-                        inputElement.disabled = false;
-                    }
-                });
-            });
-        });
-
         document.getElementById('clearButton_we').addEventListener('click', function () {
+            var clearInputs = document.querySelectorAll('#null_work_exp, #present_we');
+
             var inputs = document.querySelectorAll('.group_na_we');
             inputs.forEach((input) => {
 
@@ -284,22 +282,12 @@
                 checkbox.disabled = false;
             });
 
-            // Uncheck all "N/A" checkboxes
-            var naCheckboxes = document.querySelectorAll('.na-checkbox');
-            naCheckboxes.forEach(function (checkbox) {
-                checkbox.checked = false;
-                var input = checkbox.closest('div').querySelector('input[type="text"]');
-                if (input) {
-                    input.value = "";
-                    input.disabled = false;
-                }
-            });
+            // Clear and restore specific select elements
+            clearAndRestoreSelect_we('we_govtsvcs');
 
-            // Uncheck all "PRESENT" checkboxes and reset TO date inputs
+            // reset TO date inputs
             var presentCheckboxes = document.querySelectorAll('#present_we');
             presentCheckboxes.forEach(function (checkbox) {
-                checkbox.checked = false;
-                checkbox.disabled = false; // Ensure the PRESENT checkbox is enabled
                 var row = checkbox.closest('.row-row_we');
                 var toDateInput = row.querySelector('[name="we_date_to[]"]');
                 if (toDateInput) {
@@ -309,33 +297,35 @@
                 }
             });
 
-            // Restore original options for each select element
-            selects.forEach(function (select) {
-                var selectId = select.id;
-                select.innerHTML = '';
-                originalOptions[selectId].forEach(function (optionData) {
-                    var option = document.createElement('option');
-                    option.value = optionData.value;
-                    option.text = optionData.text;
-                    select.add(option);
-                });
-                select.disabled = false;
-            });
-
             // Remove all cloned rows for children
             var childRows = document.querySelectorAll('.row-row_we');
-            var lastIndex = childRows.length - 1;
             childRows.forEach(function (row, index) {
-                if (index !== lastIndex) {
+                if (index !== 0) {
                     row.parentNode.removeChild(row);
                 }
             });
+
             // Enable the "Add Row" button
             var addButton = document.getElementById('we_addrow');
             if (addButton) {
                 addButton.disabled = false;
             }
         });
+
+        function clearAndRestoreSelect_we(selectId) {
+            var select = document.getElementById(selectId);
+            if (select && originalOptions[selectId]) {
+                select.innerHTML = ''; // Clear the select options
+                originalOptions[selectId].forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.text = optionData.text;
+                    select.add(option);
+                });
+                select.disabled = false; // Enable the select element
+            }
+        }
+
     });
 
     //========================= Next Button =====================================
@@ -407,7 +397,7 @@
 
                 selects.forEach((select) => {
                     select.innerHTML = "";
-                    const optionNA = document.createElement("option");
+                    var optionNA = document.createElement("option");
                     optionNA.text = "N/A";
                     optionNA.value = "N/A";
                     select.appendChild(optionNA);
@@ -416,7 +406,6 @@
 
                 // Remove cloned rows if they exist
                 var clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
-                console.log("here");
                 clonedRows.forEach((clonedRow) => {
                     if (clonedRow !== this.closest('.row-row_we')) {
                         clonedRow.remove();
@@ -440,7 +429,7 @@
                 selects.forEach((select) => {
                     select.innerHTML = "";
                     originalOptions[select.id].forEach((optionData) => {
-                        const option = document.createElement("option");
+                        var option = document.createElement("option");
                         option.text = optionData.text;
                         option.value = optionData.value;
                         select.appendChild(option);
@@ -472,16 +461,18 @@
                 input.value = "N/A";
                 input.disabled = true;
             });
+
             selects.forEach((select) => {
                 select.innerHTML = "";
-                const optionNA = document.createElement("option");
+                var optionNA = document.createElement("option");
                 optionNA.text = "N/A";
                 optionNA.value = "N/A";
                 select.appendChild(optionNA);
                 select.disabled = true;
             });
+
             // Remove cloned rows if they exist
-            const clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
+            var clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
             clonedRows.forEach((clonedRow) => {
                 if (clonedRow !== checkbox.closest('.row-row_we')) {
                     clonedRow.remove();
@@ -501,10 +492,11 @@
                 input.value = "";
                 input.disabled = false;
             });
+
             selects.forEach((select) => {
                 select.innerHTML = "";
                 originalOptions[select.id].forEach((optionData) => {
-                    const option = document.createElement("option");
+                    var option = document.createElement("option");
                     option.text = optionData.text;
                     option.value = optionData.value;
                     select.appendChild(option);
@@ -537,9 +529,26 @@
         var parentRow = document.querySelector(".row-row_we");
         var newRow = parentRow.cloneNode(true);
 
+        var parentInputs = parentRow.querySelectorAll("input");
+
         // Clear input values in the cloned row
+        let index = 0;
         newRow.querySelectorAll("input").forEach((input) => {
+            if (input.id != "null_vw") {
+                var oldId = input.getAttribute("id");
+                var newId = generateUniqueId(oldId); // Generate a unique id 
+                parentInputs[index].setAttribute("id", newId);
+
+                //Update corresponding label ID
+                var label = parentRow.querySelector(`label[for="${oldId}"]`);
+                if (label) {
+                    label.setAttribute("for", newId);
+                }
+            }
+
             input.value = "";
+
+            index++
         });
         var salary = newRow.querySelector("#we_salary");
         salary.value = "₱";
@@ -550,18 +559,41 @@
         // Insert the cloned row before the reference node
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        // Remove the N/A checkbox and its associated text from the cloned row
-        var clonedNaCheckbox = parentRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        // Remove the N/A checkbox and its associated text from the parent row
+        var origNaCheckbox = parentRow.querySelector(".remove_na");
+        if (origNaCheckbox) {
+            origNaCheckbox.parentNode.removeChild(origNaCheckbox);
         }
 
-        // Remove the present checkbox and its label from the cloned row, and uncheck the present checkbox
+        var newNaCheckbox = newRow.querySelector(".remove_na");
+        if (newNaCheckbox) {
+            var checkbox = newNaCheckbox.querySelector("input");
+            checkbox.setAttribute("value", "true");
+            newNaCheckbox.addEventListener("change", function () {
+                setupNullInputArray_we("null_work_exp",
+                    [
+                        "we_date_from",
+                        "we_date_to",
+                        "we_position",
+                        "we_agency",
+                        "we_salary",
+                        "we_sg",
+                        "we_status",
+                        "we_addrow"
+                    ],
+                    [
+                        "we_govtsvcs"
+                    ]
+                );
+            });
+        }
+
+        // Remove the present checkbox and its label from the parent row
         var origPresentCheckbox = parentRow.querySelector(".form-check .form-check-input");
         if (origPresentCheckbox) {
             origPresentCheckbox.closest('.form-check').remove();
         }
-
+        // uncheck present checkbox
         var presentCheckbox = parentRow.querySelector('.remove_present_we input[type="checkbox"]');
         if (presentCheckbox) {
             presentCheckbox.checked = false;
@@ -579,7 +611,7 @@
             });
         }
 
-        // Show and configure the delete button for the cloned row
+        // hide and configure the delete button for the cloned row
         var deleteButton = newRow.querySelector(".delete-row-button");
         if (deleteButton) {
             deleteButton.style.display = "none";
@@ -597,22 +629,6 @@
             toDateInput.value = "";
             toDateInput.disabled = false;
         }
-
-        setupNullInputArray_we("null_work_exp",
-            [
-                "we_date_from",
-                "we_date_to",
-                "we_position",
-                "we_agency",
-                "we_salary",
-                "we_sg",
-                "we_status",
-                "we_addrow"
-            ],
-            [
-                "we_govtsvcs"
-            ]
-        );
     }
 
     function setupNullInput(checkboxId, inputId) {
@@ -648,7 +664,15 @@
         })
     }
 
-    // setupNullInput("we_salary_na", "we_salary");
-    // setupNullInput("we_sg_na", "we_sg");
-
+    document.addEventListener("DOMContentLoaded", function () {
+        var position = document.querySelector('[id="we_position"]');
+        if (position.value != "N/A" && position.value != "") {
+            var presentCheckbox = document.querySelector('[id="present_we"]');
+            var dateTo = document.querySelector('[id="we_date_to"]');
+            if (dateTo.value == "") {
+                presentCheckbox.checked = true;
+                presentWe(presentCheckbox);
+            }
+        }
+    });
 </script>
