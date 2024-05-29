@@ -14,6 +14,21 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
 </head>
+<style>
+    .positioned-image {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 45%;
+        height: auto;
+    }
+    #visionHeading, #corevaluesHeading, #qualitypolicyHeading, #missionHeading{
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
+        box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.3);
+    }
+</style>
 
 <body>
     <div class="container-fluid overflow-hidden">
@@ -121,6 +136,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </div>
                 </div>
             </div>
+            <img src="images/LOGO.png" alt="" class="positioned-image">
         </div>
     </div>
     <?php
