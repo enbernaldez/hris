@@ -751,7 +751,7 @@
         // Store the original options of each select element
         selects.forEach((select) => {
             newOptions[select.id] = Array.from(select.options).map((option) => {
-                return { value: option.value, text: option.text };
+                return { value: option.value, text: option.text };  
             });
         });
 

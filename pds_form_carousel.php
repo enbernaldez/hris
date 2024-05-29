@@ -72,6 +72,14 @@ if ($_SESSION['user_type'] != 'A') {
         .ref-prepend {
             width: 200px;
         }
+        .positioned-image {
+        position: fixed;
+        z-index: -1;
+        right: 0;
+        bottom: 0;
+        width: 35%;
+        height: auto;
+    }
     </style>
 </head>
 
@@ -198,7 +206,7 @@ if ($_SESSION['user_type'] != 'A') {
 
                     </div>
                 </form>
-
+                <img src="images/LOGO.png" alt="" class="positioned-image">
             </div>
         </div>
     </div>
@@ -256,11 +264,10 @@ if ($_SESSION['user_type'] != 'A') {
                 return true;
             }
 
-
             // Event listener for carousel navigation
             document.querySelectorAll('.carousel-nav').forEach((navItem, index) => {
                 navItem.addEventListener('click', function (event) {
-                    for (let i = 0; i <= index; i++) {
+                    for (let i = 0; i < index; i++) {
                         if (!validateSection(sections[i])) {
                             event.preventDefault();
                             alert('Please fill out all required fields in the ' + sections[i].replace(/_/g, ' ') + ' section before proceeding.');

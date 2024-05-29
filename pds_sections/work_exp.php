@@ -150,11 +150,7 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-<<<<<<< HEAD
-        var clearInputs = document.querySelectorAll('#null_work_exp');
-=======
         var clearInputs = document.querySelectorAll('#null_work_exp' , '#present_we');
->>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
         var originalOptions = {};
 
@@ -183,12 +179,8 @@
         document.getElementById('clearButton_we').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.group_na_we');
             inputs.forEach((input) => {
-<<<<<<< HEAD
-                input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" :
-=======
 
                 input.id == "we_date_from" || input.id == "we_date_to" ? input.type = "date" : 
->>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
                     input.type = "text";
 
                 input.value = "";
@@ -200,10 +192,8 @@
                 checkbox.disabled = false;
             });
 
-<<<<<<< HEAD
             // Clear and restore specific select elements
             clearAndRestoreSelect_we('we_govtsvcs');
-=======
             // Uncheck all "N/A" checkboxes
             var naCheckboxes = document.querySelectorAll('.na-checkbox');
             naCheckboxes.forEach(function (checkbox) {
@@ -241,7 +231,6 @@
                 });
                 select.disabled = false;
             });
->>>>>>> 3bd8a40b9c79fbf88d9354ba64ba8d860984ebb2
 
             // Remove all cloned rows for children
             var childRows = document.querySelectorAll('.row-row_we');
