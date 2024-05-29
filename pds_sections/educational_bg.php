@@ -37,7 +37,7 @@
                 "scholarship" => "scholarship_acad_honors"
             );
 
-            if(isset(${"{$acadlvl}_school"})) {
+            if (isset(${"{$acadlvl}_school"})) {
                 echo "
                     var selectElement = document.getElementById('name_school{$retrieved_lvl}');
                     var parentRow = selectElement.closest('.parent-row');
@@ -57,7 +57,7 @@
 
                     $det = ($dets == "bdc") ? "basiced_degree_course" : "schools";
                     ${"{$acadlvl}_{$dets}"} = lookup($conn, $value["{$dets}_id"], "{$det}", "{$dets}_name", "{$dets}_id");
-    
+
                 } else {
 
                     ${"{$acadlvl}_{$dets}"} = $value['educ_' . $dets];
@@ -306,10 +306,17 @@
                             id="p_attendance_toV" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
+                        <input type="text" class="form-control present-input" id="topresentV" style="display: none;"
+                            disabled>
                         <div class="form-check ms-2">
                             <input class="form-check-input" type="checkbox" id="null_toV" onchange="checkNA_eb(this)"
                                 data-target="null_toV">
                             <label class="form-check-label" for="null_toV">N/A</label>
+                            <div class="small-font present">
+                                <input class="form-check-input" type="checkbox" id="present_toV"
+                                    data-target="present_toV" onchange="presentEb(this)">
+                                <label class="form-check-label" for="present_toV">PRE</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,10 +393,17 @@
                             id="p_attendance_toC" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
+                        <input type="text" class="form-control present-input" id="topresentC" style="display: none;"
+                            disabled>
                         <div class="form-check ms-2">
                             <input class="form-check-input" type="checkbox" id="null_toC" onchange="checkNA_eb(this)"
                                 data-target="null_toC">
                             <label class="form-check-label" for="null_toC">N/A</label>
+                            <div class="small-font present">
+                                <input class="form-check-input" type="checkbox" id="present_toC"
+                                    data-target="present_toC" onchange="presentEb(this)">
+                                <label class="form-check-label" for="present_toC">PRE</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -475,8 +489,8 @@
                             id="p_attendance_toG" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
-                        <input type="text" class="form-control present-input" id="topresentG"
-                            style="display: none;" disabled>
+                        <input type="text" class="form-control present-input" id="topresentG" style="display: none;"
+                            disabled>
                         <div class="form-check ms-2">
                             <input class="form-check-input" type="checkbox" id="null_toG" onchange="checkNA_eb(this)"
                                 data-target="null_toG">
@@ -559,7 +573,7 @@
     }
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_fromE, #null_toE, #null_yearE, #null_scholarshipE, #null_fromS, #null_toS, #null_yearS, #null_scholarshipS, #null_vocational, #null_fromV, #null_toV, #null_yearV, #null_scholarshipV, #null_fromC, #null_toC, #null_yearC, #null_scholarshipC, #null_graduate, #null_fromG, #null_toG, #null_yearG, #null_scholarshipG, #present_toG");
+        var clearInputs = document.querySelectorAll("#null_fromE, #null_toE, #null_yearE, #null_scholarshipE, #null_fromS, #null_toS, #null_yearS, #null_scholarshipS, #null_vocational, #null_fromV, #null_toV, #null_yearV, #null_scholarshipV, #null_fromC, #null_toC, #null_yearC, #null_scholarshipC, #null_graduate, #null_fromG, #null_toG, #null_yearG, #null_scholarshipG, #present_toG, #present_toV, #present_toC");
         var originalSelectOptions = {};
 
         //List of specific select elements IDs to be cleared and restored 
@@ -578,7 +592,7 @@
         document.getElementById('clearButton_eb').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.next_button, .present-input');
             inputs.forEach(function (input) {
-                if (input.id == "topresentG") {
+                if (input.id === "topresentG" || input.id === "topresentV" || input.id === "topresentC") {
                     input.style.display = "none";
                 }
                 input.value = '';
@@ -610,7 +624,7 @@
                         option.value = optionData.value;
                         select.add(option);
                     });
-                    if (selectId == "p_attendance_toG") {
+                    if (selectId === "p_attendance_toG" || selectId === "p_attendance_toC" || selectId === "p_attendance_toV") {
                         select.style.display = "block";
                     }
                 }
@@ -669,7 +683,7 @@
         var chk_col = checkbox.closest('.checkbox-container');
         var chk_input = chk_col.querySelector("input[type='text']");
         var chk_select = chk_col.querySelector("select");
-        var presentCheckbox = chk_col.querySelector("input[id^='present_toG']");
+        var presentCheckbox = chk_col.querySelector("input[id^='present_toG'], input[id^='present_toV'], input[id^='present_toC']");
 
         if (checkbox.checked) {
             if (chk_select) {
@@ -740,18 +754,20 @@
     // Define an object to store the original options of each select element
     const newOptions = {};
 
-    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, onlyDisableChkboxId, onlyDisableInputId) {
+    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId, presentInputId, onlyDisableChkboxId, onlyDisableInputId) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
+        const presentCheckbox = document.getElementById(presentChkId);
+        const presentInput = document.getElementById(presentInputId);
         const onlyDisableCheckbox = document.getElementById(onlyDisableChkboxId);
         const onlyDisableInput = document.getElementById(onlyDisableInputId);
 
         // Store the original options of each select element
         selects.forEach((select) => {
             newOptions[select.id] = Array.from(select.options).map((option) => {
-                return { value: option.value, text: option.text };  
+                return { value: option.value, text: option.text };
             });
         });
 
@@ -787,6 +803,10 @@
                 clonedRows.forEach((clonedRow) => {
                     clonedRow.remove();
                 });
+                presentCheckbox.checked = false;
+                presentInput.style.display = 'none';
+                presentInput.value = "";
+                presentInput.disabled = false;
             } else {
                 inputs.forEach((input) => {
                     input.value = "";
@@ -841,6 +861,10 @@
             clonedRows.forEach((clonedRow) => {
                 clonedRow.remove();
             });
+            presentCheckbox.checked = false;
+            presentInput.style.display = 'none';
+            presentInput.value = "";
+            presentInput.disabled = false;
         } else {
             inputs.forEach((input) => {
                 input.value = "";
@@ -889,6 +913,8 @@
                 "null_year" + lvl,
                 "null_scholarship" + lvl,
             ],
+            "present_to" + lvl,
+            "topresent" + lvl
         );
     });
 
@@ -946,18 +972,18 @@
         //Add the new-row class to the cloned row 
         clonedRow.classList.add('new-row');
 
-                const levelandPresent = clonedRow.querySelectorAll(".level, .present");
-                levelandPresent.forEach(element => {
-                    element.hidden = true;
-                });
+        const levelandPresent = clonedRow.querySelectorAll(".level, .present");
+        levelandPresent.forEach(element => {
+            element.hidden = true;
+        });
 
-                // Clear checkbox values and enable checkboxes in the cloned row
-                const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(function (checkbox) {
-                    if (checkbox.checked) {
-                        checkbox.checked = false; // Uncheck the checkbox if it's checked
-                    }
-                });
+        // Clear checkbox values and enable checkboxes in the cloned row
+        const checkboxes = clonedRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
+        });
 
         // Find all select elements in the cloned row
         const selects = clonedRow.querySelectorAll('select');
@@ -970,7 +996,7 @@
             select.innerHTML = "";
 
             var option = document.createElement("option");
-            option.text = "--SELECT----SELECT--"; // Add --SELECT-- option
+            option.text = "--SELECT--"; // Add --SELECT-- option
             option.value = ""; // Empty value for --SELECT--
             option.selected = true;
             option.disabled = true;
@@ -978,9 +1004,9 @@
 
             select.value = ''; // Set the value to an empty string
 
-                    // Populate year dropdowns or other options as necessary
-                    populateYearDropdowns(select);
-                });
+            // Populate year dropdowns or other options as necessary
+            populateYearDropdowns(select);
+        });
 
         //Remove the n/a checkbox and its associated text from the cloned row
         const clonedNaCheckbox = clonedRow.querySelector(".remove_na");
