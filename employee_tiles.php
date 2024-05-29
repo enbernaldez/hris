@@ -132,51 +132,33 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 $result = query($conn, $sql, $filter);
                 ?>
 
-                <?php
-                if (empty($result)) {
-                    ?>
-                    <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
-                        <p>No employees yet.</p>
-                        <?php
-                        echo ($user_type == 'A') ?
-                            '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                <button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                    <?php
+                    if (empty($result)) {
+                        ?>
+                        <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
+                            <p>No employees yet.</p>
+                                <?php
+                                echo ($user_type == 'A') ?
+                                '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
-                                </button>
-                            </a>' : '';
-                        ?>
-                    </div>
-                    <div class="mt-5">
+                                </button>' : '';
+                            ?>
+                        </div>
                         <?php
-                        echo ($user_type == 'A') ?
-                            '<a href="pds_form_carousel.php?action=add&office=' . $_GET['office'] . '">
-                                    <button type="button" class="btn btn-primary"
-                                        style="margin-left: 10px; background-color: #283872; border: none;">
-                                        Add Employee
-                                    </button>
-                                </a>' : '';
-                        echo '
-                                <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
-                                    View organizational chart
-                                </a>
-                            ';
+                    } else {
                         ?>
-                    </div>
-                    <?php
-                } else {
-                    ?>
-                    <div class="row tilerow mt-3">
-                        <?php
-                        foreach ($result as $key => $row) {
-                            // transfer database values to local variables
-                            $id = $row['employee_id']; // get variable employee_id=$id
-                            $lastname = $row['employee_lastname'];
-                            $firstname = $row['employee_firstname'];
-                            $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
-                            $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
-                            $imgdir = $row['employee_imgdir'];
-                            $position_id = $row['position_id'];
+                        <div class="row tilerow mt-3">
+                            <?php
+                            foreach ($result as $key => $row) {
+                                // transfer database values to local variables
+                                $id = $row['employee_id']; // get variable employee_id=$id
+                                $lastname = $row['employee_lastname'];
+                                $firstname = $row['employee_firstname'];
+                                $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
+                                $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
+                                $imgdir = $row['employee_imgdir'];
+                                $position_id = $row['position_id'];
 
                             // retrieve position title of an employee
                             $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
@@ -427,7 +409,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
             });
         });
-
+        
         function checkNA(checkbox, inputId) {
             var inputField = document.getElementById(inputId);
             if (checkbox.checked) {

@@ -622,7 +622,7 @@
 
     <!-- CLEAR BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_pi">
-        <strong>CLEAR ALL</strong>
+        <strong>CLEAR SECTION</strong>
     </button>
 
     <!-- NEXT BUTTON -->
@@ -643,46 +643,17 @@
         var clearInputs = document.querySelectorAll("#null_middle, #null_ext, #null_rsv, #null_rst, #null_rhbl, #same_add, #null_psv, #null_pst, #null_phbl, #null_telno, #null_emailadd");
         var originalSelectOptions = {};
 
-        // Store the original options of each select element
-        var selects = document.querySelectorAll('select');
-        selects.forEach((select) => {
-            originalSelectOptions[select.id] = Array.from(select.options).map((option) => {
-                return { value: option.value, text: option.text };
-            });
-        });
+        //List of specific select elements IDs to be cleared and restored
+        var specificSelectIds = ["sex", "civilstatus", "bloodtype", "citizenship", "citizenship_by", "radd_province", "radd_citymunicipality", "padd_province", "padd_citymunicipality"];
 
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-
-                    if (checkbox.checked) {
-                        if (inputElement.tagName.toLowerCase() === 'select') {
-                            inputElement.innerHTML = '';
-                            var option = document.createElement('option');
-                            option.text = 'N/A';
-                            option.value = 'N/A';
-                            inputElement.add(option);
-                        } else {
-                            inputElement.value = '';
-                        }
-                    } else {
-                        if (inputElement.tagName.toLowerCase() === 'select') {
-                            inputElement.disabled = false;
-                            inputElement.innerHTML = '';
-                            originalSelectOptions[targetId.trim()].forEach((optionData) => {
-                                var option = document.createElement('option');
-                                option.text = optionData.text;
-                                option.value = optionData.value;
-                                inputElement.add(option);
-                            });
-                        } else {
-                            inputElement.disabled = false;
-                        }
-                    }
+        // Store the original options of each specific select element
+        specificSelectIds.forEach((selectId) => {
+            var select = document.getElementById(selectId);
+            if (select) {
+                originalSelectOptions[selectId] = Array.from(select.options).map((option) => {
+                    return { value: option.value, text: option.text };
                 });
-            });
+            }
         });
 
         document.getElementById('clearButton_pi').addEventListener('click', function () {
@@ -697,16 +668,19 @@
                 checkbox.disabled = false; //
             });
 
-            // Restore original select options for all selects
-            selects.forEach(function (select) {
-                select.disabled = false;
-                select.innerHTML = '';
-                originalSelectOptions[select.id].forEach((optionData) => {
-                    var option = document.createElement('option');
-                    option.text = optionData.text;
-                    option.value = optionData.value;
-                    select.add(option);
-                });
+            // Restore original select options for specific selects
+            specificSelectIds.forEach((selectId) => {
+                var select = document.getElementById(selectId);
+                if (select) {
+                    select.disabled = false;
+                    select.innerHTML = '';
+                    originalSelectOptions[selectId].forEach((optionData) => {
+                        var option = document.createElement('option');
+                        option.text = optionData.text;
+                        option.value = optionData.value;
+                        select.add(option);
+                    });
+                }
             });
         });
     });
