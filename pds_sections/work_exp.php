@@ -544,9 +544,9 @@
                 if (label) {
                     label.setAttribute("for", newId);
                 }
-            }
 
-            input.value = "";
+                input.value = "";
+            }
 
             index++
         });

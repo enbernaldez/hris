@@ -3,8 +3,8 @@
 if (isset($_GET['employee_id'])) {
 
     $sql = "SELECT *
-FROM `employees`
-WHERE `employee_id` = ?";
+            FROM `employees`
+            WHERE `employee_id` = ?";
     $filter = array($_GET['employee_id']);
     $result = query($conn, $sql, $filter);
     $row = $result[0];

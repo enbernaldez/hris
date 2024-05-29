@@ -133,8 +133,8 @@
                         <input type="date" required name="vw_date_to[]" id="vw_date_to"
                             class="form-control uppercase group_na_vw">
                         <div class="form-check d-flex mt-1 mb-0">
-                            <input type="checkbox" id="present_vw" name="present_vw[]" onclick="presentVw(this)" name="present"
-                                class="form-check-input uppercase me-2 remove_present_vw">
+                            <input type="checkbox" id="present_vw" name="present_vw[]" onclick="presentVw(this)"
+                                name="present" class="form-check-input uppercase me-2 remove_present_vw">
                             <label for="present_vw" class="form-check-label">PRESENT</label>
                         </div>
                     </div>
@@ -404,9 +404,9 @@
                 if (label) {
                     label.setAttribute("for", newId);
                 }
-            }
 
-            input.value = "";
+                input.value = "";
+            }
 
             index++
         });

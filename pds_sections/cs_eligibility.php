@@ -179,25 +179,13 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_cse");
-
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-                    if (checkbox.checked) {
-                        inputElement.value = '';
-                    } else {
-                        inputElement.disabled = false;
-                    }
-                });
-            });
-        });
 
         document.getElementById('clearButton_cs').addEventListener('click', function () {
+            var clearInputs = document.querySelectorAll("#null_cse");
+
             var inputs = document.querySelectorAll('.group-na-cs');
             inputs.forEach(function (input) {
+
                 input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
                     input.id == "license_number" ? input.type = "number" :
                         input.type = "text";
@@ -212,9 +200,8 @@
             });
 
             var childRows = document.querySelectorAll('.row-row-cs');
-            var lastIndex = childRows.length - 1;
             childRows.forEach(function (row, index) {
-                if (index !== lastIndex) {
+                if (index !== 0) {
                     row.parentNode.removeChild(row);
                 }
             });
@@ -323,34 +310,75 @@
     }
 
     function addRow_cs() {
-        var newRow = document.querySelector(".row-row-cs").cloneNode(true);
+        var parentRow = document.querySelector(".row-row-cs");
+        var newRow = parentRow.cloneNode(true);
 
+        var parentInputs = parentRow.querySelectorAll("input");
+
+        // Clear input values in the cloned row
+        let index = 0;
         newRow.querySelectorAll("input").forEach((input) => {
-            input.value = "";
-            input.disabled = false;
+            if (input.id != "null_cse") {
+                var oldId = input.getAttribute("id");
+                var newId = generateUniqueId(oldId); // Generate a unique id 
+                parentInputs[index].setAttribute("id", newId);
+
+                //Update corresponding label ID
+                var label = parentRow.querySelector(`label[for="${oldId}"]`);
+                if (label) {
+                    label.setAttribute("for", newId);
+                }
+
+                input.value = "";
+            }
+
+            index++
+        });
+
+        // Clear checkbox values and enable checkboxes in the cloned row
+        var checkboxes = newRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
         });
 
         var referenceNode = document.querySelector(".cs-row .row-row-cs");
 
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        var origNaCheckbox = parentRow.querySelector(".remove_na");
+        if (origNaCheckbox) {
+            origNaCheckbox.parentNode.removeChild(origNaCheckbox);
         }
 
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
+        var newNaCheckbox = newRow.querySelector(".remove_na");
+        if (newNaCheckbox) {
+            var checkbox = newNaCheckbox.querySelector("input");
+            checkbox.setAttribute("value", "true");
+            newNaCheckbox.addEventListener("change", function () {
+                checkNA_cs(checkbox);
             });
         }
-        const naCheckbox = newRow.querySelector(".na-checkbox");
-        if (naCheckbox) {
-            naCheckbox.addEventListener("input", function () {
-                checkNA(this, 'license_number', 'license_dateofvalidity');
+
+        var origDeleteButton = parentRow.querySelector(".delete-row-button");
+        if (origDeleteButton) {
+            origDeleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            origDeleteButton.style.display = "inline-block";
+            origDeleteButton.addEventListener("click", function () {
+                if (parentRow.parentNode) {
+                    parentRow.parentNode.removeChild(parentRow);
+                }
+            });
+        }
+
+        var deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.style.display = "none";
+            deleteButton.addEventListener("click", function () {
+                if (newRow.parentNode) {
+                    newRow.parentNode.removeChild(newRow);
+                }
             });
         }
     }
