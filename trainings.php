@@ -50,7 +50,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
-            text-transform: uppercase; /* Apply uppercase transformation */
+            text-transform: uppercase;
+            /* Apply uppercase transformation */
         }
 
         th {
@@ -64,7 +65,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
         /* form labels */
         .form-label {
-            text-transform: uppercase; /* Apply uppercase transformation to form labels */
+            text-transform: uppercase;
+            /* Apply uppercase transformation to form labels */
         }
     </style>
 </head>
@@ -275,139 +277,137 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     ?>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    // Select the search bar element
-    const searchBar = document.querySelector('input[name="search_input"]');
-    
-    // Select the tbody element where the trainings will be displayed
-    const trainingsTableBody = document.querySelector('#trainings');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select the search bar element
+            const searchBar = document.querySelector('input[name="search_input"]');
 
-    // Initial rendering of trainings with an empty query (display all trainings)
-    renderTrainings('');
+            // Select the tbody element where the trainings will be displayed
+            const trainingsTableBody = document.querySelector('#trainings');
 
-    // Add an event listener to the search bar for user input
-    searchBar.addEventListener('input', function () {
-        // Get the trimmed value from the search bar
-        const searchQuery = searchBar.value.trim();
-        // Render trainings based on the search query
-        renderTrainings(searchQuery);
-    });
+            // Initial rendering of trainings with an empty query (display all trainings)
+            renderTrainings('');
 
-    // Function to render trainings based on search input
-    function renderTrainings(query) {
-        // Fetch trainings data from the server using the search query
-        fetch('search_trainings.php?query=' + encodeURIComponent(query))
-            .then(response => response.json()) // Convert the response to JSON
-            .then(data => {
-                // Process data to remove duplicates and merge types of LD
-                const processedData = processTrainings(data);
-                // Render the processed trainings data
-                render(processedData);
-            })
-            .catch(error => {
-                console.error('Error fetching trainings:', error);
+            // Add an event listener to the search bar for user input
+            searchBar.addEventListener('input', function () {
+                // Get the trimmed value from the search bar
+                const searchQuery = searchBar.value.trim();
+                // Render trainings based on the search query
+                renderTrainings(searchQuery);
             });
-    }
 
-    // Function to process trainings data
-    function processTrainings(trainings) {
-        // Initialize an empty object to store processed trainings
-        const trainingMap = {};
+            // Function to render trainings based on search input
+            function renderTrainings(query) {
+                // Fetch trainings data from the server using the search query
+                fetch('search_trainings.php?query=' + encodeURIComponent(query))
+                    .then(response => response.json()) // Convert the response to JSON
+                    .then(data => {
+                        // Process data to remove duplicates and merge types of LD
+                        const processedData = processTrainings(data);
+                        // Render the processed trainings data
+                        render(processedData);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching trainings:', error);
+                    });
+            }
 
-        // Loop through each training in the array
-        trainings.forEach(training => {
-            const { ld_title_name, ld_types, date_added, ld_title_id } = training;
+            // Function to process trainings data
+            function processTrainings(trainings) {
+                // Initialize an empty object to store processed trainings
+                const trainingMap = {};
 
-            // Check if the title already exists in the map
-            if (!trainingMap[ld_title_name]) {
-                // If not, add a new entry with a Set to store unique types of LD
-                trainingMap[ld_title_name] = {
-                    ld_title_name: ld_title_name,
-                    ld_types: new Set(ld_types.split('/').map(type => type.toUpperCase())), // Initialize Set with ld_types
-                    date_added: date_added,
-                    ld_title_id: ld_title_id
-                };
-            } else {
-                // If the title exists, add the types of LD to the Set
-                ld_types.split('/').forEach(type => {
-                    trainingMap[ld_title_name].ld_types.add(type.toUpperCase());
+                // Loop through each training in the array
+                trainings.forEach(training => {
+                    const { ld_title_name, ld_types, date_added, ld_title_id } = training;
+
+                    // Check if the title already exists in the map
+                    if (!trainingMap[ld_title_name]) {
+                        // If not, add a new entry with a Set to store unique types of LD
+                        trainingMap[ld_title_name] = {
+                            ld_title_name: ld_title_name,
+                            ld_types: new Set(ld_types.split('/').map(type => type.toUpperCase())), // Initialize Set with ld_types
+                            date_added: date_added,
+                            ld_title_id: ld_title_id
+                        };
+                    } else {
+                        // If the title exists, add the types of LD to the Set
+                        ld_types.split('/').forEach(type => {
+                            trainingMap[ld_title_name].ld_types.add(type.toUpperCase());
+                        });
+                    }
+                });
+
+                // Convert the map back to an array and join the Set of types into a string
+                return Object.values(trainingMap).map(training => {
+                    training.ld_types = Array.from(training.ld_types).join(', ');
+                    return training;
                 });
             }
-        });
 
-        // Convert the map back to an array and join the Set of types into a string
-        return Object.values(trainingMap).map(training => {
-            training.ld_types = Array.from(training.ld_types).join(', ');
-            return training;
-        });
-    }
+            // Function to format date to a word format 
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const date = new Date(dateString);
+                return date.toLocaleDateString(undefined, options).toUpperCase(); // Convert date to uppercase
+            }
 
-    // Function to format date to a word format 
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, options).toUpperCase(); // Convert date to uppercase
-    }
+            // Function to render trainings in the table
+            function render(trainings) {
+                trainingsTableBody.innerHTML = ''; // Clear previous content
 
-    // Function to render trainings in the table
-    function render(trainings) {
-        trainingsTableBody.innerHTML = ''; // Clear previous content
+                if (trainings.length === 0) {
+                    trainingsTableBody.innerHTML = '<tr><td colspan="3">No trainings found.</td></tr>';
+                    return;
+                }
 
-        if (trainings.length === 0) {
-            trainingsTableBody.innerHTML = '<tr><td colspan="3">No trainings found.</td></tr>';
-            return;
-        }
+                trainings.forEach(training => {
+                    const row = document.createElement('tr');
+                    row.onclick = () => redirect(training.ld_title_id);
+                    row.style.cursor = 'pointer';
 
-        trainings.forEach(training => {
-            const row = document.createElement('tr');
-            row.onclick = () => redirect(training.ld_title_id);
-            row.style.cursor = 'pointer';
+                    const formattedDate = formatDate(training.date_added);
 
-            const formattedDate = formatDate(training.date_added);
+                    // Ensure types of LD are unique and join them as a string
+                    const uniqueTypes = [...new Set(training.ld_types.split(', '))];
 
-            // Ensure types of LD are unique and join them as a string
-            const uniqueTypes = [...new Set(training.ld_types.split(', '))];
-
-            row.innerHTML = `
+                    row.innerHTML = `
                 <td>${training.ld_title_name.toUpperCase()}</td>
                 <td>${uniqueTypes.join('/ ')}</td>
                 <td>${formattedDate}</td>
             `;
 
-            trainingsTableBody.appendChild(row);
+                    trainingsTableBody.appendChild(row);
+                });
+            }
+
+            // Redirect function to navigate to another page
+            function redirect(ld_title_id) {
+                window.location = "training_employee.php?title_id=" + ld_title_id;
+            }
         });
-    }
 
-    // Redirect function to navigate to another page
-    function redirect(ld_title_id) {
-        window.location = "training_employee.php?title_id=" + ld_title_id;
-    }
+        // Add row functionality
+        function addInput() {
+            var container = document.querySelector('.row-container');
 
-    // Add row functionality
-    function addInput() {
-        var container = document.querySelector('.row-container');
+            // Clone the selected employee dropdown
+            var selectedEmployee = document.querySelector('.training_employee');
+            var clonedEmployee = selectedEmployee.cloneNode(true);
+            clonedEmployee.removeAttribute('id');
+            clonedEmployee.removeAttribute('required');
 
-        // Clone the selected employee dropdown
-        var selectedEmployee = document.querySelector('.training_employee');
-        var clonedEmployee = selectedEmployee.cloneNode(true);
-        clonedEmployee.removeAttribute('id');
-        clonedEmployee.removeAttribute('required');
+            container.appendChild(clonedEmployee);
 
-        container.appendChild(clonedEmployee);
-
-        // Create delete button
-        var deleteButton = clonedEmployee.querySelector('.delete-row-button');
-        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-        deleteButton.addEventListener('click', function () {
-            clonedEmployee.parentNode.removeChild(clonedEmployee);
-        });
-        deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
-    }
-});
+            // Create delete button
+            var deleteButton = clonedEmployee.querySelector('.delete-row-button');
+            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            deleteButton.addEventListener('click', function () {
+                clonedEmployee.parentNode.removeChild(clonedEmployee);
+            });
+            deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
+        }
 
     </script>
 </body>
+
 </html>
-
-
-
