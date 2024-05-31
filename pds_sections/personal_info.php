@@ -294,10 +294,6 @@
                 </option>";
                 <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
                     CITIZENSHIP</option>";
-                <option value='F' <?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO
-                </option>";
-                <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
-                    CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
@@ -305,10 +301,6 @@
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--SELECT--</option>
                 <option value="F" hidden<?php echo isset($citizenship) ? "" : " selected"; ?>>N/A</option>
-                <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
-                </option>";
-                <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
-                    NATURALIZATION</option>";
                 <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
                 </option>";
                 <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
@@ -655,13 +647,16 @@
         document.getElementById('clearButton_pi').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.input');
             inputs.forEach(function (input) {
-                input.value = '';
-                input.disabled = false;
+                // Check if the input id is citizenship_country and its value is "N/A"
+                if (!(input.id === 'citizenship_country' && input.value === 'N/A')) {
+                    input.value = '';
+                    input.disabled = false;
+                }
             });
 
             clearInputs.forEach(function (checkbox) {
                 checkbox.checked = false;
-                checkbox.disabled = false; //
+                checkbox.disabled = false;
             });
 
             // Restore original select options for specific selects

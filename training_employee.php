@@ -44,6 +44,7 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
+            text-transform: uppercase; /* Capitalize text */
         }
 
         th {
@@ -87,7 +88,7 @@
                     style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px;">
                     <h4 class="titletext uppercase auto-fit-text">
                         <strong>
-                            <?php echo $title; ?>
+                            <?php echo htmlspecialchars($title); ?>
                         </strong>
                     </h4>
                 </div>
@@ -96,8 +97,7 @@
                 <div class="row mt-3">
                     <div class="col-1">
                         <a href="trainings.php">
-                            <i class="bi bi-arrow-left-circle" id="backArrow"
-                                style="font-size: 30px; color: #283872"></i>
+                            <i class="bi bi-arrow-left-circle" id="backArrow" style="font-size: 30px; color: #283872"></i>
                         </a>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                             $result = query($conn, $sql, $filter);
 
                             if (!empty($result)) {
-                                foreach ($result as $key => $row) {
+                                foreach ($result as $row) {
                                     // transfers value of retrieved variables to local variables
                                     $employee_id = $row['employee_id'];
                                     $ld_from = $row['ld_from'];
@@ -160,17 +160,25 @@
                                     // transfers value of retrieved variables to local variables
                                     $sponsor = $row['sponsor_name'];
 
+                                    // Format the dates
+                                    $ld_from_date = new DateTime($ld_from);
+                                    $ld_to_date = new DateTime($ld_to);
+                                    $formatted_ld_from = $ld_from_date->format('F j, Y');
+                                    $formatted_ld_to = $ld_to_date->format('F j, Y');
+
                                     echo "
                                         <tr>
                                             <td>$firstname$middlename $lastname$nameext</td>
-                                            <td>" . $ld_from . "</td>
-                                            <td>" . $ld_to . "</td>
-                                            <td>" . $ld_hrs . "</td>
-                                            <td>" . $ld_type . "</td>
-                                            <td>" . $sponsor . "</td>
+                                            <td>" . htmlspecialchars($formatted_ld_from) . "</td>
+                                            <td>" . htmlspecialchars($formatted_ld_to) . "</td>
+                                            <td>" . htmlspecialchars($ld_hrs) . "</td>
+                                            <td>" . htmlspecialchars($ld_type) . "</td>
+                                            <td>" . htmlspecialchars($sponsor) . "</td>
                                         </tr>
                                     ";
                                 }
+                            } else {
+                                echo '<tr><td colspan="6">No records found.</td></tr>';
                             }
                             ?>
                         </tbody>
