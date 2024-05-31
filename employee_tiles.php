@@ -43,7 +43,6 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             background-color: #E4E9FF;
             border: 1px solid #ccc;
             border-radius: 8px;
-            ;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             padding: 5px 0;
             z-index: 1000;
@@ -82,56 +81,56 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 $scope = $_GET['scope'];
                 $office = $_GET['office'];
             }
-                if ($scope == 'region') {
-                    $sql = "SELECT * FROM `rsso_v` WHERE `rsso_acronym` = ?";
-                    $list_office = query($conn, $sql, array($office));
+            if ($scope == 'region') {
+                $sql = "SELECT * FROM `rsso_v` WHERE `rsso_acronym` = ?";
+                $list_office = query($conn, $sql, array($office));
 
-                    if (empty($list_office)) {
-                        exit();
-                    } else {
-                        $row = $list_office[0];
+                if (empty($list_office)) {
+                    exit();
+                } else {
+                    $row = $list_office[0];
 
-                        $acro = $row['rsso_acronym'];
-                        $title_one = $row['rsso_name'];
-                        $title_two = 'Regional Statistical Services Office V';
-                        $title_three = 'RSSO V - ' . $acro;
-                    }
-
-                } else if ($scope == 'province') {
-                    $sql = "SELECT * FROM `provinces` WHERE `province_name` = ?";
-                    $list_office = query($conn, $sql, array($office));
-
-                    if (empty($list_office)) {
-                        exit();
-                    } else {
-                        $row = $list_office[0];
-
-                        $title_one = $row["province_name"];
-                        $title_two = 'Provincial Statistical Office';
-                        $title_three = '';
-                    }
+                    $acro = $row['rsso_acronym'];
+                    $title_one = $row['rsso_name'];
+                    $title_two = 'Regional Statistical Services Office V';
+                    $title_three = 'RSSO V - ' . $acro;
                 }
+
+            } else if ($scope == 'province') {
+                $sql = "SELECT * FROM `provinces` WHERE `province_name` = ?";
+                $list_office = query($conn, $sql, array($office));
+
+                if (empty($list_office)) {
+                    exit();
+                } else {
+                    $row = $list_office[0];
+
+                    $title_one = $row["province_name"];
+                    $title_two = 'Provincial Statistical Office';
+                    $title_three = '';
+                }
+            }
+            ?>
+            <div class="col-10 px-5 pt-3 pb-5">
+                <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">
+                <div class="row mt-3"
+                    style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px">
+                    <h5 class="titletext uppercase">
+                        <?php echo $title_two; ?>
+                    </h5>
+                    <h4 class="titletext uppercase"><strong>
+                            <?php echo $title_one; ?>
+                        </strong></h4>
+                    <h6 class="titletext uppercase">
+                        <?php echo $title_three; ?>
+                    </h6>
+                </div>
+                <?php
+                // retrieve employees in a certain office
+                $sql = "SELECT * FROM `employees` WHERE `employee_office` = ?";
+                $filter = array($office);
+                $result = query($conn, $sql, $filter);
                 ?>
-                <div class="col-10 px-5 pt-3 pb-5">
-                    <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">
-                    <div class="row mt-3"
-                        style="background-color: #283872; height: 100px; align-items: center; border-radius: 12px">
-                        <h5 class="titletext uppercase">
-                            <?php echo $title_two; ?>
-                        </h5>
-                        <h4 class="titletext uppercase"><strong>
-                                <?php echo $title_one; ?>
-                            </strong></h4>
-                        <h6 class="titletext uppercase">
-                            <?php echo $title_three; ?>
-                        </h6>
-                    </div>
-                    <?php
-                    // retrieve employees in a certain office
-                    $sql = "SELECT * FROM `employees` WHERE `employee_office` = ?";
-                    $filter = array($office);
-                    $result = query($conn, $sql, $filter);
-                    ?>
 
                     <?php
                     if (empty($result)) {
@@ -161,24 +160,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 $imgdir = $row['employee_imgdir'];
                                 $position_id = $row['position_id'];
 
-                                // retrieve position title of an employee
-                                $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
-                                $filter = array($position_id);
-                                $result = query($conn, $sql, $filter);
+                            // retrieve position title of an employee
+                            $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
+                            $filter = array($position_id);
+                            $result = query($conn, $sql, $filter);
 
-                                if (empty($result)) {
-                                    $position = '';
-                                } else {
-                                    $row = $result[0];
-                                    $position = $row['position_title'];
-                                }
-                                ?>
-                                <div class="col-4 tile mt-3">
-                                    <?php
-                                    echo ($user_type == 'A') ?
-                                        '<a href="pds_form_carousel.php?action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
+                            if (empty($result)) {
+                                $position = '';
+                            } else {
+                                $row = $result[0];
+                                $position = $row['position_title'];
+                            }
+                            ?>
+                            <div class="col-4 tile mt-3">
+                                <?php
+                                echo ($user_type == 'A') ?
+                                    '<a href="pds_form_carousel.php?action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
                                             style="text-decoration: none; color: inherit;">' : '';
-                                    echo '<div class="row">
+                                echo '<div class="row">
                                             <div class="col-3">
                                                 <img src="' . $imgdir . '"
                                                     alt="' . "$lastname, $firstname$middlename$nameext" . '" height="80px"
@@ -191,97 +190,100 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                                 <p style="margin: 0; font-size: 14px;">' . $position . '</p>
                                             </div>
                                         </div>';
-                                    echo ($user_type == 'A') ?
-                                        '</a>
+                                echo ($user_type == 'A') ?
+                                    '</a>
                                         <div class="col-1"
                                             style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
                                             <button class="btn menu-button">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                         </div>' : '';
-                                    ?>
-                                </div>
+                                ?>
+                            </div>
 
-                                <!-- Context Menu -->
-                                <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
-                                    <ul>
-                                        <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
-                                            style="color: black;">
-                                            <li>Edit</li>
-                                        </a>
-                                        <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
-                                    </ul>
-                                </div>
+                            <!-- Context Menu -->
+                            <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
+                                <ul>
+                                    <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
+                                        style="color: black;">
+                                        <li>Edit</li>
+                                    </a>
+                                    <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
+                                </ul>
+                            </div>
 
-                                <!-- Delete Modal -->
-                                <div class="modal fade" id="modal_deleteRecord" tabindex="-1"
-                                    aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div style="height: 300px; weight: 342px" class="modal-content modal-content-style">
-                                            <div class="modal-header d-flex justify-content-end align-items-center">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                                    style="margin-top: 5px; margin-right: 10px;"></button>
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="modal_deleteRecord" tabindex="-1"
+                                aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div style="height: 300px; weight: 342px" class="modal-content modal-content-style">
+                                        <div class="modal-header d-flex justify-content-end align-items-center">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                style="margin-top: 5px; margin-right: 10px;"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="text-center">
+                                                <p>Are you sure you want to delete <strong>
+                                                        <?php echo $firstname . $middlename . ' ' . $lastname . $nameext; ?>?
+                                                    </strong></p>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="text-center">
-                                                    <p>Are you sure you want to delete <strong>
-                                                            <?php echo $firstname . $middlename . ' ' . $lastname . $nameext; ?>?
-                                                        </strong></p>
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center">
-                                                    <form action="delete_employee.php" method="POST">
-                                                        <input type="hidden" name="employee_id" value="<?php echo $id; ?>">
-                                                        <input type="hidden" name="employee_office" value="<?php echo $_GET['office']; ?>">
-                                                        <button type="submit" class="btn btn-primary"
-                                                            style="margin-right: 10px; background-color: #283872; border: none;">Yes</button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <form action="delete_employee.php" method="POST">
+                                                    <input type="hidden" name="employee_id" value="<?php echo $id; ?>">
+                                                    <input type="hidden" name="employee_office"
+                                                        value="<?php echo $_GET['office']; ?>">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="margin-right: 10px; background-color: #283872; border: none;">Yes</button>
+                                                </form>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">No</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                            }
-                            ?>
-                         </div>
-                        <div class="my-3">
+                            </div>
                             <?php
-                            echo ($user_type == 'A') ?
-                                '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                        }
+                        ?>
+                    </div>
+                    <div class="my-3">
+                        <?php
+                        echo ($user_type == 'A') ?
+                            '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
                                 </button>' : '';
-                            echo '
+                        echo '
                                 <a href="organizational_chart.php?scope=' . $_GET['scope'] . '&office=' . $_GET['office'] . '" style="margin-right: 10px; float: right; color: #283872">
                                     View organizational chart
                                 </a>
                             ';
-                            ?>
-                        </div>
-                        <?php
+                        ?>
+                    </div>
+                    <?php
                 }
                 ?>
+            </div>
         </div>
-    </div>
 
-    <!--Add Employee Modal-->
-    <div class="modal fade" id="modal_addEmployee" tabindex="-1" aria-labelledby="modal_addEmployeeLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-style">
-                <div class="modal-header">
-                                    <h6 class="modal-title" id="delete">Add Employee</h6>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-               
-                                <div class="modal-body px-4">
-                                    <form id="add_employee" action="pds_form_carousel.php" method="POST">
+        <!--Add Employee Modal-->
+        <div class="modal fade" id="modal_addEmployee" tabindex="-1" aria-labelledby="modal_addEmployeeLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-content-style">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="delete">Add Employee</h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body px-4">
+                        <form id="add_employee" action="employee_new.php" method="POST">
 
                             <div class="row">
-                            <div class="my-3">
+                                <div class="my-3">
                                     <label for="lastname" class="form-label">LAST NAME: </label>
-                                    <input type="text" class="form-control uppercase" id="lastname" name="lastname" required>
+                                    <input type="text" class="form-control uppercase" id="lastname" name="lastname"
+                                        required>
                                 </div>
                                 <div class="my-3">
                                     <label for="firstname" class="form-label">FIRST NAME: </label>
@@ -290,28 +292,32 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 <div class="my-3">
                                     <label for="middlename" class="form-label">MIDDLE NAME: </label>
                                     <div class="form-check form-check-inline ms-2">
-                                    <input class="form-check-input" type="checkbox" id="na_middlename" name="na_middlename" onclick="checkNA(this, 'middlename')">
-                                    <label class="form-check-label" for="na_middlename">N/A</label>
+                                        <input class="form-check-input" type="checkbox" id="na_middlename"
+                                            name="na_middlename" onclick="checkNA(this, 'middlename')">
+                                        <label class="form-check-label" for="na_middlename">N/A</label>
                                     </div>
-                                    <input type="text" class="form-control uppercase" id="middlename" name="middlename" required oninput="checkNAInput(this, 'na_middlename')">
-                                    </div>
-                               
+                                    <input type="text" class="form-control uppercase" id="middlename" name="middlename"
+                                        required oninput="checkNAInput(this, 'na_middlename')">
+                                </div>
+
                                 <div class="my-3">
                                     <label for="nameext" class="form-label">NAME EXTENSION: </label>
                                     <div class="form-check form-check-inline ms-2">
-                                    <input class="form-check-input" type="checkbox" id="na_nameext" name="na_nameext" onclick="checkNA(this, 'nameext')">
+                                        <input class="form-check-input" type="checkbox" id="na_nameext"
+                                            name="na_nameext" onclick="checkNA(this, 'nameext')">
                                         <label class="form-check-label" for="na_nameext">N/A</label>
-                                        </div>
-                                        <input type="text" class="form-control uppercase" id="nameext" name="nameext" oninput="checkNAInput(this, 'na_nameext')">
+                                    </div>
+                                    <input type="text" class="form-control uppercase" id="nameext" name="nameext"
+                                        oninput="checkNAInput(this, 'na_nameext')">
                                 </div>
-                               
-                               
+
+
                                 <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                            <span style="margin-right: 40px;"></span>
-                                            <button form="add_employee" type="submit" class="btn btn-primary">Add</button>
-                                        </div>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <span style="margin-right: 40px;"></span>
+                                    <button form="add_employee" type="submit" class="btn btn-primary">Add</button>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -396,6 +402,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         var kebab_menus = document.querySelectorAll('.menu-button');
         kebab_menus.forEach(kebab => {
             kebab.addEventListener('click', function (e) { // Listen for 'click' event instead of 'contextmenu'
+                e.preventDefault();
                 var rect = kebab.getBoundingClientRect();
                 var x = rect.left + window.scrollX + 25;
                 var y = rect.top + window.scrollY + 18;
@@ -451,7 +458,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
                     var idField = document.createElement("input");
                     idField.setAttribute("type", "hidden");
-                   
+
                     document.body.appendChild(form);
 
                     form.submit();
@@ -460,10 +467,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         });
 
         function checkNAInput(inputField, checkboxId) {
-        var checkbox = document.getElementById(checkboxId);
-        if (inputField.value.toUpperCase() === "N/A") {
-            checkbox.checked = true;
-            inputField.disabled = true;
+            var checkbox = document.getElementById(checkboxId);
+            if (inputField.value.toUpperCase() === "N/A") {
+                checkbox.checked = true;
+                inputField.disabled = true;
             } else {
                 checkbox.checked = false;
                 inputField.disabled = false;
@@ -471,7 +478,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         }
     </script>
 
-   
+
 </body>
 
 </html>

@@ -7,7 +7,8 @@
         // `cs_eligibility` table
         $sql = "SELECT *
                 FROM `cs_eligibility`
-                WHERE `employee_id` = ?";
+                WHERE `employee_id` = ?
+            ORDER BY `cseligibility_examdate` ASC";
         $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
 
@@ -26,7 +27,7 @@
 
             foreach ($result as $key => $value) {
 
-                $educ_dets = array(
+                $cs_dets = array(
                     "careerservice[]" => "cs",
                     "rating[]" => "rating",
                     "exam_date[]" => "examdate",
@@ -42,7 +43,7 @@
                 }
 
                 $i = 0;
-                foreach ($educ_dets as $key => $dets) {
+                foreach ($cs_dets as $key => $dets) {
 
                     $name_att = json_encode($key);
 
@@ -63,24 +64,6 @@
                         }
                         selectElement.value = \"" . $$dets . "\";
                     ";
-
-                    // if (!in_array($i, [0, 1, 4])) {
-                    //     $chk = json_encode(match ($i) {
-                    //         2 => "null_from{$retrieved_lvl}",
-                    //         3 => "null_to{$retrieved_lvl}",
-                    //         5 => "null_year{$retrieved_lvl}",
-                    //         6 => "null_scholarship{$retrieved_lvl}",
-                    //     });
-                    //     if ($$dets == "N/A") {
-                    //         echo "
-                    //             var checkbox = document.getElementById({$chk});
-                    //             checkbox.checked = true;
-                    //             checkNA_eb(checkbox);
-                    //         ";
-                    //     }
-                    // }
-    
-                    // $i++;
                 }
                 // echo "<br>";
             }
@@ -122,7 +105,7 @@
     </div>
 
     <div class="row-container cs-row">
-        <div class="row row-row-cs mt-3">
+        <div class="row row-row-cs mt-2">
             <div class="col-4">
                 <div class="checkbox-container">
                     <div class="form-check me-2 remove_na">
@@ -159,7 +142,7 @@
                             class="form-control uppercase group-na-cs" required>
                     </div>
                 </div>
-                <div class="mt-2 text-center">
+                <div class="mt-1 text-center">
                     <input class="form-check-input na-checkbox" type="checkbox" id="na_license" name="na_license"
                         oninput="NA_license(this)">
                     <label class="form-check-label" for="na_license">N/A</label>
@@ -170,7 +153,7 @@
 
     <div class="row">
         <div class="col-3">
-            <br><button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
+            <button type="button" class="btn btn-primary add-row-button" id="cse_addrow" name="cse_addrow"
                 onclick="addRow_cs()">ADD ROW</button>
         </div>
     </div>
@@ -196,25 +179,13 @@
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_cse");
-
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-                    if (checkbox.checked) {
-                        inputElement.value = '';
-                    } else {
-                        inputElement.disabled = false;
-                    }
-                });
-            });
-        });
 
         document.getElementById('clearButton_cs').addEventListener('click', function () {
+            var clearInputs = document.querySelectorAll("#null_cse");
+
             var inputs = document.querySelectorAll('.group-na-cs');
             inputs.forEach(function (input) {
+
                 input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
                     input.id == "license_number" ? input.type = "number" :
                         input.type = "text";
@@ -229,9 +200,8 @@
             });
 
             var childRows = document.querySelectorAll('.row-row-cs');
-            var lastIndex = childRows.length - 1;
             childRows.forEach(function (row, index) {
-                if (index !== lastIndex) {
+                if (index !== 0) {
                     row.parentNode.removeChild(row);
                 }
             });
@@ -311,7 +281,7 @@
             });
 
             cse_addrow.disabled = true;
-            
+
             var naLicenseCheckboxes = document.querySelectorAll('.na-checkbox');
             naLicenseCheckboxes.forEach(function (naCheckbox) {
                 naCheckbox.checked = true;
@@ -340,34 +310,75 @@
     }
 
     function addRow_cs() {
-        var newRow = document.querySelector(".row-row-cs").cloneNode(true);
+        var parentRow = document.querySelector(".row-row-cs");
+        var newRow = parentRow.cloneNode(true);
 
+        var parentInputs = parentRow.querySelectorAll("input");
+
+        // Clear input values in the cloned row
+        let index = 0;
         newRow.querySelectorAll("input").forEach((input) => {
-            input.value = "";
-            input.disabled = false;
+            if (input.id != "null_cse") {
+                var oldId = input.getAttribute("id");
+                var newId = generateUniqueId(oldId); // Generate a unique id 
+                parentInputs[index].setAttribute("id", newId);
+
+                //Update corresponding label ID
+                var label = parentRow.querySelector(`label[for="${oldId}"]`);
+                if (label) {
+                    label.setAttribute("for", newId);
+                }
+
+                input.value = "";
+            }
+
+            index++
+        });
+
+        // Clear checkbox values and enable checkboxes in the cloned row
+        var checkboxes = newRow.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkbox.checked = false; // Uncheck the checkbox if it's checked
+            }
         });
 
         var referenceNode = document.querySelector(".cs-row .row-row-cs");
 
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        var origNaCheckbox = parentRow.querySelector(".remove_na");
+        if (origNaCheckbox) {
+            origNaCheckbox.parentNode.removeChild(origNaCheckbox);
         }
 
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
+        var newNaCheckbox = newRow.querySelector(".remove_na");
+        if (newNaCheckbox) {
+            var checkbox = newNaCheckbox.querySelector("input");
+            checkbox.setAttribute("value", "true");
+            newNaCheckbox.addEventListener("change", function () {
+                checkNA_cs(checkbox);
             });
         }
-        const naCheckbox = newRow.querySelector(".na-checkbox");
-        if (naCheckbox) {
-            naCheckbox.addEventListener("input", function () {
-                checkNA(this, 'license_number', 'license_dateofvalidity');
+
+        var origDeleteButton = parentRow.querySelector(".delete-row-button");
+        if (origDeleteButton) {
+            origDeleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            origDeleteButton.style.display = "inline-block";
+            origDeleteButton.addEventListener("click", function () {
+                if (parentRow.parentNode) {
+                    parentRow.parentNode.removeChild(parentRow);
+                }
+            });
+        }
+
+        var deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.style.display = "none";
+            deleteButton.addEventListener("click", function () {
+                if (newRow.parentNode) {
+                    newRow.parentNode.removeChild(newRow);
+                }
             });
         }
     }

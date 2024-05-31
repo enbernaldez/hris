@@ -1,13 +1,13 @@
 <?php
-$servername="localhost";
-$dbusername="root";
-$dbpassword="";
-$dbname="hris_db";
+$servername = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "hris_db";
 
-$conn = mysqli_connect($servername,$dbusername,$dbpassword,$dbname);
+$conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
 // Check connection
-if (!$conn){
+if (!$conn) {
     die("Maintenance Mode.");
 }
 

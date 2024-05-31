@@ -45,7 +45,7 @@
             <?php
             include_once "sidebar1.php";
 
-            if (isset ($_GET['office'])) {
+            if (isset($_GET['office'])) {
                 $scope = $_GET['scope'];
                 $office = $_GET['office'];
 
@@ -53,7 +53,7 @@
                     $sql = "SELECT * FROM `rsso_v` WHERE `rsso_acronym` = ?";
                     $list_office = query($conn, $sql, array($office));
 
-                    if (empty ($list_office)) {
+                    if (empty($list_office)) {
                         exit();
                     } else {
                         $row = $list_office[0];
@@ -68,7 +68,7 @@
                     $sql = "SELECT * FROM `provinces` WHERE `province_name` = ?";
                     $list_office = query($conn, $sql, array($office));
 
-                    if (empty ($list_office)) {
+                    if (empty($list_office)) {
                         exit();
                     } else {
                         $row = $list_office[0];
@@ -106,7 +106,7 @@
                             <div class="mt-3 d-flex justify-content-end align-items-right">
                                 <a onclick="document.getElementById('file-input').click()" style="color: #283872">
                                     <i class="bi bi-images" id="uploadImage" style="font-size: 16px;"></i>
-                                     Change File
+                                    Change File
                                 </a>
                                 <!-- The invisible file input -->
                                 <input type="file" accept=".pdf" id="file-input" style="display:none;" />

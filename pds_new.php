@@ -238,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         insert($conn, $table, $fields);
 
-        if ($same_add == "true" && $add_type == "B  ") {
+        if ($same_add == "true" && $add_type == "B") {
             // exit the loop
             break;
         }
