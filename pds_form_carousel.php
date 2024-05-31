@@ -3,8 +3,46 @@ include_once "db_conn.php";
 include_once "functions.php";
 if ($_SESSION['user_type'] != 'A') {
     header("location:" . $_SERVER['HTTP_REFERER']);
-    header("location:landing_page.php");
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    //transfers value of posted variables to local variables
+    $n_lastname = strtoupper(trim($_POST['lastname']));
+    $n_firstname = strtoupper(trim($_POST['firstname']));
+    $n_middlename = strtoupper(trim($_POST['middlename'] ?? "N/A"));
+    $n_nameext = strtoupper(trim($_POST['nameext'] ?? "N/A"));
+
+    $sql = "SELECT *
+            FROM `employees`
+            WHERE `employee_lastname` = ?
+            AND `employee_firstname` = ?
+            AND `employee_middlename` = ?
+            AND `employee_nameext` = ?";
+    $filter = array($n_lastname, $n_firstname, $n_middlename, $n_nameext);
+    $result = query($conn, $sql, $filter);
+
+    if (empty($result)) {
+        $lastname = $n_lastname;
+        $firstname = $n_firstname;
+        $middlename = $n_middlename;
+        $nameext = $n_nameext;
+
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var addEmployee = document.querySelectorAll('.add-employee');
+                addEmployee.forEach(function (detail) {
+                    detail.disabled = true;
+                });
+            });
+        </script>
+        ";
+    } else {
+        header("location:" . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
 ?>
 
@@ -72,14 +110,15 @@ if ($_SESSION['user_type'] != 'A') {
         .ref-prepend {
             width: 200px;
         }
+
         .positioned-image {
-        position: fixed;
-        z-index: -1;
-        right: 0;
-        bottom: 0;
-        width: 35%;
-        height: auto;
-    }
+            position: fixed;
+            z-index: -1;
+            right: 0;
+            bottom: 0;
+            width: 35%;
+            height: auto;
+        }
     </style>
 </head>
 

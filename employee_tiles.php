@@ -132,33 +132,33 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 $result = query($conn, $sql, $filter);
                 ?>
 
-                    <?php
-                    if (empty($result)) {
-                        ?>
-                        <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
-                            <p>No employees yet.</p>
-                                <?php
-                                echo ($user_type == 'A') ?
-                                '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
+                <?php
+                if (empty($result)) {
+                    ?>
+                    <div class="col text-center d-flex flex-column justify-content-center" style="height: 50%;">
+                        <p>No employees yet.</p>
+                        <?php
+                        echo ($user_type == 'A') ?
+                            '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
                                     style="margin-left: 10px; background-color: #283872; border: none;">
                                     Add Employee
                                 </button>' : '';
-                            ?>
-                        </div>
-                        <?php
-                    } else {
                         ?>
-                        <div class="row tilerow mt-3">
-                            <?php
-                            foreach ($result as $key => $row) {
-                                // transfer database values to local variables
-                                $id = $row['employee_id']; // get variable employee_id=$id
-                                $lastname = $row['employee_lastname'];
-                                $firstname = $row['employee_firstname'];
-                                $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
-                                $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
-                                $imgdir = $row['employee_imgdir'];
-                                $position_id = $row['position_id'];
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="row tilerow mt-3">
+                        <?php
+                        foreach ($result as $key => $row) {
+                            // transfer database values to local variables
+                            $id = $row['employee_id']; // get variable employee_id=$id
+                            $lastname = $row['employee_lastname'];
+                            $firstname = $row['employee_firstname'];
+                            $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
+                            $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
+                            $imgdir = $row['employee_imgdir'];
+                            $position_id = $row['position_id'];
 
                             // retrieve position title of an employee
                             $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
@@ -204,7 +204,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             <!-- Context Menu -->
                             <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                 <ul>
-                                    <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id='<?php echo $id; ?>'"
+                                    <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id=<?php echo $id; ?>"
                                         style="color: black;">
                                         <li>Edit</li>
                                     </a>
@@ -277,7 +277,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </div>
 
                     <div class="modal-body px-4">
-                        <form id="add_employee" action="employee_new.php" method="POST">
+                        <form id="add_employee" action="pds_form_carousel.php?action=add&office=<?php echo $_GET['office']; ?>" method="POST">
 
                             <div class="row">
                                 <div class="my-3">
@@ -409,7 +409,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
             });
         });
-        
+
         function checkNA(checkbox, inputId) {
             var inputField = document.getElementById(inputId);
             if (checkbox.checked) {

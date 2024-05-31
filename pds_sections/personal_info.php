@@ -102,10 +102,6 @@
     } else {
         $pi_dets = array(
             "imgdir",
-            "lastname",
-            "firstname",
-            "middlename",
-            "nameext",
             "bday",
             "birthplace",
             "height",
@@ -145,21 +141,21 @@
 
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
-            <input type="text" required name="name_last" id="name_last" class="form-control uppercase input test"
-                value="<?php echo $lastname; ?>">
+            <input type="text" required name="name_last" id="name_last"
+                class="form-control uppercase input test add-employee" value="<?php echo $lastname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_first">FIRST NAME</label><br>
-            <input type="text" required name="name_first" id="name_first" class="form-control uppercase input"
-                value="<?php echo $firstname; ?>">
+            <input type="text" required name="name_first" id="name_first"
+                class="form-control uppercase input add-employee" value="<?php echo $firstname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input"
-                    value="<?php echo $middlename; ?>">
+                <input type="text" required name="name_middle" id="name_middle"
+                    class="form-control uppercase input add-employee" value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_middle" data-target="null_middle">
+                    <input class="form-check-input add-employee" type="checkbox" id="null_middle" data-target="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
                 </div>
             </div>
@@ -167,10 +163,10 @@
         <div class="col-2 mx-2">
             <label for="name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input"
-                    value="<?php echo $nameext; ?>">
+                <input type="text" required name="name_ext" id="name_ext"
+                    class="form-control uppercase input add-employee" value="<?php echo $nameext; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_ext" data-target="null_ext">
+                    <input class="form-check-input add-employee" type="checkbox" id="null_ext" data-target="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
                 </div>
             </div>
