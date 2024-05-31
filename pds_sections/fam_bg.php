@@ -324,7 +324,7 @@
             inputs.forEach(function (input) {
                 //Set the input type based on the input id 
                 input.id == "spouse_telno" ? input.type = "tel" :
-                    input.id == "child_dob" ? input.type = "date" :
+                    input.id == "child_birthdate" ? input.type = "date" :
                         input.type = "text";
 
                 input.value = '';

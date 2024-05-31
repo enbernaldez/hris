@@ -192,7 +192,7 @@
 
     <!-- SECONDARY -->
     <div class="row mt-3 ms-1">
-        <div class="row align-items-center">
+        <div class="row align-items-top">
             <div class="col-sm-1 p-2">SECONDARY</div>
             <!-- name of school -->
             <div class="col">
@@ -321,7 +321,7 @@
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toV"
                                     data-target="present_toV" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toV">PRE</label>
+                                <label class="form-check-label" for="present_toV">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -409,7 +409,7 @@
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toC"
                                     data-target="present_toC" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toC">PRE</label>
+                                <label class="form-check-label" for="present_toC">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -520,7 +520,7 @@
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toG"
                                     data-target="present_toG" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toG">PRE</label>
+                                <label class="form-check-label" for="present_toG">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -577,7 +577,7 @@
 <script>
     //==================== present checkbox ==============================
     function presentEb(checkbox) {
-        const container = checkbox.closest('.checkbox-container');
+        const container = checkbox.closest('.col');
         const select = container.querySelector('.form-select');
         const presentInput = container.querySelector('.present-input');
 
