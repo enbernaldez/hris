@@ -50,6 +50,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
+            text-transform: uppercase; /* Apply uppercase transformation */
         }
 
         th {
@@ -59,6 +60,11 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
         tr:nth-child(even) {
             background-color: #f9f9f9;
+        }
+
+        /* form labels */
+        .form-label {
+            text-transform: uppercase; /* Apply uppercase transformation to form labels */
         }
     </style>
 </head>
@@ -146,11 +152,11 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             </div>
 
                             <div class="row-container my-3">
-                                <label for="employees" class="form-label">Employees</label>
+                                <label for="employees" class="form-label">EMPLOYEES</label>
                                 <div class="training_employee checkbox-container my-2">
                                     <select name="training_employee[]" id="training_employee" required
                                         class="form-select">
-                                        <option value="" disabled selected value>--select--</option>
+                                        <option value="" disabled selected value>--SELECT--</option>
                                         <?php
                                         $list_employees = query($conn, "SELECT * FROM `employees`");
                                         foreach ($list_employees as $key => $value) {
@@ -181,8 +187,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             </div>
 
                             <div class="my-3">
-                                <label for="inclusiveDatesOfattedance" class="form-label">Inclusive Dates of
-                                    Attendance</label><br>
+                                <label for="inclusiveDatesOfattedance" class="form-label">INCLUSIVE DATES OF
+                                    ATTENDANCE</label><br>
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="from" class="form-label">FROM:</label>
@@ -198,13 +204,13 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             </div>
 
                             <div class="my-3">
-                                <label for="numberOfHours" class="form-label">Number of Hours:</label>
+                                <label for="numberOfHours" class="form-label">NUMBER OF HOURS:</label>
                                 <input type="number" class="form-control uppercase" id="numberOfHours"
                                     name="numberOfHours" required>
                             </div>
 
                             <div class="my-3">
-                                <label for="conducted_Sponsoredby" class="form-label">Conducted/Sponsored By:</label>
+                                <label for="conducted_Sponsoredby" class="form-label">CONDUCTED/SPONSORED BY:</label>
                                 <input type="text" class="form-control uppercase" id="conducted_Sponsoredby"
                                     name="conducted_Sponsoredby" required>
                             </div>
@@ -269,38 +275,78 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     ?>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
+    // Select the search bar element
     const searchBar = document.querySelector('input[name="search_input"]');
+    
+    // Select the tbody element where the trainings will be displayed
     const trainingsTableBody = document.querySelector('#trainings');
 
-    // Initial rendering of trainings
+    // Initial rendering of trainings with an empty query (display all trainings)
     renderTrainings('');
 
-    // Add event listener for search bar input
+    // Add an event listener to the search bar for user input
     searchBar.addEventListener('input', function () {
+        // Get the trimmed value from the search bar
         const searchQuery = searchBar.value.trim();
+        // Render trainings based on the search query
         renderTrainings(searchQuery);
     });
 
     // Function to render trainings based on search input
     function renderTrainings(query) {
-        // Fetch trainings data from server
+        // Fetch trainings data from the server using the search query
         fetch('search_trainings.php?query=' + encodeURIComponent(query))
-            .then(response => response.json())
+            .then(response => response.json()) // Convert the response to JSON
             .then(data => {
-                // Render trainings
-                render(data);
+                // Process data to remove duplicates and merge types of LD
+                const processedData = processTrainings(data);
+                // Render the processed trainings data
+                render(processedData);
             })
             .catch(error => {
                 console.error('Error fetching trainings:', error);
             });
     }
 
-    // Function to format date to a word format (e.g., May 28, 2024)
+    // Function to process trainings data
+    function processTrainings(trainings) {
+        // Initialize an empty object to store processed trainings
+        const trainingMap = {};
+
+        // Loop through each training in the array
+        trainings.forEach(training => {
+            const { ld_title_name, ld_types, date_added, ld_title_id } = training;
+
+            // Check if the title already exists in the map
+            if (!trainingMap[ld_title_name]) {
+                // If not, add a new entry with a Set to store unique types of LD
+                trainingMap[ld_title_name] = {
+                    ld_title_name: ld_title_name,
+                    ld_types: new Set(ld_types.split('/').map(type => type.toUpperCase())), // Initialize Set with ld_types
+                    date_added: date_added,
+                    ld_title_id: ld_title_id
+                };
+            } else {
+                // If the title exists, add the types of LD to the Set
+                ld_types.split('/').forEach(type => {
+                    trainingMap[ld_title_name].ld_types.add(type.toUpperCase());
+                });
+            }
+        });
+
+        // Convert the map back to an array and join the Set of types into a string
+        return Object.values(trainingMap).map(training => {
+            training.ld_types = Array.from(training.ld_types).join(', ');
+            return training;
+        });
+    }
+
+    // Function to format date to a word format 
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, options);
+        return date.toLocaleDateString(undefined, options).toUpperCase(); // Convert date to uppercase
     }
 
     // Function to render trainings in the table
@@ -319,49 +365,49 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
             const formattedDate = formatDate(training.date_added);
 
+            // Ensure types of LD are unique and join them as a string
+            const uniqueTypes = [...new Set(training.ld_types.split(', '))];
+
             row.innerHTML = `
-                <td>${training.ld_title_name}</td>
-                <td>${training.ld_types}</td>
+                <td>${training.ld_title_name.toUpperCase()}</td>
+                <td>${uniqueTypes.join('/ ')}</td>
                 <td>${formattedDate}</td>
             `;
 
             trainingsTableBody.appendChild(row);
         });
     }
+
+    // Redirect function to navigate to another page
+    function redirect(ld_title_id) {
+        window.location = "training_employee.php?title_id=" + ld_title_id;
+    }
+
+    // Add row functionality
+    function addInput() {
+        var container = document.querySelector('.row-container');
+
+        // Clone the selected employee dropdown
+        var selectedEmployee = document.querySelector('.training_employee');
+        var clonedEmployee = selectedEmployee.cloneNode(true);
+        clonedEmployee.removeAttribute('id');
+        clonedEmployee.removeAttribute('required');
+
+        container.appendChild(clonedEmployee);
+
+        // Create delete button
+        var deleteButton = clonedEmployee.querySelector('.delete-row-button');
+        deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+        deleteButton.addEventListener('click', function () {
+            clonedEmployee.parentNode.removeChild(clonedEmployee);
+        });
+        deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
+    }
 });
-
-function redirect(ld_title_id) {
-    window.location = "training_employee.php?title_id=" + ld_title_id;
-}
-
-// Add row functionality
-function addInput() {
-    var container = document.querySelector('.row-container');
-
-    // Clone the selected employee dropdown
-    var selectedEmployee = document.querySelector('.training_employee');
-    var clonedEmployee = selectedEmployee.cloneNode(true);
-    clonedEmployee.removeAttribute('id');
-    clonedEmployee.removeAttribute('required');
-
-    container.appendChild(clonedEmployee);
-
-    // Create delete button
-    var deleteButton = clonedEmployee.querySelector('.delete-row-button');
-    deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-    deleteButton.addEventListener('click', function () {
-        clonedEmployee.parentNode.removeChild(clonedEmployee);
-    });
-    deleteButton.style.cssText = 'background-color: transparent; border: none; color: red;';
-}
 
     </script>
 </body>
 </html>
-
-    
-        
-
 
 
 
