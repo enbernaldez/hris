@@ -3,6 +3,7 @@ include_once "db_conn.php";
 include_once "functions.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'];
 
     // echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables
@@ -28,7 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'employee_nameext' => $n_pi_name_ext,
         'employee_office' => $n_pi_office,
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     // retrieve employee ID from db
     $sql = "SELECT `employee_id` 
@@ -83,7 +92,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'emp_dets_citizenship' => $n_pi_citizenship_by,
         'citizenship_country' => $citizenship_country,
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     //transfers value of posted variables to local variables
     $n_pi_id_gsis = strtoupper(trim($_POST['id_gsis']));
@@ -113,7 +130,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'emp_no_tin' => $n_pi_id_tin,
         'emp_no_agency' => $n_pi_id_agency,
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     //transfers value of posted variables to local variables
     $n_pi_radd_province = $_POST['radd_province'];
@@ -236,7 +261,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'zipcode_id' => ${$prefix . 'zipcode'},
             'emp_add_type' => $add_type,
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
 
         if ($same_add == "true" && $add_type == "B") {
             // exit the loop
@@ -257,13 +290,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // prepare arguments for insert function
     $table = 'employee_contacts';
-    $filter = array(
+    $fields = array(
         'employee_id' => $employee_id,
         'emp_cont_tel' => $n_pi_no_tel,
         'emp_cont_mobile' => $n_pi_no_mobile,
         'emp_cont_emailadd' => $n_pi_emailadd,
     );
-    insert($conn, $table, $filter);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
 
 
@@ -309,7 +350,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'spouse_busadd' => $n_fb_spouse_bus_add,
         'spouse_telno' => $n_fb_spouse_telno,
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     //transfers value of posted variables to local variables
     $n_fb_father_name_last = strtoupper(trim($_POST['father_name_last'] ?? "N/A"));
@@ -335,7 +384,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_nameext' => $n_fb_father_name_ext,
         'parent_type' => "F",
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     //transfers value of posted variables to local variables
     $n_fb_mother_name_last = strtoupper(trim($_POST['mother_name_last'] ?? "N/A"));
@@ -359,7 +416,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_nameext' => "N/A",
         'parent_type' => "M",
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     //transfers value of posted variables to local variables
     $n_fb_child_fullname = array_map('strtoupper', array_map('trim', $_POST['child_fullname'] ?? array(NULL)));
@@ -391,7 +456,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'child_fullname' => $fullName,
                     'child_bday' => $bday,
                 );
-                insert($conn, $table, $fields);
+                if ($action == 'add') {
+                    insert($conn, $table, $fields);
+                } else if ($action == 'edit') {
+                    $employee_id = $_POST['id'];
+                    $filter = array('employee_id' => $employee_id);
+                    update($conn, $table, $fields, $filter);
+                } else {
+                    echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+                }
             }
         }
     }
@@ -455,7 +528,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'educ_graduated' => $year[$i],
                 'educ_scholarship_acad_honors' => $scholarship[$i],
             ];
-            insert($conn, $table, $fields);
+            if ($action == 'add') {
+                insert($conn, $table, $fields);
+            } else if ($action == 'edit') {
+                $employee_id = $_POST['id'];
+                $filter = array('employee_id' => $employee_id);
+                update($conn, $table, $fields, $filter);
+            } else {
+                echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+            }
         }
     }
 
@@ -495,7 +576,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'cseligibility_license' => $n_cse_license_number[$i],
             'cseligibility_datevalidity' => $n_cse_license_dateofvalidity[$i],
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
 
@@ -552,7 +641,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'workexp_status' => $n_we_status[$i],
             'workexp_govtsvcs' => $n_we_govtsvcs[$i],
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
 
@@ -586,7 +683,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'volwork_hrs' => $n_vw_hrs[$i],
             'volwork_position' => $n_vw_position[$i],
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
 
@@ -626,7 +731,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ld_type' => $n_lnd_type[$i],
             'sponsor_id' => $lnd_sponsor,
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
 
@@ -647,7 +760,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'employee_id' => $employee_id,
                 $fieldName => $items_array[$i]
             );
-            insert($conn, $table, $fields);
+            if ($action == 'add') {
+                insert($conn, $table, $fields);
+            } else if ($action == 'edit') {
+                $employee_id = $_POST['id'];
+                $filter = array('employee_id' => $employee_id);
+                update($conn, $table, $fields, $filter);
+            } else {
+                echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+            }
         }
     }
 
@@ -661,7 +782,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insert_otherInfo($conn, $n_membership, 'membership', 'membership_name', $employee_id);
 
 
-    function insert_qna($conn, $employee_id, $item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes)
+    function insert_qna($conn, $employee_id, $item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes, $action)
     {
         // echo "<br>
         //     $item_no.<br>
@@ -683,7 +804,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'qna_c' => $qna_c,
             'qna_c_ifyes' => $qna_c_ifyes,
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
     $n_radio_degree_3rd = strtoupper(trim($_POST['radio_degree_3rd']));
@@ -691,7 +820,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_radio_degree_4th = strtoupper(trim($_POST['radio_degree_4th']));
     $n_input_degree_4th = strtoupper(trim($_POST['input_degree_4th'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '34', $n_radio_degree_3rd, 'N/A', $n_radio_degree_4th, $n_input_degree_4th, 'N/A', 'N/A', 'N/A', $action);
 
     $n_radio_guilty = strtoupper(trim($_POST['radio_guilty']));
     $n_input_guilty = strtoupper(trim($_POST['input_guilty'] ?? 'N/A'));
@@ -700,29 +829,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_input_filed = strtoupper(trim($_POST['input_filed'] ?? 'N/A'));
     $n_input_status = strtoupper(trim($_POST['input_status'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '35', $n_radio_guilty, $n_input_guilty, $n_radio_charged, $n_input_filed, $n_input_status, 'N/A', 'N/A', $action);
 
     $n_radio_convicted = strtoupper(trim($_POST['radio_convicted']));
     $n_input_convicted = strtoupper(trim($_POST['input_convicted'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '36', $n_radio_convicted, $n_input_convicted, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', $action);
 
     $n_radio_seperated = strtoupper(trim($_POST['radio_seperated']));
     $n_input_seperated = strtoupper(trim($_POST['input_seperated'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '37', $n_radio_seperated, $n_input_seperated, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', $action);
 
     $n_radio_candidate = strtoupper(trim($_POST['radio_candidate']));
 
     $n_radio_resigned = strtoupper(trim($_POST['radio_resigned']));
     $n_input_resigned = strtoupper(trim($_POST['input_resigned'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '38', $n_radio_candidate, 'N/A', $n_radio_resigned, $n_input_resigned, 'N/A', 'N/A', 'N/A', $action);
 
     $n_radio_immigrant = strtoupper(trim($_POST['radio_immigrant']));
     $n_input_immigrant = strtoupper(trim($_POST['input_immigrant'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
+    insert_qna($conn, $employee_id, '39', $n_radio_immigrant, $n_input_immigrant, 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', $action);
 
     $n_radio_indigenous = strtoupper(trim($_POST['radio_indigenous']));
     $n_input_indigenous = strtoupper(trim($_POST['input_indigenous'] ?? 'N/A'));
@@ -733,7 +862,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_radio_soloparent = strtoupper(trim($_POST['radio_soloparent']));
     $n_input_soloparent = strtoupper(trim($_POST['input_soloparent'] ?? 'N/A'));
 
-    insert_qna($conn, $employee_id, '40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent);
+    insert_qna($conn, $employee_id, '40', $n_radio_indigenous, $n_input_indigenous, $n_radio_disability, $n_input_disability, 'N/A', $n_radio_soloparent, $n_input_soloparent, $action);
 
 
 
@@ -761,7 +890,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ref_add' => $n_ref_address[$i],
             'ref_telno' => $n_ref_telno[$i],
         );
-        insert($conn, $table, $fields);
+        if ($action == 'add') {
+            insert($conn, $table, $fields);
+        } else if ($action == 'edit') {
+            $employee_id = $_POST['id'];
+            $filter = array('employee_id' => $employee_id);
+            update($conn, $table, $fields, $filter);
+        } else {
+            echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+        }
     }
 
     $n_govtid_type = strtoupper(trim($_POST['govtid_type']));
@@ -782,7 +919,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'govt_id_no' => $n_govtid_no,
         'govt_id_date_place' => $n_govtid_issuance,
     );
-    insert($conn, $table, $fields);
+    if ($action == 'add') {
+        insert($conn, $table, $fields);
+    } else if ($action == 'edit') {
+        $employee_id = $_POST['id'];
+        $filter = array('employee_id' => $employee_id);
+        update($conn, $table, $fields, $filter);
+    } else {
+        echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
+    }
 
     // for $filename
     // if an employee doesn't have a middle name

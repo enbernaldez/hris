@@ -99,6 +99,12 @@
         foreach ($emp_conts as $cont) {
             $$cont = $row['emp_cont_' . $cont];
         }
+
+        $action = $_GET['action'];
+        echo '<input required hidden type="text" name="action" value="' . $action . '">';
+
+        $employee_id = $_GET['employee_id'];
+        echo '<input required hidden type="text" name="id" value="' . $employee_id . '">';
     } else {
         $pi_dets = array(
             "imgdir",
@@ -155,7 +161,8 @@
                 <input type="text" required name="name_middle" id="name_middle"
                     class="form-control uppercase input add-employee" value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input add-employee" type="checkbox" id="null_middle" data-target="null_middle">
+                    <input class="form-check-input add-employee" type="checkbox" id="null_middle"
+                        data-target="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
                 </div>
             </div>
