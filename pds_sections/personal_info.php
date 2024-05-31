@@ -2,7 +2,7 @@
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `employees` table

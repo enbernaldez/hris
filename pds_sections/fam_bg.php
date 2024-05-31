@@ -2,7 +2,7 @@
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `spouses` table
@@ -568,7 +568,7 @@
 </script>
 
 <?php
-if (isset($_GET['action']) && $_GET['action'] == "view") {
+if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
     echo "
     <script>
         const spouse_checkbox = document.getElementById('null_spouse');
