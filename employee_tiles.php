@@ -188,6 +188,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                                     <strong>' . "$firstname$middlename $lastname$nameext" . '</strong>
                                                 </p>
                                                 <p style="margin: 0; font-size: 14px;">' . $position . '</p>
+                                                <p name="employee_id" hidden>' . $id . '</p>
                                             </div>
                                         </div>';
                                 echo ($user_type == 'A') ?
@@ -204,11 +205,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             <!-- Context Menu -->
                             <div id="customContextMenu" style="display: none; width: 100px;" <?php echo ($user_type == 'A') ? ' class="admin"' : ''; ?>>
                                 <ul>
-                                    <a href="pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id=<?php echo $id; ?>"
-                                        style="color: black;">
+                                    <a href="#" style="color: black;">
                                         <li>Edit</li>
                                     </a>
-                                    <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
+                                    <li class="delete" data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
                                 </ul>
                             </div>
 
@@ -216,28 +216,34 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             <div class="modal fade" id="modal_deleteRecord" tabindex="-1"
                                 aria-labelledby="modal_deleteRecordLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <div style="height: 300px; weight: 342px" class="modal-content modal-content-style">
-                                        <div class="modal-header d-flex justify-content-end align-items-center">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                                style="margin-top: 5px; margin-right: 10px;"></button>
+                                    <div class="modal-content modal-content-style">
+
+                                        <div class="modal-header">
+                                            <h6 class="modal-title" id="delete">Delete Record</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
+
                                         <div class="modal-body">
                                             <div class="text-center">
-                                                <p>Are you sure you want to delete <strong>
-                                                        <?php echo $firstname . $middlename . ' ' . $lastname . $nameext; ?>?
-                                                    </strong></p>
+                                                <p>
+                                                    Are you sure you want to delete<br>
+                                                    <strong>
+                                                        <span id="fullName"></span>
+                                                    </strong>
+                                                    ?
+                                                </p>
                                             </div>
-                                            <div class="modal-footer d-flex justify-content-center">
-                                                <form action="delete_employee.php" method="POST">
-                                                    <input type="hidden" name="employee_id" value="<?php echo $id; ?>">
-                                                    <input type="hidden" name="employee_office"
-                                                        value="<?php echo $_GET['office']; ?>">
-                                                    <button type="submit" class="btn btn-primary"
-                                                        style="margin-right: 10px; background-color: #283872; border: none;">Yes</button>
-                                                </form>
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">No</button>
-                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer justify-content-center">
+                                            <form action="employee_delete.php" method="POST">
+                                                <input hidden id="employee_id" name="employee_id">
+                                                <input hidden name="employee_office" value="<?php echo $_GET['office']; ?>">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <span style="margin-right: 40px;"></span>
+                                                <button type="submit" class="btn" style="background-color: #283872; color: white;">Yes</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -277,7 +283,9 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </div>
 
                     <div class="modal-body px-4">
-                        <form id="add_employee" action="pds_form_carousel.php?action=add&office=<?php echo $_GET['office']; ?>" method="POST">
+                        <form id="add_employee"
+                            action="pds_form_carousel.php?action=add&office=<?php echo $_GET['office']; ?>"
+                            method="POST">
 
                             <div class="row">
                                 <div class="my-3">
@@ -368,22 +376,38 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
                 break;
 
+            case 'exists':
+                echo '
+                    <script>
+                        swal("", "Employee already exists.", "warning");
+                    </script>    
+                ';
+
+                break;
+
             default:
                 break;
         }
     }
     ?>
 
+    <script src="js\jquery-3.7.1.min.js"></script>
     <script>
 
         // Function to display custom context menu
-        function showContextMenu(x, y, target) {
-            console.log('Show context menu at:', x, y);
-            console.log('Target element:', target);
+        function showContextMenu(x, y, target, id, fullName) {
             var menu = document.getElementById('customContextMenu');
             menu.style.display = 'block';
             menu.style.left = x + 'px';
             menu.style.top = y + 'px';
+
+            // edit link of eedit button
+            var link = menu.querySelector("a");
+            link.href = "pds_form_carousel.php?action=edit&office=<?php echo $_GET['office']; ?>&employee_id=" + id;
+
+            var del = menu.querySelector(".delete");
+            del.setAttribute("data-id", id);
+            del.setAttribute("data-name", fullName);
         }
 
         var tiles = document.querySelectorAll('.tile');
@@ -394,7 +418,12 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     e.preventDefault();
                     var x = e.clientX; // X-coordinate of mouse pointer
                     var y = e.clientY; // Y-coordinate of mouse pointer
-                    showContextMenu(x, y, e.target); // Display custom context menu
+
+                    var tile = e.target.closest('.tile');
+                    var id = tile.querySelector("p[name='employee_id']").innerText;
+                    var fullName = tile.querySelector("strong").innerText;
+
+                    showContextMenu(x, y, e.target, id, fullName); // Display custom context menu
                 }
             })
         });
@@ -406,7 +435,13 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 var rect = kebab.getBoundingClientRect();
                 var x = rect.left + window.scrollX + 25;
                 var y = rect.top + window.scrollY + 18;
-                showContextMenu(x, y, kebab); // Display custom context menu at the .tile's position
+                var target = this.closest('.menu-button')
+
+                var tile = e.target.closest('.tile');
+                var id = tile.querySelector("p[name='employee_id']").innerText;
+                var fullName = tile.querySelector("strong").innerText;
+
+                showContextMenu(x, y, target, id, fullName); // Display custom context menu at the .tile's position
             });
         });
 
@@ -437,31 +472,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             });
 
             window.addEventListener("click", function (event) {
-                if (!event.target.matches(".menu-button")) {
+                if (!event.target.closest(".menu-button")) {
                     customContextMenu.style.display = "none";
-                }
-            });
-
-            customContextMenu.addEventListener("click", function (event) {
-                var target = event.target;
-                var selectedOption = target.innerText;
-                var tile = target.closest(".tile");
-                var empName = tile.querySelector("strong").innerText;
-                var empID = tile.querySelector("a").href.split('=')[2].replace(/'/g, "");
-                var empOffice = "<?php echo $_GET['office']; ?>";
-
-                if (selectedOption === "Delete") {
-                    event.preventDefault();
-                    var form = document.createElement("form");
-                    form.setAttribute("method", "post");
-                    form.setAttribute("action", "delete_employee.php");
-
-                    var idField = document.createElement("input");
-                    idField.setAttribute("type", "hidden");
-
-                    document.body.appendChild(form);
-
-                    form.submit();
                 }
             });
         });
@@ -476,6 +488,20 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 inputField.disabled = false;
             }
         }
+
+        $('#modal_deleteRecord').on('show.bs.modal', function (event) {
+            // Get the button that triggered the modal
+            var button = $(event.relatedTarget);
+
+            // Extract info from data-* attributes
+            var id = button.data('id');
+            var name = button.data('name');
+
+            // Update the modal's content
+            var modal = $(this);
+            modal.find('#employee_id').val(id);
+            modal.find('#fullName').text(name);
+        });
     </script>
 
 

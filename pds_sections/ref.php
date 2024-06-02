@@ -60,11 +60,11 @@
         <!-- Image -->
         <div class="col-6">
             <div class="mt-2 d-flex flex-column align-items-end">
-                <img id="profile_img" name="profile_img" src="images/person.png" alt="profile"
+                <img id="profile_img" name="profile_img" src="id_pictures/no profile.png" alt="profile"
                     style="height:150px; width:auto;">
                 <div class="mt-3">
-                    <input type="file" class="form-control input_ref" id="change_photo" name="change_photo" style="width: 150px;"
-                        required>
+                    <input type="file" class="form-control input_ref" id="change_photo" name="change_photo"
+                        style="width: 150px;" required>
                 </div>
             </div>
         </div>
@@ -87,8 +87,9 @@
     </button>
 </div>
 <script>
-    // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
+
+        // ======================== Clear Button ==================================
         document.getElementById('clearButton_ref').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.input_ref');
             inputs.forEach(function (input) {
@@ -113,6 +114,18 @@
             // if (profileImg) {
             //     profileImg.src = 'images/person.png';
             // }
+        });
+
+        // ======================== ID Picture Display ==================================
+        document.getElementById('change_photo').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profile_img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
     });
 </script>
