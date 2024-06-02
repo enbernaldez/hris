@@ -1,95 +1,4 @@
 <div class="container-fluid">
-
-    <?php
-    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
-        $employee_id = $_GET['employee_id'];
-
-        //`learning_development` table 
-        $sql = "SELECT *
-                FROM `learning_development`
-                WHERE `employee_id` = ?
-                ORDER BY
-                    CASE 
-                        -- Check if there is more than one ld_to with '0000-00-00'
-                        WHEN (SELECT COUNT(*) 
-                            FROM `learning_development` 
-                            WHERE `employee_id` = ?
-                            AND `ld_to` = '0000-00-00') > 1 
-                            AND `ld_to` = '0000-00-00'
-                        THEN `ld_from`
-                        ELSE `ld_to`
-                    END
-                DESC";
-        $filter = array($employee_id, $employee_id);
-        $result = query($conn, $sql, $filter);
-
-        echo "
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-    ";
-
-        if ($result[0]['ld_title_id'] == "N/A") {
-            echo "
-            var checkbox = document.getElementById('null_lnd');
-            checkbox.checked = true;
-            setupNullInputArray_lnd('null_lnd', [
-                'lnd_title',
-                'lnd_date_from',
-                'lnd_date_to',
-                'lnd_hrs',
-                'lnd_type',
-                'lnd_sponsor',
-                'lnd_addrow',
-            ]);
-            ";
-        } else {
-    
-            foreach ($result as $key => $value) {
-
-                // name attribute => db column
-                $lnd_dets = array(
-                    "lnd_title[]" => "ld_title",
-                    "lnd_date_from[]" => "from",
-                    "lnd_date_to[]" => "to",
-                    "lnd_hrs[]" => "hrs",
-                    "lnd_type[]" => "type",
-                    "lnd_sponsor[]" => "sponsor",
-                );
-
-                if (isset($ld_title)) {
-                    echo "addRow_lnd();";
-                }
-
-                foreach ($lnd_dets as $key => $dets) {
-
-                    $name_att = json_encode($key);
-
-                    if ($dets == "ld_title" || $dets == "sponsor") {
-                        list($det, $name) = ($dets == "ld_title") ? ["ld_titles", "name"] : ["sponsors", "name"];
-                        $$dets = lookup($conn, $value["{$dets}_id"], $det, "{$dets}_{$name}", "{$dets}_id");
-
-                    } else {
-                        $$dets = $value['ld_' . $dets];
-                    }
-
-                    echo "
-                        var elements = document.querySelectorAll('[name={$name_att}]');
-                        if (elements.length > 0) { 
-                            var selectElement = elements[0];
-                        }
-                        selectElement.value = \"" . $$dets . "\";
-                    ";
-                }
-                // echo "<br>";
-            }
-        }
-
-        echo "
-        });
-    </script>";
-
-    }
-    ?>
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <p>
@@ -170,6 +79,9 @@
             <button type="button" class="btn btn-primary add-row-button" id="lnd_addrow" name="lnd_addrow"
                 onclick="addRow_lnd()">ADD ROW</button>
         </div>
+        <div class="col mt-4">
+            <button class="btn btn-primary" id="download-pdf" style="float: right; border: none;">Download PDF</button>
+        </div>
     </div>
 
     <!-- BACK BUTTON -->
@@ -188,6 +100,9 @@
         <strong>NEXT</strong>
     </button>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
 
 <script>
     // ======================== Clear Button ==================================
@@ -411,4 +326,52 @@
         "lnd_sponsor",
         "lnd_addrow",
     ]);
+    //===============================Download PDF=========================
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const fullName = "<?php echo $full_name; ?>";
+
+        // Add the full name at the top
+        doc.setFontSize(12);
+        doc.text(fullName, 15, 20); 
+
+        // Prepare the table data
+        const rows = [];
+        document.querySelectorAll('.lnd_row .row-row-lnd').forEach((row) => {
+            const title = row.querySelector('[name="lnd_title[]"]').value;
+            const dateFrom = row.querySelector('[name="lnd_date_from[]"]').value;
+            const dateTo = row.querySelector('[name="lnd_date_to[]"]').value;
+            const hours = row.querySelector('[name="lnd_hrs[]"]').value;
+            const type = row.querySelector('[name="lnd_type[]"]').value;
+            const sponsor = row.querySelector('[name="lnd_sponsor[]"]').value;
+
+            rows.push([title, dateFrom,  dateTo, hours, type, sponsor]);
+        });
+
+        // Add the table to the PDF with styling
+        doc.autoTable({
+            head: [[
+                { content: 'TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS', rowSpan: 2 },
+                { content: 'INCLUSIVE DATE OF ATTENDANCE', colSpan: 2, styles: { halign: 'center' } },
+                { content: 'NUMBER OF HOURS', rowSpan: 2 },
+                { content: 'TYPE OF LD', rowSpan: 2 },
+                { content: 'CONDUCTED/SPONSORED BY', rowSpan: 2 }
+            ], [
+                { content: 'FROM', styles: { halign: 'center' } },
+                { content: 'TO', styles: { halign: 'center' } }
+            ]],
+            body: rows,
+            startY: 30,
+            headStyles: {fontSize: 8, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
+            bodyStyles: {fontSize: 9, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
+            theme: 'plain',
+        });
+
+        // Save the PDF
+        doc.save('lnd_report.pdf');
+    });
+
+    
 </script>

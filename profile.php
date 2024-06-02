@@ -7,39 +7,43 @@ if (isset($_GET['employee_id'])) {
             WHERE `employee_id` = ?";
     $filter = array($_GET['employee_id']);
     $result = query($conn, $sql, $filter);
-    $row = $result[0];
+    if (!empty($result)) {
+        $row = $result[0];
 
-    $imgdir = $row['employee_imgdir'];
+        $imgdir = $row['employee_imgdir'];
 
-    $firstname = $row['employee_firstname'];
-    $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
-    $lastname = $row['employee_lastname'];
-    $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
+        $firstname = $row['employee_firstname'];
+        $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
+        $lastname = $row['employee_lastname'];
+        $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
 
-    $position_id = $row['position_id'];
+        $position_id = $row['position_id'];
 
-    $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
-    $filter = array($position_id);
-    $result = query($conn, $sql, $filter);
-    $row = $result[0];
+        $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
+        $filter = array($position_id);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
 
-    $position = $row['position_title'];
+        $position = $row['position_title'];
 
-    $alt_name = $lastname . ", " . $firstname . $middlename . $nameext;
-    $full_name = $firstname . $middlename . " " . $lastname . $nameext;
+        $alt_name = $lastname . ", " . $firstname . $middlename . $nameext;
+        $full_name = $firstname . $middlename . " " . $lastname . $nameext;
+    }
 } else {
+    $middlename = ($middlename == "N/A") ? "" : " " . $middlename;
+    $nameext = ($nameext == "N/A") ? "" : " " . $nameext;
 
     $imgdir = "id_pictures/no profile.png";
-    $alt_name = "Employee Full Name";
-    $full_name = "Employee Full Name";
-    $position = "Position Title";
+    $alt_name = $lastname . ", " . $firstname . $middlename . $nameext;
+    $full_name = $firstname . $middlename . " " . $lastname . $nameext;
+    $position = "[Position Title]";
 }
 
 
 ?>
 <div class="row mt-2 mb-2">
     <div class="col-2">
-        <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>" style="height: 150px; width: auto"
+        <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>" style="height: 150px; width: auto" id="header_profile_img"
             class="float-end" />
     </div>
     <div class="col my-auto">
@@ -50,3 +54,19 @@ if (isset($_GET['employee_id'])) {
         <img src="images/PSA Vector.png" alt="profile" style="height: 150px; width: auto" class="float-start" />
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // ======================== ID Picture Display ==================================
+        document.getElementById('change_photo').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('header_profile_img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
