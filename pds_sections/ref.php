@@ -71,7 +71,7 @@
     </div>
 
     <!-- BACK BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left button-nav" data-bs-target="#carousel"
         data-bs-slide="prev">
         <strong>PREV</strong>
     </button>
@@ -82,7 +82,7 @@
     </button>
 
     <!-- SUBMIT BUTTON -->
-    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
+    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right button-nav">
         <strong>SUBMIT</strong>
     </button>
 </div>

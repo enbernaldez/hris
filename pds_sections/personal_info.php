@@ -632,7 +632,7 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_pi">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_pi">
         <strong>NEXT</strong>
     </button>
 

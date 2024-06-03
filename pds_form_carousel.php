@@ -336,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     var form = document.getElementById("pds");
                     var elements = form.elements;
                     for (var i = 0, len = elements.length; i < len; ++i) {
-                        if (!elements[i].classList.contains("button-right") && !elements[i].classList.contains("button-left")) {
+                        if (!elements[i].classList.contains("button-nav")) {
                             elements[i].disabled = true;
                         }
                     }

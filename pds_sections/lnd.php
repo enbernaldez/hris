@@ -105,7 +105,7 @@ if (isset($_GET['employee_id'])) {
     </div>
 
     <!-- BACK BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left button-nav" data-bs-target="#carousel"
         data-bs-slide="prev">
         <strong>PREV</strong>
     </button>
@@ -116,7 +116,7 @@ if (isset($_GET['employee_id'])) {
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_lnd">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_lnd">
         <strong>NEXT</strong>
     </button>
 </div>
