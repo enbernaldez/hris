@@ -127,7 +127,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 </div>
                 <?php
                 // retrieve employees in a certain office
-                $sql = "SELECT * FROM `employees` WHERE `employee_office` = ?";
+                $sql = "SELECT * FROM `employees` WHERE `employee_office` = ? AND `employee_status` = 'A'";
                 $filter = array($office);
                 $result = query($conn, $sql, $filter);
                 ?>
