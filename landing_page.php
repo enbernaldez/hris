@@ -21,6 +21,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         bottom: 0;
         width: 45%;
         height: auto;
+        z-index: -1;
     }
     #visionHeading, #corevaluesHeading, #qualitypolicyHeading, #missionHeading{
         border-right: 2px solid black;

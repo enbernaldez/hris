@@ -2,7 +2,7 @@
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `education` table
@@ -192,7 +192,7 @@
 
     <!-- SECONDARY -->
     <div class="row mt-3 ms-1">
-        <div class="row align-items-center">
+        <div class="row align-items-top">
             <div class="col-sm-1 p-2">SECONDARY</div>
             <!-- name of school -->
             <div class="col">
@@ -315,13 +315,12 @@
                             disabled>
                         <div class="mt-1">
                             <input class="form-check-input" type="checkbox" id="null_toV" name="null_toV"
-                                onclick="checkNA_eb(this)"
-                                data-target="null_toV">
+                                onclick="checkNA_eb(this)" data-target="null_toV">
                             <label class="form-check-label" for="null_toV">N/A</label>
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toV"
                                     data-target="present_toV" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toV">PRE</label>
+                                <label class="form-check-label" for="present_toV">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -403,13 +402,12 @@
                             disabled>
                         <div class="mt-1">
                             <input class="form-check-input" type="checkbox" id="null_toC" name="null_toC"
-                                onclick="checkNA_eb(this)"
-                                data-target="null_toC">
+                                onclick="checkNA_eb(this)" data-target="null_toC">
                             <label class="form-check-label" for="null_toC">N/A</label>
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toC"
                                     data-target="present_toC" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toC">PRE</label>
+                                <label class="form-check-label" for="present_toC">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -520,7 +518,7 @@
                             <div class="small-font present">
                                 <input class="form-check-input" type="checkbox" id="present_toG"
                                     data-target="present_toG" onchange="presentEb(this)">
-                                <label class="form-check-label" for="present_toG">PRE</label>
+                                <label class="form-check-label" for="present_toG">PRESENT</label>
                             </div>
                         </div>
                     </div>
@@ -577,7 +575,7 @@
 <script>
     //==================== present checkbox ==============================
     function presentEb(checkbox) {
-        const container = checkbox.closest('.checkbox-container');
+        const container = checkbox.closest('.col');
         const select = container.querySelector('.form-select');
         const presentInput = container.querySelector('.present-input');
 
@@ -776,15 +774,13 @@
     // Define an object to store the original options of each select element
     const newOptions = {};
 
-    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId, presentInputId, onlyDisableChkboxId, onlyDisableInputId) {
+    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId, presentInputId) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
         const presentCheckbox = document.getElementById(presentChkId);
         const presentInput = document.getElementById(presentInputId);
-        const onlyDisableCheckbox = document.getElementById(onlyDisableChkboxId);
-        const onlyDisableInput = document.getElementById(onlyDisableInputId);
 
         // Store the original options of each select element
         selects.forEach((select) => {
@@ -815,17 +811,13 @@
                     chkbx.checked = true;
                     chkbx.disabled = true;
                 });
-                if (onlyDisableCheckbox) {
-                    onlyDisableCheckbox.checked = false;
-                    onlyDisableCheckbox.disabled = true;
-                    onlyDisableInput.style.display = "none";
-                }
                 // Remove cloned rows if they exist
                 const clonedRows = document.querySelectorAll("." + checkboxId + ".new-row");
                 clonedRows.forEach((clonedRow) => {
                     clonedRow.remove();
                 });
                 presentCheckbox.checked = false;
+                presentCheckbox.disabled = true;
                 presentInput.style.display = 'none';
                 presentInput.value = "";
                 presentInput.disabled = false;
@@ -852,9 +844,7 @@
                     chkbx.checked = false;
                     chkbx.disabled = false;
                 });
-                if (onlyDisableCheckbox) {
-                    onlyDisableCheckbox.disabled = false;
-                }
+                presentCheckbox.disabled = false;
             }
         });
 
@@ -884,6 +874,7 @@
                 clonedRow.remove();
             });
             presentCheckbox.checked = false;
+            presentCheckbox.disabled = true;
             presentInput.style.display = 'none';
             presentInput.value = "";
             presentInput.disabled = false;
@@ -907,6 +898,7 @@
                 chkbx.checked = false;
                 chkbx.disabled = false;
             });
+            presentCheckbox.disabled = false;
         }
     }
 
@@ -971,6 +963,8 @@
                         "null_year" + lvl,
                         "null_scholarship" + lvl,
                     ],
+                    "present_to" + lvl,
+                    "topresent" + lvl
                 );
             }
         });

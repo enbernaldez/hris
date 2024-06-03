@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <?php
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `voluntary_work` table
@@ -19,7 +19,7 @@
                         THEN `volwork_from`
                         ELSE `volwork_to`
                     END
-                ASC;";
+                DESC;";
         $filter = array($employee_id, $employee_id);
         $result = query($conn, $sql, $filter);
 
@@ -166,7 +166,7 @@
 
     <!-- CLEAR BUTTON -->
     <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" id="clearButton_vw">
-        <strong>CLEAR SECTION</strong>
+        <strong>CLEAR ALL</strong>
     </button>
 
     <!-- NEXT BUTTON -->

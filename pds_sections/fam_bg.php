@@ -2,7 +2,7 @@
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `spouses` table
@@ -324,7 +324,7 @@
             inputs.forEach(function (input) {
                 //Set the input type based on the input id 
                 input.id == "spouse_telno" ? input.type = "tel" :
-                    input.id == "child_dob" ? input.type = "date" :
+                    input.id == "child_birthdate" ? input.type = "date" :
                         input.type = "text";
 
                 input.value = '';
@@ -568,7 +568,7 @@
 </script>
 
 <?php
-if (isset($_GET['action']) && $_GET['action'] == "view") {
+if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
     echo "
     <script>
         const spouse_checkbox = document.getElementById('null_spouse');

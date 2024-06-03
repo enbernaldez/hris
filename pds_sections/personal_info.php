@@ -2,7 +2,7 @@
 
     <?php
 
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
         $employee_id = $_GET['employee_id'];
 
         // `employees` table
@@ -11,101 +11,114 @@
                 WHERE `employee_id` = ?";
         $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
-        $row = $result[0];
+        if (!empty($result)) {
+            $row = $result[0];
 
-        $emps = array("lastname", "firstname", "middlename", "nameext", "imgdir");
-        foreach ($emps as $emp) {
-            $$emp = $row['employee_' . $emp];
-        }
+            $emps = array("lastname", "firstname", "middlename", "nameext", "imgdir");
+            foreach ($emps as $emp) {
+                $$emp = $row['employee_' . $emp];
+            }
 
-        // `employee_details` table
-        $sql = "SELECT *
+            // `employee_details` table
+            $sql = "SELECT *
                 FROM `employee_details`
                 WHERE `employee_id` = ?";
-        $filter = array($employee_id);
-        $result = query($conn, $sql, $filter);
-        $row = $result[0];
+            $filter = array($employee_id);
+            $result = query($conn, $sql, $filter);
+            $row = $result[0];
 
-        $emp_dets = array("bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship");
-        foreach ($emp_dets as $dets) {
-            $$dets = $row['emp_dets_' . $dets];
-        }
-        $country = lookup($conn, $row['citizenship_country'], 'countries', 'country_name', 'country_id');
+            $emp_dets = array("bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship");
+            foreach ($emp_dets as $dets) {
+                $$dets = $row['emp_dets_' . $dets];
+            }
+            $country = lookup($conn, $row['citizenship_country'], 'countries', 'country_name', 'country_id');
 
-        // `employee_numbers` table
-        $sql = "SELECT *
+            // `employee_numbers` table
+            $sql = "SELECT *
                 FROM `employee_numbers`
                 WHERE `employee_id` = ?";
-        $filter = array($employee_id);
-        $result = query($conn, $sql, $filter);
-        $row = $result[0];
+            $filter = array($employee_id);
+            $result = query($conn, $sql, $filter);
+            $row = $result[0];
 
-        $emp_nos = array("gsis", "pagibig", "philhealth", "sss", "tin", "agency");
-        foreach ($emp_nos as $nos) {
-            $$nos = $row['emp_no_' . $nos];
-        }
+            $emp_nos = array("gsis", "pagibig", "philhealth", "sss", "tin", "agency");
+            foreach ($emp_nos as $nos) {
+                $$nos = $row['emp_no_' . $nos];
+            }
 
-        // `employee_addresses` table
-        $sql = "SELECT *
+            // `employee_addresses` table
+            $sql = "SELECT *
                 FROM `employee_addresses`
                 WHERE `employee_id` = ?";
-        $filter = array($employee_id);
-        $result = query($conn, $sql, $filter);
+            $filter = array($employee_id);
+            $result = query($conn, $sql, $filter);
 
-        $same_add = ($result[0]['emp_add_type'] == "B") ? " checked" : "";
+            $same_add = ($result[0]['emp_add_type'] == "B") ? " checked" : "";
 
-        $address_types = array("residential_", "permanent_");
-        $address_parts = array("province", "citymunicipality", "barangay", "subdivisionvillage", "street", "houseblocklot", "zipcode");
+            $address_types = array("residential_", "permanent_");
+            $address_parts = array("province", "citymunicipality", "barangay", "subdivisionvillage", "street", "houseblocklot", "zipcode");
 
-        foreach ($address_types as $key => $type) {
-            foreach ($address_parts as $part) {
+            foreach ($address_types as $key => $type) {
+                foreach ($address_parts as $part) {
 
-                $table_name = match ($part) {
-                    'province' => 'provinces',
-                    'citymunicipality' => 'city_municipality',
-                    'barangay' => 'barangays',
-                    'subdivisionvillage' => 'subdivision_village',
-                    'street' => 'streets',
-                    'houseblocklot' => 'house_block_lot',
-                    'zipcode' => 'zipcodes',
-                };
+                    $table_name = match ($part) {
+                        'province' => 'provinces',
+                        'citymunicipality' => 'city_municipality',
+                        'barangay' => 'barangays',
+                        'subdivisionvillage' => 'subdivision_village',
+                        'street' => 'streets',
+                        'houseblocklot' => 'house_block_lot',
+                        'zipcode' => 'zipcodes',
+                    };
 
-                // for tables with foreign keys
-                $column_fk = '';
-                $data_fk = '';
-                if (in_array($table_name, ['barangays', 'zipcodes'])) {
-                    $column_fk = 'citymunicipality_id';
-                } else if ($table_name == 'city_municipality') {
-                    $column_fk = 'province_id';
+                    // for tables with foreign keys
+                    $column_fk = '';
+                    $data_fk = '';
+                    if (in_array($table_name, ['barangays', 'zipcodes'])) {
+                        $column_fk = 'citymunicipality_id';
+                    } else if ($table_name == 'city_municipality') {
+                        $column_fk = 'province_id';
+                    }
+                    $data_fk = $result[$key][$column_fk] ?? '';
+                    $key = (count($result) == 1) ? 0 : $key;
+                    $column_pk = (in_array($part, ['houseblocklot', 'zipcode'])) ? "{$part}_no" : "{$part}_name";
+
+                    ${$type . $part} = lookup($conn, $result[$key]["{$part}_id"], $table_name, $column_pk, "{$part}_id", $column_fk, $data_fk);
+                    // echo ${$type . $part} . "<br><br>";
                 }
-                $data_fk = $result[$key][$column_fk] ?? '';
-                $key = (count($result) == 1) ? 0 : $key;
-                $column_pk = (in_array($part, ['houseblocklot', 'zipcode'])) ? "{$part}_no" : "{$part}_name";
-
-                ${$type . $part} = lookup($conn, $result[$key]["{$part}_id"], $table_name, $column_pk, "{$part}_id", $column_fk, $data_fk);
-                // echo ${$type . $part} . "<br><br>";
             }
-        }
 
-        // `employee_contacts` table
-        $sql = "SELECT *
+            // `employee_contacts` table
+            $sql = "SELECT *
                 FROM `employee_contacts`
                 WHERE `employee_id` = ?";
-        $filter = array($employee_id);
-        $result = query($conn, $sql, $filter);
-        $row = $result[0];
+            $filter = array($employee_id);
+            $result = query($conn, $sql, $filter);
+            $row = $result[0];
 
-        $emp_conts = array("tel", "mobile", "emailadd");
-        foreach ($emp_conts as $cont) {
-            $$cont = $row['emp_cont_' . $cont];
+            $emp_conts = array("tel", "mobile", "emailadd");
+            foreach ($emp_conts as $cont) {
+                $$cont = $row['emp_cont_' . $cont];
+            }
+        } else {
+            echo '
+                <script>
+                    document.body.innerHTML = "";
+                    alert("Error retrieving data. Please try again.");
+                    history.back();
+                </script>
+            ';
+            exit();
         }
+
+        $action = $_GET['action'];
+        echo '<input required hidden type="text" name="action" value="' . $action . '">';
+
+        $employee_id = $_GET['employee_id'];
+        echo '<input required hidden type="text" name="id" value="' . $employee_id . '">';
     } else {
         $pi_dets = array(
             "imgdir",
-            "lastname",
-            "firstname",
-            "middlename",
-            "nameext",
             "bday",
             "birthplace",
             "height",
@@ -145,21 +158,22 @@
 
         <div class="col mx-2">
             <label for="name_last">SURNAME</label><br>
-            <input type="text" required name="name_last" id="name_last" class="form-control uppercase input test"
-                value="<?php echo $lastname; ?>">
+            <input type="text" required name="name_last" id="name_last"
+                class="form-control uppercase input test add-employee" value="<?php echo $lastname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_first">FIRST NAME</label><br>
-            <input type="text" required name="name_first" id="name_first" class="form-control uppercase input"
-                value="<?php echo $firstname; ?>">
+            <input type="text" required name="name_first" id="name_first"
+                class="form-control uppercase input add-employee" value="<?php echo $firstname; ?>">
         </div>
         <div class="col mx-2">
             <label for="name_middle">MIDDLE NAME</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_middle" id="name_middle" class="form-control uppercase input"
-                    value="<?php echo $middlename; ?>">
+                <input type="text" required name="name_middle" id="name_middle"
+                    class="form-control uppercase input add-employee" value="<?php echo $middlename; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_middle" data-target="null_middle">
+                    <input class="form-check-input add-employee" type="checkbox" id="null_middle"
+                        data-target="null_middle">
                     <label class="form-check-label" for="null_middle">N/A</label>
                 </div>
             </div>
@@ -167,10 +181,10 @@
         <div class="col-2 mx-2">
             <label for="name_ext">NAME EXTENSION</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="name_ext" id="name_ext" class="form-control uppercase input"
-                    value="<?php echo $nameext; ?>">
+                <input type="text" required name="name_ext" id="name_ext"
+                    class="form-control uppercase input add-employee" value="<?php echo $nameext; ?>">
                 <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_ext" data-target="null_ext">
+                    <input class="form-check-input add-employee" type="checkbox" id="null_ext" data-target="null_ext">
                     <label class="form-check-label" for="null_ext">N/A</label>
                 </div>
             </div>
@@ -298,10 +312,6 @@
                 </option>";
                 <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
                     CITIZENSHIP</option>";
-                <option value='F' <?php echo (isset($citizenship) && $citizenship == "F") ? " selected" : ""; ?>>FILIPINO
-                </option>";
-                <option value='D' <?php echo (isset($citizenship) && $citizenship != "F") ? " selected" : ""; ?>>DUAL
-                    CITIZENSHIP</option>";
             </select>
         </div>
         <div class="col mx-2">
@@ -309,10 +319,6 @@
             <select id="citizenship_by" required name="citizenship_by" class="form-select input" disabled>
                 <option value="" disabled>--SELECT--</option>
                 <option value="F" hidden<?php echo isset($citizenship) ? "" : " selected"; ?>>N/A</option>
-                <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
-                </option>";
-                <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
-                    NATURALIZATION</option>";
                 <option value='B' <?php echo (isset($citizenship) && $citizenship == "B") ? " selected" : ""; ?>>BIRTH
                 </option>";
                 <option value='N' <?php echo (isset($citizenship) && $citizenship == "N") ? " selected" : ""; ?>>
@@ -659,13 +665,16 @@
         document.getElementById('clearButton_pi').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.input');
             inputs.forEach(function (input) {
-                input.value = '';
-                input.disabled = false;
+                // Check if the input id is citizenship_country and its value is "N/A"
+                if (!(input.id === 'citizenship_country' && input.value === 'N/A')) {
+                    input.value = '';
+                    input.disabled = false;
+                }
             });
 
             clearInputs.forEach(function (checkbox) {
                 checkbox.checked = false;
-                checkbox.disabled = false; //
+                checkbox.disabled = false;
             });
 
             // Restore original select options for specific selects
