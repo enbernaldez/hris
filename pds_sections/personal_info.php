@@ -243,25 +243,16 @@
         </div>
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
-            <select id="bloodtype" required name="bloodtype" class="form-select input">
-                <option value="" disabled<?php echo isset($bloodtype) ? "" : " selected"; ?>>--SELECT--</option>
-                <option value='O+' <?php echo (isset($bloodtype) && $bloodtype == "O+") ? " selected" : ""; ?>>O+</option>
-                ";
-                <option value='O-' <?php echo (isset($bloodtype) && $bloodtype == "O-") ? " selected" : ""; ?>>O-</option>
-                ";
-                <option value='A+' <?php echo (isset($bloodtype) && $bloodtype == "A+") ? " selected" : ""; ?>>A+</option>
-                ";
-                <option value='A-' <?php echo (isset($bloodtype) && $bloodtype == "A-") ? " selected" : ""; ?>>A-</option>
-                ";
-                <option value='B+' <?php echo (isset($bloodtype) && $bloodtype == "B+") ? " selected" : ""; ?>>B+</option>
-                ";
-                <option value='B-' <?php echo (isset($bloodtype) && $bloodtype == "B-") ? " selected" : ""; ?>>B-</option>
-                ";
-                <option value='AB+' <?php echo (isset($bloodtype) && $bloodtype == "AB+") ? " selected" : ""; ?>>AB+
-                </option>";
-                <option value='AB-' <?php echo (isset($bloodtype) && $bloodtype == "AB-") ? " selected" : ""; ?>>AB-
-                </option>";
-            </select>
+            <input type="text" required name="bloodtype" id="bloodtype" list="bloodtype" class="form-control uppercase input" value="<?php echo $bloodtype; ?>">
+            <datalist id="bloodtype">
+                <?php
+                $result = query($conn, "SELECT * FROM  `employee_details`");
+                foreach ($result as $value) {
+                    echo '<option class="uppercase" value="' . $value['emp_dets_bloodtype'] . '">';
+                }
+                ?>
+            </datalist>
+            
         </div>
     </div>
 
@@ -650,7 +641,7 @@
         var originalSelectOptions = {};
 
         //List of specific select elements IDs to be cleared and restored
-        var specificSelectIds = ["sex", "civilstatus", "bloodtype", "citizenship", "citizenship_by", "radd_province", "radd_citymunicipality", "padd_province", "padd_citymunicipality"];
+        var specificSelectIds = ["sex", "civilstatus", "citizenship", "citizenship_by", "radd_province", "radd_citymunicipality", "padd_province", "padd_citymunicipality"];
 
         // Store the original options of each specific select element
         specificSelectIds.forEach((selectId) => {
