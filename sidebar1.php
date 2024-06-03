@@ -52,21 +52,18 @@ if (isset($_SESSION['user_id'])) {
 </style>
 
 <div class="vh-100 col-2 bg d-flex col-xl-2 px-sm-2 px-0">
-    <div
-        class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white top-0 start-0">
+    <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white top-0 start-0">
         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
             id="menu">
             <span class="uppercase center-text mt-3">
                 <h1>HRIS</h1>
             </span>
-            <form action="search_bar.php">
+            <form action="search_bar.php" method="GET">
                 <div class="input-group mt-3">
                     <div class="input-group">
-                        <input type="text" class="form-control text-center mt-3 custom-rounded" name="search"
-                            placeholder="Search Employee" />
+                        <input type="text" class="form-control text-center mt-3 custom-rounded" name="search" placeholder="Search Employee" />
                         <div class="input-group-append mt-3">
-                            <button class="btn btn-primary" type="submit"
-                                style="border-top-right-radius: 17px; border-bottom-right-radius: 17px;">
+                            <button class="btn btn-primary" type="submit" style="border-top-right-radius: 17px; border-bottom-right-radius: 17px;">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
@@ -81,11 +78,9 @@ if (isset($_SESSION['user_id'])) {
                 </a>
             </li>
 
-
             <!-- Accordion -->
             <li class="sidebar-item mt-2">
-                <a class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
-                    aria-expanded="false" aria-controls="pages">
+                <a class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
                     RSSO V
                     <span class="dropdown-icon"></span>
                 </a>
@@ -175,23 +170,18 @@ if (isset($_SESSION['user_id'])) {
                 <h1 class="text-dark text-center">LOG IN</h1>
                 <form action="login.php" method="POST">
                     <div class="px-3 mt-5">
-                        <input type="text" class="form-control" id="login_username" name="login_username"
-                            placeholder="username" aria-describedby="usernameHelp" required>
+                        <input type="text" class="form-control" id="login_username" name="login_username" placeholder="username" aria-describedby="usernameHelp" required>
                     </div>
                     <div class="px-3 mt-4">
-                        <input type="password" class="form-control" id="login_password" name="login_password"
-                            placeholder="password" required>
+                        <input type="password" class="form-control" id="login_password" name="login_password" placeholder="password" required>
                         <div class="form-check form-check-inline mt-1">
-                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass"
-                                onclick="myFunction()">
+                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="myFunction()">
                             <label class="form-check-label" for="show_pass">Show Password</label>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-4">
                         <button type="submit" class="btn custom-button text-white" id="log">
-                            <strong>
-                                <?php echo $log; ?>
-                            </strong>
+                            <strong><?php echo $log; ?></strong>
                         </button>
                     </div>
                 </form>
@@ -205,8 +195,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="modal-dialog modal-dialog-centered">
         <div style="height: 260px;" class="modal-content">
             <div class="modal-header d-flex justify-content-end align-items-center">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    style="margin-top: 5px; margin-right: 10px;"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-top: 5px; margin-right: 10px;"></button>
             </div>
             <div class="modal-header d-flex justify-content-center align-items-center">
                 <h4 class="modal-title" id="logoutModalLabel">Logout</h4>
@@ -215,8 +204,7 @@ if (isset($_SESSION['user_id'])) {
                 <h5 style="text-align: center; font-weight: normal;">Are you sure you want to logout?</h5>
             </div>
             <div class="modal-footer d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal"
-                    style="height: 30px; width: 60px;">No</button>
+                <button type="button" class="btn btn-secondary btn-sm me-1" data-bs-dismiss="modal" style="height: 30px; width: 60px;">No</button>
                 <span style="margin-right: 40px;"></span>
                 <a href="logout.php" class="btn btn-primary btn-sm" style="height: 30px; width: 60px;">Yes</a>
             </div>
@@ -247,3 +235,4 @@ if (isset($_SESSION['user_id'])) {
         }
     }
 </script>
+
