@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="hris_style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+
 
     <style>
         .tile {
@@ -102,14 +105,18 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <table>
+                    <table id="data-table">
                         <thead>
                             <tr>
-                                <th>Employee</th>
-                                <th colspan="2">Inclusive Dates</th>
-                                <th>Number of Hours</th>
-                                <th>Type of LD</th>
-                                <th>Conducted/Sponsored by</th>
+                            <th rowspan="2">Employee</th>
+                                <th colspan="2">Inclusive Dates of Attendance (mm/dd/yy)</th>
+                                <th rowspan="2">Number of Hours</th>
+                                <th rowspan="2">Type of LD</th>
+                                <th rowspan="2">Conducted/Sponsored by</th>
+                            </tr>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -184,9 +191,65 @@
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <!-- Add a download button -->
+                <button class="btn btn-primary" id="pdf-download" style="background-color: #283872; border: none;">Download PDF</button>
             </div>
         </div>
     </div>
+    <script>
+    document.getElementById('pdf-download').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const title = "<?php echo htmlspecialchars($title); ?>";
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const titleWidth = doc.getTextWidth(title);
+        const titleX = (pageWidth - titleWidth) / 2;
+
+        doc.setFontSize(18);
+        doc.text(title, titleX, 20);
+
+        const table = document.getElementById('data-table');
+        const rows = Array.from(table.rows).map(row => Array.from(row.cells).map(cell => cell.innerText));
+
+        // Extract and format the table head and body
+        const head = [
+            [
+                { content: 'Employee', rowSpan: 2 },
+                { content: 'Inclusive Dates of Attendance (mm/dd/yy)', colSpan: 2, styles: { halign: 'center' } },
+                { content: 'Number of Hours', rowSpan: 2 },
+                { content: 'Type of LD', rowSpan: 2 },
+                { content: 'Conducted/Sponsored by', rowSpan: 2 }
+            ],
+            [
+                { content: 'From', styles: { halign: 'center' } },
+                { content: 'To', styles: { halign: 'center' } }
+            ]
+        ];
+        const body = rows.slice(2);
+
+        // Add table to PDF
+        doc.autoTable({
+            head: head,
+            body: body,
+            startY: 30,
+            styles: {textColor: 'black', halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], fillColor: null, cellPadding: 2},
+            headStyles: {textColor: 'black', halign: 'center'},
+            bodyStyles: {fontSize: 9, overflow: 'linebreak'},
+           
+            theme: 'grid',
+            tableLineColor: 'black',
+            tableLineWidth: 0.1,
+            didParseCell: ({ cell, rowSpan, colSpan }) => {
+                if (cell.raw.rowSpan) rowSpan = cell.raw.rowSpan;
+                if (cell.raw.colSpan) colSpan = cell.raw.colSpan;
+            }
+        });
+
+        doc.save("HRIS_Report.pdf");
+    });
+    </script>
 </body>
 
 </html>
