@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="carousel-inner">
                                 <!-- PERSONAL INFORMATION -->
                                 <div class="carousel-item active" id="personal_information">
-                                    <?php include_once "pds_sections/ref.php"; ?>
+                                    <?php include_once "pds_sections/personal_info.php"; ?>
                                 </div>
                                 <!-- FAMILY BACKGROUND -->
                                 <div class="carousel-item" id="family_background">
