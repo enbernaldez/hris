@@ -28,7 +28,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
     ";
 
-        if ($result[0]['ld_title_id'] == "N/A") {
+        if ($result[0]['ld_title_id'] == "1") {
             echo "
             var checkbox = document.getElementById('null_lnd');
             checkbox.checked = true;
