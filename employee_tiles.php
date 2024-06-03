@@ -127,7 +127,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 </div>
                 <?php
                 // retrieve employees in a certain office
-                $sql = "SELECT * FROM `employees` WHERE `employee_office` = ?";
+                $sql = "SELECT * FROM `employees` WHERE `employee_office` = ? AND `employee_status` = 'A'";
                 $filter = array($office);
                 $result = query($conn, $sql, $filter);
                 ?>
@@ -240,9 +240,11 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                             <form action="employee_delete.php" method="POST">
                                                 <input hidden id="employee_id" name="employee_id">
                                                 <input hidden name="employee_office" value="<?php echo $_GET['office']; ?>">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">No</button>
                                                 <span style="margin-right: 40px;"></span>
-                                                <button type="submit" class="btn" style="background-color: #283872; color: white;">Yes</button>
+                                                <button type="submit" class="btn"
+                                                    style="background-color: #283872; color: white;">Yes</button>
                                             </form>
                                         </div>
                                     </div>
@@ -408,6 +410,18 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             var del = menu.querySelector(".delete");
             del.setAttribute("data-id", id);
             del.setAttribute("data-name", fullName);
+
+            $('#modal_deleteRecord').on('show.bs.modal', function (event) {
+
+                // Extract info from data-* attributes
+                var id = del.getAttribute("data-id");
+                var name = del.getAttribute("data-name");
+
+                // Update the modal's content
+                var modal = $(this);
+                modal.find('#employee_id').val(id);
+                modal.find('#fullName').text(name);
+            });
         }
 
         var tiles = document.querySelectorAll('.tile');
@@ -476,6 +490,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     customContextMenu.style.display = "none";
                 }
             });
+
         });
 
         function checkNAInput(inputField, checkboxId) {
@@ -488,20 +503,6 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 inputField.disabled = false;
             }
         }
-
-        $('#modal_deleteRecord').on('show.bs.modal', function (event) {
-            // Get the button that triggered the modal
-            var button = $(event.relatedTarget);
-
-            // Extract info from data-* attributes
-            var id = button.data('id');
-            var name = button.data('name');
-
-            // Update the modal's content
-            var modal = $(this);
-            modal.find('#employee_id').val(id);
-            modal.find('#fullName').text(name);
-        });
     </script>
 
 

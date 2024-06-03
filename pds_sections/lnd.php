@@ -1,4 +1,95 @@
 <div class="container-fluid">
+
+    <?php
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
+        $employee_id = $_GET['employee_id'];
+
+        //`learning_development` table 
+        $sql = "SELECT *
+                FROM `learning_development`
+                WHERE `employee_id` = ?
+                ORDER BY
+                    CASE 
+                        -- Check if there is more than one ld_to with '0000-00-00'
+                        WHEN (SELECT COUNT(*) 
+                            FROM `learning_development` 
+                            WHERE `employee_id` = ?
+                            AND `ld_to` = '0000-00-00') > 1 
+                            AND `ld_to` = '0000-00-00'
+                        THEN `ld_from`
+                        ELSE `ld_to`
+                    END
+                DESC";
+        $filter = array($employee_id, $employee_id);
+        $result = query($conn, $sql, $filter);
+
+        echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    ";
+
+        if ($result[0]['ld_title_id'] == "1") {
+            echo "
+            var checkbox = document.getElementById('null_lnd');
+            checkbox.checked = true;
+            setupNullInputArray_lnd('null_lnd', [
+                'lnd_title',
+                'lnd_date_from',
+                'lnd_date_to',
+                'lnd_hrs',
+                'lnd_type',
+                'lnd_sponsor',
+                'lnd_addrow',
+            ]);
+            ";
+        } else {
+    
+            foreach ($result as $key => $value) {
+
+                // name attribute => db column
+                $lnd_dets = array(
+                    "lnd_title[]" => "ld_title",
+                    "lnd_date_from[]" => "from",
+                    "lnd_date_to[]" => "to",
+                    "lnd_hrs[]" => "hrs",
+                    "lnd_type[]" => "type",
+                    "lnd_sponsor[]" => "sponsor",
+                );
+
+                if (isset($ld_title)) {
+                    echo "addRow_lnd();";
+                }
+
+                foreach ($lnd_dets as $key => $dets) {
+
+                    $name_att = json_encode($key);
+
+                    if ($dets == "ld_title" || $dets == "sponsor") {
+                        list($det, $name) = ($dets == "ld_title") ? ["ld_titles", "name"] : ["sponsors", "name"];
+                        $$dets = lookup($conn, $value["{$dets}_id"], $det, "{$dets}_{$name}", "{$dets}_id");
+
+                    } else {
+                        $$dets = $value['ld_' . $dets];
+                    }
+
+                    echo "
+                        var elements = document.querySelectorAll('[name={$name_att}]');
+                        if (elements.length > 0) { 
+                            var selectElement = elements[0];
+                        }
+                        selectElement.value = \"" . $$dets . "\";
+                    ";
+                }
+                // echo "<br>";
+            }
+        }
+
+        echo "
+        });
+    </script>";
+
+    }
+    ?>
 <?php
 
 if (isset($_GET['employee_id'])) {
@@ -105,7 +196,7 @@ if (isset($_GET['employee_id'])) {
     </div>
 
     <!-- BACK BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left button-nav" data-bs-target="#carousel"
         data-bs-slide="prev">
         <strong>PREV</strong>
     </button>
@@ -116,7 +207,7 @@ if (isset($_GET['employee_id'])) {
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" data-bs-slide="next" id="nextButton_lnd">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_lnd">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -127,23 +218,10 @@ if (isset($_GET['employee_id'])) {
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
-        var clearInputs = document.querySelectorAll("#null_lnd");
-
-        clearInputs.forEach(function (checkbox) {
-            checkbox.addEventListener('change', function () {
-                var targets = checkbox.dataset.target.split(',');
-                targets.forEach(function (targetId) {
-                    var inputElement = document.getElementById(targetId.trim());
-                    if (checkbox.checked) {
-                        inputElement.value = '';
-                    } else {
-                        inputElement.disabled = false;
-                    }
-                });
-            });
-        });
 
         document.getElementById('clearButton_lnd').addEventListener('click', function () {
+            var clearInputs = document.querySelectorAll("#null_lnd");
+
             var inputs = document.querySelectorAll('.group-na-lnd');
             inputs.forEach((input) => {
 
@@ -162,12 +240,12 @@ if (isset($_GET['employee_id'])) {
 
             // Remove all cloned rows for children
             var childRows = document.querySelectorAll('.row-row-lnd');
-            var lastIndex = childRows.length - 1;
             childRows.forEach(function (row, index) {
-                if (index !== lastIndex) {
+                if (index !== 0) {
                     row.parentNode.removeChild(row);
                 }
             });
+
             // Enable the "Add Row" button
             var addButton = document.getElementById('lnd_addrow');
             if (addButton) {
@@ -203,13 +281,32 @@ if (isset($_GET['employee_id'])) {
             }
         });
     });
+    // ======================= Add Row =======================================
     function addRow_lnd() {
         // Clone the input-row element
-        var newRow = document.querySelector(".row-row-lnd").cloneNode(true);
+        var parentRow = document.querySelector(".row-row-lnd");
+        var newRow = parentRow.cloneNode(true);
+
+        var parentInputs = parentRow.querySelectorAll("input");
 
         // Clear input values in the cloned row
+        let index = 0;
         newRow.querySelectorAll("input").forEach((input) => {
-            input.value = "";
+            if (input.id != "null_lnd") {
+                var oldId = input.getAttribute("id");
+                var newId = generateUniqueId(oldId); // Generate a unique id 
+                parentInputs[index].setAttribute("id", newId);
+
+                //Update corresponding label ID
+                var label = parentRow.querySelector(`label[for="${oldId}"]`);
+                if (label) {
+                    label.setAttribute("for", newId);
+                }
+
+                input.value = "";
+            }
+
+            index++
         });
         // Get the reference node (the original row)
         var referenceNode = document.querySelector(".lnd_row .row-row-lnd");
@@ -218,33 +315,61 @@ if (isset($_GET['employee_id'])) {
         referenceNode.parentNode.insertBefore(newRow, referenceNode);
 
         // Remove the "N/A" checkbox and its associated label from the cloned row
-        const clonedNaCheckbox = newRow.querySelector(".remove_na");
-        if (clonedNaCheckbox) {
-            clonedNaCheckbox.parentNode.removeChild(clonedNaCheckbox);
+        var origNaCheckbox = parentRow.querySelector(".remove_na");
+        if (origNaCheckbox) {
+            origNaCheckbox.parentNode.removeChild(origNaCheckbox);
         }
 
-        // Find the delete button in the cloned row and enable it 
-        const deleteButton = newRow.querySelector(".delete-row-button");
-        if (deleteButton) {
-            deleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
-            deleteButton.style.display = "inline-block";
-            deleteButton.addEventListener("click", function () {
-                newRow.parentNode.removeChild(newRow);
+        var newNaCheckbox = newRow.querySelector(".remove_na");
+        if (newNaCheckbox) {
+            var checkbox = newNaCheckbox.querySelector("input");
+            checkbox.setAttribute("value", "true");
+            newNaCheckbox.addEventListener("change", function () {
+                setupNullInputArray_lnd("null_lnd", [
+                    "lnd_title",
+                    "lnd_date_from",
+                    "lnd_date_to",
+                    "lnd_hrs",
+                    "lnd_type",
+                    "lnd_sponsor",
+                ]);
             });
         }
 
+        // Find the delete button in the cloned row and enable it 
+        var origDeleteButton = parentRow.querySelector(".delete-row-button");
+        if (origDeleteButton) {
+            origDeleteButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+            origDeleteButton.style.display = "inline-block";
+            origDeleteButton.addEventListener("click", function () {
+                if (parentRow.parentNode) {
+                    parentRow.parentNode.removeChild(parentRow);
+                }
+            });
+        }
 
+        // Find the delete button in the cloned row and enable it 
+        var deleteButton = newRow.querySelector(".delete-row-button");
+        if (deleteButton) {
+            deleteButton.style.display = "none";
+            deleteButton.addEventListener("click", function () {
+                if (newRow.parentNode) {
+                    newRow.parentNode.removeChild(newRow);
+                }
+            });
+        }
     }
 
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray(checkboxId, inputIds) {
-        const checkbox = document.getElementById(checkboxId);
-        const inputs = inputIds.map((id) => document.getElementById(id));
+    function setupNullInputArray_lnd(checkboxId, inputIds) {
+        var checkbox = document.querySelector("#" + checkboxId);
+        var inputs = inputIds.map((id) => document.querySelector('[id="' + id + '"]'));
 
         checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                naChecked = true;
+            var row = this.closest('row-row-lnd'); //Find the closest row 
 
+            if (this.checked) {
+                //clear inputs
                 inputs.forEach((input) => {
 
                     input.type = "text";
@@ -252,29 +377,58 @@ if (isset($_GET['employee_id'])) {
                     input.disabled = true;
                 });
                 // Remove cloned rows if they exist
-                const clonedRows = document.querySelectorAll(".lnd_row .row-row-lnd");
+                var clonedRows = document.querySelectorAll(".lnd_row .row-row-lnd");
                 clonedRows.forEach((clonedRow) => {
                     if (clonedRow !== checkbox.closest('.row-row-lnd')) {
                         clonedRow.remove();
                     }
                 });
             } else {
-                naChecked = false;
                 inputs.forEach((input) => {
-
-                    input.id == "lnd_date_from" || input.id == "lnd_date_to" ? input.type = "date" :
-                        input.id == "lnd_hrs" ? input.type = "number" :
-                            input.type = "text";
-
+                    if (input.id == "lnd_date_from" || input.id == "lnd_date_to") {
+                        input.type = "date";
+                    } else if (input.id == "lnd_hrs") {
+                        input.type = "number";
+                    } else {
+                        input.type = "text";
+                    }
                     input.value = "";
                     input.disabled = false;
                 });
             }
         });
+        if (checkbox.checked) {
+            inputs.forEach((input) => {
+
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            });
+
+            // Remove cloned rows if they exist
+            var clonedRows = document.querySelectorAll(".lnd_row .row-row-lnd");
+            clonedRows.forEach((clonedRow) => {
+                if (clonedRow !== checkbox.closest('.row-row-lnd')) {
+                    clonedRow.remove();
+                }
+            });
+        } else {
+            inputs.forEach((input) => {
+                if (input.id === "lnd_date_from" || input.id === "lnd_date_to") {
+                    input.type = "date";
+                } else if (input.id === "lnd_hrs") {
+                    input.type = "number";
+                } else {
+                    input.type = "text";
+                }
+                input.value = "";
+                input.disabled = false;
+            });
+        }
     }
 
     // LEARNING AND DEVELOPMENT
-    setupNullInputArray("null_lnd", [
+    setupNullInputArray_lnd("null_lnd", [
         "lnd_title",
         "lnd_date_from",
         "lnd_date_to",

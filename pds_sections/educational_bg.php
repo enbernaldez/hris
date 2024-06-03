@@ -557,7 +557,7 @@
         </button>
     </div>
     <!-- BACK BUTTON -->
-    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left" data-bs-target="#carousel"
+    <button type="button" class="btn btn-secondary mt-5 mx-1 button-left button-nav" data-bs-target="#carousel"
         data-bs-slide="prev">
         <strong>PREV</strong>
     </button>
@@ -568,7 +568,7 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right" id="nextButton_eg" data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" id="nextButton_eg" data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
