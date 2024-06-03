@@ -30,12 +30,12 @@ if (isset($_GET['employee_id'])) {
         $full_name = $firstname . $middlename . " " . $lastname . $nameext;
     }
 } else {
-    $middlename = ($middlename == "N/A") ? "" : " " . $middlename;
-    $nameext = ($nameext == "N/A") ? "" : " " . $nameext;
+    $middle_name = ($middlename == "N/A") ? "" : " " . $middlename;
+    $name_ext = ($nameext == "N/A") ? "" : " " . $nameext;
 
     $imgdir = "id_pictures/no profile.png";
-    $alt_name = $lastname . ", " . $firstname . $middlename . $nameext;
-    $full_name = $firstname . $middlename . " " . $lastname . $nameext;
+    $alt_name = $lastname . ", " . $firstname . $middle_name . $name_ext;
+    $full_name = $firstname . $middle_name . " " . $lastname . $name_ext;
     $position = "[Position Title]";
 }
 

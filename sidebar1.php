@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
     }
 </style>
 
-<div class="vh-100 col-2 bg d-flex col-xl-2 px-sm-2 px-0">
+<div class="col-2 bg d-flex col-xl-2 px-sm-2 px-0">
     <div
         class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white top-0 start-0">
         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"

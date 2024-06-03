@@ -1,4 +1,129 @@
 <div class="container-fluid">
+
+    <?php
+    if (isset($_GET['action']) && ($_GET['action'] == "view" || $_GET['action'] == "edit")) {
+        $employee_id = $_GET['employee_id'];
+
+        // table name => column_name
+        $oi_db = array(
+            "special_skills_hobbies" => "ssh",
+            "nonacademic_recognition" => "nar",
+            "membership" => "membership",
+        );
+
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+        ";
+
+        foreach ($oi_db as $table => $column) {
+
+            $sql = "SELECT DISTINCT `{$column}_name`
+                    FROM `{$table}`
+                    WHERE `employee_id` = ?";
+            $filter = array($employee_id);
+            $result = query($conn, $sql, $filter);
+
+            $section = match ($column) {
+                "ssh" => "skills",
+                "nar" => "distinctions",
+                "membership" => "membership",
+            };
+
+            if (empty($result)) {
+                echo "
+                    var checkbox = document.getElementById('{$section}_na');
+                    checkbox.checked = true;
+                    checkNA('$section');
+                    ";
+            } else {
+
+                foreach ($result as $key => $value) {
+
+                    if (isset($$section)) {
+                        echo "addInput('{$section}');";
+                    }
+
+                    $$section = $value["{$column}_name"];
+
+                    echo "
+                        var elements = document.querySelectorAll('[name=\"{$section}[]\"]');
+                        if (elements.length > 0) { 
+                            var selectElement = elements[elements.length - 1];
+                        }
+                        selectElement.value = \"" . $$section . "\";
+                    ";
+                    // echo "<br>";
+                }
+            }
+
+        }
+
+        $sql = "SELECT *
+                FROM `qna`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
+        if (empty($result)) {
+
+            echo "
+            alert('Data not be found.');
+            ";
+        } else {
+            $qna_row = array(
+                // item_no => [radio_a, input_a, radio_b, input_b, input_b_plus, radio_c, input_c]
+                34 => ['radio_degree_3rd', '', 'radio_degree_4th', 'input_degree_4th', '', '', ''],
+                35 => ['radio_guilty', 'input_guilty', 'radio_charged', 'input_filed', 'input_status', '', ''],
+                36 => ['radio_convicted', 'input_convicted', '', '', '', '', ''],
+                37 => ['radio_seperated', 'input_seperated', '', '', '', '', ''],
+                38 => ['radio_candidate', '', 'radio_resigned', 'input_resigned', '', '', ''],
+                39 => ['radio_immigrant', 'input_immigrant', '', '', '', '', ''],
+                40 => ['radio_indigenous', 'input_indigenous', 'radio_disability', 'input_disability', '', 'radio_soloparent', 'input_soloparent'],
+            );
+
+            foreach ($result as $key => $value) {
+                $item_no = $value['qna_itemno'];
+
+                $columns = array("a", "a_ifyes", "b", "b_ifyes", "b_ifyes_plus", "c", "c_ifyes");
+
+                $item_inputs = $qna_row[$item_no];
+
+                $i = 0;
+                foreach ($item_inputs as $input) {
+                    if ($input != '') {
+                        $retrieved_value = $value["qna_{$columns[$i]}"];
+                        echo "
+                            var input = document.getElementsByName('{$input}');
+                            ";
+                        if (strpos($input, 'radio') !== false) {
+                            if ($retrieved_value == "Y") {
+                                echo "
+                                    var radio =  document.getElementById('{$input}_yes');
+                                    ";
+                            } else {
+                                echo "
+                                    var radio =  document.getElementById('{$input}_no');
+                                    ";
+                            }
+                            echo "radio.checked = true;";
+                        } else if (strpos($input, 'input') !== false) {
+                            echo "
+                                var input = document.getElementById('{$input}');
+                                input.value = '{$retrieved_value}';
+                                ";
+                        }
+                    }
+                    $i++;
+                }
+            }
+        }
+
+        echo "
+            });
+        </script>";
+    }
+    ?>
     <div class="row mt-5">
         <!-- Special Skills and Hobbies -->
         <div class="col-4">
@@ -572,6 +697,7 @@
             input.disabled = false;
             addrow.disabled = false;
         }
+
         // Remove cloned rows if they exist
         const clonedRows = document.querySelectorAll("." + section + "-container .checkbox-container");
         clonedRows.forEach((clonedRow) => {
@@ -586,12 +712,32 @@
                 this.disabled = true;
                 addrow.disabled = true;
             }
-        })
+        });
     }
 
     checkNA('skills');
     checkNA('distinctions');
     checkNA('membership');
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const sections = ["skills", "distinctions", "membership"];
+        sections.forEach(section => {
+            var checkbox = document.getElementById(section + '_na');
+            var input = document.querySelector('.' + section + '-container .form-control');
+            var addrow = document.getElementById('oi_' + section + '_addrow');
+
+            if (input.value == "N/A") {
+                checkbox.checked = true;
+                input.disabled = true;
+                addrow.disabled = true;
+            } else {
+                checkbox.checked = false;
+                input.disabled = false;
+                addrow.disabled = false;
+            }
+        });
+    });
 
     // Function to enable/disable input fields based on radio button selection
     function toggleInput(inputId, radioId) {
