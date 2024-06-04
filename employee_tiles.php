@@ -140,9 +140,9 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         <?php
                         echo ($user_type == 'A') ?
                             '<button type="button" class="btn btn-primary mx-auto" data-bs-toggle="modal" data-bs-target="#modal_addEmployee"
-                                    style="margin-left: 10px; background-color: #283872; border: none;">
-                                    Add Employee
-                                </button>' : '';
+                                style="margin-left: 10px; background-color: #283872; border: none;">
+                                Add Employee
+                            </button>' : '';
                         ?>
                     </div>
                     <?php

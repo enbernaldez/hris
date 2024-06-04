@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
+<?php
+$user_type = $_SESSION['user_type'] ?? 'V';
+?>
 
 <head>
     <title>Human Resource Inventory System</title>
@@ -78,6 +81,8 @@
                         $title_three = '';
                     }
                 }
+
+                $file_path = 'org_chart/' . $office . '.pdf';
                 ?>
 
                 <div class="col-10 px-5 pt-3 pb-5">
@@ -104,27 +109,49 @@
                         <div class="col-8"></div>
                         <div class="col-2">
                             <div class="mt-3 d-flex justify-content-end align-items-right">
-                                <a onclick="document.getElementById('file-input').click()" style="color: #283872">
-                                    <i class="bi bi-images" id="uploadImage" style="font-size: 16px;"></i>
-                                    Change File
-                                </a>
-                                <form id="update_chart" action="chart_update.php" method="POST" enctype="multipart/form-data">
+                                <?php
+                                if (file_exists($file_path) && $user_type == 'A') {
+                                    echo "
+                                    <a onclick='document.getElementById(\"file-input\").click()' style='color: #283872'>
+                                        <i class='bi bi-images' id='uploadImage' style='font-size: 16px;'></i>
+                                        Change File
+                                    </a>";
+                                }
+                                ?>
+                                <form id="update_chart" action="chart_update.php" method="POST"
+                                    enctype="multipart/form-data">
                                     <!-- The invisible file input -->
-                                    <input type="file" accept=".pdf" id="file-input" name="file-input" style="display:none;" onchange="this.form.submit()"/>
+                                    <input type="file" accept=".pdf" id="file-input" name="file-input" style="display:none;"
+                                        onchange="this.form.submit()" />
                                     <input type="text" name="office" value="<?php echo $office; ?>" hidden>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <?php
-                            $timestamp = time(); // Current timestamp to avoid caching
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <?php
+                        $timestamp = time(); // Current timestamp to avoid caching
+                    
+                        if (file_exists($file_path)) {
+
                             echo '
                                 <embed src="org_chart/' . $office . '.pdf?' . $timestamp . '" width="80%" height="1000px"/>
                             ';
-                            ?>
-                        </div>
+                        } else {
+                            echo "
+                                <div class='col text-center d-flex flex-column justify-content-center' style='padding: 150px;'>
+                                    <p>No organizational chart yet.</p>";
+                            if ($user_type == 'A') {
+                                echo "
+                                    <a onclick='document.getElementById(\"file-input\").click()' style='color: #283872'>
+                                        <i class='bi bi-images' id='uploadImage' style='font-size: 16px;'></i>
+                                        Add File
+                                    </a>";
+                            }
+                            echo "
+                                </div>";
+                        }
+                        ?>
                     </div>
                 </div>
                 <?php
