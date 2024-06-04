@@ -103,7 +103,7 @@
 
     <!-- COLUMN TILES -->
     <div class="row mt-5 text-center align-items-center">
-        <div class="col-1">LEVEL</div>
+        <div class="col-sm-1">LEVEL</div>
         <div class="col">NAME OF SCHOOL <br>(Write in full)</div>
         <div class="col">BASIC EDUCATION/ <br>DEGREE/COURSE <br>(Write in full)</div>
         <div class="col-2">PERIOD OF ATTENDANCE <br>
@@ -112,9 +112,9 @@
                 <div class="col">TO</div>
             </div>
         </div>
-        <div class="col">HIGHEST LEVEL/ <br> UNITS EARNED <br>(if not graduated)</div>
-        <div class="col">YEAR GRADUATED</div>
-        <div class="col">SCHOLARSHIP/ <br>ACADEMIC HONORS <br>RECEIVED </div>
+        <div class="col">HIGHEST LEVEL/<br>UNITS EARNED<br>(if not graduated)</div>
+        <div class="col-1">YEAR GRADUATED</div>
+        <div class="col">SCHOLARSHIP/<br>ACADEMIC HONORS<br>RECEIVED</div>
     </div>
 
     <!-- ELEMENTARY -->
@@ -166,7 +166,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button sample" id="year_graduatedE" name="elem_year[]"
                     required>
                     <option value="" disabled selected>--SELECT--</option>
@@ -238,7 +238,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelS" name="sec_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedS" name="sec_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -299,11 +299,6 @@
                                 onclick="checkNA_eb(this)" data-target="null_fromV">
                             <label class="form-check-label" for="null_fromV">N/A</label>
                         </div>
-                        <!-- <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromV" onchange="checkNA_eb(this)"
-                                data-target="null_fromV">
-                            <label class="form-check-label" for="null_fromV">N/A</label>
-                        </div> -->
                     </div>
                     <!-- TO -->
                     <div class="col na ps-1 small-font">
@@ -311,8 +306,6 @@
                             id="p_attendance_toV" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
-                        <input type="text" class="form-control present-input" id="topresentV" style="display: none;"
-                            disabled>
                         <div class="mt-1">
                             <input class="form-check-input" type="checkbox" id="null_toV" name="null_toV"
                                 onclick="checkNA_eb(this)" data-target="null_toV">
@@ -331,7 +324,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelV" name="voc_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedV" name="voc_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -398,8 +391,6 @@
                             id="p_attendance_toC" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
-                        <input type="text" class="form-control present-input" id="topresentC" style="display: none;"
-                            disabled>
                         <div class="mt-1">
                             <input class="form-check-input" type="checkbox" id="null_toC" name="null_toC"
                                 onclick="checkNA_eb(this)" data-target="null_toC">
@@ -419,7 +410,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedC" name="coll_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -428,11 +419,6 @@
                         onclick="checkNA_eb(this)" data-target="null_yearC">
                     <label class="form-check-label" for="null_yearC">N/A</label>
                 </div>
-                <!-- <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_yearC" onchange="checkNA_eb(this)"
-                        data-target="null_yearC">
-                    <label class="form-check-label" for="null_yearC">N/A</label>
-                </div> -->
             </div>
             <!-- scholarship/academic honors received -->
             <div class="col na small-font">
@@ -443,11 +429,6 @@
                         onclick="checkNA_eb(this)" data-target="null_scholarshipC">
                     <label class="form-check-label" for="null_scholarshipC">N/A</label>
                 </div>
-                <!-- <div class="form-check ms-2">
-                    <input class="form-check-input" type="checkbox" id="null_scholarshipC" onchange="checkNA_eb(this)"
-                        data-target="null_scholarshipC">
-                    <label class="form-check-label" for="null_scholarshipC">N/A</label>
-                </div> -->
             </div>
         </div>
         <button type="button" class="add-row-text" onclick="plusRow(this)"
@@ -497,11 +478,6 @@
                                 onclick="checkNA_eb(this)" data-target="null_fromG">
                             <label class="form-check-label" for="null_fromG">N/A</label>
                         </div>
-                        <!-- <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" id="null_fromG" onchange="checkNA_eb(this)"
-                                data-target="null_fromG">
-                            <label class="form-check-label" for="null_fromG">N/A</label>
-                        </div> -->
                     </div>
                     <!-- TO -->
                     <div class="col na ps-1 small-font">
@@ -509,8 +485,6 @@
                             id="p_attendance_toG" required>
                             <option value="" disabled selected>--SELECT--</option>
                         </select>
-                        <input type="text" class="form-control present-input" id="topresentG" style="display: none;"
-                            disabled>
                         <div class="mt-1">
                             <input class="form-check-input" type="checkbox" id="null_toG" name="null_toG"
                                 onclick="checkNA_eb(this)" data-target="null_toG">
@@ -530,7 +504,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedG" name="grad_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -568,7 +542,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" id="nextButton_eg" data-bs-slide="next">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" id="nextButton_eg"
+        data-bs-slide="next">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -580,15 +555,40 @@
         const presentInput = container.querySelector('.present-input');
 
         if (checkbox.checked) {
-            select.style.display = 'none';
-            presentInput.style.display = 'block';
-            presentInput.value = "PRESENT";
-            presentInput.disabled = true;
+
+            // Store original options if not already stored
+            if (!select.dataset.originalOptions) {
+                var options = Array.from(select.options).map(option => {
+                    return { value: option.value, text: option.text };
+                });
+                select.dataset.originalOptions = JSON.stringify(options);
+            }
+
+            // Clear and disable the select
+            select.innerHTML = "";
+            var option = document.createElement("option");
+            option.text = "PRESENT";
+            option.value = "PRESENT";
+            select.add(option);
+            select.disabled = true;
+
         } else {
-            select.style.display = 'block';
-            presentInput.style.display = 'none';
-            presentInput.value = "";
-            presentInput.disabled = false;
+
+            select.disabled = false;
+            select.innerHTML = ""; // Clear current options
+
+            // Restore original options
+            if (select.dataset.originalOptions) {
+                var originalOptions = JSON.parse(select.dataset.originalOptions);
+                originalOptions.forEach(opt => {
+                    var option = document.createElement("option");
+                    option.text = opt.text;
+                    option.value = opt.value;
+                    select.add(option);
+                });
+            }
+
+            populateYearDropdowns(select); // Populate year options
         }
     }
     // ======================== Clear Button ==================================
@@ -612,9 +612,6 @@
         document.getElementById('clearButton_eb').addEventListener('click', function () {
             var inputs = document.querySelectorAll('.next_button, .present-input');
             inputs.forEach(function (input) {
-                if (input.id === "topresentG" || input.id === "topresentV" || input.id === "topresentC") {
-                    input.style.display = "none";
-                }
                 input.value = '';
                 input.disabled = false;
             });
@@ -774,13 +771,12 @@
     // Define an object to store the original options of each select element
     const newOptions = {};
 
-    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId, presentInputId) {
+    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
         const presentCheckbox = document.getElementById(presentChkId);
-        const presentInput = document.getElementById(presentInputId);
 
         // Store the original options of each select element
         selects.forEach((select) => {
@@ -818,9 +814,6 @@
                 });
                 presentCheckbox.checked = false;
                 presentCheckbox.disabled = true;
-                presentInput.style.display = 'none';
-                presentInput.value = "";
-                presentInput.disabled = false;
             } else {
                 inputs.forEach((input) => {
                     input.value = "";
@@ -875,9 +868,6 @@
             });
             presentCheckbox.checked = false;
             presentCheckbox.disabled = true;
-            presentInput.style.display = 'none';
-            presentInput.value = "";
-            presentInput.disabled = false;
         } else {
             inputs.forEach((input) => {
                 input.value = "";
