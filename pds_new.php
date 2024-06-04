@@ -950,7 +950,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (update($conn, $table, $fields, $filter)) {
-        header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employee=success&employee_added=" . $employee_id);
+        if ($action == 'add') {
+            header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employee=success&employee_added=" . $employee_id);
+        } else {
+            header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&edit_employee=success&employee_edited=" . $employee_id);
+        }
         exit();
     } else if (!isset($employee_id)) {
         header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employee=error");
