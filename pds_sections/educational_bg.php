@@ -103,7 +103,7 @@
 
     <!-- COLUMN TILES -->
     <div class="row mt-5 text-center align-items-center">
-        <div class="col-1">LEVEL</div>
+        <div class="col-sm-1">LEVEL</div>
         <div class="col">NAME OF SCHOOL <br>(Write in full)</div>
         <div class="col">BASIC EDUCATION/ <br>DEGREE/COURSE <br>(Write in full)</div>
         <div class="col-2">PERIOD OF ATTENDANCE <br>
@@ -112,9 +112,9 @@
                 <div class="col">TO</div>
             </div>
         </div>
-        <div class="col">HIGHEST LEVEL/ <br> UNITS EARNED <br>(if not graduated)</div>
-        <div class="col">YEAR GRADUATED</div>
-        <div class="col">SCHOLARSHIP/ <br>ACADEMIC HONORS <br>RECEIVED </div>
+        <div class="col">HIGHEST LEVEL/<br>UNITS EARNED<br>(if not graduated)</div>
+        <div class="col-1">YEAR GRADUATED</div>
+        <div class="col">SCHOLARSHIP/<br>ACADEMIC HONORS<br>RECEIVED</div>
     </div>
 
     <!-- ELEMENTARY -->
@@ -166,7 +166,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button sample" id="year_graduatedE" name="elem_year[]"
                     required>
                     <option value="" disabled selected>--SELECT--</option>
@@ -238,7 +238,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelS" name="sec_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedS" name="sec_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -324,7 +324,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelV" name="voc_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedV" name="voc_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -410,7 +410,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedC" name="coll_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -504,7 +504,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col na small-font">
+            <div class="col-1 na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedG" name="grad_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
