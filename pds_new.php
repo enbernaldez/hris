@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle, $n_pi_name_ext);
         $result = query($conn, $sql, $filter);
         $row = $result[0];
-        
+
         $employee_id = $row['employee_id'];
     } else if ($action == 'edit') {
         $employee_id = $_POST['id'];
@@ -415,7 +415,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $filter = array('employee_id' => $employee_id, 'parent_type' => "M",);
+        $filter = array('employee_id' => $employee_id, 'parent_type' => "M", );
         update($conn, $table, $fields, $filter);
     } else {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
@@ -914,20 +914,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
     }
 
-    // for $filename
-    // if an employee doesn't have a middle name
-    $middlename = ($n_pi_name_middle === "N/A") ? "" : " " . $n_pi_name_middle;
-    // if an employee doesn't have a name extension
-    $nameext = ($n_pi_name_ext === "N/A") ? "" : " " . $n_pi_name_ext;
+    if (isset($_FILES['change_photo']) && $_FILES['change_photo']['error'] != UPLOAD_ERR_NO_FILE) {
 
-    // for profile picture
-    $filename = $n_pi_name_last . ", " . $n_pi_name_first . $middlename . $nameext;
-    $file = $_FILES['change_photo']['name']; //basename.ext
-    $fileext = pathinfo($file, PATHINFO_EXTENSION); //ext
+        // for $filename
+        // if an employee doesn't have a middle name
+        $middlename = ($n_pi_name_middle === "N/A") ? "" : " " . $n_pi_name_middle;
+        // if an employee doesn't have a name extension
+        $nameext = ($n_pi_name_ext === "N/A") ? "" : " " . $n_pi_name_ext;
 
-    $temp = $_FILES['change_photo']['tmp_name']; //temporary location
-    $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
-    move_uploaded_file($temp, $n_itemimgdir);
+        // for profile picture
+        $filename = $n_pi_name_last . ", " . $n_pi_name_first . $middlename . $nameext;
+        $file = $_FILES['change_photo']['name']; //basename.ext
+        $fileext = pathinfo($file, PATHINFO_EXTENSION); //ext
+
+        $temp = $_FILES['change_photo']['tmp_name']; //temporary location
+        $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
+        move_uploaded_file($temp, $n_itemimgdir);
+    }
 
     // echo "<br><br><br>Position: $position_id";
     // echo "<br>Image Directory: $n_itemimgdir";
