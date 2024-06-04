@@ -151,7 +151,7 @@
                     style="height:150px; width:auto;">
                 <div class="mt-3">
                     <input type="file" class="form-control input_ref" id="change_photo" name="change_photo"
-                        style="width: 150px;" required>
+                        style="width: 150px;<?php echo ($_GET['action'] == 'edit') ? "" : " required"; ?>>
                 </div>
             </div>
         </div>
