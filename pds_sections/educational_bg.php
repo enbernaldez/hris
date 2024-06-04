@@ -777,7 +777,8 @@
         const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
         const presentCheckbox = document.getElementById(presentChkId);
-        const addrowButton = document.getElementById(addRowId);
+        const addrowIcon = document.getElementById(addRowId);
+        const addrowButton = addrowIcon.closest(".add-row-text");
 
         // Store the original options of each select element
         selects.forEach((select) => {
