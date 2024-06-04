@@ -2,6 +2,7 @@
 
 <html lang="en">
 <?php
+include_once ("db_conn.php");
 $user_type = $_SESSION['user_type'] ?? 'V';
 ?>
 
