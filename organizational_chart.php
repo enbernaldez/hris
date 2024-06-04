@@ -108,17 +108,21 @@
                                     <i class="bi bi-images" id="uploadImage" style="font-size: 16px;"></i>
                                     Change File
                                 </a>
-                                <!-- The invisible file input -->
-                                <input type="file" accept=".pdf" id="file-input" style="display:none;" />
+                                <form id="update_chart" action="chart_update.php" method="POST" enctype="multipart/form-data">
+                                    <!-- The invisible file input -->
+                                    <input type="file" accept=".pdf" id="file-input" name="file-input" style="display:none;" onchange="this.form.submit()"/>
+                                    <input type="text" name="office" value="<?php echo $office; ?>" hidden>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="d-flex justify-content-center align-items-center">
                             <?php
+                            $timestamp = time(); // Current timestamp to avoid caching
                             echo '
-                            <embed src="org_chart/' . $_GET['office'] . '.pdf" width="80%" height="1000px"/>
-                        ';
+                                <embed src="org_chart/' . $office . '.pdf?' . $timestamp . '" width="80%" height="1000px"/>
+                            ';
                             ?>
                         </div>
                     </div>
