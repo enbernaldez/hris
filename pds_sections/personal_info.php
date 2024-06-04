@@ -114,7 +114,6 @@
         $action = $_GET['action'];
         echo '<input required hidden type="text" name="action" value="' . $action . '">';
 
-        $employee_id = $_GET['employee_id'];
         echo '<input required hidden type="text" name="id" value="' . $employee_id . '">';
     } else {
         $pi_dets = array(
