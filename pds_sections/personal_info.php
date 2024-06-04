@@ -147,7 +147,7 @@
             $$var = "";
         }
         $country = "N/A";
-        
+
         echo "
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -709,26 +709,33 @@
         // Move to the next slide only if the form is filled out
         document.querySelector('#nextButton_pi').addEventListener('click', function () {
             var addEmployee = document.querySelectorAll('.add-employee');
+            let disabled = true;
             addEmployee.forEach(function (detail) {
                 detail.disabled = false;
-            });
-
-            var activeSlide = document.querySelector('.carousel-item.active');
-            var inputs = activeSlide.querySelectorAll('.input');
-
-            // Check if all input fields in the active slide are filled out
-            var allFilled = true;
-            inputs.forEach(function (input) {
-                if (!input.value.trim()) {
-                    allFilled = false;
+                if (detail.disabled == false) {
+                    disabled = false;
+                } else {
+                    disabled = true;
                 }
             });
+            if (disabled == false) {
+                var activeSlide = document.querySelector('.carousel-item.active');
+                var inputs = activeSlide.querySelectorAll('.input');
 
-            // If all input fields are filled out, move to the next carousel item
-            if (allFilled) {
-                carousel.next();
-            } else {
-                alert("Please fill out all input fields before proceeding.");
+                // Check if all input fields in the active slide are filled out
+                var allFilled = true;
+                inputs.forEach(function (input) {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                    }
+                });
+
+                // If all input fields are filled out, move to the next carousel item
+                if (allFilled) {
+                    carousel.next();
+                } else {
+                    alert("Please fill out all input fields before proceeding.");
+                }
             }
         });
     });
