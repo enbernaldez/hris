@@ -31,6 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     if ($action == 'add') {
         insert($conn, $table, $fields);
+
+        // retrieve employee ID from db
+        $sql = "SELECT `employee_id` 
+                FROM `employees` 
+                WHERE `employee_lastname` = ?
+                AND `employee_firstname` = ?
+                AND `employee_middlename` = ?
+                AND `employee_nameext` = ?";
+        // echo $sql . "<br>";
+
+        $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle, $n_pi_name_ext);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
+        
+        $employee_id = $row['employee_id'];
     } else if ($action == 'edit') {
         $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
@@ -38,19 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
     }
-
-    // retrieve employee ID from db
-    $sql = "SELECT `employee_id` 
-            FROM `employees` 
-            WHERE `employee_lastname` = ?
-            AND `employee_firstname` = ?
-            AND `employee_middlename` = ?
-            AND `employee_nameext` = ?";
-    // echo $sql . "<br>";
-    $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle, $n_pi_name_ext);
-    $result = query($conn, $sql, $filter);
-    $row = $result[0];
-    $employee_id = $row['employee_id'];
 
     //transfers value of posted variables to local variables
     $n_pi_birth_date = strtoupper(trim($_POST['birth_date']));
@@ -963,6 +965,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (update($conn, $table, $fields, $filter)) {
         header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employee=success&employee_added=" . $employee_id);
+        exit();
+    } else if (!isset($employee_id)) {
+        header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employee=error");
         exit();
     } else {
         header("location: employee_tiles.php?scope=" . $scope . "&office=" . $office . "&add_employeed=failed");
