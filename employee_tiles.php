@@ -339,27 +339,27 @@ $user_type = $_SESSION['user_type'] ?? 'V';
     <!--Script-->
     <?php
     if (isset($_GET['add_employee'])) {
+        $id = $_GET['employee_added'];
+
+        $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
+                FROM `employees`
+                WHERE `employee_id` = ?";
+        $filter = array($id);
+        $result = query($conn, $sql, $filter);
+
+        $row = $result[0];
+        $last_name = $row['employee_lastname'];
+        $first_name = $row['employee_firstname'];
+        $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
+        $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
+
+        // Use json_encode to safely escape strings for JavaScript
+        $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
+        $full_name_js = json_encode($full_name);
+
 
         switch ($_GET['add_employee']) {
             case 'success':
-                $id = $_GET['employee_added'];
-
-                $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
-                        FROM `employees`
-                        WHERE `employee_id` = ?";
-                $filter = array($id);
-                $result = query($conn, $sql, $filter);
-
-                $row = $result[0];
-                $last_name = $row['employee_lastname'];
-                $first_name = $row['employee_firstname'];
-                $middle_name = ($row['employee_middlename'] == "N/A" ? "" : " " . $row['employee_middlename']);
-                $name_ext = ($row['employee_nameext'] == "N/A" ? "" : " " . $row['employee_nameext']);
-
-                // Use json_encode to safely escape strings for JavaScript
-                $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
-                $full_name_js = json_encode($full_name);
-
                 echo "
                     <script>
                         swal('New employee added!', 
@@ -394,6 +394,23 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                         swal("", "A problem occured while adding new employee.", "error");
                     </script>    
                 ';
+                break;
+        }
+
+        switch ($_GET['edit_employee']) {
+            case 'success':
+                echo "
+                    <script>
+                        swal('Employee updated!', 
+                            '{$full_name_js}'s information has been updated.', 
+                            'success');
+                    </script>
+                ";
+
+                break;
+            
+            default:
+                # code...
                 break;
         }
     }
