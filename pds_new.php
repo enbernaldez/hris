@@ -3,7 +3,7 @@ include_once "db_conn.php";
 include_once "functions.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
+    $action = $_POST['action'];
 
     // echo "PERSONAL INFORMATION<br>";
     //transfers value of posted variables to local variables

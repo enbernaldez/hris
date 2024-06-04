@@ -111,9 +111,6 @@
             exit();
         }
 
-        $action = $_GET['action'];
-        echo '<input required hidden type="text" name="action" value="' . $action . '">';
-
         echo '<input required hidden type="text" name="id" value="' . $employee_id . '">';
     } else {
         $pi_dets = array(
@@ -158,6 +155,9 @@
         </script>
         ";
     }
+
+    $action = $_GET['action'];
+    echo '<input required hidden type="text" name="action" value="' . $action . '">';
 
     if (isset($_GET['office'])) {
         $office = $_GET['office'];
