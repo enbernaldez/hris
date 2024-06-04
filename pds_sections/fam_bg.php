@@ -27,13 +27,16 @@
         $filter = array($employee_id);
         $result = query($conn, $sql, $filter);
 
+        $parents = array("lastname", "firstname", "middlename", "nameext");
+        foreach ($parents as $dets) {
+            ${"father_{$dets}"} = "N/A";
+            ${"mother_{$dets}"} = "N/A";
+        }
+
         foreach ($result as $value) {
-            $parents = array("lastname", "firstname", "middlename", "nameext");
             foreach ($parents as $dets) {
-                $types = array("father", "mother");
-                foreach ($types as $type) {
-                    ${"{$type}_{$dets}"} = $value['parent_' . $dets] ?? '';
-                }
+                $type = ($value['parent_type'] == 'F') ? "father" : "mother";
+                ${"{$type}_{$dets}"} = $value['parent_' . $dets];
             }
         }
 
@@ -295,8 +298,7 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
-        id="nextButton_fb">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_fb">
         <strong>NEXT</strong>
     </button>
 </div>
