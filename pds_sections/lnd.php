@@ -43,7 +43,7 @@
             ]);
             ";
         } else {
-    
+
             foreach ($result as $key => $value) {
 
                 // name attribute => db column
@@ -90,26 +90,33 @@
 
     }
     ?>
-<?php
+    <?php
 
-if (isset($_GET['employee_id'])) {
+    if (isset($_GET['employee_id'])) {
 
-    $sql = "SELECT *
+        $sql = "SELECT *
             FROM `employees`
             WHERE `employee_id` = ?";
-    $filter = array($_GET['employee_id']);
-    $result = query($conn, $sql, $filter);
-    $row = $result[0];
+        $filter = array($_GET['employee_id']);
+        $result = query($conn, $sql, $filter);
+        $row = $result[0];
 
-    $firstname = $row['employee_firstname'];
-    $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
-    $lastname = $row['employee_lastname'];
-    $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
+        $firstname = $row['employee_firstname'];
+        $middlename = ($row['employee_middlename'] == "N/A") ? "" : " " . $row['employee_middlename'];
+        $lastname = $row['employee_lastname'];
+        $nameext = ($row['employee_nameext'] == 'N/A') ? "" : " " . $row['employee_nameext'];
 
-    $full_name = $firstname . $middlename . " " . $lastname . $nameext;
-}
+        $full_name = $firstname . $middlename . " " . $lastname . $nameext;
+    }
 
-?>
+    ?>
+
+    <!-- disable download-pdf button in the pdf_form_carousel -->
+    <?php
+    $action = isset($_GET['action']) ? $_GET['action'] : '';
+    $downloadButtonEnabled = $action == 'view' ? '' : 'disabled';
+    ?>
+
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <p>
@@ -191,7 +198,8 @@ if (isset($_GET['employee_id'])) {
                 onclick="addRow_lnd()">ADD ROW</button>
         </div>
         <div class="col mt-4">
-            <button class="btn btn-primary" id="download-pdf" style="float: right; border: none;">Download PDF</button>
+        <button type="button" class="btn btn-primary button-nav" id="download-pdf"
+                style="float: right; border: none;" <?php echo $downloadButtonEnabled; ?>>Download PDF</button>
         </div>
     </div>
 
@@ -207,7 +215,8 @@ if (isset($_GET['employee_id'])) {
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_lnd">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
+        id="nextButton_lnd">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -446,7 +455,7 @@ if (isset($_GET['employee_id'])) {
 
         // Add the full name at the top
         doc.setFontSize(12);
-        doc.text(fullName, 15, 20); 
+        doc.text(fullName, 15, 20);
 
         // Prepare the table data
         const rows = [];
@@ -458,7 +467,7 @@ if (isset($_GET['employee_id'])) {
             const type = row.querySelector('[name="lnd_type[]"]').value;
             const sponsor = row.querySelector('[name="lnd_sponsor[]"]').value;
 
-            rows.push([title, dateFrom,  dateTo, hours, type, sponsor]);
+            rows.push([title, dateFrom, dateTo, hours, type, sponsor]);
         });
 
         // Add the table to the PDF with styling
@@ -475,8 +484,8 @@ if (isset($_GET['employee_id'])) {
             ]],
             body: rows,
             startY: 30,
-            headStyles: {fontSize: 8, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
-            bodyStyles: {fontSize: 9, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
+            headStyles: { fontSize: 8, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
+            bodyStyles: { fontSize: 9, textColor: [0, 0, 0], halign: 'center', lineWidth: 0.1, lineColor: [0, 0, 0], },
             theme: 'plain',
         });
 
@@ -484,5 +493,5 @@ if (isset($_GET['employee_id'])) {
         doc.save('lnd_report.pdf');
     });
 
-    
+
 </script>
