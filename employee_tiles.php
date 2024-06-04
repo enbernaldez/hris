@@ -389,6 +389,11 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 break;
 
             default:
+                echo '
+                    <script>
+                        swal("", "A problem occured while adding new employee.", "error");
+                    </script>    
+                ';
                 break;
         }
     }
