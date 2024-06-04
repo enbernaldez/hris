@@ -28,17 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstname = $n_firstname;
         $middlename = $n_middlename;
         $nameext = $n_nameext;
-
-        echo "
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var addEmployee = document.querySelectorAll('.add-employee');
-                addEmployee.forEach(function (detail) {
-                    detail.disabled = true;
-                });
-            });
-        </script>
-        ";
     } else {
         header("location:" . $_SERVER['HTTP_REFERER'] . "&add_employee=exists");
         exit();
@@ -205,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="carousel-inner">
                                 <!-- PERSONAL INFORMATION -->
                                 <div class="carousel-item active" id="personal_information">
-                                    <?php include_once "pds_sections/educational_bg.php"; ?>
+                                    <?php include_once "pds_sections/personal_info.php"; ?>
                                 </div>
                                 <!-- FAMILY BACKGROUND -->
                                 <div class="carousel-item" id="family_background">

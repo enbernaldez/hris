@@ -9,7 +9,7 @@ if (isset($_GET['search'])) {
 function fetchEmployees($conn, $search)
 {
     $search = "%" . $search . "%";
-    $stmt = $conn->prepare("SELECT * FROM employees WHERE employee_firstname LIKE ? OR employee_middlename LIKE ? OR employee_lastname LIKE ?");
+    $stmt = $conn->prepare("SELECT * FROM employees WHERE (employee_firstname LIKE ? OR employee_middlename LIKE ? OR employee_lastname LIKE ?) AND `employee_status` = 'A'");
     $stmt->bind_param("sss", $search, $search, $search);
     $stmt->execute();
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -90,7 +90,7 @@ $employees = fetchEmployees($conn, $search);
 
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row vh-100">
             <?php include_once ('sidebar1.php'); ?>
             <div class="col-10 px-5 pt-3 pb-5">
                 <img src="images/PSA banner.jpg" alt="PSA Banner" class="img-fluid" style="max-height: 128px;">

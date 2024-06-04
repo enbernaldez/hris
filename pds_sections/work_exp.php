@@ -165,7 +165,7 @@
                                 class="form-control uppercase group_na_we" value="">
                             <div class="form-check d-flex mt-1 mb-0">
                                 <input type="checkbox" id="present_we" onclick="presentWe(this)"
-                                    class="form-check-input uppercase me-2 remove_present_vw">
+                                    class="form-check-input uppercase me-2 remove_present_we">
                                 <label for="present_we" class="form-check-label">PRESENT</label>
                             </div>
                         </div>
@@ -594,7 +594,7 @@
             origPresentCheckbox.closest('.form-check').remove();
         }
         // uncheck present checkbox
-        var presentCheckbox = parentRow.querySelector('.remove_present_we input[type="checkbox"]');
+        var presentCheckbox = newRow.querySelector('.remove_present_we');
         if (presentCheckbox) {
             presentCheckbox.checked = false;
         }
