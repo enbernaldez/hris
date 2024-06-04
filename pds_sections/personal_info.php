@@ -147,6 +147,17 @@
             $$var = "";
         }
         $country = "N/A";
+        
+        echo "
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var addEmployee = document.querySelectorAll('.add-employee');
+                addEmployee.forEach(function (detail) {
+                    detail.disabled = true;
+                });
+            });
+        </script>
+        ";
     }
 
     if (isset($_GET['office'])) {
@@ -246,7 +257,7 @@
             <label for="bloodtype">BLOOD TYPE</label><br>
             <input type="text" required name="bloodtype" id="bloodtype" list="blood_type"
                 class="form-control uppercase input" value="<?php echo $bloodtype; ?>">
-                <datalist id="blood_type">
+            <datalist id="blood_type">
                 <?php
                 $result = query($conn, "SELECT * FROM  `bloodtype`");
                 foreach ($result as $value) {
@@ -697,6 +708,11 @@
 
         // Move to the next slide only if the form is filled out
         document.querySelector('#nextButton_pi').addEventListener('click', function () {
+            var addEmployee = document.querySelectorAll('.add-employee');
+            addEmployee.forEach(function (detail) {
+                detail.disabled = false;
+            });
+
             var activeSlide = document.querySelector('.carousel-item.active');
             var inputs = activeSlide.querySelectorAll('.input');
 
@@ -812,6 +828,8 @@
             }
         } else {
             destination.disabled = false;
+            destination.value = "";
+            checkbox.checked = false;
             checkbox.disabled = false;
         }
     }

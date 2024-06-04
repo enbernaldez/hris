@@ -166,7 +166,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col-1 na small-font">
+            <div class="col-1 col na small-font">
                 <select class="form-select year-select next_button sample" id="year_graduatedE" name="elem_year[]"
                     required>
                     <option value="" disabled selected>--SELECT--</option>
@@ -238,7 +238,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelS" name="sec_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col-1 na small-font">
+            <div class="col-1 col na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedS" name="sec_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -324,7 +324,7 @@
                 <input type="text" class="form-control uppercase next_button" id="h_levelV" name="voc_level[]" required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col-1 na small-font">
+            <div class="col-1 col na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedV" name="voc_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -348,7 +348,7 @@
         <!-- button  -->
         <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; width: 300px; height: 40px; background: none; border: none;  text-align: left; padding: 0; margin-left: 150px;"><i
-                class="bi bi-plus-lg me-2" id="v_addrow" name="v_addrow"></i>Add new Vocational
+                class="bi bi-plus-lg me-2" id="V_addrow" name="V_addrow"></i>Add new Vocational
             row</button>
     </div>
     <!-- COLLEGE -->
@@ -410,7 +410,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col-1 na small-font">
+            <div class="col-1 col na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedC" name="coll_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -433,7 +433,7 @@
         </div>
         <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; border: none; width: 300px; height: 40px; background: none; text-align: left; padding: 0; margin-left: 150px;">
-            <i class="bi bi-plus-lg me-2" id="c_addrow" name="c_addrow"></i>Add new College row
+            <i class="bi bi-plus-lg me-2" id="C_addrow" name="C_addrow"></i>Add new College row
         </button>
     </div>
 
@@ -504,7 +504,7 @@
                     required>
             </div>
             <!-- YEAR GRADUATED -->
-            <div class="col-1 na small-font">
+            <div class="col-1 col na small-font">
                 <select class="form-select year-select next_button" id="year_graduatedG" name="grad_year[]" required>
                     <option value="" disabled selected>--SELECT--</option>
                 </select>
@@ -527,7 +527,7 @@
         </div>
         <button type="button" class="add-row-text" onclick="plusRow(this)"
             style="outline: none; border: none; width: 300px; height: 40px; background: none; text-align: left; padding: 0; margin-left: 150px;">
-            <i class="bi bi-plus-lg me-2" id="g_addrow" name="g_addrow"></i>Add new Graduate Studies row
+            <i class="bi bi-plus-lg me-2" id="G_addrow" name="G_addrow"></i>Add new Graduate Studies row
         </button>
     </div>
     <!-- BACK BUTTON -->
@@ -771,12 +771,13 @@
     // Define an object to store the original options of each select element
     const newOptions = {};
 
-    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId) {
+    function handleNAArray(checkboxId, inputIds, selectIds, chkboxIds, presentChkId, addRowId) {
         const checkbox = document.getElementById(checkboxId);
         const inputs = inputIds.map((id) => document.getElementById(id));
         const selects = selectIds.map((id) => document.getElementById(id));
         const checkboxes = chkboxIds.map((id) => document.getElementById(id));
         const presentCheckbox = document.getElementById(presentChkId);
+        const addrowButton = document.getElementById(addRowId);
 
         // Store the original options of each select element
         selects.forEach((select) => {
@@ -787,10 +788,12 @@
 
         checkbox.addEventListener("change", function () {
             if (this.checked) {
+
                 inputs.forEach((input) => {
                     input.value = "N/A";
                     input.disabled = true;
                 });
+
                 selects.forEach((select) => {
                     // Clear existing options
                     select.innerHTML = "";
@@ -803,22 +806,29 @@
                     select.appendChild(optionNA);
                     select.disabled = true;
                 });
+
                 checkboxes.forEach((chkbx) => {
                     chkbx.checked = true;
                     chkbx.disabled = true;
                 });
+
                 // Remove cloned rows if they exist
                 const clonedRows = document.querySelectorAll("." + checkboxId + ".new-row");
                 clonedRows.forEach((clonedRow) => {
                     clonedRow.remove();
                 });
+
                 presentCheckbox.checked = false;
                 presentCheckbox.disabled = true;
+
+                addrowButton.disabled = true;
             } else {
+
                 inputs.forEach((input) => {
                     input.value = "";
                     input.disabled = false;
                 });
+
                 selects.forEach((select) => {
                     // Restore original options
                     select.innerHTML = "";
@@ -833,19 +843,26 @@
                     }
                     select.disabled = false;
                 });
+
                 checkboxes.forEach((chkbx) => {
                     chkbx.checked = false;
                     chkbx.disabled = false;
                 });
+
                 presentCheckbox.disabled = false;
+
+
+                addrowButton.disabled = false;
             }
         });
 
         if (checkbox.checked) {
+
             inputs.forEach((input) => {
                 input.value = "N/A";
                 input.disabled = true;
             });
+
             selects.forEach((select) => {
                 // Clear existing options
                 select.innerHTML = "";
@@ -857,22 +874,28 @@
                 select.appendChild(optionNA);
                 select.disabled = true;
             });
+
             checkboxes.forEach((chkbx) => {
                 chkbx.checked = true;
                 chkbx.disabled = true;
             });
+
             // Remove cloned rows if they exist
             const clonedRows = document.querySelectorAll("." + checkboxId + ".new-row");
             clonedRows.forEach((clonedRow) => {
                 clonedRow.remove();
             });
+
             presentCheckbox.checked = false;
             presentCheckbox.disabled = true;
+
         } else {
+
             inputs.forEach((input) => {
                 input.value = "";
                 input.disabled = false;
             });
+
             selects.forEach((select) => {
                 // Restore original options
                 select.innerHTML = "";
@@ -884,10 +907,12 @@
                 });
                 select.disabled = false;
             });
+
             checkboxes.forEach((chkbx) => {
                 chkbx.checked = false;
                 chkbx.disabled = false;
             });
+
             presentCheckbox.disabled = false;
         }
     }
@@ -918,7 +943,7 @@
                 "null_scholarship" + lvl,
             ],
             "present_to" + lvl,
-            "topresent" + lvl
+            lvl + "_addRow"
         );
     });
 
@@ -954,7 +979,7 @@
                         "null_scholarship" + lvl,
                     ],
                     "present_to" + lvl,
-                    "topresent" + lvl
+                    lvl + "addRow"
                 );
             }
         });
