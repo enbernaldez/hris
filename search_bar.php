@@ -168,10 +168,9 @@ $employees = fetchEmployees($conn, $search);
                 style="color: black;">
                 <li>Edit</li>
             </a>
-            <li data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
+            <li class="delete" data-bs-toggle="modal" data-bs-target="#modal_deleteRecord">Delete</li>
         </ul>
     </div>
-
 
     <!-- Delete Modal -->
     <div class="modal fade" id="modal_deleteRecord" tabindex="-1" aria-labelledby="modal_deleteRecordLabel"
@@ -191,6 +190,7 @@ $employees = fetchEmployees($conn, $search);
                             <strong>
                                 <span id="fullName"></span>
                             </strong>
+                            ?
                         </p>
                     </div>
                 </div>
@@ -210,7 +210,6 @@ $employees = fetchEmployees($conn, $search);
             </div>
         </div>
     </div>
-
 
     <script src="js\jquery-3.7.1.min.js"></script>
     <script>
@@ -247,7 +246,7 @@ $employees = fetchEmployees($conn, $search);
                 var rect = kebab.getBoundingClientRect();
                 var x = rect.left + window.scrollX + 25;
                 var y = rect.top + window.scrollY + 18;
-                var target = this.closest('.menu-button')
+                var target = this.closest('.menu-button');
 
                 var tile = e.target.closest('.tile');
                 var id = tile.querySelector("p[name='employee_id']").innerText;
@@ -256,8 +255,20 @@ $employees = fetchEmployees($conn, $search);
                 showContextMenu(x, y, target, id, fullName);
             });
         });
-    </script>
 
+        // Event listener for delete modal
+        $('#modal_deleteRecord').on('show.bs.modal', function (event) {
+            // Extract info from data-* attributes
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id'); // Extract info from data-* attributes
+            var name = button.data('name');
+
+            // Update the modal's content
+            var modal = $(this);
+            modal.find('#employee_id').val(id);
+            modal.find('#fullName').text(name);
+        });
+    </script>
 </body>
 
 </html>
