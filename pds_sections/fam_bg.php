@@ -30,8 +30,10 @@
         foreach ($result as $value) {
             $parents = array("lastname", "firstname", "middlename", "nameext");
             foreach ($parents as $dets) {
-                $type = ($value['parent_type'] == 'F') ? "father" : "mother";
-                ${"{$type}_{$dets}"} = $value['parent_' . $dets];
+                $types = array("father", "mother");
+                foreach ($types as $type) {
+                    ${"{$type}_{$dets}"} = $value['parent_' . $dets] ?? '';
+                }
             }
         }
 
@@ -293,7 +295,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_fb">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
+        id="nextButton_fb">
         <strong>NEXT</strong>
     </button>
 </div>

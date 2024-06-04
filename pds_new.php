@@ -97,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -135,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -266,7 +264,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -301,7 +298,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -355,7 +351,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -389,7 +384,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -421,7 +415,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
@@ -461,7 +454,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($action == 'add') {
                     insert($conn, $table, $fields);
                 } else if ($action == 'edit') {
-                    $employee_id = $_POST['id'];
                     $filter = array('employee_id' => $employee_id);
                     update($conn, $table, $fields, $filter);
                 } else {
@@ -533,7 +525,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($action == 'add') {
                 insert($conn, $table, $fields);
             } else if ($action == 'edit') {
-                $employee_id = $_POST['id'];
                 $filter = array('employee_id' => $employee_id);
                 update($conn, $table, $fields, $filter);
             } else {
@@ -581,7 +572,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -646,7 +636,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -688,7 +677,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -736,7 +724,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -765,7 +752,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($action == 'add') {
                 insert($conn, $table, $fields);
             } else if ($action == 'edit') {
-                $employee_id = $_POST['id'];
                 $filter = array('employee_id' => $employee_id);
                 update($conn, $table, $fields, $filter);
             } else {
@@ -809,7 +795,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -895,7 +880,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $employee_id = $_POST['id'];
             $filter = array('employee_id' => $employee_id);
             update($conn, $table, $fields, $filter);
         } else {
@@ -924,7 +908,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
         update($conn, $table, $fields, $filter);
     } else {
