@@ -379,9 +379,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_firstname' => $n_fb_father_name_first,
         'parent_middlename' => $n_fb_father_name_middle,
         'parent_nameext' => $n_fb_father_name_ext,
-        'parent_type' => "F",
     );
     if ($action == 'add') {
+        $fields['parent_type'] = "F";
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
         $filter = array('employee_id' => $employee_id, 'parent_type' => "F");
@@ -410,9 +410,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_firstname' => $n_fb_mother_name_first,
         'parent_middlename' => $n_fb_mother_name_middle,
         'parent_nameext' => "N/A",
-        'parent_type' => "M",
     );
     if ($action == 'add') {
+        $fields['parent_type'] = "M";
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
         $filter = array('employee_id' => $employee_id, 'parent_type' => "M", );
