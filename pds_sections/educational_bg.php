@@ -944,7 +944,7 @@
                 "null_scholarship" + lvl,
             ],
             "present_to" + lvl,
-            lvl + "_addRow"
+            lvl + "_addrow"
         );
     });
 
