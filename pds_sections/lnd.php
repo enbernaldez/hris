@@ -199,7 +199,7 @@
         </div>
         <div class="col mt-4">
         <button type="button" class="btn btn-primary button-nav" id="download-pdf"
-                style="float: right; border: none;" <?php echo $downloadButtonEnabled; ?>>Download PDF</button>
+                style="float: right; border: none;" <?php echo $downloadButtonEnabled; ?>>Download as PDF</button>
         </div>
     </div>
 
