@@ -384,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $filter = array('employee_id' => $employee_id);
+        $filter = array('employee_id' => $employee_id, 'parent_type' => "F");
         update($conn, $table, $fields, $filter);
     } else {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
@@ -415,7 +415,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action == 'add') {
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
-        $filter = array('employee_id' => $employee_id);
+        $filter = array('employee_id' => $employee_id, 'parent_type' => "M",);
         update($conn, $table, $fields, $filter);
     } else {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
