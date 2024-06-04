@@ -123,6 +123,7 @@
             "birthplace",
             "height",
             "weight",
+            "bloodtype",
             "gsis",
             "pagibig",
             "philhealth",
@@ -243,16 +244,17 @@
         </div>
         <div class="col mx-2">
             <label for="bloodtype">BLOOD TYPE</label><br>
-            <input type="text" required name="bloodtype" id="bloodtype" list="bloodtype" class="form-control uppercase input" value="<?php echo $bloodtype; ?>">
-            <datalist id="bloodtype">
+            <input type="text" required name="bloodtype" id="bloodtype" list="blood_type"
+                class="form-control uppercase input" value="<?php echo $bloodtype; ?>">
+                <datalist id="blood_type">
                 <?php
-                $result = query($conn, "SELECT * FROM  `employee_details`");
+                $result = query($conn, "SELECT * FROM  `bloodtype`");
                 foreach ($result as $value) {
-                    echo '<option class="uppercase" value="' . $value['emp_dets_bloodtype'] . '">';
+                    echo '<option class="uppercase" value="' . $value['bloodtype_name'] . '">';
                 }
                 ?>
             </datalist>
-            
+
         </div>
     </div>
 
@@ -623,7 +625,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_pi">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
+        id="nextButton_pi">
         <strong>NEXT</strong>
     </button>
 

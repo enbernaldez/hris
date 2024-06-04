@@ -151,7 +151,7 @@
                     style="height:150px; width:auto;">
                 <div class="mt-3">
                     <input type="file" class="form-control input_ref" id="change_photo" name="change_photo"
-                        style="width: 150px;<?php echo ($_GET['action'] == 'edit') ? "" : " required"; ?>>
+                        style="width: 150px;"<?php echo ($_GET['action'] == 'edit') ? "" : " required"; ?>>
                 </div>
             </div>
         </div>
@@ -189,18 +189,6 @@
                 input.value = "";
                 input.disabled = false;
             });
-
-            // // Handle file input separately
-            // var fileInput = document.getElementById('change_photo');
-            // if (fileInput) {
-            //     fileInput.value = '';
-            // }
-
-            // // Reset profile image if needed
-            // var profileImg = document.getElementById('profile_img');
-            // if (profileImg) {
-            //     profileImg.src = 'images/person.png';
-            // }
         });
 
         // ======================== ID Picture Display ==================================
