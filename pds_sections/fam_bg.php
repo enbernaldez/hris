@@ -298,7 +298,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_fb">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
+        id="nextButton_fb">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -461,6 +462,33 @@
                 });
             }
         });
+
+        if (checkbox.checked) {
+            inputs.forEach((input) => {
+
+                input.type = "text";
+                input.value = "N/A";
+                input.disabled = true;
+            });
+            checkboxes.forEach((chkbx) => {
+                chkbx.checked = true;
+                chkbx.disabled = true;
+            });
+        } else {
+            inputs.forEach((input) => {
+
+                input.id == "spouse_telno" ? input.type = "tel" :
+                    input.id == "child_birthdate" ? input.type = "date" :
+                        input.type = "text";
+
+                input.value = "";
+                input.disabled = false;
+            });
+            checkboxes.forEach((chkbx) => {
+                chkbx.checked = false;
+                chkbx.disabled = false;
+            });
+        }
     }
 
     // ARRAYS
