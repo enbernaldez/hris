@@ -919,6 +919,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
     }
 
+    // echo "<br><br><br>Position: $position_id";
+    // echo "<br>Image Directory: $n_itemimgdir";
+    // prepare arguments for update function
+    $table = "employees";
+    $fields = array(
+        'position_id' => $position_id,
+    );
+
     if (isset($_FILES['change_photo']) && $_FILES['change_photo']['error'] != UPLOAD_ERR_NO_FILE) {
 
         // for $filename
@@ -934,17 +942,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $temp = $_FILES['change_photo']['tmp_name']; //temporary location
         $n_itemimgdir = "id_pictures/" . $filename . "." . $fileext; ///target location
+        $fields['employee_imgdir'] = $n_itemimgdir;
         move_uploaded_file($temp, $n_itemimgdir);
     }
-
-    // echo "<br><br><br>Position: $position_id";
-    // echo "<br>Image Directory: $n_itemimgdir";
-    // prepare arguments for update function
-    $table = "employees";
-    $fields = array(
-        'position_id' => $position_id,
-        'employee_imgdir' => $n_itemimgdir,
-    );
     $filter = array('employee_id' => $employee_id);
 
     $office = $_POST['office'];
