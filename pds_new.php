@@ -508,7 +508,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $sql = "SELECT SELECT DISTINCT `employee_id`, `educ_acadlvl`, `school_id`, `bdc_id`, `educ_period_from`, `educ_period_to`, `educ_highest`, `educ_graduated`, `educ_scholarship_acad_honors`
+        $sql = "SELECT DISTINCT `employee_id`, `educ_acadlvl`, `school_id`, `bdc_id`, `educ_period_from`, `educ_period_to`, `educ_highest`, `educ_graduated`, `educ_scholarship_acad_honors`
                 FROM `education`
                 WHERE `employee_id` = ?";
         $filter = array($employee_id);
@@ -563,7 +563,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_cse_license_number = array_map('strtoupper', array_map('trim', $_POST['license_number'] ?? array('N/A')));
     $n_cse_license_dateofvalidity = array_map('strtoupper', array_map('trim', $_POST['license_dateofvalidity'] ?? array('N/A')));
 
-    $sql = "SELECT SELECT DISTINCT `employee_id`, `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
+    $sql = "SELECT DISTINCT `employee_id`, `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
             FROM `cs_eligibility`
             WHERE `employee_id` = ?";
     $filter = array($employee_id);
@@ -684,7 +684,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_vw_hrs = array_map('strtoupper', array_map('trim', $_POST['vw_hrs'] ?? array('N/A')));
     $n_vw_position = array_map('strtoupper', array_map('trim', $_POST['vw_position'] ?? array('N/A')));
 
-    $sql = "SELECT SELECT DISTINCT `employee_id`, `volwork_name_add`, `volwork_from`, `volwork_to`, `volwork_hrs`, `volwork_position`
+    $sql = "SELECT DISTINCT `employee_id`, `volwork_name_add`, `volwork_from`, `volwork_to`, `volwork_hrs`, `volwork_position`
             FROM `voluntary_work`
             WHERE `employee_id` = ?";
     $filter = array($employee_id);
