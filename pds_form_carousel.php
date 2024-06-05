@@ -230,14 +230,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </form>
                 <img src="images/LOGO.png" alt="" class="positioned-image">
             </div>
         </div>
     </div>
+    <script src="js\jquery-3.7.1.min.js"></script>
     <script>
         //====================== Active Slide Color ==================== 
         document.addEventListener('DOMContentLoaded', function () {
@@ -311,6 +310,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     carouselInstance.to(index);
                 });
+            });
+        });
+
+        $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
             });
         });
     </script>
