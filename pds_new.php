@@ -799,8 +799,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action == 'add') {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $filter = array('employee_id' => $employee_id);
-            update($conn, $table, $fields, $filter);
+            $filter = array('employee_id' => $employee_id, 'qna_itemno' => $item_no);
+            $op = array("AND");
+            update($conn, $table, $fields, $filter, $op);
         } else {
             echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
         }
