@@ -304,8 +304,6 @@
     </button>
 </div>
 
-
-
 <script>
     // ======================== Clear Button ==================================
     document.addEventListener('DOMContentLoaded', function () {
@@ -462,7 +460,7 @@
                 });
             }
         });
-
+        
         if (checkbox.checked) {
             inputs.forEach((input) => {
 
@@ -473,20 +471,6 @@
             checkboxes.forEach((chkbx) => {
                 chkbx.checked = true;
                 chkbx.disabled = true;
-            });
-        } else {
-            inputs.forEach((input) => {
-
-                input.id == "spouse_telno" ? input.type = "tel" :
-                    input.id == "child_birthdate" ? input.type = "date" :
-                        input.type = "text";
-
-                input.value = "";
-                input.disabled = false;
-            });
-            checkboxes.forEach((chkbx) => {
-                chkbx.checked = false;
-                chkbx.disabled = false;
             });
         }
     }
