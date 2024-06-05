@@ -258,7 +258,7 @@
                 class="form-control uppercase input" value="<?php echo $bloodtype; ?>">
             <datalist id="blood_type">
                 <?php
-                $result = query($conn, "SELECT * FROM  `bloodtype`");
+                $result = query($conn, "SELECT * FROM  `bloodtype` WHERE `bloodtype_id` != '1'");
                 foreach ($result as $value) {
                     echo '<option class="uppercase" value="' . $value['bloodtype_name'] . '">';
                 }
