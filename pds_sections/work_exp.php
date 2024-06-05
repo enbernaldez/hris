@@ -104,15 +104,14 @@
     <div class="row mt-4 text-center align-items-end">
         <div class="col-3">
             <div class="row ms-5">
-                <p class="mb-0">INCLUSIVE DATES</p>
-                <p>(mm/dd/yy)</p>
+                <p class="mb-0"><strong>INCLUSIVE DATES</strong><br>(mm/dd/yy)</p>
             </div>
             <div class="row ms-5">
                 <div class="col">
-                    <p>FROM</p>
+                    <p><strong>FROM</strong></p>
                 </div>
                 <div class="col">
-                    <p>TO</p>
+                    <p><strong>TO</strong></p>
                 </div>
                 <div class="row">
                     <i>
@@ -123,28 +122,29 @@
         </div>
         <div class="col-2">
             <p>
-                POSITION TITLE<br>
+                <strong>POSITION TITLE</strong><br>
                 (Write in full / Do not abbreviate)
             </p>
         </div>
         <div class="col-2">
             <p>
-                DEPARTMENT/AGENCY/<br>OFFICE/COMPANY<br>(Write in full / Do not abbreviate)
+                <strong>DEPARTMENT/AGENCY/<br>OFFICE/COMPANY</strong><br>(Write in full / Do not abbreviate)
             </p>
         </div>
         <div class="col-1">
-            <p>MONTHLY SALARY</p>
+            <p><strong>MONTHLY SALARY</strong></p>
         </div>
         <div class="col-1">
             <p>
-                SALARY/JOB/PAY GRADE (if applicable) & STEP (Format "00-0")/<br>INCREMENT
+                <strong>SALARY/JOB/ PAY GRADE</strong>
+                (if applicable) <strong>& STEP</strong> (Format "00-0")/<br><strong>INCREMENT</strong>
             </p>
         </div>
         <div class="col-2">
-            <p>STATUS OF APPOINTMENT</p>
+            <p><strong>STATUS OF APPOINTMENT</strong></p>
         </div>
         <div class="col-1">
-            <p>GOV'T SERVICE?</p>
+            <p><strong>GOV'T SERVICE?</strong></p>
         </div>
     </div>
 
@@ -481,7 +481,7 @@
                 select.appendChild(optionNA);
                 select.disabled = true;
             });
-            
+
             addRowButton.disabled = true;
 
             // Remove cloned rows if they exist
@@ -516,7 +516,7 @@
                 });
                 select.disabled = false;
             });
-            
+
             addRowButton.disabled = false;
         }
     }

@@ -460,19 +460,21 @@
                 });
             }
         });
-        
-        if (checkbox.checked) {
-            inputs.forEach((input) => {
 
-                input.type = "text";
-                input.value = "N/A";
-                input.disabled = true;
-            });
-            checkboxes.forEach((chkbx) => {
-                chkbx.checked = true;
-                chkbx.disabled = true;
-            });
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            if (checkbox.checked) {
+                inputs.forEach((input) => {
+
+                    input.type = "text";
+                    input.value = "N/A";
+                    input.disabled = true;
+                });
+                checkboxes.forEach((chkbx) => {
+                    chkbx.checked = true;
+                    chkbx.disabled = true;
+                });
+            }
+        });
     }
 
     // ARRAYS
