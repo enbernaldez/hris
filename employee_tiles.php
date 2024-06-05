@@ -338,8 +338,8 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
     <!--Script-->
     <?php
-    if (isset($_GET['add_employee'])) {
-        $id = $_GET['employee_added'];
+    if (isset($_GET['add_employee']) || isset($_GET['edit_employee'])) {
+        $id = (isset($_GET['add_employee'])) ? $_GET['employee_added'] : $_GET['employee_edited'];
 
         $sql = "SELECT `employee_lastname`, `employee_firstname`, `employee_middlename`, `employee_nameext`
                 FROM `employees`
@@ -357,10 +357,10 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
         $full_name_js = json_encode($full_name);
 
-
-        switch ($_GET['add_employee']) {
-            case 'success':
-                echo "
+        if (isset($_GET['add_employee'])) {
+            switch ($_GET['add_employee']) {
+                case 'success':
+                    echo "
                     <script>
                         swal('New employee added!', 
                             '{$full_name_js} has been added to database.', 
@@ -368,50 +368,53 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     </script>
                 ";
 
-                break;
+                    break;
 
-            case 'failed':
-                echo '
+                case 'failed':
+                    echo '
                     <script>
                         swal("", "Failed to add new employee.", "error");
                     </script>    
                 ';
 
-                break;
+                    break;
 
-            case 'exists':
-                echo '
+                case 'exists':
+                    echo '
                     <script>
                         swal("", "Employee already exists.", "warning");
                     </script>    
                 ';
 
-                break;
+                    break;
 
-            default:
-                echo '
+                default:
+                    echo '
                     <script>
                         swal("", "A problem occured while adding new employee.", "error");
                     </script>    
                 ';
-                break;
+                    break;
+            }
         }
 
-        switch ($_GET['edit_employee']) {
-            case 'success':
-                echo "
+        if (isset($_GET['edit_employee'])) {
+            switch ($_GET['edit_employee']) {
+                case 'success':
+                    echo "
                     <script>
                         swal('Employee updated!', 
-                            '{$full_name_js}'s information has been updated.', 
+                            '{$full_name_js}\'s information has been updated.', 
                             'success');
                     </script>
-                ";
+                    ";
 
-                break;
-            
-            default:
-                # code...
-                break;
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
         }
     }
     ?>

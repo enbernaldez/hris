@@ -83,8 +83,12 @@
                     $key = (count($result) == 1) ? 0 : $key;
                     $column_pk = (in_array($part, ['houseblocklot', 'zipcode'])) ? "{$part}_no" : "{$part}_name";
 
-                    ${$type . $part} = lookup($conn, $result[$key]["{$part}_id"], $table_name, $column_pk, "{$part}_id", $column_fk, $data_fk);
-                    // echo ${$type . $part} . "<br><br>";
+                    if (!in_array($part, ['province', 'citymunicipality'])) {
+                        ${$type . $part} = lookup($conn, $result[$key]["{$part}_id"], $table_name, $column_pk, "{$part}_id", $column_fk, $data_fk);
+                        // echo ${$type . $part} . "<br><br>";
+                    } else {
+                        ${$type . $part} = $result[$key]["{$part}_id"];
+                    }
                 }
             }
 
@@ -350,7 +354,7 @@
                 foreach ($list_province as $key => $row) {
                     $prov_id = $row['province_id'];
                     $prov_name = $row['province_name'];
-                    $selected = (isset($residential_province) && $residential_province == $prov_name) ? " selected" : "";
+                    $selected = (isset($residential_province) && $residential_province == $prov_id) ? " selected" : "";
                     echo "<option class='uppercase' value='" . $prov_id . "' . $selected>" . $prov_name . "</option>";
                 } ?>
             </select>
@@ -366,7 +370,7 @@
                 foreach ($list_citymunicipality as $key => $row) {
                     $cm_id = $row['citymunicipality_id'];
                     $cm_name = $row['citymunicipality_name'];
-                    $selected = (isset($residential_citymunicipality) && $residential_citymunicipality == $cm_name) ? " selected" : "";
+                    $selected = (isset($residential_citymunicipality) && $residential_citymunicipality == $cm_id) ? " selected" : "";
                     echo "<option class='uppercase' value='" . $cm_id . "' . $selected>" . $cm_name . "</option>";
                 } ?>
             </select>
@@ -484,7 +488,7 @@
                 foreach ($list_province as $key => $row) {
                     $prov_id = $row['province_id'];
                     $prov_name = $row['province_name'];
-                    $selected = (isset($permanent_province) && $permanent_province == $prov_name) ? " selected" : "";
+                    $selected = (isset($permanent_province) && $permanent_province == $prov_id) ? " selected" : "";
                     echo "<option class='uppercase' value='" . $prov_id . "' . $selected>" . $prov_name . "</option>";
                 } ?>
             </select>
@@ -500,7 +504,7 @@
                 foreach ($list_citymunicipality as $key => $row) {
                     $cm_id = $row['citymunicipality_id'];
                     $cm_name = $row['citymunicipality_name'];
-                    $selected = (isset($permanent_citymunicipality) && $permanent_citymunicipality == $cm_name) ? " selected" : "";
+                    $selected = (isset($permanent_citymunicipality) && $permanent_citymunicipality == $cm_id) ? " selected" : "";
                     echo "<option class='uppercase' value='" . $cm_id . "' . $selected>" . $cm_name . "</option>";
                 } ?>
             </select>

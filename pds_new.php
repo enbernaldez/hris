@@ -262,11 +262,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'zipcode_id' => ${$prefix . 'zipcode'},
             'emp_add_type' => $add_type,
         );
-        if ($action == 'add') {
+        if ($action == 'add' || isset($result[1])) {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
-            $filter = array('employee_id' => $employee_id);
-            update($conn, $table, $fields, $filter);
+            $filter = array('employee_id' => $employee_id, 'emp_add_type' => $add_type);
+            $op = array("AND");
+            update($conn, $table, $fields, $filter, $op);
         } else {
             echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
         }
@@ -435,7 +436,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         // Ensure both inner arrays have the same number of elements
         $numElements = count($children[0]); // Number of elements in each inner array
+
         // echo "<br>CHILDREN<br>";
+
+        $sql = "SELECT DISTINCT `employee_id`, `child_fullname`, `child_bday`
+                FROM `children`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
         // Iterate through each index to combine corresponding elements
         for ($i = 0; $i < $numElements; $i++) {
             $fullName = $children[0][$i];   // Get fullName from the first inner array
@@ -454,7 +463,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'child_fullname' => $fullName,
                     'child_bday' => $bday,
                 );
-                if ($action == 'add') {
+                if ($action == 'add' || isset($result[$i])) {
                     insert($conn, $table, $fields);
                 } else if ($action == 'edit') {
                     $filter = array('employee_id' => $employee_id);
@@ -499,6 +508,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        $sql = "SELECT SELECT DISTINCT `employee_id`, `educ_acadlvl`, `school_id`, `bdc_id`, `educ_period_from`, `educ_period_to`, `educ_highest`, `educ_graduated`, `educ_scholarship_acad_honors`
+                FROM `education`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
         for ($i = 0; $i < count($school); $i++) {
             // echo "<br>
             //     $title (" . strtoupper($lvl[0]) . ")<br>
@@ -525,7 +540,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'educ_graduated' => $year[$i],
                 'educ_scholarship_acad_honors' => $scholarship[$i],
             ];
-            if ($action == 'add') {
+            if ($action == 'add' || isset($result[$i])) {
                 insert($conn, $table, $fields);
             } else if ($action == 'edit') {
                 $filter = array('employee_id' => $employee_id, 'educ_acadlvl' => strtoupper($lvl[0]),);
@@ -547,6 +562,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_cse_exam_place = array_map('strtoupper', array_map('trim', $_POST['exam_place'] ?? array('N/A')));
     $n_cse_license_number = array_map('strtoupper', array_map('trim', $_POST['license_number'] ?? array('N/A')));
     $n_cse_license_dateofvalidity = array_map('strtoupper', array_map('trim', $_POST['license_dateofvalidity'] ?? array('N/A')));
+
+    $sql = "SELECT SELECT DISTINCT `employee_id`, `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
+            FROM `cs_eligibility`
+            WHERE `employee_id` = ?";
+    $filter = array($employee_id);
+    $result = query($conn, $sql, $filter);
 
     for ($i = 0; $i < count($n_cse_careerservice); $i++) {
 
@@ -573,7 +594,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'cseligibility_license' => $n_cse_license_number[$i],
             'cseligibility_datevalidity' => $n_cse_license_dateofvalidity[$i],
         );
-        if ($action == 'add') {
+        if ($action == 'add' || isset($result[$i])) {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
             $filter = array('employee_id' => $employee_id);
@@ -595,6 +616,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_we_sg = array_map('strtoupper', array_map('trim', $_POST['we_sg'] ?? array('N/A')));
     $n_we_status = array_map('strtoupper', array_map('trim', $_POST['we_status'] ?? array('N/A')));
     $n_we_govtsvcs = array_map('strtoupper', array_map('trim', $_POST['we_govtsvcs'] ?? array('N/A')));
+
+        $sql = "SELECT DISTINCT `employee_id`, `workexp_from`, `workexp_to`, `position_id`, `daoc_id`, `workexp_salary_mo`, `workexp_paygrade_step`, `workexp_status`, `workexp_govtsvcs`
+                FROM `work_experience`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
 
     for ($i = 0; $i < count($n_we_date_from); $i++) {
 
@@ -637,7 +664,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'workexp_status' => $n_we_status[$i],
             'workexp_govtsvcs' => $n_we_govtsvcs[$i],
         );
-        if ($action == 'add') {
+        if ($action == 'add' || isset($result[$i])) {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
             $filter = array('employee_id' => $employee_id);
@@ -656,6 +683,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_vw_date_to = array_map('strtoupper', array_map('trim', $_POST['vw_date_to'] ?? array('N/A')));
     $n_vw_hrs = array_map('strtoupper', array_map('trim', $_POST['vw_hrs'] ?? array('N/A')));
     $n_vw_position = array_map('strtoupper', array_map('trim', $_POST['vw_position'] ?? array('N/A')));
+
+    $sql = "SELECT SELECT DISTINCT `employee_id`, `volwork_name_add`, `volwork_from`, `volwork_to`, `volwork_hrs`, `volwork_position`
+            FROM `voluntary_work`
+            WHERE `employee_id` = ?";
+    $filter = array($employee_id);
+    $result = query($conn, $sql, $filter);
 
     for ($i = 0; $i < count($n_vw_nameaddress); $i++) {
 
@@ -678,7 +711,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'volwork_hrs' => $n_vw_hrs[$i],
             'volwork_position' => $n_vw_position[$i],
         );
-        if ($action == 'add') {
+        if ($action == 'add' || isset($result[$i])) {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
             $filter = array('employee_id' => $employee_id);
@@ -698,6 +731,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_lnd_hrs = array_map('strtoupper', array_map('trim', $_POST['lnd_hrs'] ?? array('N/A')));
     $n_lnd_type = array_map('strtoupper', array_map('trim', $_POST['lnd_type'] ?? array('N/A')));
     $n_lnd_sponsor = array_map('strtoupper', array_map('trim', $_POST['lnd_sponsor'] ?? array('N/A')));
+
+    $sql = "SELECT DISTINCT `employee_id`, `ld_title_id`, `ld_from`, `ld_to`, `ld_hrs`, `ld_type`, `sponsor_id`
+            FROM `learning_development`
+            WHERE `employee_id` = ?";
+    $filter = array($employee_id);
+    $result = query($conn, $sql, $filter);
 
     for ($i = 0; $i < count($n_lnd_title); $i++) {
 
@@ -745,6 +784,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     function insert_otherInfo($conn, $items_array, $table, $fieldName, $employee_id, $action)
     {
+        $sql = "SELECT DISTINCT `{$fieldName}`
+                FROM `{$table}`
+                WHERE `employee_id` = ?";
+        $filter = array($employee_id);
+        $result = query($conn, $sql, $filter);
+
         // accommodate qna
         for ($i = 0; $i < count($items_array); $i++) {
             // echo "&emsp;$items_array[$i]<br>";
@@ -755,7 +800,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             if ($action == 'add') {
                 insert($conn, $table, $fields);
-            } else if ($action == 'edit') {
+            } else if ($action == 'edit' || isset($result[$i])) {
                 $filter = array('employee_id' => $employee_id);
                 update($conn, $table, $fields, $filter);
             } else {
@@ -867,6 +912,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return $value !== '';
     });
 
+    $sql = "SELECT DISTINCT `employee_id`, `ref_name`, `ref_add`, `ref_telno`
+            FROM `pds_references`
+            WHERE `employee_id` = ?";
+    $filter = array($employee_id);
+    $result = query($conn, $sql, $filter);
+
     for ($i = 0; $i < count($filtered_ref_name); $i++) {
         // echo "<br>
         //     Name: $n_ref_name[$i]<br>
@@ -882,7 +933,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ref_add' => $n_ref_address[$i],
             'ref_telno' => $n_ref_telno[$i],
         );
-        if ($action == 'add') {
+        if ($action == 'add' || isset($result[$i])) {
             insert($conn, $table, $fields);
         } else if ($action == 'edit') {
             $filter = array('employee_id' => $employee_id);
