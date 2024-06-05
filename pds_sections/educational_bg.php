@@ -6,7 +6,7 @@
         $employee_id = $_GET['employee_id'];
 
         // `education` table
-        $sql = "SELECT *
+        $sql = "SELECT DISTINCT `employee_id`, `educ_acadlvl`, `school_id`, `bdc_id`, `educ_period_from`, `educ_period_to`, `educ_highest`, `educ_graduated`, `educ_scholarship_acad_honors`
                 FROM `education`
                 WHERE `employee_id` = ?";
         $filter = array($employee_id);

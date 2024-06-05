@@ -5,7 +5,7 @@
         $employee_id = $_GET['employee_id'];
 
         // `cs_eligibility` table
-        $sql = "SELECT DISTINCT `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
+        $sql = "SELECT DISTINCT `employee_id`, `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
                 FROM `cs_eligibility`
                 WHERE `employee_id` = ?
             ORDER BY `cseligibility_examdate` ASC";

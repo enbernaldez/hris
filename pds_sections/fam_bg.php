@@ -41,7 +41,7 @@
         }
 
         // `children` table
-        $sql = "SELECT *
+        $sql = "SELECT DISTINCT `employee_id`, `child_fullname`, `child_bday`
                 FROM `children`
                 WHERE `employee_id` = ?";
         $filter = array($employee_id);

@@ -740,7 +740,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_distinctions = array_map('strtoupper', array_map('trim', $_POST['distinctions'] ?? array('N/A')));
     $n_membership = array_map('strtoupper', array_map('trim', $_POST['membership'] ?? array('N/A')));
 
-    function insert_otherInfo($conn, $items_array, $table, $fieldName, $employee_id)
+    function insert_otherInfo($conn, $items_array, $table, $fieldName, $employee_id, $action)
     {
         // accommodate qna
         for ($i = 0; $i < count($items_array); $i++) {
@@ -762,13 +762,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // echo "<br>Special Skills and Hobbies:<br>";
-    insert_otherInfo($conn, $n_skills, 'special_skills_hobbies', 'ssh_name', $employee_id);
+    insert_otherInfo($conn, $n_skills, 'special_skills_hobbies', 'ssh_name', $employee_id, $action);
 
     // echo "<br>Non-Academic distinctions/Recognition:<br>";
-    insert_otherInfo($conn, $n_distinctions, 'nonacademic_recognition', 'nar_name', $employee_id);
+    insert_otherInfo($conn, $n_distinctions, 'nonacademic_recognition', 'nar_name', $employee_id, $action);
 
     // echo "<br>Membership in Association/Organization:<br>";
-    insert_otherInfo($conn, $n_membership, 'membership', 'membership_name', $employee_id);
+    insert_otherInfo($conn, $n_membership, 'membership', 'membership_name', $employee_id, $action);
 
 
     function insert_qna($conn, $employee_id, $item_no, $qna_a, $qna_a_ifyes, $qna_b, $qna_b_ifyes, $qna_b_ifyes_plus, $qna_c, $qna_c_ifyes, $action)

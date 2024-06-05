@@ -5,7 +5,7 @@
         $employee_id = $_GET['employee_id'];
 
         //`learning_development` table 
-        $sql = "SELECT *
+        $sql = "SELECT DISTINCT `employee_id`, `ld_title_id`, `ld_from`, `ld_to`, `ld_hrs`, `ld_type`, `sponsor_id`
                 FROM `learning_development`
                 WHERE `employee_id` = ?
                 ORDER BY
