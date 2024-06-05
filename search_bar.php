@@ -128,7 +128,7 @@ $employees = fetchEmployees($conn, $search);
                                 $position = $row['position_title'];
                             }
 
-                            echo '<a href="pds_form_carousel.php?action=edit&employee_id=' . $id . '" style="text-decoration: none; color: inherit;">';
+                            echo '<a href="pds_form_carousel.php?action=view&employee_id=' . $id . '" style="text-decoration: none; color: inherit;">';
                             echo '<div class="tile">';
                             echo '<div class="row">';
                             echo '<div class="col-3">';
