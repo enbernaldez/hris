@@ -98,6 +98,11 @@
                 <div class="col-6">
                     <p>TO</p>
                 </div>
+                <div class="row">
+                    <i>
+                        *Please keep all inclusive dates up to the present at the top of the list.
+                    </i>
+                </div>
             </div>
         </div>
         <div class="col-1">
