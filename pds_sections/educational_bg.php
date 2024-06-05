@@ -37,7 +37,7 @@
                 "scholarship" => "scholarship_acad_honors"
             );
 
-            if (isset(${"{$acadlvl}_school"})) {
+            if (isset(${"{$acadlvl}_school"}) && in_array($retrieved_lvl, ["V", "C", "G"])) {
                 echo "
                     var selectElement = document.getElementById('name_school{$retrieved_lvl}');
                     var parentRow = selectElement.closest('.parent-row');
@@ -980,7 +980,7 @@
                         "null_scholarship" + lvl,
                     ],
                     "present_to" + lvl,
-                    lvl + "addRow"
+                    lvl + "_addrow"
                 );
             }
         });

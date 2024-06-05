@@ -195,7 +195,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     '</a>
                                         <div class="col-1"
                                             style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
-                                            <button class="btn menu-button">
+                                            <button type="button" class="btn menu-button">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                         </div>' : '';
@@ -319,7 +319,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                         <label class="form-check-label" for="na_nameext">N/A</label>
                                     </div>
                                     <input type="text" class="form-control uppercase" id="nameext" name="nameext"
-                                        oninput="checkNAInput(this, 'na_nameext')" required>
+                                        oninput="checkNAInput(this, 'na_nameext')" required maxlength="4">
                                 </div>
 
 

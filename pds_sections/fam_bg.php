@@ -165,7 +165,7 @@
         <div class="col mx-1">
             <label for="spouse_telno">TELEPHONE NO.</label><br>
             <div class="checkbox-container">
-                <input type="text" required name="spouse_telno" id="spouse_telno"
+                <input type="text" required name="spouse_telno" id="spouse_telno" maxlength="11"
                     class="form-control uppercase group-na-fb" value="<?php echo $spouse_telno; ?>">
                 <div class="form-check ms-2">
                     <input class="form-check-input" type="checkbox" id="null_spouse_telno"
@@ -278,9 +278,9 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-3">
-            <br /><button type="button" class="btn btn-primary" id="fb_addrow" name="fb_addrow" onclick="addRow()">
+            <button type="button" class="btn btn-primary" id="fb_addrow" name="fb_addrow" onclick="addRow()">
                 ADD ROW
             </button>
         </div>

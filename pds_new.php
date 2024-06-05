@@ -30,22 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'employee_office' => $n_pi_office,
     );
     if ($action == 'add') {
-        insert($conn, $table, $fields);
+        if (insert($conn, $table, $fields)) {
 
-        // retrieve employee ID from db
-        $sql = "SELECT `employee_id` 
+            // retrieve employee ID from db
+            $sql = "SELECT `employee_id` 
                 FROM `employees` 
                 WHERE `employee_lastname` = ?
                 AND `employee_firstname` = ?
                 AND `employee_middlename` = ?
                 AND `employee_nameext` = ?";
-        // echo $sql . "<br>";
+            // echo $sql . "<br>";
+            $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle, $n_pi_name_ext);
+            $result = query($conn, $sql, $filter);
+            var_dump($result);
+            $row = $result[0];
 
-        $filter = array($n_pi_name_last, $n_pi_name_first, $n_pi_name_middle, $n_pi_name_ext);
-        $result = query($conn, $sql, $filter);
-        $row = $result[0];
-
-        $employee_id = $row['employee_id'];
+            $employee_id = $row['employee_id'];
+        }
     } else if ($action == 'edit') {
         $employee_id = $_POST['id'];
         $filter = array('employee_id' => $employee_id);
@@ -379,9 +380,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_firstname' => $n_fb_father_name_first,
         'parent_middlename' => $n_fb_father_name_middle,
         'parent_nameext' => $n_fb_father_name_ext,
+        'parent_type' => "F",
     );
     if ($action == 'add') {
-        $fields['parent_type'] = "F";
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
         $filter = array('employee_id' => $employee_id, 'parent_type' => "F");
@@ -410,9 +411,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'parent_firstname' => $n_fb_mother_name_first,
         'parent_middlename' => $n_fb_mother_name_middle,
         'parent_nameext' => "N/A",
+        'parent_type' => "M",
     );
     if ($action == 'add') {
-        $fields['parent_type'] = "M";
         insert($conn, $table, $fields);
     } else if ($action == 'edit') {
         $filter = array('employee_id' => $employee_id, 'parent_type' => "M", );
@@ -625,7 +626,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fields = array(
             'employee_id' => $employee_id,
             'workexp_from' => $n_we_date_from[$i],
-            'workexp_to' => $n_we_date_to[$i],
+            'workexp_to' => $n_we_date_to[$i] ?? "present",
             'position_id' => $position,
             'daoc_id' => $daoc,
             'workexp_salary_mo' => $n_we_salary[$i],
@@ -670,7 +671,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'employee_id' => $employee_id,
             'volwork_name_add' => $n_vw_nameaddress[$i],
             'volwork_from' => $n_vw_date_from[$i],
-            'volwork_to' => $n_vw_date_to[$i],
+            'volwork_to' => $n_vw_date_to[$i] ?? "present",
             'volwork_hrs' => $n_vw_hrs[$i],
             'volwork_position' => $n_vw_position[$i],
         );

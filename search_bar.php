@@ -144,7 +144,7 @@ $employees = fetchEmployees($conn, $search);
                             echo '</div>';
                             echo '<div class="col-1" style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">';
                             echo '<a href="pds_form_carousel.php?action=edit&employee_id=' . $id . '" style="text-decoration: none; color: inherit;">'; // Wrapping the edit button in an anchor tag
-                            echo '<button class="btn menu-button"><i class="bi bi-three-dots-vertical"></i></button>';
+                            echo '<button type="button" class="btn menu-button"><i class="bi bi-three-dots-vertical"></i></button>';
                             echo '</a>';
                             echo '</div>';
                             echo '</div>';

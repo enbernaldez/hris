@@ -40,12 +40,12 @@
                     'we_agency',
                     'we_salary',
                     'we_sg',
-                    'we_status',
-                    'we_addrow',
+                    'we_status'
                 ],
                 [
                     'we_govtsvcs'
-                ]
+                ],
+                'we_addrow',
             );
         ";
         } else {
@@ -230,7 +230,8 @@
     </button>
 
     <!-- NEXT BUTTON -->
-    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next" id="nextButton_we">
+    <button type="button" class="btn btn-primary mt-5 mx-1 button-right button-nav" data-bs-slide="next"
+        id="nextButton_we">
         <strong>NEXT</strong>
     </button>
 </div>
@@ -357,10 +358,11 @@
     });
 
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray_we(checkboxId, inputIds, selectIds) {
+    function setupNullInputArray_we(checkboxId, inputIds, selectIds, addRowId) {
         var checkbox = document.querySelector("#" + checkboxId);
         var inputs = inputIds.map((id) => document.querySelector('[id="' + id + '"]'));
         var selects = selectIds.map((id) => document.querySelector('[id="' + id + '"]'));
+        var addRowButton = document.querySelector("#" + addRowId);
 
         var originalOptions = {};
 
@@ -404,6 +406,8 @@
                     select.disabled = true;
                 });
 
+                addRowButton.disabled = true;
+
                 // Remove cloned rows if they exist
                 var clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
                 clonedRows.forEach((clonedRow) => {
@@ -436,6 +440,8 @@
                     });
                     select.disabled = false;
                 });
+
+                addRowButton.disabled = false;
             }
         });
 
@@ -470,6 +476,8 @@
                 select.appendChild(optionNA);
                 select.disabled = true;
             });
+            
+            addRowButton.disabled = true;
 
             // Remove cloned rows if they exist
             var clonedRows = document.querySelectorAll(".row-container_we .row-row_we");
@@ -503,6 +511,8 @@
                 });
                 select.disabled = false;
             });
+            
+            addRowButton.disabled = false;
         }
     }
 
@@ -515,12 +525,12 @@
             "we_agency",
             "we_salary",
             "we_sg",
-            "we_status",
-            "we_addrow"
+            "we_status"
         ],
         [
             "we_govtsvcs"
-        ]
+        ],
+        "we_addrow"
     );
 
     // =================================== Add Row ===================================
@@ -578,12 +588,12 @@
                         "we_agency",
                         "we_salary",
                         "we_sg",
-                        "we_status",
-                        "we_addrow"
+                        "we_status"
                     ],
                     [
                         "we_govtsvcs"
-                    ]
+                    ],
+                    "we_addrow"
                 );
             });
         }

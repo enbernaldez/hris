@@ -32,15 +32,18 @@
             echo "
             var checkbox = document.getElementById('null_lnd');
             checkbox.checked = true;
-            setupNullInputArray_lnd('null_lnd', [
-                'lnd_title',
-                'lnd_date_from',
-                'lnd_date_to',
-                'lnd_hrs',
-                'lnd_type',
-                'lnd_sponsor',
-                'lnd_addrow',
-            ]);
+            setupNullInputArray_lnd(
+                'null_lnd', 
+                [
+                    'lnd_title',
+                    'lnd_date_from',
+                    'lnd_date_to',
+                    'lnd_hrs',
+                    'lnd_type',
+                    'lnd_sponsor'
+                ],
+                'lnd_addrow'
+            );
             ";
         } else {
 
@@ -198,7 +201,7 @@
                 onclick="addRow_lnd()">ADD ROW</button>
         </div>
         <div class="col mt-4">
-        <button type="button" class="btn btn-primary button-nav" id="download-pdf"
+            <button type="button" class="btn btn-primary button-nav" id="download-pdf"
                 style="float: right; border: none;" <?php echo $downloadButtonEnabled; ?>>Download as PDF</button>
         </div>
     </div>
@@ -334,14 +337,17 @@
             var checkbox = newNaCheckbox.querySelector("input");
             checkbox.setAttribute("value", "true");
             newNaCheckbox.addEventListener("change", function () {
-                setupNullInputArray_lnd("null_lnd", [
-                    "lnd_title",
-                    "lnd_date_from",
-                    "lnd_date_to",
-                    "lnd_hrs",
-                    "lnd_type",
-                    "lnd_sponsor",
-                ]);
+                setupNullInputArray_lnd(
+                    "null_lnd",
+                    [
+                        "lnd_title",
+                        "lnd_date_from",
+                        "lnd_date_to",
+                        "lnd_hrs",
+                        "lnd_type",
+                        "lnd_sponsor",
+                    ],
+                    "lnd_addrow");
             });
         }
 
@@ -370,9 +376,10 @@
     }
 
     // ============================ N/A Array Disable ============================
-    function setupNullInputArray_lnd(checkboxId, inputIds) {
+    function setupNullInputArray_lnd(checkboxId, inputIds, addRowId) {
         var checkbox = document.querySelector("#" + checkboxId);
         var inputs = inputIds.map((id) => document.querySelector('[id="' + id + '"]'));
+        var addRowButton = document.querySelector("#" + addRowId);
 
         checkbox.addEventListener("change", function () {
             var row = this.closest('row-row-lnd'); //Find the closest row 
@@ -392,6 +399,7 @@
                         clonedRow.remove();
                     }
                 });
+                addRowButton.disabled = true;
             } else {
                 inputs.forEach((input) => {
                     if (input.id == "lnd_date_from" || input.id == "lnd_date_to") {
@@ -404,6 +412,7 @@
                     input.value = "";
                     input.disabled = false;
                 });
+                addRowButton.disabled = false;
             }
         });
         if (checkbox.checked) {
@@ -421,6 +430,7 @@
                     clonedRow.remove();
                 }
             });
+            addRowButton.disabled = true;
         } else {
             inputs.forEach((input) => {
                 if (input.id === "lnd_date_from" || input.id === "lnd_date_to") {
@@ -433,19 +443,23 @@
                 input.value = "";
                 input.disabled = false;
             });
+                addRowButton.disabled = false;
         }
     }
 
     // LEARNING AND DEVELOPMENT
-    setupNullInputArray_lnd("null_lnd", [
-        "lnd_title",
-        "lnd_date_from",
-        "lnd_date_to",
-        "lnd_hrs",
-        "lnd_type",
-        "lnd_sponsor",
-        "lnd_addrow",
-    ]);
+    setupNullInputArray_lnd(
+        "null_lnd",
+        [
+            "lnd_title",
+            "lnd_date_from",
+            "lnd_date_to",
+            "lnd_hrs",
+            "lnd_type",
+            "lnd_sponsor"
+        ],
+        "lnd_addrow"
+    );
     //===============================Download PDF=========================
     document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;

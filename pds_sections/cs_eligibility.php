@@ -5,7 +5,7 @@
         $employee_id = $_GET['employee_id'];
 
         // `cs_eligibility` table
-        $sql = "SELECT *
+        $sql = "SELECT DISTINCT `cs_id`, `cseligibility_rating`, `cseligibility_examdate`, `cseligibility_examplace`, `cseligibility_license`, `cseligibility_datevalidity`
                 FROM `cs_eligibility`
                 WHERE `employee_id` = ?
             ORDER BY `cseligibility_examdate` ASC";
@@ -64,6 +64,14 @@
                         }
                         selectElement.value = \"" . $$dets . "\";
                     ";
+
+                    if (isset($license) && $license == "N/A") {
+                        echo "
+                        var container = selectElement.closest('.license');
+                        var checkbox = container.querySelector('.na-checkbox');
+                        checkbox.checked = true;
+                        NA_license(checkbox)";
+                    }
                 }
                 // echo "<br>";
             }

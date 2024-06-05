@@ -193,7 +193,7 @@
                 </div>
                 <br>
                 <!-- Add a download button -->
-                <button class="btn btn-primary" id="pdf-download" style="background-color: #283872; border: none;">Download as PDF</button>
+                <button type="button" class="btn btn-primary" id="pdf-download" style="background-color: #283872; border: none;">Download as PDF</button>
             </div>
         </div>
     </div>

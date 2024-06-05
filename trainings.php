@@ -93,7 +93,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     <div class="col"></div>
                     <!-- add trainings button -->
                     <div class="col-1 px-5 mx-2">
-                        <button class="btn btn-primary" style="float: left; background-color: #283872; border: none;"
+                        <button type="button" class="btn btn-primary" style="float: left; background-color: #283872; border: none;"
                             data-bs-toggle="modal" data-bs-target="#modal_addTraining">ADD</button>
                     </div>
                     <!-- search box -->

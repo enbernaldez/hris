@@ -169,7 +169,7 @@
     </button>
 
     <!-- SUBMIT BUTTON -->
-    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right button-nav">
+    <button type="submit" class="btn btn-primary mt-5 mx-1 button-right">
         <strong>SUBMIT</strong>
     </button>
 </div>
