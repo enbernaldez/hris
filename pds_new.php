@@ -530,7 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else if ($action == 'edit') {
                 $filter = array('employee_id' => $employee_id, 'educ_acadlvl' => strtoupper($lvl[0]),);
                 $op = array("AND");
-                update($conn, $table, $fields, $filter);
+                update($conn, $table, $fields, $filter, $op);
             } else {
                 echo "SYSTEM ERROR: GET variable 'action' is incorrect or not set.";
             }
