@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'employee_middlename' => $n_pi_name_middle,
         'employee_nameext' => $n_pi_name_ext,
         'employee_office' => $n_pi_office,
+        'employee_status' => 'A',
     );
     if ($action == 'add') {
         if (insert($conn, $table, $fields)) {

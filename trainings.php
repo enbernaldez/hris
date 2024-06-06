@@ -255,7 +255,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     <script>
                         swal('New training added!', 
                             'Training, {$title_js} , has been added to database.', 
-                            'success');
+                            'success',
+                            {buttons: {
+                                OK: {
+                                    text: 'OK',
+                                    value: 'true',
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case 'true':
+                                removeQueryParameter(['add_employee', 'employee_added', 'edit_employee', 'employee_edited']);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>
                 ";
 
@@ -264,7 +281,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             case 'failed':
                 echo '
                     <script>
-                        swal("", "Failed to add new training.", "error");
+                        swal("", "Failed to add new training.", "error"",
+                            {buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "true",
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case "true":
+                                removeQueryParameter(["add_employee", "employee_added", "edit_employee", "employee_edited"]);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>
                 ';
 
