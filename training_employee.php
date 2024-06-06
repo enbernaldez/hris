@@ -123,8 +123,9 @@
                             <?php
                             // retrieve all data from learning_development table
                             $sql = "SELECT *
-                                    FROM `learning_development`
-                                    WHERE `ld_title_id` = ?";
+                                    FROM `learning_development` ld
+                                    JOIN `employees` e ON ld.`employee_id` = e.`employee_id`
+                                    WHERE `ld_title_id` = ? AND e.`employee_status` = 'A'";
                             $filter = array($_GET['title_id']);
                             $result = query($conn, $sql, $filter);
 
