@@ -357,7 +357,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
         $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
         $full_name_js = json_encode($full_name);
 
-        if (isset($_GET['add_employee'])) {
+        if (isset($_GET['add_employee']) || isset($_GET['add_employee']) && isset($_GET['employee_added'])) {
             switch ($_GET['add_employee']) {
                 case 'success':
                     echo "
@@ -373,7 +373,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 case 'failed':
                     echo '
                     <script>
-                        swal("", "Failed to add new employee.", "error");
+                        swal("Uh-oh...", "Failed to add new employee.", "error");
                     </script>    
                 ';
 
@@ -382,9 +382,36 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 case 'exists':
                     echo '
                     <script>
-                        swal("", "Employee already exists.", "warning");
+                        swal("Oops.", "Employee already exists.", "warning");
                     </script>    
                 ';
+
+                    break;
+
+                case 'deleted':
+                    echo "
+                    <script>
+                        swal('Employee previously deleted.', 'Would you like to overwrite record?', 'warning', {
+                            buttons: {
+                                cancel: 'No',
+                                overwrite: {
+                                    text: 'Yes',
+                                    value: 'overwrite',
+                                },
+                            }    
+                        }).then((value) => {
+                            switch (value) {
+                           
+                              case 'overwrite':
+                                window.location.href = 'pds_form_carousel.php?action=edit&office=Albay&employee_id={$id}';
+                                break;
+                           
+                              default:
+                                break;
+                            }
+                          });
+                    </script>    
+                ";
 
                     break;
 
@@ -398,7 +425,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             }
         }
 
-        if (isset($_GET['edit_employee'])) {
+        if (isset($_GET['edit_employee']) || isset($_GET['edit_employee']) && isset($_GET['employee_edited'])) {
             switch ($_GET['edit_employee']) {
                 case 'success':
                     echo "

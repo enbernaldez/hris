@@ -28,8 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstname = $n_firstname;
         $middlename = $n_middlename;
         $nameext = $n_nameext;
-    } else {
+    } else if ($result[0]['employee_status'] == 'A') {
         header("location:" . $_SERVER['HTTP_REFERER'] . "&add_employee=exists");
+        exit();
+    } else {
+        header("location:" . $_SERVER['HTTP_REFERER'] . "&add_employee=deleted&employee_added=" . $result[0]['employee_id']);
         exit();
     }
 }
