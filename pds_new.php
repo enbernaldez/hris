@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $n_pi_citizenship_country = strtoupper(trim($_POST['citizenship_country'] ?? "N/A"));
 
     // look up ID of $n_pi_citizenship_country
+    $bloodtype = lookup($conn, $n_pi_bloodtype, 'bloodtype', 'bloodtype_id', 'bloodtype_name');
     $citizenship_country = lookup($conn, $n_pi_citizenship_country, 'countries', 'country_id', 'country_name');
 
     // echo "<br>
@@ -78,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     Civilstatus: $n_pi_civilstatus<br>
     //     Height: $n_pi_height m.<br>
     //     Weight: $n_pi_weight kg.<br>
-    //     Bloodtype: $n_pi_bloodtype<br>
+    //     Bloodtype: $bloodtype<br>
     //     Citizenship: $n_pi_citizenship_by ($citizenship_country)<br>
     // ";
 
@@ -92,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'emp_dets_civilstatus' => $n_pi_civilstatus,
         'emp_dets_height' => $n_pi_height,
         'emp_dets_weight' => $n_pi_weight,
-        'emp_dets_bloodtype' => $n_pi_bloodtype,
+        'bloodtype_id' => $bloodtype,
         'emp_dets_citizenship' => $n_pi_citizenship_by,
         'citizenship_country' => $citizenship_country,
     );

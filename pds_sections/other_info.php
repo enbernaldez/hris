@@ -68,7 +68,7 @@
         if (empty($result)) {
 
             echo "
-            alert('Data not be found.');
+            alert('Data cannot be found.');
             ";
         } else {
             $qna_row = array(

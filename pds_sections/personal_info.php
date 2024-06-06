@@ -27,10 +27,11 @@
             $result = query($conn, $sql, $filter);
             $row = $result[0];
 
-            $emp_dets = array("bday", "birthplace", "sex", "civilstatus", "height", "weight", "bloodtype", "citizenship");
+            $emp_dets = array("bday", "birthplace", "sex", "civilstatus", "height", "weight", "citizenship");
             foreach ($emp_dets as $dets) {
                 $$dets = $row['emp_dets_' . $dets];
             }
+            $bloodtype = lookup($conn, $row['bloodtype_id'], 'bloodtype', 'bloodtype_name', 'bloodtype_id');
             $country = lookup($conn, $row['citizenship_country'], 'countries', 'country_name', 'country_id');
 
             // `employee_numbers` table
