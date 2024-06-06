@@ -28,7 +28,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
     ";
 
-        if ($result[0]['position_id'] == "1") {
+        if (isset($result[0]['position_id']) || $result[0]['position_id'] == "1") {
             echo "
             var checkbox = document.getElementById('null_work_exp');
             checkbox.checked = true;
