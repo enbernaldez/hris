@@ -620,12 +620,12 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     customContextMenu.style.left = left + "px";
                     customContextMenu.style.display = "block";
                 });
-            });
 
-            window.addEventListener("click", function (event) {
-                if (!event.target.closest(".menu-button")) {
-                    customContextMenu.style.display = "none";
-                }
+                window.addEventListener("click", function (event) {
+                    if (!event.target.closest(".menu-button")) {
+                        customContextMenu.style.display = "none";
+                    }
+                });
             });
 
         });
