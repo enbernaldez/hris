@@ -14,6 +14,8 @@
         if (!empty($result)) {
             $row = $result[0];
 
+            $retrieved_office = $row['employee_office'];
+
             $emps = array("lastname", "firstname", "middlename", "nameext", "imgdir");
             foreach ($emps as $emp) {
                 $$emp = $row['employee_' . $emp];
@@ -105,6 +107,10 @@
             foreach ($emp_conts as $cont) {
                 $$cont = $row['emp_cont_' . $cont];
             }
+
+            if (isset($retrieved_office)) {
+                $office = $retrieved_office;
+            }
         } else {
             echo '
                 <script>
@@ -166,8 +172,8 @@
 
     if (isset($_GET['office'])) {
         $office = $_GET['office'];
-        echo '<input required hidden type="text" name="office" value="' . $office . '">';
     }
+    echo '<input required hidden type="text" name="office" value="' . $office . '">';
     ?>
     <!-- EMPLOYEE'S FULL NAME -->
     <div class="row mt-5">

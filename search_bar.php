@@ -1,5 +1,6 @@
 <?php
 include_once ("db_conn.php");
+$user_type = $_SESSION['user_type'] ?? 'V';
 
 $search = '';
 if (isset($_GET['search'])) {
@@ -85,6 +86,20 @@ $employees = fetchEmployees($conn, $search);
             height: auto;
             width: 500px;
         }
+
+        .image-container {
+            overflow: hidden;
+            /* Hide overflow to crop the image */
+            display: inline-block;
+            /* Inline-block to keep the dimensions set in JavaScript */
+            width: 80px;
+            height: 80px;
+        }
+
+        .image-container img {
+            display: block;
+            /* Ensure the image is treated as a block element */
+        }
     </style>
 </head>
 
@@ -115,7 +130,7 @@ $employees = fetchEmployees($conn, $search);
                             $nameext = ($employee['employee_nameext'] == "N/A" ? "" : " " . $employee['employee_nameext']);
                             $id = $employee['employee_id']; // Define $id here
                             $position_id = $employee['position_id'];
-                            
+
                             // retrieve position title of an employee
                             $sql = "SELECT `position_title` FROM `positions` WHERE `position_id` = ?";
                             $filter = array($position_id);
@@ -128,28 +143,36 @@ $employees = fetchEmployees($conn, $search);
                                 $position = $row['position_title'];
                             }
 
-                            echo '<a href="pds_form_carousel.php?action=view&employee_id=' . $id . '" style="text-decoration: none; color: inherit;">';
-                            echo '<div class="tile">';
-                            echo '<div class="row">';
-                            echo '<div class="col-3">';
-                            echo '<img src="' . $imgdir . '"
-                        alt="' . "$lastname, $firstname$middlename $nameext" . '" height="80px"
-                        width="auto" style="border-radius:12px;">';
+                            echo '<div class="col-4 tile mt-3">';
+                            echo ($user_type == 'A') ?
+                                '<a href="pds_form_carousel.php?action=view&employee_id=' . $id . '"
+                                    style="text-decoration: none; color: inherit;">' : '';
+                            echo '<div class="row">
+                                <div class="col-2 me-3">
+                                    <div class="image-container" style="border-radius:12px;">
+                                        <img src="' . $imgdir . '"
+                                            alt="' . "$lastname, $firstname$middlename$nameext" . '"
+                                            class="image" style="border-radius:12px;">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <p style="margin: 0">
+                                        <strong>' . "$firstname$middlename $lastname$nameext" . '</strong>
+                                    </p>
+                                    <p style="margin: 0; font-size: 14px;">' . $position . '</p>
+                                    <p name="employee_id" hidden>' . $id . '</p>
+                                </div>
+                            </div>';
+                            echo ($user_type == 'A') ?
+                                '</a>
+                                <div class="col-1"
+                                    style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">
+                                    <button type="button" class="btn menu-button">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                </div>' : '';
                             echo '</div>';
-                            echo '<div class="col-8">';
-                            echo '<p style="margin: 0"><strong>' . "$firstname$middlename $lastname$nameext" . '</strong></p>';
-                            echo '<p style="margin: 0; font-size: 14px;">' . "$position" . '</p>';
-                            echo '<p name="employee_id" hidden>' . $id . '</p>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<div class="col-1" style="position: absolute; z-index: 10; margin-left: 393px; margin-top: -86px">';
-                            echo '<a href="pds_form_carousel.php?action=edit&employee_id=' . $id . '" style="text-decoration: none; color: inherit;">'; // Wrapping the edit button in an anchor tag
-                            echo '<button type="button" class="btn menu-button"><i class="bi bi-three-dots-vertical"></i></button>';
-                            echo '</a>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</a>'; // Closing anchor tag for the entire tile
-                    
+
                         }
 
                     } else {
@@ -268,6 +291,27 @@ $employees = fetchEmployees($conn, $search);
             modal.find('#employee_id').val(id);
             modal.find('#fullName').text(name);
         });
+
+        window.onload = function () {
+            const images = document.querySelectorAll('.image');
+
+            images.forEach(img => {
+                const container = img.parentElement;
+                // Ensure the image is fully loaded before getting its dimensions
+                img.onload = function () {
+                    if (img.naturalWidth > img.naturalHeight) {
+                        img.style.height = '80px';
+                    } else {
+                        img.style.width = '80px';
+                    }
+                };
+
+                // If the image is already loaded (for example, from cache)
+                if (img.complete) {
+                    img.onload();
+                }
+            });
+        };
     </script>
 </body>
 

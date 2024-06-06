@@ -192,21 +192,21 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     '<a href="pds_form_carousel.php?action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
                                             style="text-decoration: none; color: inherit;">' : '';
                                 echo '<div class="row">
-                                            <div class="col-2 me-3">
-                                                <div class="image-container" style="border-radius:12px;">
-                                                    <img src="' . $imgdir . '"
-                                                        alt="' . "$lastname, $firstname$middlename$nameext" . '"
-                                                        class="image" style="border-radius:12px;">
-                                                </div>
+                                        <div class="col-2 me-3">
+                                            <div class="image-container" style="border-radius:12px;">
+                                                <img src="' . $imgdir . '"
+                                                    alt="' . "$lastname, $firstname$middlename$nameext" . '"
+                                                    class="image" style="border-radius:12px;">
                                             </div>
-                                            <div class="col-8">
-                                                <p style="margin: 0">
-                                                    <strong>' . "$firstname$middlename $lastname$nameext" . '</strong>
-                                                </p>
-                                                <p style="margin: 0; font-size: 14px;">' . $position . '</p>
-                                                <p name="employee_id" hidden>' . $id . '</p>
-                                            </div>
-                                        </div>';
+                                        </div>
+                                        <div class="col-8">
+                                            <p style="margin: 0">
+                                                <strong>' . "$firstname$middlename $lastname$nameext" . '</strong>
+                                            </p>
+                                            <p style="margin: 0; font-size: 14px;">' . $position . '</p>
+                                            <p name="employee_id" hidden>' . $id . '</p>
+                                        </div>
+                                    </div>';
                                 echo ($user_type == 'A') ?
                                     '</a>
                                         <div class="col-1"
