@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="local_style.css">
     <script src="js/bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         /* educational background */
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
 
             <!-- CONTENT -->
-            <div class="col-10 pb-5">
+            <div class="col-10 pb-5" id="pdsForm">
                 <!-- PROFILE -->
 
                 <?php
@@ -325,6 +326,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     return false;
                 }
             });
+        });
+
+        // Get the specified element
+        const pdsForm = document.getElementById('pdsForm');
+        let alertShown = false;
+
+        // Add a click event listener to the document
+        document.addEventListener('click', function(event) {
+            // Check if the click happened outside the specified element
+            if (!pdsForm.contains(event.target) && !document.querySelector('.swal-overlay') && !alertShown) {
+                event.preventDefault(); 
+                // Trigger SweetAlert
+                swal("Unsaved changes!", "Your changes will not be saved.", "warning").then(() => {
+                    // Set alertShown to false when the alert is dismissed
+                    alertShown = false;
+                });
+                // Set alertShown to true to prevent multiple alerts
+                alertShown = true;
+            }
         });
     </script>
 

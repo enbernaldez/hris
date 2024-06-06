@@ -371,7 +371,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                 },
                             }}
                         ).then((value) =>
-                            switch (value) {
+                            switch (value) {{
                         
                             case 'true':
                                 removeQueryParameter(['add_employee', 'employee_added', 'edit_employee', 'employee_edited']);
@@ -380,7 +380,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             default:
                                 break;
                             }
-                        );
+                        });
                     </script>
                 ";
 
@@ -396,7 +396,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     value: "true",
                                 },
                             }}
-                        ).then((value) =>
+                        ).then((value) => {
                             switch (value) {
                         
                             case "true":
@@ -406,7 +406,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             default:
                                 break;
                             }
-                        );
+                        });
                     </script>    
                 ';
 
@@ -422,7 +422,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     value: "true",
                                 },
                             }}
-                        ).then((value) =>
+                        ).then((value) => {
                             switch (value) {
                         
                             case "true":
@@ -432,7 +432,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             default:
                                 break;
                             }
-                        );
+                        });
                     </script>    
                 ';
 
@@ -459,7 +459,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                               default:
                                 break;
                             }
-                          });
+                        });
                     </script>    
                 ";
 
@@ -475,7 +475,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     value: "true",
                                 },
                             }}
-                        ).then((value) =>
+                        ).then((value) => {
                             switch (value) {
                         
                             case "true":
@@ -485,7 +485,7 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                             default:
                                 break;
                             }
-                        );
+                        });
                     </script>    
                 ';
                     break;
