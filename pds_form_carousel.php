@@ -307,10 +307,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Only proceed if all sections up to the current index are valid
                     const carousel = document.getElementById('carousel');
-                    const carouselInstance = bootstrap.Carousel.getInstance(carousel);
+                    let carouselInstance = bootstrap.Carousel.getInstance(carousel);
+
                     if (!carouselInstance) {
-                        new bootstrap.Carousel(carousel);
+                        carouselInstance = new bootstrap.Carousel(carousel);
                     }
+
                     carouselInstance.to(index);
                 });
             });
