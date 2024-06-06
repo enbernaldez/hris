@@ -195,7 +195,6 @@
             inputs.forEach(function (input) {
 
                 input.id == "exam_date" || input.id == "license_dateofvalidity" ? input.type = "date" :
-                    input.id == "license_number" ? input.type = "number" :
                         input.type = "text";
 
                 input.value = "";
