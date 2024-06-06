@@ -327,44 +327,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
         });
-
-        // Get the specified element
-        const pdsForm = document.getElementById('pdsForm');
-        let alertShown = false;
-
-        // Add a click event listener to the document
-        document.addEventListener('click', function(event) {
-            // Check if the click happened outside the specified element
-            if (!pdsForm.contains(event.target) && !document.querySelector('.swal-overlay') && !alertShown) {
-                event.preventDefault(); 
-                // Trigger SweetAlert
-                swal("Unsaved changes!", "Your changes will not be saved.", "warning").then(() => {
-                    // Set alertShown to false when the alert is dismissed
-                    alertShown = false;
-                });
-                // Set alertShown to true to prevent multiple alerts
-                alertShown = true;
-            }
-        });
     </script>
 
 
     <?php
-    if (isset($_GET['action']) && $_GET['action'] == "view") {
-        // echo script to disable all input and select elements
-        echo '
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var form = document.getElementById("pds");
-                    var elements = form.elements;
-                    for (var i = 0, len = elements.length; i < len; ++i) {
-                        if (!elements[i].classList.contains("button-nav")) {
-                            elements[i].disabled = true;
+    if (isset($_GET['action'])) {
+        if ($_GET['action'] == "view") {
+            // echo script to disable all input and select elements
+            echo '
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var form = document.getElementById("pds");
+                        var elements = form.elements;
+                        for (var i = 0, len = elements.length; i < len; ++i) {
+                            if (!elements[i].classList.contains("button-nav")) {
+                                elements[i].disabled = true;
+                            }
                         }
-                    }
-                });
-            </script>
-        ';
+                    });
+                </script>
+            ';
+        } else {
+            echo "
+                <script>
+                    const pdsForm = document.getElementById('pdsForm');
+                    let alertShown = false;
+            
+                    document.addEventListener('click', function(event) {
+                        if (!pdsForm.contains(event.target) && !document.querySelector('.swal-overlay') && !alertShown) {
+                            event.preventDefault(); 
+                            swal('Unsaved changes!', 'Your changes will not be saved.', 'warning').then(() => {
+                                alertShown = false;
+                            });
+                            alertShown = true;
+                        }
+                    });
+                </script>
+            ";
+        }
     }
     ?>
 </body>

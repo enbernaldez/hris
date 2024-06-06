@@ -28,7 +28,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
     ";
 
-        if (isset($result[0]['position_id']) || $result[0]['position_id'] == "1") {
+        if (isset($result[0]['position_id']) && $result[0]['position_id'] == "1") {
             echo "
             var checkbox = document.getElementById('null_work_exp');
             checkbox.checked = true;
@@ -188,18 +188,10 @@
             <div class="col-1">
                 <input type="text" name="we_salary[]" id="we_salary" class="form-control uppercase group_na_we" required
                     value="₱">
-                <!-- <div class="mt-2">
-                    <input class="form-check-input na-checkbox" type="checkbox" id="we_salary_na" name="we_salary_na" oninput="checkNA(this, 'we_salary')">
-                    <label class="form-check-label" for="we_salary_na">N/A</label>
-                </div> -->
             </div>
             <div class="col-1">
                 <input type="text" name="we_sg[]" id="we_sg" class="form-control uppercase group_na_we" required
                     value="">
-                <!-- <div class="mt-2">
-                    <input class="form-check-input na-checkbox" type="checkbox" id="we_sg_na" name="we_sg_na"  oninput="checkNA(this, 'we_sg')">
-                    <label class="form-check-label" for="we_sg_na">N/A</label>
-                </div> -->
             </div>
             <div class="col-2">
                 <input type="text" name="we_status[]" id="we_status" class="form-control uppercase group_na_we" required
