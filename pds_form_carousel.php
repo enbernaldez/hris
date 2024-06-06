@@ -112,6 +112,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 35%;
             height: auto;
         }
+
+        .image-container {
+            overflow: hidden;
+            /* Hide overflow to crop the image */
+            display: inline-block;
+            /* Inline-block to keep the dimensions set in JavaScript */
+            width: 150px;
+            height: 150px;
+        }
+
+        .image-container img {
+            display: block;
+            /* Ensure the image is treated as a block element */
+        }
     </style>
 </head>
 
@@ -327,6 +341,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
         });
+
+        window.onload = function () {
+            const img = document.getElementById('header_profile_img');
+
+            const container = img.parentElement;
+            // Ensure the image is fully loaded before getting its dimensions
+            img.onload = function () {
+                if (img.naturalWidth > img.naturalHeight) {
+                    img.style.height = '150px';
+                } else {
+                    img.style.width = '150px';
+                }
+            };
+
+            // If the image is already loaded (for example, from cache)
+            if (img.complete) {
+                img.onload();
+            }
+        };
     </script>
 
 

@@ -68,6 +68,20 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             height: auto;
             width: 500px;
         }
+
+        .image-container {
+            overflow: hidden;
+            /* Hide overflow to crop the image */
+            display: inline-block;
+            /* Inline-block to keep the dimensions set in JavaScript */
+            width: 80px;
+            height: 80px;
+        }
+
+        .image-container img {
+            display: block;
+            /* Ensure the image is treated as a block element */
+        }
     </style>
 </head>
 
@@ -178,10 +192,12 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                                     '<a href="pds_form_carousel.php?action=view&office=' . $_GET['office'] . '&employee_id=' . $id . '"
                                             style="text-decoration: none; color: inherit;">' : '';
                                 echo '<div class="row">
-                                            <div class="col-3">
-                                                <img src="' . $imgdir . '"
-                                                    alt="' . "$lastname, $firstname$middlename$nameext" . '" height="80px"
-                                                    width="auto" style="border-radius:12px;">
+                                            <div class="col-2 me-3">
+                                                <div class="image-container" style="border-radius:12px;">
+                                                    <img src="' . $imgdir . '"
+                                                        alt="' . "$lastname, $firstname$middlename$nameext" . '"
+                                                        class="image" style="border-radius:12px;">
+                                                </div>
                                             </div>
                                             <div class="col-8">
                                                 <p style="margin: 0">
@@ -659,6 +675,28 @@ $user_type = $_SESSION['user_type'] ?? 'V';
             // Update the browser's URL without reloading the page
             window.history.replaceState({}, document.title, url.toString());
         }
+
+        window.onload = function () {
+            const images = document.querySelectorAll('.image');
+
+            images.forEach(img => {
+                const container = img.parentElement;
+                // Ensure the image is fully loaded before getting its dimensions
+                img.onload = function () {
+                    if (img.naturalWidth > img.naturalHeight) {
+                        img.style.height = '80px';
+                    } else {
+                        img.style.width = '80px';
+                    }
+                };
+
+                // If the image is already loaded (for example, from cache)
+                if (img.complete) {
+                    img.onload();
+                }
+            });
+        };
+
     </script>
 
 

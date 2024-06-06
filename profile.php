@@ -43,8 +43,10 @@ if (isset($_GET['employee_id'])) {
 ?>
 <div class="row mt-2 mb-2">
     <div class="col-2">
-        <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>" style="height: 150px; width: auto" id="header_profile_img"
-            class="float-end" />
+        <div class="image-container" style="border-radius:12px;">
+            <img src="<?php echo $imgdir; ?>" alt="<?php echo $alt_name; ?>"
+                id="header_profile_img" class="float-end" />
+        </div>
     </div>
     <div class="col my-auto">
         <p class="display-6"><strong><?php echo $full_name; ?></strong></p>
