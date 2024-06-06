@@ -355,7 +355,6 @@ $user_type = $_SESSION['user_type'] ?? 'V';
 
         // Use json_encode to safely escape strings for JavaScript
         $full_name = $first_name . $middle_name . " " . $last_name . $name_ext;
-        $full_name_js = json_encode($full_name);
 
         if (isset($_GET['add_employee']) || isset($_GET['add_employee']) && isset($_GET['employee_added'])) {
             switch ($_GET['add_employee']) {
@@ -363,8 +362,25 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     echo "
                     <script>
                         swal('New employee added!', 
-                            '{$full_name_js} has been added to database.', 
-                            'success');
+                            '{$full_name} has been added to database.', 
+                            'success',
+                            {buttons: {
+                                OK: {
+                                    text: 'OK',
+                                    value: 'true',
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case 'true':
+                                removeQueryParameter(['add_employee', 'employee_added', 'edit_employee', 'employee_edited']);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>
                 ";
 
@@ -373,7 +389,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 case 'failed':
                     echo '
                     <script>
-                        swal("Uh-oh...", "Failed to add new employee.", "error");
+                        swal("Uh-oh...", "Failed to add new employee.", "error",
+                            {buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "true",
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case "true":
+                                removeQueryParameter(["add_employee", "employee_added", "edit_employee", "employee_edited"]);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>    
                 ';
 
@@ -382,7 +415,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 case 'exists':
                     echo '
                     <script>
-                        swal("Oops.", "Employee already exists.", "warning");
+                        swal("Oops.", "Employee already exists.", "warning",
+                            {buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "true",
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case "true":
+                                removeQueryParameter(["add_employee", "employee_added", "edit_employee", "employee_edited"]);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>    
                 ';
 
@@ -418,7 +468,24 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 default:
                     echo '
                     <script>
-                        swal("", "A problem occured while adding new employee.", "error");
+                        swal("", "A problem occured while adding new employee.", "error"",
+                            {buttons: {
+                                OK: {
+                                    text: "OK",
+                                    value: "true",
+                                },
+                            }}
+                        ).then((value) =>
+                            switch (value) {
+                        
+                            case "true":
+                                removeQueryParameter(["add_employee", "employee_added", "edit_employee", "employee_edited"]);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        );
                     </script>    
                 ';
                     break;
@@ -431,8 +498,25 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                     echo "
                     <script>
                         swal('Employee updated!', 
-                            '{$full_name_js}\'s information has been updated.', 
-                            'success');
+                            '{$full_name}\'s information has been updated.', 
+                            'success',
+                            {buttons: {
+                                OK: {
+                                    text: 'OK',
+                                    value: 'true',
+                                },
+                            }}
+                        ).then((value) => {
+                            switch (value) {
+                        
+                            case 'true':
+                                removeQueryParameter(['add_employee', 'employee_added', 'edit_employee', 'employee_edited']);
+                                break;
+                        
+                            default:
+                                break;
+                            }
+                        });
                     </script>
                     ";
 
@@ -555,6 +639,25 @@ $user_type = $_SESSION['user_type'] ?? 'V';
                 checkbox.checked = false;
                 inputField.disabled = false;
             }
+        }
+
+        function removeQueryParameter(parameters) {
+            // Get the current URL
+            let url = new URL(window.location);
+
+            // Get the URLSearchParams object
+            let params = new URLSearchParams(url.search);
+
+            parameters.forEach(param => {
+                // Delete the specified parameter
+                params.delete(param);
+            });
+
+            // Update the URL with the new search parameters
+            url.search = params.toString();
+
+            // Update the browser's URL without reloading the page
+            window.history.replaceState({}, document.title, url.toString());
         }
     </script>
 
