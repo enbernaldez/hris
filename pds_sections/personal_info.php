@@ -759,8 +759,8 @@
         const input = document.getElementById(inputId);
 
         // if retrieved value is N/A
-        if (input.value == "N/A") {
-            input.removeAttribute("style");
+        if (input.value.toUpperCase() == "N/A") {
+            input.style.textTransform = "uppercase";
             checkbox.checked = true;
             input.disabled = true;
         }
@@ -769,7 +769,7 @@
         checkbox.addEventListener("change", function () {
             if (this.checked) {
 
-                input.removeAttribute("style");
+                input.style.textTransform = "uppercase";
                 input.type = "text";
                 input.value = "N/A";
                 input.disabled = true;
@@ -788,8 +788,8 @@
 
         // if N/A is inputted
         input.addEventListener("input", function () {
-            if (this.value.trim().toLowerCase() === "n/a") {
-                input.removeAttribute("style");
+            if (this.value.trim().toUpperCase() === "N/A") {
+                input.style.textTransform = "uppercase";
                 checkbox.checked = true;
                 this.disabled = true;
             }
